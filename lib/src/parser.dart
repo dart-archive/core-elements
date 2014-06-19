@@ -14,8 +14,8 @@ library core_elements.src.parser;
 import 'package:html5lib/parser.dart' as html;
 import 'ast.dart';
 
-/// Extract information from the HTML string
-List<Element> parsePolymerElements(String text, {onWarning(String msg)}) {
+/// Extract info about each polymer element and HTML imports
+FileSummary parsePolymerElements(String text, {onWarning(String msg)}) {
   var doc = html.parse(text);
   var elements = {};
   for (var pe in doc.querySelectorAll('polymer-element')) {
@@ -38,7 +38,17 @@ List<Element> parsePolymerElements(String text, {onWarning(String msg)}) {
   }
 
   _parseDocumentation(elements, text, onWarning: onWarning);
-  return elements.values;
+  return new FileSummary(
+      _parseImports(doc), elements.values);
+}
+
+/// Extract imports seen in the document
+List<Import> _parseImports(doc) {
+  var imports = [];
+  for (var link in doc.querySelectorAll('link[rel="import"]')) {
+    imports.add(new Import(link.attributes['href']));
+  }
+  return imports;
 }
 
 
@@ -138,12 +148,24 @@ void _parseDocumentation(Map elements, String text,
 
           break;
 
+        case 'return':
         case 'returns':
           if (currentMember == null) {
             _warn('ignoring $pragma information: $content');
             break;
           }
+          if (currentMember is! Method) {
+            _warn('not in method ($currentMember), ignoring return: $content');
+            break;
+          }
           currentMember.isVoid = false;
+
+          var returnMatch = _returnMatcher.firstMatch(content);
+          if (returnMatch == null) {
+            _warn("'return' didn't match expected format: $content");
+            break;
+          }
+          currentMember.type = returnMatch.group(1);
           break;
 
         case 'type':
@@ -166,6 +188,7 @@ void _parseDocumentation(Map elements, String text,
 // Regexp used for parsing the documentation.
 final _pragmaMatcher = new RegExp(r"\s*@([\w-]*) (.*)");
 final _paramMatcher = new RegExp(r"\s*{([^}]*)} ([^ :]*)(?::?)(.*)");
+final _returnMatcher = new RegExp(r"\s*{([^}]*)} ([^ :]*)(?::?)(.*)");
 final _docCommentRegex = () {
   var scriptDocCommentClause = r'\/\*\*([\s\S]*?)\*\/';
   var htmlDocCommentClause = r'<!--([\s\S]*?)-->';

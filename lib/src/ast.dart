@@ -10,13 +10,17 @@
 /// to autogenerate a Dart API for them.
 library core_elements.src.ast;
 
-/// Common information to most entries (element, property, method, etc).
+class FileSummary {
+  List<Import> imports;
+  List<Element> elements;
+
+  FileSummary(this.imports, this.elements);
+
+  String toString() => 'imports: $imports, elements: $elements';
+}
+
+/// Base class for any entry we parse out of the HTML files.
 abstract class Entry {
-  final String name;
-  String description;
-
-  Entry(this.name, this.description);
-
   String toString() {
     var sb = new StringBuffer();
     _prettyPrint(sb);
@@ -26,14 +30,32 @@ abstract class Entry {
   void _prettyPrint(StringBuffer sb);
 }
 
+/// Common information to most entries (element, property, method, etc).
+abstract class NamedEntry {
+  final String name;
+  String description;
+
+  NamedEntry(this.name, this.description);
+}
+
 /// An entry that has type information (like arguments and properties).
-abstract class TypedEntry extends Entry {
+abstract class TypedEntry extends NamedEntry {
   String type;
   TypedEntry(name, desc, [this.type]) : super(name, desc);
 }
 
+/// An import to another html element.
+class Import extends Entry {
+  String importPath;
+  Import(this.importPath);
+
+  void _prettyPrint(StringBuffer sb) {
+    sb.write('import: $importPath\n');
+  }
+}
+
 /// Data about a custom-element.
-class Element extends Entry {
+class Element extends NamedEntry {
   final Map<String, Property> properties = {};
   final List<Method> methods = [];
   final String extendName;
@@ -65,8 +87,7 @@ class Property extends TypedEntry {
 }
 
 /// Data about a method.
-// TODO(sigmund): extend TypedEntry if return types become available.
-class Method extends Entry {
+class Method extends TypedEntry {
   bool isVoid = true;
   List<Argument> args = [];
   Method(name, desc) : super(name, desc);
