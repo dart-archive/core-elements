@@ -3,6 +3,14 @@ files_to_generate:
   - core-collapse/core-collapse.html
   - core-field/core-field.html
   - core-header-panel/core-header-panel.html
+  - core-icon/core-icon.html
+  - core-icon-button/core-icon-button.html
+  - core-icons/core-icons.html:
+      # this import has no polymer elements
+      omit_imports:
+        - iconsets/icons.html
+  - core-iconset/core-iconset.html
+  - core-iconset-svg/core-iconset-svg.html
   - core-input/core-input.html
   - core-layout-grid/core-layout-grid.html
   - core-layout-trbl/core-layout-trbl.html
