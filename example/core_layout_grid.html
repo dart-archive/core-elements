@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>core-layout-grid example</title>
+  <script src="packages/web_components/platform.js"></script>
+  <script src="packages/web_components/dart_support.js"></script>
+  <link rel="import"
+        href="packages/core_elements/core_layout_grid/core_layout_grid.html">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+  <grid-test></grid-test>
+
+  <polymer-element name="grid-test" on-tap="{{rotate}}">
+  <template>
+
+    <style>
+      * {
+        -webkit-transition: top, right, bottom, left;
+        -webkit-transition-duration: 0.3s;
+      }
+
+      panel {
+        display: inline-block;
+        border: 4px dotted lightblue;
+        padding: 16px;
+        background-color: whitesmoke;
+      }
+
+      #outputToolbar {
+        width: 400px;
+      }
+
+      #output {
+        width: 400px;
+      }
+
+      #workspace {
+        border-color: orange;
+      }
+    </style>
+
+    <core-layout-grid nodes="{{nodes}}" layout="{{layout}}"></core-layout-grid>
+
+    <panel id="toolbar">toolbar (click to rotate)</panel>
+    <panel id="sidebar">sidebar</panel>
+    <panel id="workspace">workspace</panel>
+    <panel id="outputToolbar">otherbar</panel>
+    <panel id="output">
+      output
+      <h2>Documentation</h2>
+      <h1>Verbiage</h1>
+      <p>In backbone record integer LED amplified internet protocol a extension reflective.
+      Array kilohertz LED. Wavelength extension patch supporting wave an by prompt.</p>
+    </panel>
+
+  </template>
+  <script type="application/dart" src="core_layout_grid.dart" ></script>
+  </polymer-element>
+
+</body>
+</html>

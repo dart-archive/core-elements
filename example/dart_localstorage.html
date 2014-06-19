@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+
+  <title>dart-localstorage</title>
+
+  <script src="packages/web_components/platform.js"></script>
+  <script src="packages/web_components/dart_support.js"></script>
+  <link rel="import" href="packages/core_elements/dart_localstorage/dart_localstorage.html">
+
+</head>
+<body>
+
+  <x-test1></x-test1>
+
+  <polymer-element name="x-test1">
+    <template>
+      string entered below will be stored in localStorage and automatically retrived from localStorage when the page is reloaded<br>
+      <input value="{{value}}">
+      <dart-localstorage name="polymer-localstorage-x-test1" value="{{value}}"></dart-localstorage>
+    </template>
+  </polymer-element>
+
+  <br><br>
+
+  <x-test2></x-test2>
+
+  <polymer-element name="x-test2">
+    <template>
+      <input type="checkbox" checked="{{mode}}">
+      <dart-localstorage name="polymer-localstorage-x-test2" value="{{mode}}"></dart-localstorage>
+    </template>
+  </polymer-element>
+
+  <script type="application/dart">
+    import 'package:polymer/polymer.dart';
+    export 'package:polymer/init.dart';
+    @CustomTag('x-test1')
+    class XTest1 extends PolymerElement {
+      @observable String value = '';
+      XTest1.created() : super.created();
+    }
+
+    @CustomTag('x-test2')
+    class XTest2 extends PolymerElement {
+      @observable bool mode = false;
+      XTest2.created() : super.created();
+    }
+  </script>
+</body>
+</html>

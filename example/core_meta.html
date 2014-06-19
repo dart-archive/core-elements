@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <title>core-meta</title>
+
+  <script src="packages/web_components/platform.js"></script>
+  <script src="packages/web_components/dart_support.js"></script>
+  <link rel="import" href="packages/core_elements/core_meta/core_meta.html">
+
+</head>
+
+<body>
+
+  <core-meta id="x-foo" label="foo"></core-meta>
+  <core-meta id="x-bar" label="bar"></core-meta>
+  <core-meta id="x-zot" label="zot"></core-meta>
+
+  <core-meta id="apple" label="apple" type="fruit"></core-meta>
+  <core-meta id="orange" label="orange" type="fruit"></core-meta>
+  <core-meta id="grape" label="grape" type="fruit"></core-meta>
+
+  <h2>meta-data</h2>
+
+  <template id="default" repeat="{{}}">
+    <div>{{attributes.label}}</div>
+  </template>
+
+  <h2>meta-data (type: fruit)</h2>
+
+  <template id="fruit" repeat="{{}}">
+    <div>{{attributes.label}}</div>
+  </template>
+
+  <script type="application/dart">
+    import 'dart:html';
+    import 'package:core_elements/core_meta/core_meta.dart';
+    import 'package:polymer/polymer.dart';
+    import 'package:template_binding/template_binding.dart';
+
+    main() => initPolymer().run(() {
+      Polymer.onReady.then((_) {
+        CoreMeta meta = new Element.tag('core-meta');
+        templateBind(querySelector('template#default')).model = meta.list;
+
+        CoreMeta fruitMeta = new Element.tag('core-meta');
+        fruitMeta.type = 'fruit';
+        templateBind(document.querySelector('template#fruit')).model =
+            fruitMeta.list;
+      });
+    });
+  </script>
+
+</body>
+</html>

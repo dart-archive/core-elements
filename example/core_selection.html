@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <title>Selection</title>
+  <script src="packages/web_components/platform.js"></script>
+  <script src="packages/web_components/dart_support.js"></script>
+  <link rel="import" href="packages/core_elements/core_selection/core_selection.html">
+</head>
+<body unresolved>
+
+  <polymer-element name="selection-example">
+    <template>
+      <style>
+        polyfill-next-selector { content: 'ul > *'; }
+        ::content > * {
+          cursor: pointer;
+        }
+
+        polyfill-next-selector { content: 'ul > .selected'; }
+        ::content > .selected {
+          font-weight: bold;
+          font-style: italic;
+        }
+      </style>
+
+      <ul on-tap="{{itemTapAction}}">
+        <content></content>
+      </ul>
+
+      <core-selection id="selection" multi on-core-select="{{selectAction}}"></core-selection>
+
+    </template>
+  </polymer-element>
+
+  <selection-example>
+    <li>Red</li>
+    <li>Green</li>
+    <li>Blue</li>
+  </selection-example>
+
+  <script type="application/dart">
+    import 'package:polymer/polymer.dart';
+    export 'package:polymer/init.dart';
+    import 'package:core_elements/core_selection/core_selection.dart';
+
+    @CustomTag('selection-example')
+    class SelectionExample extends PolymerElement {
+       SelectionExample.created() : super.created();
+
+       itemTapAction(e) => ($['selection'] as CoreSelection).select(e.target);
+
+       selectAction(e, detail) {
+         detail['item'].classes.toggle('selected', detail['isSelected']);
+       }
+    }
+  </script>
+</body>
+</html>
