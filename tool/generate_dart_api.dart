@@ -108,13 +108,21 @@ void generateDartApi(String inputPath, Map<String, String> nameSubstitutions) {
     new Directory(outputDir).createSync();
   }
 
-  if (info.length > 1) {
+  if (info.elements.length > 1) {
     _showMessage('warning: more than one info in $inputPath');
   }
   new File(path.join(outputDir, '$name.dart')).writeAsStringSync(
-      info.map((i) => generateClass(i, nameSubstitutions)).join('\n\n'));
+      info.elements.map((i) => generateClass(i, nameSubstitutions))
+          .join('\n\n'));
+  var extraImports = new StringBuffer();
+  for (var jsImport in info.imports) {
+    var importPath = jsImport.importPath;
+    if (importPath.contains('polymer.html')) continue;
+    var dartImport = importPath.replaceAll('-', '_');
+    extraImports.write('<link rel="import" href="$dartImport">\n');
+  }
   new File(path.join(outputDir, '$name.html')).writeAsStringSync(
-      '<link rel="import" href="../src/$dashName">\n'
+      '<link rel="import" href="../src/$dashName">\n$extraImports'
       '<script type="application/dart" src="$name.dart"></script>\n');
 }
 
