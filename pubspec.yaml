@@ -1,0 +1,31 @@
+name: core_elements
+version: 0.0.1-dev
+author: Polymer.dart Authors <web-ui-dev@dartlang.org>
+description: Core elements for Dart
+dependencies:
+  polymer: ">=0.11.0-dev.6 <0.12.0"
+dev_dependencies:
+  html5lib: ">=0.11.0 <0.12.0"
+  path: ">=1.0.0 <2.0.0"
+  yaml: ">=1.0.0 <2.0.0"
+transformers:
+- polymer:
+    entry_points:
+    - example/core_collapse.html
+    - example/core_field.html
+    - example/core_header_panel.html
+    - example/core_input.html
+    - example/core_layout_grid.html
+    - example/core_layout_trbl.html
+    - example/core_meta.html
+    - example/core_overlay.html
+    - example/core_range.html
+    - example/core_selection.html
+    - example/core_selector.html
+    - example/core_shared_lib.html
+    - example/core_splitter.html
+    - example/core_toolbar.html
+    - example/core_tooltip.html
+    - example/dart_list.html
+    - example/dart_localstorage.html
+    lint: false
