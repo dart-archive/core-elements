@@ -128,7 +128,8 @@ void generateDartApi(String inputPath, Map<String, String> nameSubstitutions) {
 
 int _lastLength = 0;
 _progress(String msg) {
-  stdout.write('\r[32m$msg[0m');
+  const ESC = '\x1b';
+  stdout.write('\r$ESC[32m$msg$ESC[0m');
   var len = msg.length;
   if (len < _lastLength && !verbose) {
     stdout.write(' ' * (_lastLength - len));
