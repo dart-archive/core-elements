@@ -11,6 +11,7 @@ library core_elements.example.core_iconset_svg;
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:template_binding/template_binding.dart';
+import 'package:core_elements/core_iconset_svg.dart';
 
 @CustomTag('svg-icon-demo')
 class SvgIconDemo extends PolymerElement {
@@ -39,7 +40,8 @@ class SvgIconDemo extends PolymerElement {
 main() {
   initPolymer();
   Polymer.onReady.then((_) {
-    var icons = querySelector('#meta').byId('svg-sample-icons')
+    var iconset = querySelector('#meta') as CoreIconsetSvg;
+    var icons = iconset.byId('svg-sample-icons')
         .jsElement['iconNames'];
 
     icons = icons.map((ic) => 'svg-sample-icons:$ic');
