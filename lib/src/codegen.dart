@@ -8,6 +8,7 @@
 /// Methods to generate code from previously collected information.
 library core_elements.src.codegen;
 
+import 'package:core_elements/src/config.dart';
 import 'ast.dart';
 
 String generateClass(Element element, FileConfig config) {
