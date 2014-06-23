@@ -1,6 +1,8 @@
 # Configuration for running tool/generate_dart_api.dart
 files_to_generate:
   - core-collapse/core-collapse.html
+  - core-drag-drop/core-drag-drop.html
+  - core-drawer-panel/core-drawer-panel.html
   - core-field/core-field.html
   - core-header-panel/core-header-panel.html
   - core-icon/core-icon.html
@@ -26,7 +28,9 @@ files_to_generate:
   - core-overlay/core-key-helper.html
   - core-overlay/core-overlay.html
   - core-overlay/core-overlay-layer.html
+  - core-pages/core-pages.html
   - core-range/core-range.html
+  - core-scaffold/core-scaffold.html
   - core-selection/core-selection.html
   - core-selector/core-selector.html
   - core-shared-lib/core-shared-lib.html
