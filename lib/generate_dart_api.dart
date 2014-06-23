@@ -77,9 +77,16 @@ void generateDartApi(String inputPath, FileConfig config) {
   if (info.elements.length > 1) {
     _showMessage('warning: more than one info in $inputPath');
   }
-  new File(path.join(outputDir, '$name.dart')).writeAsStringSync(
-      info.elements.map((i) => generateClass(i, config.nameSubstitutions))
-          .join('\n\n'));
+
+  var directives = generateDirectives(name,
+      info.elements.map((e) => e.extendName));
+  var classes = info.elements
+      .map((i) => generateClass(i, config.nameSubstitutions))
+      .join('\n\n');
+
+  new File(path.join(outputDir, '$name.dart'))
+      .writeAsStringSync(directives + classes);
+
   var extraImports = new StringBuffer();
   for (var jsImport in info.imports) {
     var importPath = jsImport.importPath;

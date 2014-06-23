@@ -77,21 +77,19 @@ void _generateMethod(Method method, StringBuffer sb,
   sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
 }
 
-String _generateHeader(String name, String comment, String extendName) {
+String generateDirectives(String name, Iterable<String> extendNames) {
   var libName = name.replaceAll('-', '_');
-  var className = _toCamelCase(name);
+  var extraImports = new Set<String>();
 
-  var extraImports = '';
-  if (extendName == null || !extendName.contains('-')) {
-    extendName = 'HtmlElement with DomProxyMixin';
-    extraImports =
-        "import 'package:core_elements/src/common.dart' show DomProxyMixin;";
-  } else {
-    var extendLib = extendName.replaceAll('-', '_');
-    extendName = _toCamelCase(extendName);
-
-    // TODO(sigmund): make this import configurable
-    extraImports = "import '$extendLib.dart';";
+  for (var extendName in extendNames) {
+    if (extendName == null || !extendName.contains('-')) {
+      extraImports.add(
+          "import 'package:core_elements/src/common.dart' show DomProxyMixin;");
+    } else {
+      var extendLib = extendName.replaceAll('-', '_');
+      // TODO(sigmund): make this import configurable
+      extraImports.add("import '$extendLib.dart';");
+    }
   }
 
   return '''
@@ -104,7 +102,21 @@ import 'dart:html';
 import 'dart:js' show JsArray;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-$extraImports
+${extraImports.join('\n')}
+''';
+}
+
+String _generateHeader(String name, String comment, String extendName) {
+  var className = _toCamelCase(name);
+
+  if (extendName == null || !extendName.contains('-')) {
+    extendName = 'HtmlElement with DomProxyMixin';
+  } else {
+    var extendLib = extendName.replaceAll('-', '_');
+    extendName = _toCamelCase(extendName);
+  }
+
+  return '''
 
 $comment
 class $className extends $extendName {
