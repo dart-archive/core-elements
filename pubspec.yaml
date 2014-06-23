@@ -14,6 +14,8 @@ transformers:
 - polymer:
     entry_points:
     - example/core_collapse.html
+    - example/core_drag_drop.html
+    - example/core_drawer_panel.html
     - example/core_field.html
     - example/core_header_panel.html
     - example/core_icon.html
@@ -30,7 +32,9 @@ transformers:
     - example/core_menu_button.html
     - example/core_meta.html
     - example/core_overlay.html
+    - example/core_pages.html
     - example/core_range.html
+    - example/core_scaffold.html
     - example/core_selection.html
     - example/core_selector.html
     - example/core_shared_lib.html
