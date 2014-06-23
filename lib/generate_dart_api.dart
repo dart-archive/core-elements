@@ -29,7 +29,7 @@ main(args) {
   var config = new GlobalConfig();
   for (var arg in args) {
     if (arg.endsWith('.html')) {
-      config.files[arg] = new FileConfig();
+      config.files[arg] = new FileConfig(config);
     } else if (arg.endsWith('.yaml')) {
       _progress('Parsing configuration ... ');
       parseConfigFile(arg, config);
