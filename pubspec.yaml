@@ -16,11 +16,16 @@ transformers:
     - example/core_collapse.html
     - example/core_field.html
     - example/core_header_panel.html
+    - example/core_icon.html
+    - example/core_icons.html
+    - example/core_iconset.html
+    - example/core_iconset_svg.html
     - example/core_icon_button.html
     - example/core_input.html
     - example/core_item.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
+    - example/core_media_query.html
     - example/core_menu.html
     - example/core_menu_button.html
     - example/core_meta.html

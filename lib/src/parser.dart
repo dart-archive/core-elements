@@ -100,7 +100,7 @@ void _parseDocumentation(Map elements, String text,
     // process pragmas
     for (var pragmaInfo in pragmas) {
       Match m = pragmaInfo[0];
-      List description = pragmaInfo[1].join('\n');
+      String description = pragmaInfo[1].join('\n');
       var pragma = m.group(1);
       var content = m.group(2);
       switch (pragma) {
