@@ -26,39 +26,49 @@ main(args) {
     exit(1);
   }
 
-  var inputPaths = [];
-  var nameSubstitutions = {};
+  var configs = {};
   for (var arg in args) {
     if (arg.endsWith('.html')) {
-      inputPaths.add(arg);
+      configs[arg] = new FileConfig();
     } else if (arg.endsWith('.yaml')) {
       _progress('Parsing configuration ... ');
-      _parseConfigFile(arg, inputPaths, nameSubstitutions);
+      _parseConfigFile(arg, configs);
     }
   }
 
   _progress('Running codegen... ');
-  var len = inputPaths.length;
-  for (int i = 0; i < len; i++) {
-    _progress('${i + 1} of $len: ${inputPaths[i]}');
-    generateDartApi(inputPaths[i], nameSubstitutions[inputPaths[i]]);
-  }
+  var len = configs.length;
+  int i = 0;
+  configs.forEach((inputPath, config) {
+    _progress('${++i} of $len: $inputPath');
+    generateDartApi(inputPath, config);
+  });
   _progress('Done');
   stdout.write('\n');
 }
 
-void _parseConfigFile(String filePath, List<String> inputPaths,
-    Map<String, Map<String, String>> nameSubstitutions) {
+// Configuration information corresponding to a given HTML input file.
+class FileConfig {
+  final Map<String, String> nameSubstitutions;
+  final List<String> omitImports;
+
+  FileConfig([Map map])
+    : nameSubstitutions = map != null ? map['name_substitutions'] : null,
+      omitImports = map != null ? map['omit_imports'] : null;
+}
+
+void _parseConfigFile(String filePath, Map<String, FileConfig> result) {
   if (!new File(filePath).existsSync()) {
     print("error: file $filePath doesn't exist");
     exit(1);
   }
   var yaml = loadYaml(new File(filePath).readAsStringSync());
   var toGenerate = yaml['files_to_generate'];
+
   if (toGenerate == null) return;
   for (var entry in toGenerate) {
     if (entry is String) {
-      inputPaths.add('lib/src/$entry');
+      result['lib/src/$entry'] = new FileConfig();
       continue;
     }
 
@@ -68,13 +78,8 @@ void _parseConfigFile(String filePath, List<String> inputPaths,
       continue;
     }
 
-    var name = entry.keys.single;
-    var inputPath = 'lib/src/$name';
-    inputPaths.add(inputPath);
-    var map = entry[name];
-    if (map != null) {
-      nameSubstitutions[inputPath] = map['name_substitutions'];
-    }
+    result['lib/src/${entry.keys.single}'] =
+        new FileConfig(entry.values.single);
   }
 }
 
@@ -82,7 +87,7 @@ void _parseConfigFile(String filePath, List<String> inputPaths,
 /// generates a Dart API for it. The input code must be under lib/src/ (for
 /// example, lib/src/x-tag/x-tag.html), the output will be generated under lib/
 /// (for example, lib/x_tag/x_tag.dart).
-void generateDartApi(String inputPath, Map<String, String> nameSubstitutions) {
+void generateDartApi(String inputPath, FileConfig config) {
   _progressLineBroken = false;
   if (!new File(inputPath).existsSync()) {
     print("error: file $inputPath doesn't exist");
@@ -112,12 +117,16 @@ void generateDartApi(String inputPath, Map<String, String> nameSubstitutions) {
     _showMessage('warning: more than one info in $inputPath');
   }
   new File(path.join(outputDir, '$name.dart')).writeAsStringSync(
-      info.elements.map((i) => generateClass(i, nameSubstitutions))
+      info.elements.map((i) => generateClass(i, config.nameSubstitutions))
           .join('\n\n'));
   var extraImports = new StringBuffer();
   for (var jsImport in info.imports) {
     var importPath = jsImport.importPath;
     if (importPath.contains('polymer.html')) continue;
+    var omit = config.omitImports;
+    if (omit != null && omit.any((path) => importPath.contains(path))) {
+      continue;
+    }
     var dartImport = importPath.replaceAll('-', '_');
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
