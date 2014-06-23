@@ -58,8 +58,8 @@ class CoreIconset extends CoreMeta {
 
   /// The width of the iconset image. This must only be specified if the
   /// icons are arranged into separate rows inside the image.
-  String get width => jsElement['width'];
-  set width(String value) { jsElement['width'] = value; }
+  num get width => jsElement['width'];
+  set width(num value) { jsElement['width'] = value; }
 
   /// A space separated list of names corresponding to icons in the iconset
   /// image file. This list must be ordered the same as the icon images

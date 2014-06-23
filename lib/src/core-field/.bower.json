@@ -2,17 +2,16 @@
   "name": "core-field",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
+    "polymer": "Polymer/polymer#master"
   },
   "homepage": "https://github.com/Polymer/core-field",
-  "version": "0.3.3",
-  "_release": "0.3.3",
+  "_release": "92dd31b008",
   "_resolution": {
-    "type": "version",
-    "tag": "0.3.3",
-    "commit": "e74eec6c9a452fbb8400371334e7958245df80f8"
+    "type": "branch",
+    "branch": "master",
+    "commit": "92dd31b00810982607b04fb8b000d9acbe18b26a"
   },
   "_source": "git://github.com/Polymer/core-field.git",
-  "_target": ">=0.3.0 <1.0.0",
+  "_target": "master",
   "_originalSource": "Polymer/core-field"
 }
