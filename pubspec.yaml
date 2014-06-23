@@ -18,8 +18,11 @@ transformers:
     - example/core_header_panel.html
     - example/core_icon_button.html
     - example/core_input.html
+    - example/core_item.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
+    - example/core_menu.html
+    - example/core_menu_button.html
     - example/core_meta.html
     - example/core_overlay.html
     - example/core_range.html

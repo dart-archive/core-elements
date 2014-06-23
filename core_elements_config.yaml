@@ -12,12 +12,16 @@ files_to_generate:
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
   - core-input/core-input.html
+  - core-item/core-item.html
   - core-layout-grid/core-layout-grid.html
   - core-layout-trbl/core-layout-trbl.html
   - core-layout-trbl/core-slide.html
   - core-media-query/core-media-query.html:
       name_substitutions:
         query: mediaQuery
+  - core-menu/core-menu.html
+  - core-menu/core-submenu.html
+  - core-menu-button/core-menu-button.html
   - core-meta/core-meta.html
   - core-overlay/core-key-helper.html
   - core-overlay/core-overlay.html
