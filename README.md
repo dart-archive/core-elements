@@ -1,29 +1,40 @@
 core-elements
 ==============
 
-Dart wrappers or ports for Polymer core elements
+Dart wrappers and ports for Polymer's core-elements.
 
+## Overview
+
+This packages makes it more convenient for Dart developers to use the Polymer
+project's set of core-elements.
+
+You can find out more about core-elements here:
+http://www.polymer-project.org/components/core-docs/index.html
+
+core_elements provides a few things for Dart developers:
+
+ * It packages the elements into a single pub package so that you can add
+   `core_elements` as a dependency in your pupbspec. Installing npm and bower
+   is not required.
+ * It wraps most core-elements with Dart proxy classes to make them easier to
+   interact with from Dart scripts.
+ * It ports a few elements that are performance sensitive (like `core-list`) or
+   use native objects that are difficult to use via dart:js (like `core-ajax`).
+   
 ## Status
 
-Bower is configured and Polymer and core-elements have been added as
-dependencies and checked in. They are checked in under `lib/src/*` because Bower
-doesn't support version locking yet.
+This is an early access version of the elements. The elements are still changing
+on both the JS and Dart side.
 
-Several elements have been ported or wrapped (elements under `lib/name*`)
+## Using Elements
 
-## Updating Components
+All elements live at the top-level of the `lib/` folder.
 
-To update the packages you need to have [Bower](http://bower.io) installed.
+Import into HTML:
 
-The JavaScript libraries required by the elements are downloaded via Bower and
-installed into `lib/src/`. The direct dependencies are specified in
-`bower.json`, and there is a `.borwerrc` file that instructs Bower to install
-packages to `lib/`.
+    <link rel="import" href="packages/core_elements/core_input.html">
 
-Bower has been failing on install, due to
-https://github.com/bower/bower/issues/1169 so instead of running a command like
-`bower install --save Polymer/polymer` add the dependency to `bower.json` and
-run `bower update`.
+Import into Dart:
 
-The source of polymer.html at `lib/src/polymer/polymer.html` is patched so that
-it loads the same polymer.html as polymer.dart applications.
+    import 'package:core_elements/core_input.dart';
+ 
