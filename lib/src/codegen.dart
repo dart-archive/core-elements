@@ -10,11 +10,11 @@ library core_elements.src.codegen;
 
 import 'ast.dart';
 
-String generateClass(Element element, [Map<String, String> nameSubstitutions]) {
+String generateClass(Element element, FileConfig config) {
   var sb = new StringBuffer();
   var comment = _toComment(element.description);
-  sb.write(_generateHeader(element.name, comment, element.extendName));
-  var getDartName = _substituteFunction(nameSubstitutions);
+  sb.write(_generateHeader(element.name, comment, element.extendName, config));
+  var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
   sb.write('}\n');
@@ -77,7 +77,8 @@ void _generateMethod(Method method, StringBuffer sb,
   sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
 }
 
-String _generateHeader(String name, String comment, String extendName) {
+String _generateHeader(
+  String name, String comment, String extendName, FileConfig config) {
   var libName = name.replaceAll('-', '_');
   var className = _toCamelCase(name);
 
@@ -87,11 +88,16 @@ String _generateHeader(String name, String comment, String extendName) {
     extraImports =
         "import 'package:core_elements/src/common.dart' show DomProxyMixin;";
   } else {
-    var extendLib = extendName.replaceAll('-', '_');
-    extendName = _toCamelCase(extendName);
 
-    // TODO(sigmund): make this import configurable
-    extraImports = "import '$extendLib.dart';";
+    var extendsImport = config.extendsImport;
+    if (extendsImport == null) {
+      var packageName = config.global.findPackageNameForElement(extendName);
+      var fileName = '${extendName.replaceAll('-', '_')}.dart';
+      extendsImport = packageName != null
+          ? 'package:$packageName/$fileName' : fileName;
+    }
+    extendName = _toCamelCase(extendName);
+    extraImports = "import '$extendsImport';";
   }
 
   return '''
