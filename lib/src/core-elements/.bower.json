@@ -4,7 +4,6 @@
   "dependencies": {
     "polymer": "Polymer/polymer#>=0.3.0 <1.0.0",
     "core-ajax": "Polymer/core-ajax#>=0.3.0 <1.0.0",
-    "core-bind": "Polymer/core-bind#>=0.3.0 <1.0.0",
     "core-collapse": "Polymer/core-collapse#>=0.3.0 <1.0.0",
     "core-doc-viewer": "Polymer/core-doc-viewer#>=0.3.0 <1.0.0",
     "core-docs": "Polymer/core-docs#>=0.3.0 <1.0.0",
@@ -12,6 +11,7 @@
     "core-drawer-panel": "Polymer/core-drawer-panel#>=0.3.0 <1.0.0",
     "core-field": "Polymer/core-field#>=0.3.0 <1.0.0",
     "core-header-panel": "Polymer/core-header-panel#>=0.3.0 <1.0.0",
+    "core-scroll-header-panel": "Polymer/core-scroll-header-panel#>=0.3.0 <1.0.0",
     "core-icon-button": "Polymer/core-icon-button#>=0.3.0 <1.0.0",
     "core-icons": "Polymer/core-icons#>=0.3.0 <1.0.0",
     "core-input": "Polymer/core-input#>=0.3.0 <1.0.0",
@@ -33,20 +33,21 @@
     "core-selector": "Polymer/core-selector#>=0.3.0 <1.0.0",
     "core-shared-lib": "Polymer/core-shared-lib#>=0.3.0 <1.0.0",
     "core-splitter": "Polymer/core-splitter#>=0.3.0 <1.0.0",
+    "core-style": "Polymer/core-style#>=0.3.0 <1.0.0",
     "core-tests": "Polymer/core-tests#>=0.3.0 <1.0.0",
     "core-toolbar": "Polymer/core-toolbar#>=0.3.0 <1.0.0",
     "core-tooltip": "Polymer/core-tooltip#>=0.3.0 <1.0.0",
     "core-transition": "Polymer/core-transition#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/polymer/core-elements",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "26648c0aee7e9f4e7765c1c5f59e43ba56136a4f"
+    "tag": "0.3.3",
+    "commit": "ddd6ef62329a04348b2beffc76065bb104f7e598"
   },
   "_source": "git://github.com/polymer/core-elements.git",
-  "_target": "~0.3.1",
+  "_target": "~0.3.3",
   "_originalSource": "polymer/core-elements"
 }

@@ -5,12 +5,12 @@
     "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-tooltip",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "b893ca338d0508abdf9a76f6a58002ba6a08d827"
+    "tag": "0.3.3",
+    "commit": "08838b2c61b64b04ea83ba8dd2b649c8699fc1f2"
   },
   "_source": "git://github.com/Polymer/core-tooltip.git",
   "_target": ">=0.3.0 <1.0.0",

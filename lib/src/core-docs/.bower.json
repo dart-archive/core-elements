@@ -5,12 +5,12 @@
     "core-doc-viewer": "Polymer/core-doc-viewer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-docs",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "d2696ccc4e6ea46369cdc7923be422b7af2e148a"
+    "tag": "0.3.3",
+    "commit": "6d7f0b73b99f65d046e36e36fd3831b90abd101e"
   },
   "_source": "git://github.com/Polymer/core-docs.git",
   "_target": ">=0.3.0 <1.0.0",

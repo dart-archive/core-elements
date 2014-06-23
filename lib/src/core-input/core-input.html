@@ -201,11 +201,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else if (this.validate instanceof Function) {
           valid = this.validate.call(this.inputValue);
         }
-
         this.invalid = !valid;
-        this.classList.toggle('invalid', !valid);
+      },
 
-        if (!valid) {
+      invalidChanged: function() {
+        this.classList.toggle('invalid', this.invalid);
+        if (this.invalid) {
           this.fire('input-invalid', {value: this.inputValue});
         }
       },

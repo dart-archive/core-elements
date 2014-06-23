@@ -85,10 +85,8 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   String get selectedProperty => jsElement['selectedProperty'];
   set selectedProperty(String value) { jsElement['selectedProperty'] = value; }
 
-  /// Specifies the property to be used to set on the selected element
-  /// to indicate its active state.
-  String get selectedAttribute => jsElement['selectedAttribute'];
-  set selectedAttribute(String value) { jsElement['selectedAttribute'] = value; }
+  get selectedAttribute => jsElement['selectedAttribute'];
+  set selectedAttribute(value) { jsElement['selectedAttribute'] = value; }
 
   /// Returns the currently selected element. In multi-selection this returns
   /// an array of selected elements.

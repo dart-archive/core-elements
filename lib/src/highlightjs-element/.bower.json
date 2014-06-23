@@ -6,12 +6,12 @@
     "highlightjs": "*"
   },
   "homepage": "https://github.com/PolymerLabs/highlightjs-element",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "a64cbaf930221b146ba8c03ecd86968e7276dfc2"
+    "tag": "0.3.3",
+    "commit": "baacb40be4e3082977725367f897a3fa95506ee1"
   },
   "_source": "git://github.com/PolymerLabs/highlightjs-element.git",
   "_target": ">=0.3.0 <1.0.0",

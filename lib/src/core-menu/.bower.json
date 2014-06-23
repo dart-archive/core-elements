@@ -7,12 +7,12 @@
     "core-item": "Polymer/core-item#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-menu",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
     "type": "version",
-    "tag": "0.3.2",
-    "commit": "205b47e9a823b26c51f7e03e42d6e32f2bbf1cbb"
+    "tag": "0.3.3",
+    "commit": "7fca58899d295c999507e4094f4f1521f0324374"
   },
   "_source": "git://github.com/Polymer/core-menu.git",
   "_target": ">=0.3.0 <1.0.0",
