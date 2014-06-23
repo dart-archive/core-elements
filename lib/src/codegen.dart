@@ -90,7 +90,8 @@ String _generateHeader(String name, String comment, String extendName) {
     var extendLib = extendName.replaceAll('-', '_');
     extendName = _toCamelCase(extendName);
 
-    extraImports = "import 'package:core_elements/$extendLib.dart';";
+    // TODO(sigmund): make this import configurable
+    extraImports = "import '$extendLib.dart';";
   }
 
   return '''

@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:core_elements/core_meta.dart';
+import 'core_meta.dart';
 
 
 class CoreTransition extends CoreMeta {
