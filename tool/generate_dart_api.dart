@@ -108,10 +108,7 @@ void generateDartApi(String inputPath, FileConfig config) {
   var dashName = path.join(segments[2], segments[3]);
   var name = path.withoutExtension(segments[3]).replaceAll('-', '_');
   var dirName = segments[2].replaceAll('-', '_');
-  var outputDir = path.join('lib', dirName);
-  if (!new Directory(outputDir).existsSync()) {
-    new Directory(outputDir).createSync();
-  }
+  var outputDir = 'lib';
 
   if (info.elements.length > 1) {
     _showMessage('warning: more than one info in $inputPath');
@@ -127,11 +124,13 @@ void generateDartApi(String inputPath, FileConfig config) {
     if (omit != null && omit.any((path) => importPath.contains(path))) {
       continue;
     }
-    var dartImport = importPath.replaceAll('-', '_');
+    var importSegments = path.split(importPath);
+    if (importSegments[0] == '..') importSegments.removeRange(0, 2);
+    var dartImport = path.joinAll(importSegments).replaceAll('-', '_');
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
   new File(path.join(outputDir, '$name.html')).writeAsStringSync(
-      '<link rel="import" href="../src/$dashName">\n$extraImports'
+      '<link rel="import" href="src/$dashName">\n$extraImports'
       '<script type="application/dart" src="$name.dart"></script>\n');
 }
 
