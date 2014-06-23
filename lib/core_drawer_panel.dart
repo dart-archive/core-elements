@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-drawer-panel`.
+/// Dart API for the polymer element `core_drawer_panel`.
 library core_elements.core_drawer_panel;
 
 import 'dart:html';

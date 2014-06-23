@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-shared-lib`.
+/// Dart API for the polymer element `core_shared_lib`.
 library core_elements.core_shared_lib;
 
 import 'dart:html';

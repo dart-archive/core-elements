@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-field`.
+/// Dart API for the polymer element `core_field`.
 library core_elements.core_field;
 
 import 'dart:html';

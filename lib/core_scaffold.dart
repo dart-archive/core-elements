@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-scaffold`.
+/// Dart API for the polymer element `core_scaffold`.
 library core_elements.core_scaffold;
 
 import 'dart:html';

@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-icon-button`.
+/// Dart API for the polymer element `core_icon_button`.
 library core_elements.core_icon_button;
 
 import 'dart:html';

@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-menu-button`.
+/// Dart API for the polymer element `core_menu_button`.
 library core_elements.core_menu_button;
 
 import 'dart:html';

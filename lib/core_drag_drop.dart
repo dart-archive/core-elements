@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-drag-drop`.
+/// Dart API for the polymer element `core_drag_drop`.
 library core_elements.core_drag_drop;
 
 import 'dart:html';

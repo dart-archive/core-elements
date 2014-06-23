@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-header-panel`.
+/// Dart API for the polymer element `core_header_panel`.
 library core_elements.core_header_panel;
 
 import 'dart:html';

@@ -13,7 +13,7 @@ import 'ast.dart';
 String generateClass(Element element, FileConfig config) {
   var sb = new StringBuffer();
   var comment = _toComment(element.description);
-  sb.write(_generateHeader(element.name, comment, element.extendName, config));
+  sb.write(_generateHeader(element.name, comment, element.extendName));
   var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
@@ -77,27 +77,25 @@ void _generateMethod(Method method, StringBuffer sb,
   sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
 }
 
-String _generateHeader(
-  String name, String comment, String extendName, FileConfig config) {
+String generateDirectives(String name, Iterable<String> extendNames,
+    FileConfig config) {
   var libName = name.replaceAll('-', '_');
-  var className = _toCamelCase(name);
+  var extraImports = new Set<String>();
 
-  var extraImports = '';
-  if (extendName == null || !extendName.contains('-')) {
-    extendName = 'HtmlElement with DomProxyMixin';
-    extraImports =
-        "import 'package:core_elements/src/common.dart' show DomProxyMixin;";
-  } else {
-
-    var extendsImport = config.extendsImport;
-    if (extendsImport == null) {
-      var packageName = config.global.findPackageNameForElement(extendName);
-      var fileName = '${extendName.replaceAll('-', '_')}.dart';
-      extendsImport = packageName != null
-          ? 'package:$packageName/$fileName' : fileName;
+  for (var extendName in extendNames) {
+    if (extendName == null || !extendName.contains('-')) {
+      extraImports.add(
+          "import 'package:core_elements/src/common.dart' show DomProxyMixin;");
+    } else {
+      var extendsImport = config.extendsImport;
+      if (extendsImport == null) {
+        var packageName = config.global.findPackageNameForElement(extendName);
+        var fileName = '${extendName.replaceAll('-', '_')}.dart';
+        extendsImport = packageName != null
+            ? 'package:$packageName/$fileName' : fileName;
+      }
+      extraImports.add("import '$extendsImport';");
     }
-    extendName = _toCamelCase(extendName);
-    extraImports = "import '$extendsImport';";
   }
 
   return '''
@@ -110,7 +108,20 @@ import 'dart:html';
 import 'dart:js' show JsArray;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-$extraImports
+${extraImports.join('\n')}
+''';
+}
+
+String _generateHeader(String name, String comment, String extendName) {
+  var className = _toCamelCase(name);
+
+  if (extendName == null || !extendName.contains('-')) {
+    extendName = 'HtmlElement with DomProxyMixin';
+  } else {
+    extendName = _toCamelCase(extendName);
+  }
+
+  return '''
 
 $comment
 class $className extends $extendName {

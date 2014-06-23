@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-key-helper`.
+/// Dart API for the polymer element `core_key_helper`.
 library core_elements.core_key_helper;
 
 import 'dart:html';

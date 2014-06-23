@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-iconset`.
+/// Dart API for the polymer element `core_iconset`.
 library core_elements.core_iconset;
 
 import 'dart:html';

@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-range`.
+/// Dart API for the polymer element `core_range`.
 library core_elements.core_range;
 
 import 'dart:html';

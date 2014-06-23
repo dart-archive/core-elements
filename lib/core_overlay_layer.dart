@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-overlay-layer`.
+/// Dart API for the polymer element `core_overlay_layer`.
 library core_elements.core_overlay_layer;
 
 import 'dart:html';

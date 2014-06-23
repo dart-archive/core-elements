@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-item`.
+/// Dart API for the polymer element `core_item`.
 library core_elements.core_item;
 
 import 'dart:html';

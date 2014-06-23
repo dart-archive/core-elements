@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-layout-trbl`.
+/// Dart API for the polymer element `core_layout_trbl`.
 library core_elements.core_layout_trbl;
 
 import 'dart:html';

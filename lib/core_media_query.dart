@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-media-query`.
+/// Dart API for the polymer element `core_media_query`.
 library core_elements.core_media_query;
 
 import 'dart:html';

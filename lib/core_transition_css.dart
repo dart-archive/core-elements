@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-transition-css`.
+/// Dart API for the polymer element `core_transition_css`.
 library core_elements.core_transition_css;
 
 import 'dart:html';

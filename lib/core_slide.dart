@@ -1,6 +1,6 @@
 // DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
 
-/// Dart API for the polymer element `core-slide`.
+/// Dart API for the polymer element `core_slide`.
 library core_elements.core_slide;
 
 import 'dart:html';
