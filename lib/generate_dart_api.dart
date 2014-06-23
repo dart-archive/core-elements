@@ -26,22 +26,22 @@ main(args) {
     exit(1);
   }
 
-  var configs = {};
+  var config = new GlobalConfig();
   for (var arg in args) {
     if (arg.endsWith('.html')) {
-      configs[arg] = new FileConfig();
+      config.files[arg] = new FileConfig();
     } else if (arg.endsWith('.yaml')) {
       _progress('Parsing configuration ... ');
-      parseConfigFile(arg, configs);
+      parseConfigFile(arg, config);
     }
   }
 
   _progress('Running codegen... ');
-  var len = configs.length;
+  var len = config.files.length;
   int i = 0;
-  configs.forEach((inputPath, config) {
+  config.files.forEach((inputPath, fileConfig) {
     _progress('${++i} of $len: $inputPath');
-    generateDartApi(inputPath, config);
+    generateDartApi(inputPath, fileConfig);
   });
   _progress('Done');
   stdout.write('\n');
@@ -78,8 +78,7 @@ void generateDartApi(String inputPath, FileConfig config) {
     _showMessage('warning: more than one info in $inputPath');
   }
   new File(path.join(outputDir, '$name.dart')).writeAsStringSync(
-      info.elements.map((i) => generateClass(i, config.nameSubstitutions))
-          .join('\n\n'));
+      info.elements.map((i) => generateClass(i, config)).join('\n\n'));
   var extraImports = new StringBuffer();
   for (var jsImport in info.imports) {
     var importPath = jsImport.importPath;
