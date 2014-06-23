@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:core_elements/core_selector.dart';
+import 'core_selector.dart';
 
 /// `core-pages` is used to select one of its children to show. One use is to cycle through a list of children "pages".
 ///

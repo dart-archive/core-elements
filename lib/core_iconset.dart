@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:core_elements/core_meta.dart';
+import 'core_meta.dart';
 
 /// The `core-iconset` element allows users to define their own icon sets.
 /// The `src` property specifies the url of the icon image. Multiple icons may
