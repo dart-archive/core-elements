@@ -37,8 +37,7 @@ class SvgIconDemo extends PolymerElement {
   }
 }
 
-main() {
-  initPolymer();
+main() => initPolymer().run(() {
   Polymer.onReady.then((_) {
     var iconset = querySelector('#meta') as CoreMeta;
     var icons = iconset.byId('svg-sample-icons')
@@ -49,4 +48,4 @@ main() {
       templateBind(p).model = icons;
     }
   });
-}
+});
