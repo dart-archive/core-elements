@@ -89,10 +89,11 @@ class CoreIconset extends CoreMeta {
   /// for example, to manually position a css backgroundImage to the proper
   /// offset. It's more common to use the `applyIcon` method.
   ///
-  /// icon within in the icon image.
+  /// Returns object specifying the offset of the given icon
   /// within the icon resource file; `offsetX` is the horizontal offset and
   /// `offsetY` is the vertical offset. Both values are in pixel units.
   /// [icon]: The name of the icon or the index of the
+  ///     icon within in the icon image.
   /// [theme]: The name of the theme.
   getOffset(icon,String theme) =>
       jsElement.callMethod('getOffset', [icon,theme]);
@@ -100,13 +101,12 @@ class CoreIconset extends CoreMeta {
   /// Applies an icon to the given element as a css background image. This
   /// method does not size the element, and it's often necessary to set
   /// the element's height and width so that the background image is visible.
-  ///
-  /// applied.
-  /// with which the icon can be magnified.
   /// [element]: The element to which the background is
+  ///     applied.
   /// [icon]: The name or index of the icon to apply.
   /// [theme]: (optional) The name of the theme for the icon.
-  /// [scale]: (optional, defaults to 1) A scaling factor
+  /// [scale]: (optional, defaults to 1) A scaling factor 
+  ///     with which the icon can be magnified.
   void applyIcon(element,icon,String theme,scale) =>
       jsElement.callMethod('applyIcon', [element,icon,theme,scale]);
 }

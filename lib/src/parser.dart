@@ -81,17 +81,26 @@ void _parseDocumentation(Map elements, String text,
     for (var line in lines) {
       var m = _pragmaMatcher.firstMatch(line);
       if (m != null) {
-        pragmas.add(m);
+        var pragma = m.group(1);
+
+        // Make sure parameter and return text is grouped correctly.
+        // TODO(jmesserly): this code needs refactoring; either should reuse
+        // the JS code for parsing this so we don't introduce our own bugs,
+        // or should be written as a recursive descent parser.
+        if (pragma == 'param' || pragma.startsWith('return')) {
+          nonPragmas = [];
+        }
+        pragmas.add([m, nonPragmas]);
       } else {
+        // collect text into the comment for the previous
         nonPragmas.add(line);
       }
     }
 
-    // collect all other text into a single block
-    var description = nonPragmas.join('\n');
-
     // process pragmas
-    for (var m in pragmas) {
+    for (var pragmaInfo in pragmas) {
+      Match m = pragmaInfo[0];
+      List description = pragmaInfo[1].join('\n');
       var pragma = m.group(1);
       var content = m.group(2);
       switch (pragma) {
@@ -143,8 +152,9 @@ void _parseDocumentation(Map elements, String text,
             _warn('not in method ($currentMember), ignoring param: $content');
             break;
           }
+          var desc = '${param.group(3)}\n$description';
           currentMember.args.add(new Argument(
-              param.group(2), param.group(3), param.group(1)));
+              param.group(2), desc, param.group(1)));
 
           break;
 
@@ -166,6 +176,9 @@ void _parseDocumentation(Map elements, String text,
             break;
           }
           currentMember.type = returnMatch.group(1);
+
+          currentMember.description = '${currentMember.description}\n'
+              'Returns${returnMatch.group(3)}\n$description';
           break;
 
         case 'type':

@@ -64,8 +64,6 @@ class CoreSelection extends HtmlElement with DomProxyMixin {
   set multi(bool value) { jsElement['multi'] = value; }
 
   /// Retrieves the selected item(s).
-  /// getSelection will return an array, otherwise it will return
-  /// the selected item or undefined if there is no selection.
   getSelection() =>
       jsElement.callMethod('getSelection', []);
 
