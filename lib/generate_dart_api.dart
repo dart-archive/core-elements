@@ -43,8 +43,35 @@ main(args) {
     _progress('${++i} of $len: $inputPath');
     generateDartApi(inputPath, fileConfig);
   });
+
+  _progress('Generating stubs... ');
+  len = config.stubs.length;
+  i = 0;
+  config.stubs.forEach((inputPath, packageName) {
+    _progress('${++i} of $len: $inputPath');
+    generateImportStub(inputPath, packageName);
+  });
+
   _progress('Done');
   stdout.write('\n');
+}
+
+void generateImportStub(String inputPath, String packageName) {
+  var file = new File(inputPath);
+
+  // We assume the file has to be there becuase bower, even though we could
+  // generate without
+  if (!file.existsSync()) {
+    print("error: file $inputPath doesn't exist");
+    exit(1);
+  }
+
+  var segments = path.split(inputPath);
+  var newFileName = segments.last.replaceAll('-', '_');
+  var depth = segments.length;
+  var goingUp = '../' * depth;
+  var newPath = path.join(goingUp, 'packages/$packageName', newFileName);
+  file.writeAsStringSync('<link rel="import" href="$newPath">\n');
 }
 
 /// Reads the contents of [inputPath], parses the documentation, and then
