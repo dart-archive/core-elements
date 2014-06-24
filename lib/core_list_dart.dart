@@ -6,7 +6,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-library core_elements.dart_list;
+library core_elements.core_list_dart;
 
 import 'dart:html';
 import 'dart:math' as math;
@@ -15,7 +15,7 @@ import 'package:polymer/polymer.dart';
 import 'package:smoke/smoke.dart' as smoke;
 import 'package:template_binding/template_binding.dart';
 
-@CustomTag('dart-list')
+@CustomTag('core-list-dart')
 class DartList extends PolymerElement {
   /**
    * Fired when an item element is tapped.
@@ -41,14 +41,15 @@ class DartList extends PolymerElement {
    *
    * @attribute scrollTarget
    * @type Element
-   * @default dart-list
+   * @default core-list-dart
    */
   @published Element scrollTarget;
 
   /**
    *
-   * The height of a list item. `dart-list` currently supports only fixed-height
-   * list items. This height must be specified via the height property.
+   * The height of a list item. `core-list-dart` currently supports only
+   * fixed-height list items. This height must be specified via the height 
+   * property.
    *
    * @attribute height
    * @type number
@@ -71,7 +72,8 @@ class DartList extends PolymerElement {
    *
    * The property set on the list view data to represent selection state.
    * This should set so that it does not conflict with other data properties.
-   * Note, selection data is not stored on the data in given in the data property.
+   * Note, selection data is not stored on the data in given in the data 
+   * property.
    *
    * @attribute selectedProperty
    * @type string

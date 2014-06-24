@@ -29,6 +29,7 @@ transformers:
     - example/core_item.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
+    - example/core_list_dart.html
     - example/core_media_query.html
     - example/core_menu.html
     - example/core_menu_button.html
@@ -45,6 +46,5 @@ transformers:
     - example/core_toolbar.html
     - example/core_tooltip.html
     - example/dart_ajax.html
-    - example/dart_list.html
     - example/dart_localstorage.html
     lint: false

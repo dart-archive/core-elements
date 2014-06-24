@@ -9,11 +9,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
-  <title>dart-list</title>
+  <title>core-list-dart</title>
   <meta name="viewport" content="width=device-width">
   <script src="packages/web_components/platform.js"></script>
   <script src="packages/web_components/dart_support.js"></script>
-  <link rel="import" href="packages/core_elements/dart_list.html">
+  <link rel="import" href="packages/core_elements/core_list_dart.html">
 
   <style>
     html, body {
@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <polymer-element name="list-test">
 <template>
   <style>
-    dart-list {
+    core-list-dart {
       height: 100%;
     }
 
@@ -83,7 +83,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     }
   </style>
 
-  <dart-list id="list" data="{{data}}" height="80">
+  <core-list-dart id="list" data="{{data}}" height="80">
     <template>
       <div class="{{ {item: true, selected: selected} }}">
         <div class="message" style="background-image: url(images/{{index % 4}}.png);">
@@ -94,10 +94,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </div>
       </div>
     </template>
-  </dart-list>
+  </core-list-dart>
 
 </template>
-<script type="application/dart" src="dart_list.dart"></script>
+<script type="application/dart" src="core_list_dart.dart"></script>
 </polymer-element>
 
 </body>
