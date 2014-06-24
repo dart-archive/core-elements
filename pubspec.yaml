@@ -37,6 +37,7 @@ transformers:
     - example/core_pages.html
     - example/core_range.html
     - example/core_scaffold.html
+    - example/core_scroll_header_panel.html
     - example/core_selection.html
     - example/core_selector.html
     - example/core_shared_lib.html
