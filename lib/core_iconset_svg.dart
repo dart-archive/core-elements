@@ -52,6 +52,16 @@ class CoreIconsetSvg extends CoreMeta {
   /// [icon]: The name the icon to apply.
   void applyIcon(element,icon) =>
       jsElement.callMethod('applyIcon', [element,icon]);
+
+  /// Tell users of the iconset, that the set has loaded.
+  /// This finds all elements matching the selector argument and calls
+  /// the method argument on them.
+  /// [css]: selector to identify iconset users, 
+  ///     defaults to '[icon]'
+  /// [method]: to call on found elements, 
+  ///     defaults to 'updateIcon'
+  void updateIcons(String css,String method) =>
+      jsElement.callMethod('updateIcons', [css,method]);
 }
 @initMethod
 upgradeCoreIconsetSvg() => registerDartType('core-iconset-svg', CoreIconsetSvg);

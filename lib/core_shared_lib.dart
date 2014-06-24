@@ -20,7 +20,12 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///
 /// Some libraries require a specific global function be defined. If this is the case, specify the `callbackName` property.
 ///
-/// Whenever possible, use **import** (`<link rel="import" href="...">`) instead.
+/// Where possible, you should use an HTML Import to load library dependencies. Rather than using this element,
+/// create an import (`<link rel="import" href="lib.html">`) that wraps loading the .js file:
+///
+/// lib.html:
+///
+///     <script src="lib.js"></script>
 class CoreSharedLib extends HtmlElement with DomProxyMixin {
   CoreSharedLib.created() : super.created();
 

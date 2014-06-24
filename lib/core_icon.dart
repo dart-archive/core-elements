@@ -30,7 +30,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// See [core-iconset](#core-iconset) and [core-iconset-svg](#core-iconset-svg) for more information about
 /// how to use a custom iconset.
 ///
-/// See [core-icons](#core-icons) for the default set of icons.
+/// See [core-icons](#core-icons) for the default set of icons. To use the default set of icons you'll need to include an import for `core-icons.html`.
 class CoreIcon extends HtmlElement with DomProxyMixin {
   CoreIcon.created() : super.created();
 

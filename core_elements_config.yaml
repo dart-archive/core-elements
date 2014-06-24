@@ -34,10 +34,12 @@ files_to_generate:
   - core-pages/core-pages.html
   - core-range/core-range.html
   - core-scaffold/core-scaffold.html
+  - core-scroll-header-panel/core-scroll-header-panel.html
   - core-selection/core-selection.html
   - core-selector/core-selector.html
   - core-shared-lib/core-shared-lib.html
   - core-splitter/core-splitter.html
+  - core-style/core-style.html
   - core-toolbar/core-toolbar.html
   - core-tooltip/core-tooltip.html
   - core-transition/core-transition-css.html

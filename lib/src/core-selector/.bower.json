@@ -2,18 +2,17 @@
   "name": "core-selector",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.3.0 <1.0.0",
-    "core-selection": "Polymer/core-selection#>=0.3.0 <1.0.0"
+    "polymer": "Polymer/polymer#master",
+    "core-selection": "Polymer/core-selection#master"
   },
   "homepage": "https://github.com/Polymer/core-selector",
-  "version": "0.3.2",
-  "_release": "0.3.2",
+  "_release": "b30ab88868",
   "_resolution": {
-    "type": "version",
-    "tag": "0.3.2",
-    "commit": "b1dc53fb3e33c50607fe8ff34b3ad35891f6db7c"
+    "type": "branch",
+    "branch": "master",
+    "commit": "b30ab8886817d15c7d0b819054046029b4b42a89"
   },
   "_source": "git://github.com/Polymer/core-selector.git",
-  "_target": ">=0.3.0 <1.0.0",
+  "_target": "master",
   "_originalSource": "Polymer/core-selector"
 }
