@@ -97,8 +97,7 @@ void generateDartApi(String inputPath, FileConfig config) {
     var targetElement = importSegments.last;
     var packageName = config.global.findPackageNameForElement(targetElement);
     if (packageName != null) {
-      dartImport = path.join('..', '..', '..',
-          'packages', packageName, dartImport);
+      dartImport = path.join('..', '..', 'packages', packageName, dartImport);
     }
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
