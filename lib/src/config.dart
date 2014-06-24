@@ -15,6 +15,7 @@ import 'package:yaml/yaml.dart';
 /// configuration files.
 class GlobalConfig {
   final Map<String, FileConfig> files = {};
+  final Map<String, String> stubs = {};
   final List<PackageMapping> packageMappings = [];
   int _lastUpdated = 0;
 
@@ -72,6 +73,7 @@ void parseConfigFile(String filePath, GlobalConfig config) {
   var yaml = loadYaml(new File(filePath).readAsStringSync());
   _parsePackageMappings(yaml, config);
   _parseFilesToGenerate(yaml, config);
+  _parseStubsToGenerate(yaml, config);
 }
 
 void _parsePackageMappings(yaml, GlobalConfig config) {
@@ -101,5 +103,27 @@ void _parseFilesToGenerate(yaml, GlobalConfig config) {
 
     config.files['lib/src/${entry.keys.single}'] =
         new FileConfig(config, entry.values.single);
+  }
+}
+
+void _parseStubsToGenerate(yaml, GlobalConfig config) {
+  var toGenerate = yaml['stubs_to_generate'];
+  if (toGenerate == null) return;
+  if (toGenerate is! YamlMap) {
+    print("error: bad configuration in stubs_to_generate");
+    exit(1);
+  }
+  var map = toGenerate as YamlMap;
+  for (var key in map.keys) {
+    var value = map[key];
+    if (value is String) {
+      config.stubs['lib/src/$value'] = key;
+      continue;
+    }
+    if (value is YamlList) {
+      for (var entry in value) {
+        config.stubs['lib/src/$entry'] = key;
+      }
+    }
   }
 }
