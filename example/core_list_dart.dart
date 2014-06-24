@@ -6,7 +6,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-library core_elements.example.dart_list;
+library core_elements.example.core_list_dart;
 
 import 'dart:html';
 import 'dart:math' as math;
@@ -14,7 +14,8 @@ import 'package:polymer/polymer.dart';
 
 var strings = [
   "PARKOUR!",
-  "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...",
+  "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur,"
+    " adipisci velit...",
   "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
 ];
 
