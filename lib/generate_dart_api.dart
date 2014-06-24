@@ -94,6 +94,11 @@ void generateDartApi(String inputPath, FileConfig config) {
     var importSegments = path.split(importPath);
     if (importSegments[0] == '..') importSegments.removeRange(0, 2);
     var dartImport = path.joinAll(importSegments).replaceAll('-', '_');
+    var targetElement = importSegments.last;
+    var packageName = config.global.findPackageNameForElement(targetElement);
+    if (packageName != null) {
+      dartImport = path.join('..', '..', 'packages', packageName, dartImport);
+    }
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
   new File(path.join(outputDir, '$name.html')).writeAsStringSync(
