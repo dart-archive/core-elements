@@ -71,7 +71,9 @@ void generateImportStub(String inputPath, String packageName) {
   var depth = segments.length;
   var goingUp = '../' * depth;
   var newPath = path.join(goingUp, 'packages/$packageName', newFileName);
-  file.writeAsStringSync('<link rel="import" href="$newPath">\n');
+  file.writeAsStringSync(
+      '<link rel="import" href="$newPath">\n'
+      '$EMPTY_SCRIPT_WORKAROUND_ISSUE_11');
 }
 
 /// Reads the contents of [inputPath], parses the documentation, and then
@@ -153,3 +155,9 @@ _showMessage(String msg) {
   }
   print(msg);
 }
+
+const String EMPTY_SCRIPT_WORKAROUND_ISSUE_11 = '''
+<script>
+// This empty script is here to workaround issue
+// https://github.com/dart-lang/core-elements/issues/11
+</script>''';
