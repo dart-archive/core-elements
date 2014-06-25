@@ -11,14 +11,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 Element access to localStorage.  The "name" property
 is the key to the data ("value" property) stored in localStorage.
 
-`dart-localstorage` automatically saves the value to localStorage when
+`core-localstorage-dart` automatically saves the value to localStorage when
 value is changed.  Note that if value is an object auto-save will be
 triggered only when value is a different instance.
 
-    <dart-localstorage name="my-app-storage" value="{{value}}"></dart-localstorage>
+    <core-localstorage-dart name="my-app-storage" value="{{value}}"></core-localstorage-dart>
 
 @group Polymer.dart Core Elements
-@element dart-localstorage
+@element core-localstorage-dart
 @blurb Element access to localStorage.
 @url github.io
 @categories Data
@@ -26,6 +26,6 @@ triggered only when value is a different instance.
 
 <link rel="import" href="../../packages/polymer/polymer.html">
 
-<polymer-element name="dart-localstorage" attributes="name value useRaw autoSaveDisabled" hidden>
-<script type="application/dart" src="dart_localstorage.dart"></script>
+<polymer-element name="core-localstorage-dart" attributes="name value useRaw autoSaveDisabled" hidden>
+<script type="application/dart" src="core_localstorage_dart.dart"></script>
 </polymer-element>

@@ -17,7 +17,7 @@
  * @element core-xhr
  */
 
-library core_elements.dart_xhr;
+library core_elements.core_xhr_dart;
 
 import 'dart:html';
 
@@ -27,12 +27,12 @@ import 'package:quiver/strings.dart';
 
 typedef void ResponseHandler(response, HttpRequest req);
 
-@CustomTag('dart-xhr')
-class DartCoreXhr extends PolymerElement {
+@CustomTag('core-xhr-dart')
+class CoreXhr extends PolymerElement {
 
   static const _bodyMethods = const ['POST', 'PUT', 'DELETE'];
 
-  DartCoreXhr.created() : super.created();
+  CoreXhr.created() : super.created();
 
   /**
    * Sends a HTTP request to the server and returns the XHR object.

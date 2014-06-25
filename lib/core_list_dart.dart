@@ -16,7 +16,7 @@ import 'package:smoke/smoke.dart' as smoke;
 import 'package:template_binding/template_binding.dart';
 
 @CustomTag('core-list-dart')
-class DartList extends PolymerElement {
+class CoreList extends PolymerElement {
   /**
    * Fired when an item element is tapped.
    *
@@ -122,7 +122,7 @@ class DartList extends PolymerElement {
 
   CoreSelection get _selection => $['selection'];
 
-  DartList.created() : super.created();
+  CoreList.created() : super.created();
 
   @override
   ready() {
@@ -376,7 +376,7 @@ class DartList extends PolymerElement {
   }
 }
 
-/// The [CustomEvent.detail] of the [DartList] `core-activate` event.
+/// The [CustomEvent.detail] of the [CoreList] `core-activate` event.
 class CoreActivateEvent {
   Element item;
   var data;
