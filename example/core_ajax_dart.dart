@@ -6,7 +6,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-library core_elements.example.dart_ajax;
+library core_elements.example.core_ajax_dart;
 
 import 'dart:html';
 
@@ -15,7 +15,7 @@ import 'package:polymer/polymer.dart';
 
 main() {
   initPolymer().run(() {
-    var ajax = querySelector('dart-ajax');
+    var ajax = querySelector('core-ajax-dart');
     ajax.on["core-response"].listen((event) {
       var detail = event.detail;
       var response = detail['response'];

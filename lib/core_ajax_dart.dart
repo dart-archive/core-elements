@@ -7,7 +7,7 @@
 
 //<polymer-element name="core-ajax" attributes="url handleAs auto params response method headers body contentType withCredentials">
 
-library core_elements.dart_ajax;
+library core_elements.core_ajax_dart;
 
 import 'dart:convert' show JSON;
 import 'dart:async';
@@ -17,23 +17,23 @@ import 'package:polymer/polymer.dart';
 import 'package:quiver/core.dart';
 import 'package:quiver/strings.dart';
 
-import 'dart_xhr.dart';
+import 'core_xhr_dart.dart';
 
-@CustomTag('dart-ajax')
-class DartCoreAjax extends PolymerElement {
+@CustomTag('core-ajax-dart')
+class CoreAjax extends PolymerElement {
 
   static const _onCoreResponse = const EventStreamProvider('core-response');
   static const _onCoreComplete = const EventStreamProvider('core-complete');
   static const _onCoreError = const EventStreamProvider('core-error');
 
-  DartCoreXhr xhr;
+  CoreXhr xhr;
   PolymerJob _goJob;
 // TODO: enable xhrArgs
 //  var xhrArgs;
 
-  DartCoreAjax.created() : super.created() {
-    print("DartCoreAjax.created");
-    this.xhr = document.createElement('dart-xhr');
+  CoreAjax.created() : super.created() {
+    print("CoreAjax.created");
+    this.xhr = document.createElement('core-xhr-dart');
   }
 
   /**

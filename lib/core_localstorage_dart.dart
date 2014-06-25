@@ -6,8 +6,8 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-/// Dart API for the polymer element `dart-localstorage`.
-library core_elements.dart_localstorage;
+/// Dart API for the polymer element `core-localstorage-dart`.
+library core_elements.core_localstorage_dart;
 
 import 'dart:html';
 import 'dart:convert' show JSON;
@@ -16,13 +16,13 @@ import 'package:polymer/polymer.dart';
 /// Element access to localStorage.  The "name" property
 /// is the key to the data ("value" property) stored in localStorage.
 ///
-/// `dart-localstorage` automatically saves the value to localStorage when
+/// `core-localstorage-dart` automatically saves the value to localStorage when
 /// value is changed.  Note that if value is an object auto-save will be
 /// triggered only when value is a different instance.
 ///
-///     <dart-localstorage name="my-app-storage" value="{{value}}"></dart-localstorage>
-@CustomTag('dart-localstorage')
-class DartLocalStorage extends PolymerElement {
+///     <core-localstorage-dart name="my-app-storage" value="{{value}}"></core-localstorage-dart>
+@CustomTag('core-localstorage-dart')
+class CoreLocalStorage extends PolymerElement {
   /**
    * Fired when a value is loaded from localStorage.
    * @event core-localstorage-load
@@ -66,8 +66,8 @@ class DartLocalStorage extends PolymerElement {
 
   @observable bool loaded = false;
 
-  factory DartLocalStorage() => new Element.tag('dart-localstorage');
-  DartLocalStorage.created() : super.created();
+  factory CoreLocalStorage() => new Element.tag('core-localstorage-dart');
+  CoreLocalStorage.created() : super.created();
 
   @override
   attached() {
