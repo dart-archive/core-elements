@@ -100,7 +100,7 @@ String generateDirectives(String name, Iterable<String> extendNames,
   }
 
   return '''
-// DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
+// DO NOT EDIT: auto-generated with core_elements/src/codegen.dart
 
 /// Dart API for the polymer element `$name`.
 library core_elements.$libName;
