@@ -7,25 +7,25 @@
 
 library core_ajax.test;
 
-import "dart:html";
+import "dart:html" as dom;
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
-import "package:unittest/html_enhanced_config.dart";
+import "package:unittest/html_config.dart" show useHtmlConfiguration;
 
-@initMethod
-void init() {
-//  useHtmlEnhancedConfiguration();
-//
-//  initPolymer().run(() {
-//    Polymer.onReady.then((_) {
-//      test("core-ajax-dart", () {
-//        var done = expectAsync(() {});
-//        var s = document.querySelector("core-ajax-dart");
-//        s.addEventListener("core-response", (event) {
-//          expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
-//          done();
-//        });
-//      });
-//    });
-//  });
+void main() {
+  useHtmlConfiguration();
+
+  skip_test("core-ajax-dart", () { // TODO Dartium crashes '<debug target crashed>' see issue #46
+    var done = expectAsync(() {});
+
+    return initPolymer().run(() {
+      return Polymer.onReady.then((_) {
+        var s = dom.document.querySelector("core-ajax-dart");
+        s.addEventListener("core-response", (event) {
+          expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
+          done();
+        });
+      });
+    });
+  });
 }
