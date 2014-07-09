@@ -11,6 +11,8 @@ dev_dependencies:
   html5lib: ">=0.11.0 <0.12.0"
   path: ">=1.0.0 <2.0.0"
   yaml: ">=1.0.0 <2.0.0"
+  unittest: ">=0.11.0+2 <0.12.0"
+  matcher: ">=0.10.1+1 <0.11.0"
 transformers:
 - polymer:
     entry_points:
@@ -48,4 +50,6 @@ transformers:
     - example/core_style.html
     - example/core_toolbar.html
     - example/core_tooltip.html
+    - test/core_ajax_dart.html
+    - test/core_collapse.html
     lint: false
