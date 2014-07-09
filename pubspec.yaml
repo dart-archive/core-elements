@@ -50,4 +50,6 @@ transformers:
     - example/core_style.html
     - example/core_toolbar.html
     - example/core_tooltip.html
+    - test/core_ajax_dart.html
+    - test/core_collapse.html
     lint: false
