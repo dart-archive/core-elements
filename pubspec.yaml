@@ -59,4 +59,5 @@ transformers:
     - test/core_selector_activate_event.html
     - test/core_selector_basic.html
     - test/core_selector_multi.html
+    - test/core_shared_lib.html
     lint: false
