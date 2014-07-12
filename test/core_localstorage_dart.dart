@@ -19,19 +19,19 @@ void main() {
   test("core-localstorage", () {
     return initPolymer().run(() {
       return Polymer.onReady.then((_) {
-        var s = dom.document.querySelector('#localstorage') as CoreLocalStorage;
-        var m = 'hello wold';
+        var s = dom.document.querySelector("#localstorage") as CoreLocalStorage;
+        var m = "hello wold";
         dom.window.localStorage[s.name] = m;
 
         var doneEvent = expectAsync((){});
 
-        s.on['core-localstorage-load'].listen((_) {
+        s.on["core-localstorage-load"].listen((_) {
           doneEvent();
         });
 
         s.load();
         expect(s.value, equals(m));
-        s.value = 'goodbye';
+        s.value = "goodbye";
         expect(dom.window.localStorage[s.name], equals(m));
       });
     });
