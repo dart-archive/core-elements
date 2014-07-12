@@ -1,0 +1,85 @@
+//Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+//This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+//The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+//The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+//Code distributed by Google as part of the polymer project is also
+//subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+
+library core_selector.test.basic;
+
+import "dart:async" as async;
+import "dart:html" as dom;
+import "package:polymer/polymer.dart";
+import "package:unittest/unittest.dart";
+import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import "package:core_elements/core_selector.dart" show CoreSelector;
+
+void oneMutation(dom.Element node, options, Function cb) {
+  var o = new dom.MutationObserver((List<dom.MutationRecord>
+      mutations, dom.MutationObserver observer) {
+    cb();
+    observer.disconnect();
+  });
+  o.observe(node, attributes: options["attributes"]);
+}
+
+void main() {
+  useHtmlConfiguration();
+
+  initPolymer().run(() {
+    Polymer.onReady.then((e) {
+
+// TODO see issue #52 and comment on line 40 below
+      skip_test("core-selector", () {
+        var done = expectAsync(() {});
+        // selector1
+        var s = (dom.document.querySelector("#selector1") as CoreSelector);
+        expect(s.selectedClass, equals("core-selected"));
+        expect(s.multi, isFalse);
+        expect(s.valueattr, equals("name"));
+        // TODO expect(s.items.length, equals(5)); // see #52 items getter not available
+
+        // selector2
+        s = (dom.document.querySelector("#selector2") as CoreSelector);
+        expect(s.selected, equals("item3"));
+        expect(s.selectedClass, equals("my-selected"));
+        // setup listener for core-select event
+        var selectEventCounter = 0;
+          s.on["core-select"].listen((dom.CustomEvent e) {
+          if (e.detail["isSelected"]) {
+            selectEventCounter++;
+            // selectedItem and detail.item should be the same
+            expect(e.detail["item"], equals(s.selectedItem));
+          }
+        });
+        // set selected
+        s.selected = "item5";
+        // TODO dom.Platform.flush(); is there something similar in Polymer.dart?
+        oneMutation(s, {
+          "attributes": true
+        }, () {
+          new async.Future.delayed(new Duration(milliseconds: 50), () {
+            // check core-select event
+            expect(selectEventCounter, equals(1));
+                // TODO doesn't work due to https://code.google.com/p/dart/issues/detail?id=14496
+            // check selected class
+            expect(s.children[4].classes.contains("my-selected"), isTrue);
+            // check selectedItem
+            expect(s.selectedItem, equals(s.children[4]));
+            // selecting the same value shouldn't fire core-select
+            selectEventCounter = 0;
+            s.selected = "item5";
+            // TODO Platform.flush(); is there an equivalent in Polymer.dart?
+            // TODO(ffu): would be better to wait for something to happen
+            // instead of not to happen
+            new async.Future.delayed(new Duration(milliseconds: 50), () {
+              expect(selectEventCounter, equals(0));
+              done();
+            });
+          });
+        });
+      });
+    });
+  });
+}
+
