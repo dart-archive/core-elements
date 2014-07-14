@@ -1,4 +1,4 @@
-// DO NOT EDIT: auto-generated with core_elements/tool/generate_dart_api.dart
+// DO NOT EDIT: auto-generated with core_elements/src/codegen.dart
 
 /// Dart API for the polymer element `core_splitter`.
 library core_elements.core_splitter;
