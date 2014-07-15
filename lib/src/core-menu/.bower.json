@@ -7,11 +7,11 @@
     "core-item": "Polymer/core-item#master"
   },
   "homepage": "https://github.com/Polymer/core-menu",
-  "_release": "c8d2bacee8",
+  "_release": "1fe259077c",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "c8d2bacee827c36de0696f45120b66d9b8d9c08a"
+    "commit": "1fe259077c85cf102b5fe0e2c6939f530d6a8016"
   },
   "_source": "git://github.com/Polymer/core-menu.git",
   "_target": "master",

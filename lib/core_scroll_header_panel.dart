@@ -12,13 +12,12 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// `core-scroll-header-panel` contains a header section and a content section.  The
 /// header is initially on the top part of the view but it scrolls away with the
 /// rest of the scrollable content.  Upon scrolling slightly up at any point, the
-/// header scrolls back into view.  This is useful for saving screen space
-/// and allows users to access important controls by easily moving them back to the
-/// view.
+/// header scrolls back into view.  This saves screen space and allows users to
+/// access important controls by easily moving them back to the view.
 ///
 /// `core-scroll-header-panel` works well with `core-toolbar` but can use any element
-/// that represents a header by adding a `core-header` class to it.  And use attribute
-/// `content` to indicate it's a content section.
+/// that represents a header by adding a `core-header` class to it.  Use the attribute
+/// or class `content` to delineate the content section.
 ///
 ///     <core-scroll-header-panel>
 ///       <core-toolbar>Header</core-toolbar>
@@ -44,15 +43,15 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   bool get fixed => jsElement['fixed'];
   set fixed(bool value) { jsElement['fixed'] = value; }
 
-  /// If true, the condensed header is always shown and not moves away.
+  /// If true, the condensed header is always shown and does not move away.
   bool get keepCondensedHeader => jsElement['keepCondensedHeader'];
   set keepCondensedHeader(bool value) { jsElement['keepCondensedHeader'] = value; }
 
   /// The height of the header when it is at its full size.
   ///
-  /// By default, the height will be measused when it is ready.  If the height
-  /// changes later user needs to either set this value to reflect the new
-  /// height or invoke `measureHeaderHeight()`.
+  /// By default, the height will be measured when it is ready.  If the height
+  /// changes later the user needs to either set this value to reflect the
+  /// new height or invoke `measureHeaderHeight()`.
   num get headerHeight => jsElement['headerHeight'];
   set headerHeight(num value) { jsElement['headerHeight'] = value; }
 

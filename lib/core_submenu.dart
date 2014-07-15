@@ -49,6 +49,9 @@ class CoreSubmenu extends HtmlElement with DomProxyMixin {
 
   get src => jsElement['src'];
   set src(value) { jsElement['src'] = value; }
+
+  get valueattr => jsElement['valueattr'];
+  set valueattr(value) { jsElement['valueattr'] = value; }
 }
 @initMethod
 upgradeCoreSubmenu() => registerDartType('core-submenu', CoreSubmenu);

@@ -39,32 +39,8 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     this.$.input2.validate = function(value) {
 ///       return value === 'foo';  // valid only if the value is 'foo'
 ///     }
-///
-///
-///
-/// Fired when the inputValue of is changed. This is the same event as the DOM
-/// "input" event.
-///
-///
-///
-/// Fired when the user commits the value of the input, either by the hitting the
-/// `enter` key or blurring the input after the changing the inputValue. Also see the
-/// DOM "change" event.
-///
-///
-///
-/// Fired when the inputValue of this text input changes and fails validation.
 class CoreInput extends HtmlElement with DomProxyMixin {
   CoreInput.created() : super.created();
-
-  /// The value of the input committed by the user, either by changing the
-  /// inputValue and blurring the input, or by hitting the `enter` key.
-  String get value => jsElement['value'];
-  set value(String value) { jsElement['value'] = value; }
-
-  /// The current value of this input.
-  String get inputValue => jsElement['inputValue'];
-  set inputValue(String value) { jsElement['inputValue'] = value; }
 
   /// Placeholder text that hints to the user what can be entered in
   /// the input.
@@ -75,6 +51,18 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// its value.
   bool get disabled => jsElement['disabled'];
   set disabled(bool value) { jsElement['disabled'] = value; }
+
+  /// Set the input type. Not supported for `multiline`.
+  String get type => jsElement['type'];
+  set type(String value) { jsElement['type'] = value; }
+
+  /// If true, the user cannot modify the value of the input.
+  bool get readonly => jsElement['readonly'];
+  set readonly(bool value) { jsElement['readonly'] = value; }
+
+  /// If true, the input is invalid until the value becomes non-null.
+  bool get required => jsElement['required'];
+  set required(bool value) { jsElement['required'] = value; }
 
   /// If true, this input accepts multi-line input like a `<textarea>`
   bool get multiline => jsElement['multiline'];
@@ -87,6 +75,17 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// component with CSS to make the input fit the CSS size.
   get rows => jsElement['rows'];
   set rows(value) { jsElement['rows'] = value; }
+
+  /// The current value of this input. Changing inputValue programmatically
+  /// will cause value to be out of sync. Instead, change value directly
+  /// or call commit() after changing inputValue.
+  String get inputValue => jsElement['inputValue'];
+  set inputValue(String value) { jsElement['inputValue'] = value; }
+
+  /// The value of the input committed by the user, either by changing the
+  /// inputValue and blurring the input, or by hitting the `enter` key.
+  String get value => jsElement['value'];
+  set value(String value) { jsElement['value'] = value; }
 
   /// If this property is not null, the text input's inputValue will be
   /// validated. You can validate the value with either a regular expression
@@ -116,6 +115,10 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// If this property is true, the text input's inputValue failed validation.
   bool get invalid => jsElement['invalid'];
   set invalid(bool value) { jsElement['invalid'] = value; }
+
+  /// Commits the inputValue to value.
+  void commit() =>
+      jsElement.callMethod('commit', []);
 }
 @initMethod
 upgradeCoreInput() => registerDartType('core-input', CoreInput);

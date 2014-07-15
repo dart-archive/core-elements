@@ -51,7 +51,10 @@ You can also provide a javascript function instead of keyframes to the animation
 behaves essentially the same as `requestAnimationFrame`:
 
     var animation = new CoreAnimation();
-    animation.
+    animation.customEffect = function(timeFraction, target, animation) {
+      // do something custom
+    };
+    animation.play();
 
 Elements that are targets to a `core-animation` are given the `core-animation-target` class.
 
@@ -101,10 +104,11 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
           keyframes: {value: null, reflect: true},
 
           /**
-           * A custom animation function. Either provide this or `keyframes`.
+           * A custom animation function. Either provide this or `keyframes`. The signature
+           * of the callback is `EffectsCallback(timeFraction, target, animation)`
            *
            * @property customEffect
-           * @type Function
+           * @type Function(number, Object, Object)
            */
           customEffect: {value: null, reflect: true},
 
@@ -161,9 +165,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
            * counterparts.
            *
            * @property easing
-           * @type "linear"|"ease"|"ease-in"|"ease-out"|"ease-in-out"|
-           *       "cubic-bezier(<number>, <number>, <number>, <number>)"|
-           *       "step-start"|"step-middle"|"step-end"
+           * @type string
            * @default "linear"
            */
           easing: {value: 'linear', reflect: true},
@@ -184,7 +186,7 @@ Elements that are targets to a `core-animation` are given the `core-animation-ta
            *
            * @property endDelay
            * @type number
-           * #defualt 0
+           * @default 0
            */
           endDelay: {value: 0, reflect: true},
 

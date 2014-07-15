@@ -3,11 +3,11 @@
   "private": true,
   "dependencies": {},
   "homepage": "https://github.com/Polymer/context-free-parser",
-  "_release": "ffc44a4e3e",
+  "_release": "08005c1467",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "ffc44a4e3ee4aa504ac531c663e66b68b11a9902"
+    "commit": "08005c14674b79a67cf6e8d245862334ee5d6b65"
   },
   "_source": "git://github.com/Polymer/context-free-parser.git",
   "_target": "master",
