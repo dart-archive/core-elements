@@ -52,4 +52,12 @@ transformers:
     - example/core_tooltip.html
     - test/core_ajax_dart.html
     - test/core_collapse.html
+    - test/core_localstorage_dart.html
+    - test/core_selection.html
+    - test/core_selection_multi.html
+    - test/core_selection_multi.html
+    - test/core_selector_activate_event.html
+    - test/core_selector_basic.html
+    - test/core_selector_multi.html
+    - test/core_shared_lib.html
     lint: false
