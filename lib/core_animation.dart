@@ -47,7 +47,10 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// behaves essentially the same as `requestAnimationFrame`:
 ///
 ///     var animation = new CoreAnimation();
-///     animation.
+///     animation.customEffect = function(timeFraction, target, animation) {
+///       // do something custom
+///     };
+///     animation.play();
 ///
 /// Elements that are targets to a `core-animation` are given the `core-animation-target` class.
 class CoreAnimation extends HtmlElement with DomProxyMixin {
@@ -100,11 +103,8 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
 
   /// A transition timing function. The values are equivalent to the CSS
   /// counterparts.
-  ///
-  ///       "cubic-bezier(<number>, <number>, <number>, <number>)"|
-  ///       "step-start"|"step-middle"|"step-end"
-  get easing => jsElement['easing'];
-  set easing(value) { jsElement['easing'] = value; }
+  String get easing => jsElement['easing'];
+  set easing(String value) { jsElement['easing'] = value; }
 
   /// Number of iterations into the animation in which to begin the effect.
   /// For example, setting this property to 0.5 and `iterations` to 2 will
@@ -136,15 +136,14 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   get targetSelector => jsElement['targetSelector'];
   set targetSelector(value) { jsElement['targetSelector'] = value; }
 
-  /// A custom animation function. Either provide this or `keyframes`.
+  /// A custom animation function. Either provide this or `keyframes`. The signature
+  /// of the callback is `EffectsCallback(timeFraction, target, animation)`
   get customEffect => jsElement['customEffect'];
   set customEffect(value) { jsElement['customEffect'] = value; }
 
   /// The number of milliseconds to wait after the animation finishes. This is
   /// useful, for example, in an animation group to wait for some time before
   /// beginning the next item in the animation group.
-  ///
-  /// #defualt 0
   num get endDelay => jsElement['endDelay'];
   set endDelay(num value) { jsElement['endDelay'] = value; }
 

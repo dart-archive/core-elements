@@ -18,14 +18,14 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///       <core-icon-button icon="more" on-tap="{{moreAction}}"></core-icon-button>
 ///     </core-toolbar>
 ///
-/// `core-toolbar` has a standard height, but can be taller by setting `tall`
-/// class on the `core-toolbar`.  The will make the toolbar 3x the normal height.
+/// `core-toolbar` has a standard height, but can made be taller by setting `tall`
+/// class on the `core-toolbar`.  This will make the toolbar 3x the normal height.
 ///
 ///     <core-toolbar class="tall">
 ///       <core-icon-button icon="menu"></core-icon-button>
 ///     </core-toolbar>
 ///
-/// Apply `medium-tall` class to make the toolbar medium tall.  The will make the
+/// Apply `medium-tall` class to make the toolbar medium tall.  This will make the
 /// toolbar 2x the normal height.
 ///
 ///     <core-toolbar class="medium-tall">
@@ -40,7 +40,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///       <div class="bottom indent">Bottom Title</div>
 ///     </core-toolbar>
 ///
-/// To make an element completely fits at the bottom of the toolbar, use `fit` along
+/// To make an element completely fit at the bottom of the toolbar, use `fit` along
 /// with `bottom`.
 ///
 ///     <core-toolbar class="tall">

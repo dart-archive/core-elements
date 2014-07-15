@@ -5,11 +5,11 @@
     "polymer": "Polymer/polymer#master"
   },
   "homepage": "https://github.com/Polymer/core-localstorage",
-  "_release": "f9320af9ca",
+  "_release": "3c3b6f96bc",
   "_resolution": {
     "type": "branch",
     "branch": "master",
-    "commit": "f9320af9cac5bb016168331e72377d1fb4e66e94"
+    "commit": "3c3b6f96bcaf33684bace96f63ff570c839b80c7"
   },
   "_source": "git://github.com/Polymer/core-localstorage.git",
   "_target": "master",

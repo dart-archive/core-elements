@@ -25,6 +25,13 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///       <div drawer> Drawer panel... </div>
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
+///
+/// To position the drawer to the right, add `right-drawer` to the class list.
+///
+///     <core-drawer-panel class="right-drawer">
+///       <div drawer> Drawer panel... </div>
+///       <div main> Main panel... </div>
+///     </core-drawer-panel>
 class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   CoreDrawerPanel.created() : super.created();
 

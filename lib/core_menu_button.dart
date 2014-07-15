@@ -18,9 +18,9 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// Example:
 ///
 ///     <core-menu-button selected="0">
-///       <core-menu-item icon="settings" label="Settings"></core-menu-item>
-///       <core-menu-item icon="dialog" label="Dialog"></core-menu-item>
-///       <core-menu-item icon="search" label="Search"></core-menu-item>
+///       <core-item icon="settings" label="Settings"></core-item>
+///       <core-item icon="dialog" label="Dialog"></core-item>
+///       <core-item icon="search" label="Search"></core-item>
 ///     </core-menu-button>
 class CoreMenuButton extends HtmlElement with DomProxyMixin {
   CoreMenuButton.created() : super.created();
