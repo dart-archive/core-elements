@@ -33,7 +33,7 @@ void main() {
         // selector1
         var s = (dom.document.querySelector("#selector") as CoreSelector);
         s.on['core-activate'].listen((dom.CustomEvent event) {
-          expect(event.detail["item"], equals(s.children[1])); // TODO event.detail is null
+          expect(event.detail["item"], equals(s.children[1])); // TODO event.detail is null see #51
           expect(s.selected, equals(1));
           done();
         });
