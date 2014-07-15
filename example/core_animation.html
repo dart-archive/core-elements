@@ -120,11 +120,11 @@
       import 'package:core_elements/core_animation_group.dart';
       import 'package:polymer/polymer.dart';
       
-      customAnimationFn(timeFraction, animation, previousTimeFraction) {
+      customAnimationFn(timeFraction, target, animation) {
         if (timeFraction < 1) {
-          animation['target'].text = '$timeFraction';
+          target.text = '$timeFraction';
         } else {
-          animation['target'].text = 'animated!';
+          target.text = 'animated!';
         }
       }
 
