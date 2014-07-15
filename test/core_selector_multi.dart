@@ -9,6 +9,7 @@ library core_selector.test.multi;
 
 import "dart:async" as async;
 import "dart:html" as dom;
+import "dart:js" as js;
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
@@ -39,10 +40,11 @@ void main() {
         expect(s.multi, isTrue);
         expect(s.valueattr, equals("name"));
         // TODO expect(s.items.length, equals(5)); // getter items not available, see #52
+        expect(s.jsElement['items'].length, equals(5));
         // setup listener for polymer-select event
         var selectEventCounter = 0;
         s.on["core-select"].listen((dom.CustomEvent e) {
-          if (e.detail["isSelected"]) {
+          if (e.detail["isSelected"]) { // TODO #51 e.detail is always null
             selectEventCounter++;
           } else {
             selectEventCounter--;
@@ -52,9 +54,7 @@ void main() {
         });
         // set selected
         // TODO dom.Platform.flush(); is there an equivalent in Polymer.dart
-        s.selected = [0, 2];
-            // TODO doesn't work as expected https://code.google.com/p/dart/issues/detail?id=17472
-        // TODO s.dummy = "dummy"; // issue is still not fixed. Check if the workaround is necessary anymore anyway
+        s.selected = new js.JsObject.jsify([0, 2]); // TODO remove new js.JsObject.jsify(  )
         oneMutation(s, {
           "attributes": true
         }, () {
