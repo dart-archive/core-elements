@@ -6,11 +6,11 @@ following features:
  * Because the elements are bundled into a single pub package, you can add
    `core_elements` as a dependency in your pubspec. You don't need to
    install npm or bower.
- * Most core elements are wrapped with Dart proxy classes, making them easier
-   to interact with from Dart apps.
- * Elements that are either performance sensitive (like `core-list`) or
+ * Core elements that are either performance sensitive (like `core-list`) or
    use native objects that are difficult to use via dart:js (like `core-ajax`)
    have been ported to Dart.
+ * The remaining core elements are wrapped with Dart proxy classes, making
+   them easier to interact with from Dart apps.
    
 You can find out more about core elements here:
 http://www.polymer-project.org/docs/elements/core-elements.html
