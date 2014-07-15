@@ -26,6 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script type="application/dart">export 'package:polymer/init.dart';</script>
   
   <style>
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
   
     body {
       font-family: sans-serif;
@@ -38,6 +43,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       bottom: 0;
       left: 0;
     }
+
+    .content {
+      background-color: #fff;
+      height: 5000px;
+      padding: 20px;
+    }
+
+    /* some default styles for mode="cover" on core-scaffold */
+    core-scaffold[mode=cover]::shadow core-header-panel::shadow #mainContainer {
+      left: 120px;
+    }
+
+    core-scaffold[mode=cover] .content {
+      margin: 20px 100px 20px 0;
+    }
     
   </style>
   
@@ -49,7 +69,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   
     <core-header-panel navigation flex mode="seamed">
       <core-toolbar style="background-color: #526E9C; color: #fff;">Application</core-toolbar>
-      <core-menu theme="core-light-theme">
+      <core-menu>
         <core-item icon="settings" label="item1"></core-item>
         <core-item icon="settings" label="item2"></core-item>
       </core-menu>
@@ -57,7 +77,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     
     <div tool>Title</div>
     
-    <div>Content goes here...</div>
+    <div class="content">Content goes here...</div>
   
   </core-scaffold>
   
