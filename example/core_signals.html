@@ -1,0 +1,66 @@
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!doctype html>
+<html>
+<head>
+
+    <title></title>
+
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
+
+    <link rel="import" href="packages/core_elements/core_signals.html">
+
+</head>
+<body>
+
+<my-element></my-element>
+<my-app></my-app>
+
+<polymer-element name="my-element">
+    <template>
+        Hello
+    </template>
+</polymer-element>
+
+<polymer-element name="my-app">
+    <template>
+        <core-signals on-core-signal-foo="{{fooSignal}}"></core-signals>
+        <content></content>
+    </template>
+</polymer-element>
+
+<script type="application/dart">
+    import 'dart:html';
+    import 'package:polymer/polymer.dart';
+
+    @CustomTag('my-element')
+    class MyElement extends PolymerElement {
+        MyElement.created() : super.created();
+
+        void ready() =>
+            this.asyncFire('core-signal', detail: {'name': 'foo', 'data': 'Foo!'});
+    }
+
+    @CustomTag('my-app')
+    class MyApp extends PolymerElement {
+        MyApp.created() : super.created();
+
+        void fooSignal(e, detail, sender) {
+            this.appendHtml('<br>[my-app] got a [${detail}] signal<br>');
+        }
+    }
+
+    main() => initPolymer();
+
+</script>
+
+
+</body>
+</html>
