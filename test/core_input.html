@@ -37,6 +37,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                   placeholder="Numbers only"></core-input>
     </template>
 
+    <template id="passwordTemplate" is="auto-binding-dart">
+      <core-input id="password"
+                  value="{{stringValue}}"
+                  type="password"
+                  on-input-invalid="{{inputInvalidHandler}}"
+                  on-input-valid="{{inputValidHandler}}"
+                  placeholder="Enter password"></core-input>
+    </template>
+
     <core-input multiline?="true" placeholder="Enter multiple lines here"></core-input>
   </body>
 </html>

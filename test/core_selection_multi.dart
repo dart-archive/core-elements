@@ -18,6 +18,7 @@ void main() {
 
   initPolymer().run(() {
     Polymer.onReady.then((e) {
+
       test("core-selection-multi", () {
         var done = expectAsync(() {}, count: 2);
         var s = dom.document.querySelector("core-selection") as CoreSelection;
@@ -48,6 +49,7 @@ void main() {
         testNr = 1;
         s.select("(item1)");
       });
+
     });
   });
 }

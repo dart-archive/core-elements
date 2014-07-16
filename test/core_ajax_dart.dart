@@ -15,7 +15,8 @@ import "package:unittest/html_config.dart" show useHtmlConfiguration;
 void main() {
   useHtmlConfiguration();
 
-  skip_test("core-ajax-dart", () { // TODO Dartium crashes '<debug target crashed>' see issue #46
+// TODO(zoechi) Dartium crashes '<debug target crashed>' see issue #46
+  skip_test("core-ajax-dart", () {
     var done = expectAsync(() {});
 
     return initPolymer().run(() {

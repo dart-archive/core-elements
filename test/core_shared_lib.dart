@@ -19,7 +19,8 @@ void main() {
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      // TODO the test is not working because I didn't receive the core-shared-lib-load event. See #54
+
+      // TODO(zoechi) the test is not working because I didn't receive the core-shared-lib-load event. See #54
       skip_test("core-shared-lib", () {
         var count = 0;
         var done = expectAsync((){});
@@ -34,6 +35,7 @@ void main() {
           }
         });
       });
+
     });
   });
 }
