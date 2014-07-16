@@ -112,11 +112,11 @@
       <polymer-fadein>fade in</polymer-fadein>
  -->    </div>
     <script>
-      var customAnimationFn = function(timeFraction, animation, previousTimeFraction) {
+      var customAnimationFn = function(timeFraction, target) {
         if (timeFraction < 1) {
-          animation.target.textContent = timeFraction;
+          target.textContent = timeFraction;
         } else {
-          animation.target.textContent = 'animated!';
+          target.textContent = 'animated!';
         }
       };
 
@@ -132,7 +132,7 @@
           });
           document.getElementById('raw').addEventListener(
             'core-animation-finish', function(e) {
-              alert('finish!');
+              console.log('finish!');
             });
       });
     </script>

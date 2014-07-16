@@ -28,8 +28,8 @@ void main() {
 
   initPolymer().run(() {
     Polymer.onReady.then((e) {
-
-      test("core-selector-activate-event", () {
+// TODO see issue #51 and comment on line 35 below
+      skip_test("core-selector-activate-event", () {
         var done = expectAsync(() {});
         // selector1
         var s = (dom.document.querySelector("#selector") as CoreSelector);

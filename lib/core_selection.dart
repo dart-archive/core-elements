@@ -11,7 +11,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
 /// The `<core-selection>` element is used to manage selection state. It has no
 /// visual appearance and is typically used in conjunction with another element.
-/// For example, [core-selector](../core-selector)
+/// For example, [core-selector](#core-selector)
 /// use a `<core-selection>` to manage selection.
 ///
 /// To mark an item as selected, call the `select(item)` method on

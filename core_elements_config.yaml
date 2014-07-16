@@ -1,5 +1,10 @@
 # Configuration for running tool/generate_dart_api.dart
 files_to_generate:
+  - core-animated-pages/core-animated-pages.html:
+      # subdirs don't work
+      omit_imports:
+        - transitions/hero-transition.html
+        - transitions/cross-fade.html
   - core-animation/core-animation.html
   - core-animation/core-animation-group.html
   - core-animation/web-animations.html
@@ -38,6 +43,7 @@ files_to_generate:
   - core-selection/core-selection.html
   - core-selector/core-selector.html
   - core-shared-lib/core-shared-lib.html
+  - core-signals/core-signals.html
   - core-splitter/core-splitter.html
   - core-style/core-style.html
   - core-toolbar/core-toolbar.html

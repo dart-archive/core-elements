@@ -46,6 +46,20 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
   /// Locks the split bar so it can't be dragged.
   bool get locked => jsElement['locked'];
   set locked(bool value) { jsElement['locked'] = value; }
+
+  /// Minimum width to which the splitter target can be sized
+  num get minSize => jsElement['minSize'];
+  set minSize(num value) { jsElement['minSize'] = value; }
+
+  /// By default the parent and siblings of the splitter are set to overflow hidden. This helps
+  /// avoid elements bleeding outside the splitter regions. Set this property to true to allow
+  /// these elements to overflow.
+  bool get allowOverflow => jsElement['allowOverflow'];
+  set allowOverflow(bool value) { jsElement['allowOverflow'] = value; }
+
+  /// Disables the selection of text while the splitter is being moved
+  get disableSelection => jsElement['disableSelection'];
+  set disableSelection(value) { jsElement['disableSelection'] = value; }
 }
 @initMethod
 upgradeCoreSplitter() => registerDartType('core-splitter', CoreSplitter);
