@@ -30,48 +30,52 @@ void main() {
   initPolymer().run(() {
     Polymer.onReady.then((e) {
 
-      test("core-selector", () {
-        // selector1
-        var s = (dom.document.querySelector("#selector1") as CoreSelector);
-        expect(s.selectedClass, equals("core-selected"));
-        expect(s.multi, isFalse);
-        expect(s.valueattr, equals("name"));
-        // TODO(zoechi) expect(s.items.length, equals(5)); // see #52 items getter not available
-        expect(s.jsElement['items']['length'], equals(5));
+      group("core-selector", () {
 
-        // selector2
-        s = (dom.document.querySelector("#selector2") as CoreSelector);
-        expect(s.selected, equals("item3"));
-        expect(s.selectedClass, equals("my-selected"));
-        // setup listener for core-select event
-        var selectEventCounter = 0;
-        s.on["core-select"].listen((dom.CustomEvent e) {
-          // TODO(zoechi)if (e.detail["isSelected"]) { // event detail is null https://code.google.com/p/dart/issues/detail?id=19315
-          var detail = new js.JsObject.fromBrowserObject(e)['detail'];
-          if (detail["isSelected"]) {
-            selectEventCounter++;
-            // selectedItem and detail.item should be the same
-            expect(detail["item"], equals(s.selectedItem));
-          }
-        });
-        // set selected
-        s.selected = "item5";
-        return new async.Future.delayed(new Duration(milliseconds: 50), () {
-          // check core-select event
-          expect(selectEventCounter, equals(1));
-          // check selected class
-          expect(s.children[4].classes.contains("my-selected"), isTrue);
-          // check selectedItem
-          expect(s.selectedItem, equals(s.children[4]));
-          // selecting the same value shouldn't fire core-select
-          selectEventCounter = 0;
+        test("basic", () {
+          // selector1
+          var s = (dom.document.querySelector("#selector1") as CoreSelector);
+          expect(s.selectedClass, equals("core-selected"));
+          expect(s.multi, isFalse);
+          expect(s.valueattr, equals("name"));
+          // TODO(zoechi) expect(s.items.length, equals(5)); // see #52 items getter not available
+          expect(s.jsElement['items']['length'], equals(5));
+
+          // selector2
+          s = (dom.document.querySelector("#selector2") as CoreSelector);
+          expect(s.selected, equals("item3"));
+          expect(s.selectedClass, equals("my-selected"));
+          // setup listener for core-select event
+          var selectEventCounter = 0;
+          s.on["core-select"].listen((dom.CustomEvent e) {
+            // TODO(zoechi)if (e.detail["isSelected"]) { // event detail is null https://code.google.com/p/dart/issues/detail?id=19315
+            var detail = new js.JsObject.fromBrowserObject(e)['detail'];
+            if (detail["isSelected"]) {
+              selectEventCounter++;
+              // selectedItem and detail.item should be the same
+              expect(detail["item"], equals(s.selectedItem));
+            }
+          });
+          // set selected
           s.selected = "item5";
-          // TODO(ffu): would be better to wait for something to happen
-          // instead of not to happen
-          new async.Future.delayed(new Duration(milliseconds: 50), () {
-            expect(selectEventCounter, equals(0));
+          return new async.Future.delayed(new Duration(milliseconds: 50), () {
+            // check core-select event
+            expect(selectEventCounter, equals(1));
+            // check selected class
+            expect(s.children[4].classes.contains("my-selected"), isTrue);
+            // check selectedItem
+            expect(s.selectedItem, equals(s.children[4]));
+            // selecting the same value shouldn't fire core-select
+            selectEventCounter = 0;
+            s.selected = "item5";
+            // TODO(ffu): would be better to wait for something to happen
+            // instead of not to happen
+            new async.Future.delayed(new Duration(milliseconds: 50), () {
+              expect(selectEventCounter, equals(0));
+            });
           });
         });
+
       });
 
     });

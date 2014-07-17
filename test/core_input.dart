@@ -39,85 +39,88 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
+      group("core-input", () {
       // TODO(zoechi) test multiline
       // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
-      test("core-input type='text'", () {
-        var input = dom.document.querySelector("#typeText") as CoreInput;
-        expect(input.value, equals("Some content"));
-      });
+        test("type='text'", () {
+          var input = dom.document.querySelector("#typeText") as CoreInput;
+          expect(input.value, equals("Some content"));
+        });
 
-      test("core-input bind value", () {
-        var template = dom.document.querySelector("#bindValueTemplate") as AutoBindingElement;
-        var model = template.model = new MyModel()
-            ..stringValue = INITIAL_VALUE;
-        return new async.Future(() {
-          var input = dom.document.querySelector("#bindValue") as CoreInput;
-          input.value = INPUT_VALUE;
+        test("bind value", () {
+          var template = dom.document.querySelector("#bindValueTemplate") as AutoBindingElement;
+          var model = template.model = new MyModel()
+              ..stringValue = INITIAL_VALUE;
           return new async.Future(() {
-            expect(model.stringValue, equals(INPUT_VALUE));
-
-            final MODEL_VALUE = 'Model value';
-            model.stringValue = MODEL_VALUE;
+            var input = dom.document.querySelector("#bindValue") as CoreInput;
+            input.value = INPUT_VALUE;
             return new async.Future(() {
-              expect(input.value, equals(MODEL_VALUE));
+              expect(model.stringValue, equals(INPUT_VALUE));
+
+              final MODEL_VALUE = 'Model value';
+              model.stringValue = MODEL_VALUE;
+              return new async.Future(() {
+                expect(input.value, equals(MODEL_VALUE));
+              });
             });
           });
         });
-      });
 
-      test("core-input validate number", () {
-        var template = dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
-        var model = template.model = new MyModel()
-            ..stringValue = INITIAL_VALUE
-            ..inputInvalidHandler = (dom.CustomEvent e) {
-              logMessage("invalid: ${e.detail}");
-            }
-            ..inputValidHandler = (dom.CustomEvent e) {
-              logMessage("valid: ${e.detail}");
-            };
+        test("validate number", () {
+          var template = dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
+          var model = template.model = new MyModel()
+              ..stringValue = INITIAL_VALUE
+              ..inputInvalidHandler = (dom.CustomEvent e) {
+                logMessage("invalid: ${e.detail}");
+              }
+              ..inputValidHandler = (dom.CustomEvent e) {
+                logMessage("valid: ${e.detail}");
+              };
 
-        return new async.Future(() {
-          var input = dom.document.querySelector("#validateNumber") as CoreInput;
-          input.value = INPUT_VALUE;
           return new async.Future(() {
-            expect(model.stringValue, equals(INPUT_VALUE));
-            expect(model.isInvalid, isTrue);
-            expect(input.invalid, isTrue);
-
-            model.stringValue = NUMBER_VALUE;
+            var input = dom.document.querySelector("#validateNumber") as CoreInput;
+            input.value = INPUT_VALUE;
             return new async.Future(() {
-              expect(input.value, equals(NUMBER_VALUE));
-              expect(model.isInvalid, isFalse);
-              expect(input.invalid, isFalse);
+              expect(model.stringValue, equals(INPUT_VALUE));
+              expect(model.isInvalid, isTrue);
+              expect(input.invalid, isTrue);
+
+              model.stringValue = NUMBER_VALUE;
+              return new async.Future(() {
+                expect(input.value, equals(NUMBER_VALUE));
+                expect(model.isInvalid, isFalse);
+                expect(input.invalid, isFalse);
+              });
             });
           });
         });
-      });
 
-      // TODO(zoechi) #48 <core-input type="password"> works in JS but not in Dart
-      skip_test("core-input type='password'", () {
-        var template = dom.document.querySelector("#passwordTemplate") as AutoBindingElement;
-        var model = template.model = new MyModel()
-            ..stringValue = "";
+        // TODO(zoechi) #48 <core-input type="password"> works in JS but not in Dart
+        skip_test("type='password'", () {
+          var template = dom.document.querySelector("#passwordTemplate") as AutoBindingElement;
+          var model = template.model = new MyModel()
+              ..stringValue = "";
 
-        return new async.Future(() {
-          var input = dom.document.querySelector("#password") as CoreInput;
-
-          var innerInputElement = input.shadowRoot.querySelector("#input");
-          expect(innerInputElement, new isInstanceOf(dom.PasswordInputElement));
-
-          input.value = PASSWORD_VALUE;
           return new async.Future(() {
-            expect(model.stringValue, equals(PASSWORD_VALUE));
+            var input = dom.document.querySelector("#password") as CoreInput;
 
-            final MODEL_VALUE = "another password";
-            model.stringValue = MODEL_VALUE;
+            var innerInputElement = input.shadowRoot.querySelector("#input");
+            expect(innerInputElement, new isInstanceOf(dom.PasswordInputElement));
+
+            input.value = PASSWORD_VALUE;
             return new async.Future(() {
-              expect(input.value, equals(MODEL_VALUE));
-              expect(input.invalid, isFalse);
+              expect(model.stringValue, equals(PASSWORD_VALUE));
+
+              final MODEL_VALUE = "another password";
+              model.stringValue = MODEL_VALUE;
+              return new async.Future(() {
+                expect(input.value, equals(MODEL_VALUE));
+                expect(input.invalid, isFalse);
+              });
             });
           });
         });
+
       });
 
     });

@@ -15,18 +15,24 @@ import "package:unittest/html_config.dart" show useHtmlConfiguration;
 void main() {
   useHtmlConfiguration();
 
-// TODO(zoechi) Dartium crashes '<debug target crashed>' see issue #46
-  skip_test("core-ajax-dart", () {
-    var done = expectAsync(() {});
+  initPolymer().run(() {
+    return Polymer.onReady.then((_) {
 
-    return initPolymer().run(() {
-      return Polymer.onReady.then((_) {
-        var s = dom.document.querySelector("core-ajax-dart");
-        s.addEventListener("core-response", (event) {
-          expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
-          done();
+      group("core-ajax", () {
+
+// TODO(zoechi) Dartium crashes '<debug target crashed>' see issue #46
+        skip_test("basic", () {
+          var done = expectAsync(() {});
+
+          var s = dom.document.querySelector("core-ajax-dart");
+          s.addEventListener("core-response", (event) {
+            expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
+            done();
+          });
         });
+
       });
+
     });
   });
 }

@@ -28,21 +28,26 @@ void main() {
 
   initPolymer().run(() {
     Polymer.onReady.then((e) {
-      test("core-selector-activate-event", () {
-        var done = expectAsync(() {});
-        // selector1
-        var s = (dom.document.querySelector("#selector") as CoreSelector);
-        s.on['core-activate'].listen((dom.CustomEvent e) {
-// TODO(zoechi) event detail is null https://code.google.com/p/dart/issues/detail?id=19315
-          var detail = new js.JsObject.fromBrowserObject(e)['detail'];
-          expect(detail["item"], equals(s.children[1]));
-          expect(s.selected, equals(1));
-          done();
+
+      group("core-selector", () {
+
+        test("core-selector-activate-event", () {
+          var done = expectAsync(() {});
+          // selector1
+          var s = (dom.document.querySelector("#selector") as CoreSelector);
+          s.on['core-activate'].listen((dom.CustomEvent e) {
+  // TODO(zoechi) event detail is null https://code.google.com/p/dart/issues/detail?id=19315
+            var detail = new js.JsObject.fromBrowserObject(e)['detail'];
+            expect(detail["item"], equals(s.children[1]));
+            expect(s.selected, equals(1));
+            done();
+          });
+          expect(s.selected, equals('0'));
+          dom.window.requestAnimationFrame((e) {
+            s.children[1].dispatchEvent(new dom.CustomEvent("tap", canBubble: true));
+          });
         });
-        expect(s.selected, equals('0'));
-        dom.window.requestAnimationFrame((e) {
-          s.children[1].dispatchEvent(new dom.CustomEvent("tap", canBubble: true));
-        });
+
       });
 
     });

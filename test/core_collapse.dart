@@ -17,38 +17,43 @@ import "package:core_elements/core_collapse.dart" show CoreCollapse;
 void main() {
   useHtmlConfiguration();
 
-  test("core-collapse", () {
-    dom.querySelector("button").onClick.listen((e) =>
-        (dom.document.querySelector("#collapse") as CoreCollapse).toggle());
+  initPolymer().run(() {
+    return Polymer.onReady.then((_) {
 
-    Duration delay = new Duration(milliseconds: 200);
+      group("core-collapse", () {
 
-    return initPolymer().run(() {
-      return Polymer.onReady.then((_) {
-        return new async.Future(() {
-          var c = dom.document.querySelector("#collapse") as CoreCollapse;
-          // verify take attribute for opened is correct
-          expect(c.opened, isTrue);
-          return new async.Future.delayed(delay, () {
-            // get the height for the opened state
-            var h = getCollapseComputedStyle().height;
-            // verify the height is not 0px
-            expect(h, isNot(equals("0px")));
-            // close it
-            c.opened = false;
+        test("basic", () {
+          dom.querySelector("button").onClick.listen((e) =>
+              (dom.document.querySelector("#collapse") as CoreCollapse).toggle());
+          Duration delay = new Duration(milliseconds: 200);
+
+          return new async.Future(() {
+            var c = dom.document.querySelector("#collapse") as CoreCollapse;
+            // verify take attribute for opened is correct
+            expect(c.opened, isTrue);
             return new async.Future.delayed(delay, () {
-              // verify is closed
-              expect(getCollapseComputedStyle().height, isNot(equals(h)));
-              // open it
-              c.opened = true;
+              // get the height for the opened state
+              var h = getCollapseComputedStyle().height;
+              // verify the height is not 0px
+              expect(h, isNot(equals("0px")));
+              // close it
+              c.opened = false;
               return new async.Future.delayed(delay, () {
-                // verify is opened
-                expect(getCollapseComputedStyle().height, equals(h));
+                // verify is closed
+                expect(getCollapseComputedStyle().height, isNot(equals(h)));
+                // open it
+                c.opened = true;
+                return new async.Future.delayed(delay, () {
+                  // verify is opened
+                  expect(getCollapseComputedStyle().height, equals(h));
+                });
               });
             });
           });
         });
+
       });
+
     });
   });
 }

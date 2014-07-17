@@ -16,26 +16,31 @@ import "package:core_elements/core_localstorage_dart.dart" show CoreLocalStorage
 void main() {
   useHtmlConfiguration();
 
-  test("core-localstorage", () {
-    return initPolymer().run(() {
-      return Polymer.onReady.then((_) {
-        var s = dom.document.querySelector("#localstorage") as CoreLocalStorage;
-        var m = "hello wold";
-        dom.window.localStorage[s.name] = m;
+  initPolymer().run(() {
+    return Polymer.onReady.then((_) {
 
-        var doneEvent = expectAsync((){});
+      group("core-localstorage", () {
 
-        s.on["core-localstorage-load"].listen((_) {
-          doneEvent();
+        test("basic", () {
+          var s = dom.document.querySelector("#localstorage") as CoreLocalStorage;
+          var m = "hello wold";
+          dom.window.localStorage[s.name] = m;
+
+          var doneEvent = expectAsync((){});
+
+          s.on["core-localstorage-load"].listen((_) {
+            doneEvent();
+          });
+
+          s.load();
+          expect(s.value, equals(m));
+          s.value = "goodbye";
+          expect(dom.window.localStorage[s.name], equals(m));
         });
 
-        s.load();
-        expect(s.value, equals(m));
-        s.value = "goodbye";
-        expect(dom.window.localStorage[s.name], equals(m));
       });
+
     });
   });
-
 }
 

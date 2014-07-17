@@ -7,12 +7,12 @@
 
 library core_selection.test;
 
-import 'dart:async' as async;
-import 'dart:html' as dom;
-import 'package:polymer/polymer.dart';
-import 'package:unittest/unittest.dart';
-import 'package:unittest/html_config.dart' show useHtmlConfiguration;
-import 'package:core_elements/core_selection.dart' show CoreSelection;
+import "dart:async" as async;
+import "dart:html" as dom;
+import "package:polymer/polymer.dart";
+import "package:unittest/unittest.dart";
+import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import "package:core_elements/core_selection.dart" show CoreSelection;
 
 void main() {
   useHtmlConfiguration();
@@ -20,34 +20,38 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((e) {
 
-      test('core-selection', () {
-        var done = expectAsync(() {}, count: 2);
-        var s = dom.document.querySelector('core-selection') as CoreSelection;
-        int testNr = 0;
+      group("core-selection", () {
 
-        async.StreamSubscription subscr;
-        subscr = s.on['core-select'].listen((event) {
-          if (testNr == 1) {
-            expect(event.detail['isSelected'], isTrue);
-            expect(event.detail['item'], equals('(item)'));
-            expect(s.isSelected(event.detail['item']), isTrue);
-            expect(s.isSelected('(some_item_not_selected)'), isFalse);
-            testNr++;
-            s.select(null);
-            done();
-          } else {
-            if (testNr == 2) {
-              // check test2
-              expect(event.detail['isSelected'], isFalse);
-              expect(event.detail['item'], equals('(item)'));
-              expect(s.isSelected(event.detail['item']), isFalse);
-              subscr.cancel(); // don't fire when other tests run
+        test("basic", () {
+          var done = expectAsync(() {}, count: 2);
+          var s = dom.document.querySelector("core-selection") as CoreSelection;
+          int testNr = 0;
+
+          async.StreamSubscription subscr;
+          subscr = s.on["core-select"].listen((event) {
+            if (testNr == 1) {
+              expect(event.detail["isSelected"], isTrue);
+              expect(event.detail["item"], equals("(item)"));
+              expect(s.isSelected(event.detail["item"]), isTrue);
+              expect(s.isSelected("(some_item_not_selected)"), isFalse);
+              testNr++;
+              s.select(null);
               done();
+            } else {
+              if (testNr == 2) {
+                // check test2
+                expect(event.detail["isSelected"], isFalse);
+                expect(event.detail["item"], equals("(item)"));
+                expect(s.isSelected(event.detail["item"]), isFalse);
+                subscr.cancel(); // don't fire when other tests run
+                done();
+              }
             }
-          }
+          });
+          testNr = 1;
+          s.select("(item)");
         });
-        testNr = 1;
-        s.select('(item)');
+
       });
 
     });
