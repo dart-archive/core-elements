@@ -70,8 +70,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </core-selector>
       
       <h2>list</h2>
-      <!--TODO: this should just use a binding to target="{{$['list']}}" -->
-      <core-selector id="list_selector" selected="0"></core-selector>
+      <core-selector id="list_selector"  target="{{$['list']}}" selected="0">
+      </core-selector>
       <ul id="list">
         <li>Item 0</li>
         <li>Item 1</li>
@@ -81,15 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </ul>
       
       <h2>binding of a group of radio buttons to a variable</h2>
-      <!--TODO: when we get data-binding working better across Dart-JS elements
-          this should just use a binding to: target="{{$['myForm']}}"
-          and we shouldn't need to have the on-core-active event either.
-      -->
       <core-selector id="radio_selector" itemsSelector="input[type=radio]" 
           selected="{{color}}"
-          valueattr="value" selectedProperty="checked" 
+          valueattr="value" selectedProperty="checked"
           activateEvent="change"
-          on-core-activate={{activateHandler}}
+          target="{{$['myForm']}}"
           ></core-selector>
 
       <form id="myForm">
@@ -112,15 +108,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       @observable var color = 'green';
 
       SelectorExamples.created() : super.created();
-
-      ready() {
-        ($['list_selector'] as CoreSelector).target = $['list'];
-        ($['radio_selector'] as CoreSelector).target = $['myForm'];
-      }
-
-      activateHandler(_, detail) {
-        color = detail['item'].value;
-      }
     }
     </script>
   </polymer-element>
