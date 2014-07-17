@@ -20,8 +20,7 @@ void main() {
 
       group("core-ajax", () {
 
-// TODO(zoechi) Dartium crashes '<debug target crashed>' see issue #46
-        skip_test("basic", () {
+        test("basic", () {
           var done = expectAsync(() {});
 
           var s = dom.document.querySelector("core-ajax-dart");
