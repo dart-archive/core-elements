@@ -39,6 +39,8 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
+      // TODO(zoechi) test multiline
+      // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
       test("core-input type='text'", () {
         var input = dom.document.querySelector("#typeText") as CoreInput;
         expect(input.value, equals("Some content"));

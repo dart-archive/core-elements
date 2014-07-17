@@ -56,7 +56,6 @@ void main() {
         });
         // set selected
         s.selected = "item5";
-        // TODO(zoechi) dom.Platform.flush(); is there something similar in Polymer.dart?
         return new async.Future.delayed(new Duration(milliseconds: 50), () {
           // check core-select event
           expect(selectEventCounter, equals(1));
@@ -67,7 +66,6 @@ void main() {
           // selecting the same value shouldn't fire core-select
           selectEventCounter = 0;
           s.selected = "item5";
-          // TODO(zoechi) Platform.flush(); is there an equivalent in Polymer.dart?
           // TODO(ffu): would be better to wait for something to happen
           // instead of not to happen
           new async.Future.delayed(new Duration(milliseconds: 50), () {

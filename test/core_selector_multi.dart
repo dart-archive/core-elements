@@ -53,7 +53,6 @@ void main() {
           expect(s.selectedItem.length, selectEventCounter);
         });
         // set selected
-        // TODO(zoechi) dom.Platform.flush(); is there an equivalent in Polymer.dart
         // TODO(zoechi) #57
         s.selected = new js.JsObject.jsify([0, 2]);
         return new async.Future.delayed(new Duration(milliseconds: 50), () {
