@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <title>core-input</title>
+
+    <script src="packages/web_components/platform.js"></script>
+    <script src="packages/web_components/dart_support.js"></script>
+
+    <link rel="import" href="packages/core_elements/core_input.html">
+
+    <script type="application/dart" src="core_input.dart"></script>
+  </head>
+  <body>
+    <!-- type='text -->
+    <core-input id="typeText" value="Some content"></core-input>
+
+    <!-- bind value -->
+    <template id="bindValueTemplate" is="auto-binding-dart">
+      <core-input id="bindValue" placeholder="input type='text'" value="{{stringValue}}"></core-input>
+    </template>
+
+    <!-- validate number -->
+    <template id="validateNumberTemplate" is="auto-binding-dart">
+      <core-input id="validateNumber"
+                  validate="^[0-9]*$"
+                  value="{{stringValue}}"
+                  on-input-invalid="{{inputInvalidHandler}}"
+                  on-input-valid="{{inputValidHandler}}"
+                  invalid="{{isInvalid}}"
+                  placeholder="Numbers only"></core-input>
+    </template>
+
+    <!-- type="password" -->
+
+    <template id="passwordTemplate" is="auto-binding-dart">
+      <core-input id="password"
+                  value="{{stringValue}}"
+                  type="password"
+                  on-input-invalid="{{inputInvalidHandler}}"
+                  on-input-valid="{{inputValidHandler}}"
+                  placeholder="Enter password"></core-input>
+    </template>
+
+    <core-input multiline?="true" placeholder="Enter multiple lines here"></core-input>
+  </body>
+</html>

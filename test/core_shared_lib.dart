@@ -19,21 +19,27 @@ void main() {
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      // TODO the test is not working because I didn't receive the core-shared-lib-load event. See #54
-      skip_test("core-shared-lib", () {
-        var count = 0;
-        var done = expectAsync((){});
-        var s = dom.document.on["core-shared-lib-load"].listen((e) {
-          if(++count == 2) {
-            done();
-          } else {
-            expect(count < 2, isTrue);
-            new async.Future.delayed(new Duration(milliseconds: 100), () {
-              (dom.document.querySelector("#t") as AutoBindingElement).model = {};
-            });
-          }
+
+      group("core-shared-lib", () {
+
+        // TODO(zoechi) the test is not working because I didn't receive the core-shared-lib-load event. See #54
+        skip_test("basic", () {
+          var count = 0;
+          var done = expectAsync((){});
+          var s = dom.document.on["core-shared-lib-load"].listen((e) {
+            if(++count == 2) {
+              done();
+            } else {
+              expect(count < 2, isTrue);
+              new async.Future.delayed(new Duration(milliseconds: 100), () {
+                (dom.document.querySelector("#t") as AutoBindingElement).model = {};
+              });
+            }
+          });
         });
+
       });
+
     });
   });
 }

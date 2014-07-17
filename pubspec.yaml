@@ -62,7 +62,9 @@ transformers:
     - example/core_tooltip.html
     - test/core_ajax_dart.html
     - test/core_collapse.html
+    - test/core_input.html
     - test/core_localstorage_dart.html
+    - test/core_menu_button.html
     - test/core_selection.html
     - test/core_selection_multi.html
     - test/core_selection_multi.html
