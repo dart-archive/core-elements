@@ -22,10 +22,10 @@ void main() {
 
       group("core-shared-lib", () {
 
-        // TODO(zoechi) the test is not working because I didn't receive the core-shared-lib-load event. See #54
-        skip_test("basic", () {
+        test("basic", () {
           var count = 0;
           var done = expectAsync((){});
+          (dom.querySelector('#t') as AutoBindingElement).model = {};
           var s = dom.document.on["core-shared-lib-load"].listen((e) {
             if(++count == 2) {
               done();
