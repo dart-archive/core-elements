@@ -24,7 +24,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <!-- bind value -->
     <template id="bindValueTemplate" is="auto-binding-dart">
-      <core-input id="bindValue" placeholder="input type='text'" value="{{stringValue}}"></core-input>
+      <core-input id="bindValue" placeholder="bindValue" value="{{stringValue}}"></core-input>
+    </template>
+
+    <!-- change event -->
+    <template id="changeAndInputEventTemplate" is="auto-binding-dart">
+      <core-input id="changeAndInputEvent" placeholder="changeAndInputEvent" value="{{stringValue}}"  on-change="{{changeHandler}}" on-input="{{inputHandler}}"></core-input>
     </template>
 
     <!-- validate number -->
@@ -39,7 +44,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
 
     <!-- type="password" -->
-
     <template id="passwordTemplate" is="auto-binding-dart">
       <core-input id="password"
                   value="{{stringValue}}"
