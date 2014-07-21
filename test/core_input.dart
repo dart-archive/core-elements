@@ -9,7 +9,6 @@ library core_input.test;
 
 import "dart:html" as dom;
 import "dart:async" as async;
-import "dart:js" as js;
 
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
@@ -71,15 +70,9 @@ void main() {
         test("change and input event", () {
           var template =
               dom.document.querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
-          var changeCalled = expectAsync((){}, id: "change event handler called");
-          var inputCalled = expectAsync((){}, id: "input event handler called");
           var model = template.model = new MyModel()
-              ..changeHandler = (e) {
-                changeCalled();
-              }
-              ..inputHandler = (e) {
-                inputCalled();
-              };
+              ..changeHandler = expectAsync((e) {}, id: "change event handler called")
+              ..inputHandler = expectAsync((e) {}, id: "input event handler called");
 
           return new async.Future(() {
             var input = dom.document.querySelector("#changeAndInputEvent") as CoreInput;
@@ -92,16 +85,10 @@ void main() {
         test("validate number", () {
           var template =
               dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
-          var inputValidCalled = expectAsync(() {}, id: "inputValidCalled");
-          var inputInvalidCalled = expectAsync(() {}, id: "inputInvalidCalled");
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE
-              ..inputInvalidHandler = (dom.CustomEvent e) {
-                inputInvalidCalled();
-              }
-              ..inputValidHandler = (dom.CustomEvent e) {
-                inputValidCalled();
-              };
+              ..inputInvalidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputValidCalled")
+              ..inputValidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputInvalidCalled");
 
           return new async.Future(() {
             var input =
