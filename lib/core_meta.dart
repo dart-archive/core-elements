@@ -4,7 +4,7 @@
 library core_elements.core_meta;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -55,10 +55,10 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
 
   /// Returns a list of all meta-data elements with the same type.
   JsArray get list => jsElement['list'];
-  set list(JsArray value) { jsElement['list'] = value; }
+  set list(JsArray value) { jsElement['list'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get label => jsElement['label'];
-  set label(value) { jsElement['label'] = value; }
+  set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The type of meta-data.  All meta-data with the same type with be
   /// stored together.

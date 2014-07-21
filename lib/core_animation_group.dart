@@ -4,7 +4,7 @@
 library core_elements.core_animation_group;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_animation.dart';
@@ -43,7 +43,7 @@ class CoreAnimationGroup extends CoreAnimation {
   /// If target is set, any children without a target will be assigned the group's
   /// target when this property is set.
   get target => jsElement['target'];
-  set target(value) { jsElement['target'] = value; }
+  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// For a `core-animation-group`, a duration of "auto" means the duration should
   /// be the specified duration of its children. If set to anything other than

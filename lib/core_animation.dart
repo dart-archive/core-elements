@@ -4,7 +4,7 @@
 library core_elements.core_animation;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -58,15 +58,15 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
 
   /// One or more nodes to animate.
   get target => jsElement['target'];
-  set target(value) { jsElement['target'] = value; }
+  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Animation keyframes specified as an array of dictionaries of
   /// &lt;css properties&gt;:&lt;array of values&gt; pairs. For example,
   get keyframes => jsElement['keyframes'];
-  set keyframes(value) { jsElement['keyframes'] = value; }
+  set keyframes(value) { jsElement['keyframes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get sample => jsElement['sample'];
-  set sample(value) { jsElement['sample'] = value; }
+  set sample(value) { jsElement['sample'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Controls the composition behavior. If set to "replace", the effect overrides
   /// the underlying value for the target. If set the "add", the effect is added to
@@ -80,12 +80,12 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// For example, adding `translateX(10px)` and `translateX(25px)` produces
   /// `translateX(10px) translateX(25px)` and accumulating produces `translateX(35px)`.
   get composite => jsElement['composite'];
-  set composite(value) { jsElement['composite'] = value; }
+  set composite(value) { jsElement['composite'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Animation duration in milliseconds, "Infinity", or "auto". "auto" is
   /// equivalent to 0.
   get duration => jsElement['duration'];
-  set duration(value) { jsElement['duration'] = value; }
+  set duration(value) { jsElement['duration'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Controls the effect the animation has on the target when it's not playing.
   /// The possible values are "none", "forwards", "backwards", "both" or "auto".
@@ -99,7 +99,7 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   ///
   /// "both" means "forwards" and "backwards". "auto" is equivalent to "none".
   get fill => jsElement['fill'];
-  set fill(value) { jsElement['fill'] = value; }
+  set fill(value) { jsElement['fill'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// A transition timing function. The values are equivalent to the CSS
   /// counterparts.
@@ -111,14 +111,14 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// cause the animation to begin halfway through the first iteration but still
   /// run twice.
   get iterationStart => jsElement['iterationStart'];
-  set iterationStart(value) { jsElement['iterationStart'] = value; }
+  set iterationStart(value) { jsElement['iterationStart'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get iterationCount => jsElement['iterationCount'];
-  set iterationCount(value) { jsElement['iterationCount'] = value; }
+  set iterationCount(value) { jsElement['iterationCount'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The number of milliseconds to delay before beginning the animation.
   get delay => jsElement['delay'];
-  set delay(value) { jsElement['delay'] = value; }
+  set delay(value) { jsElement['delay'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The playback direction of the animation. "normal" plays the animation in the
   /// normal direction. "reverse" plays it in the reverse direction. "alternate"
@@ -127,19 +127,19 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// even iterations in the reverse direction and odd iterations in the normal
   /// direction.
   get direction => jsElement['direction'];
-  set direction(value) { jsElement['direction'] = value; }
+  set direction(value) { jsElement['direction'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// If set to true, play the animation when it is created or a property is updated.
   bool get autoplay => jsElement['autoplay'];
   set autoplay(bool value) { jsElement['autoplay'] = value; }
 
   get targetSelector => jsElement['targetSelector'];
-  set targetSelector(value) { jsElement['targetSelector'] = value; }
+  set targetSelector(value) { jsElement['targetSelector'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// A custom animation function. Either provide this or `keyframes`. The signature
   /// of the callback is `EffectsCallback(timeFraction, target, animation)`
   get customEffect => jsElement['customEffect'];
-  set customEffect(value) { jsElement['customEffect'] = value; }
+  set customEffect(value) { jsElement['customEffect'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The number of milliseconds to wait after the animation finishes. This is
   /// useful, for example, in an animation group to wait for some time before
@@ -149,7 +149,7 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
 
   /// The number of iterations this animation should run for.
   get iterations => jsElement['iterations'];
-  set iterations(value) { jsElement['iterations'] = value; }
+  set iterations(value) { jsElement['iterations'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// (not working in web animations polyfill---do not use)
   ///
@@ -166,7 +166,7 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   ///      </core-animation-keyframe>
   ///    </core-animation>
   get iterationComposite => jsElement['iterationComposite'];
-  set iterationComposite(value) { jsElement['iterationComposite'] = value; }
+  set iterationComposite(value) { jsElement['iterationComposite'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// A multiplier to the playback rate to the animation.
   num get playbackRate => jsElement['playbackRate'];
@@ -212,7 +212,7 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
 
   /// An offset from 0 to 1.
   get offset => jsElement['offset'];
-  set offset(value) { jsElement['offset'] = value; }
+  set offset(value) { jsElement['offset'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', CoreAnimationKeyframe);
@@ -230,7 +230,7 @@ class CoreAnimationProp extends HtmlElement with DomProxyMixin {
 
   /// The value for the CSS property.
   get value => jsElement['value'];
-  set value(value) { jsElement['value'] = value; }
+  set value(value) { jsElement['value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreAnimationProp() => registerDartType('core-animation-prop', CoreAnimationProp);

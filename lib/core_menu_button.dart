@@ -4,7 +4,7 @@
 library core_elements.core_menu_button;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -30,10 +30,10 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
   set icon(String value) { jsElement['icon'] = value; }
 
   get label => jsElement['label'];
-  set label(value) { jsElement['label'] = value; }
+  set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get src => jsElement['src'];
-  set src(value) { jsElement['src'] = value; }
+  set src(value) { jsElement['src'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The index of the selected menu item.
   num get selected => jsElement['selected'];
@@ -54,10 +54,10 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
   set valign(String value) { jsElement['valign'] = value; }
 
   get valueattr => jsElement['valueattr'];
-  set valueattr(value) { jsElement['valueattr'] = value; }
+  set valueattr(value) { jsElement['valueattr'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get multi => jsElement['multi'];
-  set multi(value) { jsElement['multi'] = value; }
+  set multi(value) { jsElement['multi'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Set to true to cause the menu popup to be displayed inline rather
   /// than in its own layer.
@@ -66,7 +66,7 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
 
   /// The selected menu item.
   get selection => jsElement['selection'];
-  set selection(value) { jsElement['selection'] = value; }
+  set selection(value) { jsElement['selection'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Toggle the opened state of the dropdown.
   void toggle() =>

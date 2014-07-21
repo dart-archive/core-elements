@@ -44,7 +44,17 @@ void _generateProperty(Property property, StringBuffer sb,
   sb.write(comment == '' ? '\n' : '\n$comment\n');
   var t = type != null ? '$type ' : '';
   sb.write('  ${t}get $dartName => $body;\n');
-  sb.write('  set $dartName(${t}value) { $body = value; }\n');
+  if (type == null) {
+    sb.write('  set $dartName(${t}value) { '
+             '$body = (value is Map || value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
+  } else if (type == "JsArray") {
+    sb.write('  set $dartName(${t}value) { '
+             '$body = (value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
+  } else {
+    sb.write('  set $dartName(${t}value) { $body = value; }\n');
+  }
 }
 
 void _generateMethod(Method method, StringBuffer sb,
@@ -106,7 +116,7 @@ String generateDirectives(String name, Iterable<String> extendNames,
 library core_elements.$libName;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 ${extraImports.join('\n')}
