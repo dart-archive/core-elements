@@ -211,12 +211,23 @@ void _parseGetters(Map elements, String text, {onWarning(String msg)}) {
         continue;
       }
       if (current.properties[name] == null) {
-        current.properties[name] = new Property(name, "", readOnly: true);
+        current.properties[name] = new Property(name, "", hasGetter: true);
       } else {
-        current.properties[name].readOnly = true;
+        current.properties[name].hasGetter = true;
+      }
+    } else if (m.group(5) == "set") {
+      var name = m.group(6);
+      if (current == null) {
+        _warn('not in element, ignoring setter: $name');
+        continue;
+      }
+      if (current.properties[name] == null) {
+        current.properties[name] = new Property(name, "", hasSetter: true);
+      } else {
+        current.properties[name].hasSetter = true;
       }
     } else {
-      _warn("Got invalid match, expecting '@element', '@class', or 'get' "
+      _warn("Invalid match, expecting '@element', '@class', 'get' or 'set' "
             "but got: ${m.group(0)}");
     }
   }
@@ -238,7 +249,8 @@ final _docCommentRegex = () {
 final _elementPragmasAndGettersRegex = () {
   var elementPragma = r'(@element|@class)\s([\w-_]+)';
   var es5Getter = r'\n\s*(get)\s*([\w-_]+)\s*\(\)\s+\{';
-  return new RegExp('$elementPragma|$es5Getter');
+  var es5Setter = r'\n\s*(set)\s*([\w-_]+)\s*\(\s*([\w_-]*)\s*\)\s+\{';
+  return new RegExp('$elementPragma|$es5Getter|$es5Setter');
 }();
 
 final _lineEnds = new RegExp(r'\r\n');

@@ -45,8 +45,10 @@ void _generateProperty(Property property, StringBuffer sb,
   var t = type != null ? '$type ' : '';
   sb.write('  ${t}get $dartName => $body;\n');
 
-  // Write the setter, if not readOnly.
-  if (property.readOnly) return;
+  // Don't output the setter if it has a getter but no setter in the original
+  // source code. In all other cases we want a dart setter (normal js property
+  // with no getter or setter, or custom property with a js setter).
+  if (property.hasGetter && !property.hasSetter) return;
   if (type == null) {
     sb.write('  set $dartName(${t}value) { '
              '$body = (value is Map || value is Iterable) ? '

@@ -79,9 +79,11 @@ class Element extends NamedEntry {
 
 /// Data about a property.
 class Property extends TypedEntry {
-  bool readOnly;
+  bool hasGetter;
+  bool hasSetter;
 
-  Property(name, desc, {this.readOnly: false}) : super(name, desc);
+  Property(name, desc, {this.hasGetter: false, this.hasSetter: false})
+      : super(name, desc);
 
   void _prettyPrint(StringBuffer sb) {
     sb.write('$type $name;');
