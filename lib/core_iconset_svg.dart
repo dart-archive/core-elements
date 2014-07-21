@@ -62,6 +62,7 @@ class CoreIconsetSvg extends CoreMeta {
   ///     defaults to 'updateIcon'
   void updateIcons(String css,String method) =>
       jsElement.callMethod('updateIcons', [css,method]);
+  get iconNames => jsElement["iconNames"];
 }
 @initMethod
 upgradeCoreIconsetSvg() => registerDartType('core-iconset-svg', CoreIconsetSvg);

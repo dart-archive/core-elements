@@ -60,6 +60,8 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   /// By default, this will be 1/3 of `headerHeight`.
   num get condensedHeaderHeight => jsElement['condensedHeaderHeight'];
   set condensedHeaderHeight(num value) { jsElement['condensedHeaderHeight'] = value; }
+  get header => jsElement["header"];
+  get scroller => jsElement["scroller"];
 }
 @initMethod
 upgradeCoreScrollHeaderPanel() => registerDartType('core-scroll-header-panel', CoreScrollHeaderPanel);

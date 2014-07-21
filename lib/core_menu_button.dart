@@ -71,6 +71,7 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
   /// Toggle the opened state of the dropdown.
   void toggle() =>
       jsElement.callMethod('toggle', []);
+  get selection => jsElement["selection"];
 }
 @initMethod
 upgradeCoreMenuButton() => registerDartType('core-menu-button', CoreMenuButton);

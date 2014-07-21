@@ -38,6 +38,7 @@ FileSummary parsePolymerElements(String text, {onWarning(String msg)}) {
   }
 
   _parseDocumentation(elements, text, onWarning: onWarning);
+  _parseGetters(elements, text, onWarning: onWarning);
   return new FileSummary(
       _parseImports(doc), elements.values);
 }
@@ -56,8 +57,7 @@ List<Import> _parseImports(doc) {
 final _ATTRIBUTES_REGEX = new RegExp(r'\s|,');
 
 /// Extract information from documentation comments in [text].
-void _parseDocumentation(Map elements, String text,
-    {onWarning(String msg)}) {
+void _parseDocumentation(Map elements, String text, {onWarning(String msg)}) {
   var current = null;
   var currentMember = null;
   var _warn = onWarning != null ? onWarning : (_) {};
@@ -197,6 +197,27 @@ void _parseDocumentation(Map elements, String text,
   }
 }
 
+/// Extract javascript getters from text.
+void _parseGetters(Map elements, String text, {onWarning(String msg)}) {
+  var current = null;
+  var _warn = onWarning != null ? onWarning : (_) {};
+  for (var m in _elementPragmasAndGettersRegex.allMatches(text)) {
+    if (m.group(1) == "@element" || m.group(1) == "@class") {
+      current = elements[m.group(2)];
+    } else if (m.group(3) == "get") {
+      var name = m.group(4);
+      if (current == null) {
+        _warn('not in element, ignoring getter: $name');
+        continue;
+      }
+      current.getters.add(name);
+    } else {
+      _warn("Got invalid match, expecting '@element', '@class', or 'get' "
+            "but got: ${m.group(0)}");
+    }
+  }
+}
+
 
 // Regexp used for parsing the documentation.
 final _pragmaMatcher = new RegExp(r"\s*@([\w-]*) (.*)");
@@ -207,6 +228,13 @@ final _docCommentRegex = () {
   var htmlDocCommentClause = r'<!--([\s\S]*?)-->';
   // matches text between /** and */ inclusive and <!-- and --> inclusive
   return new RegExp('$scriptDocCommentClause|$htmlDocCommentClause');
+}();
+
+// Regexp used for matching ES5 getters and @element/@class pragmas.
+final _elementPragmasAndGettersRegex = () {
+  var elementPragma = r'(@element|@class)\s([\w-_]+)';
+  var es5Getter = r'\n\s*(get)\s*([\w-_]+)\s*\(\)\s+\{';
+  return new RegExp('$elementPragma|$es5Getter');
 }();
 
 final _lineEnds = new RegExp(r'\r\n');

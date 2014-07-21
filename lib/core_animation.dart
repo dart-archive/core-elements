@@ -196,6 +196,8 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// plays it if autoplay is true.
   apply() =>
       jsElement.callMethod('apply', []);
+  get timingProps => jsElement["timingProps"];
+  get animationEffect => jsElement["animationEffect"];
 }
 @initMethod
 upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
@@ -213,6 +215,7 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
   /// An offset from 0 to 1.
   get offset => jsElement['offset'];
   set offset(value) { jsElement['offset'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get properties => jsElement["properties"];
 }
 @initMethod
 upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', CoreAnimationKeyframe);

@@ -58,6 +58,7 @@ class Import extends Entry {
 class Element extends NamedEntry {
   final Map<String, Property> properties = {};
   final List<Method> methods = [];
+  final List<String> getters = [];
   final String extendName;
 
   Element(name, this.extendName) : super(name, '');
@@ -72,6 +73,10 @@ class Element extends NamedEntry {
     for (var m in methods) {
       sb.write('  - ');
       m._prettyPrint(sb);
+      sb.write('\n');
+    }
+    for (var g in getters) {
+      sb.write('  - get $g');
       sb.write('\n');
     }
   }

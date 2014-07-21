@@ -69,6 +69,9 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
   /// [id]: The ID of the meta-data to be returned.
   byId(String id) =>
       jsElement.callMethod('byId', [id]);
+  get metaArray => jsElement["metaArray"];
+  get metaData => jsElement["metaData"];
+  get list => jsElement["list"];
 }
 @initMethod
 upgradeCoreMeta() => registerDartType('core-meta', CoreMeta);
