@@ -55,7 +55,7 @@ void main() {
           });
 
           dialog = dom.window.open("core_media_query_dialog.html", "_blank") as dom.Window;
-          new async.Future.delayed(new Duration(milliseconds: 150), () => dialog.resizeTo(WIDTHS[0], 700));
+          dialog.resizeTo(WIDTHS[0], 700);
         });
 
       });
