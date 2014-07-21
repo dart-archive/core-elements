@@ -4,7 +4,7 @@
 library core_elements.core_layout_trbl;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -122,7 +122,7 @@ class CoreLayoutTrbl extends HtmlElement with DomProxyMixin {
   CoreLayoutTrbl.created() : super.created();
 
   get vertical => jsElement['vertical'];
-  set vertical(value) { jsElement['vertical'] = value; }
+  set vertical(value) { jsElement['vertical'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Arrange sibling nodes end-to-end in one dimension.
   ///

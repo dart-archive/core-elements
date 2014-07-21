@@ -4,7 +4,7 @@
 library core_elements.core_collapse;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -28,7 +28,7 @@ class CoreCollapse extends HtmlElement with DomProxyMixin {
 
   /// The target element.
   get target => jsElement['target'];
-  set target(value) { jsElement['target'] = value; }
+  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// If true, the orientation is horizontal; otherwise is vertical.
   bool get horizontal => jsElement['horizontal'];

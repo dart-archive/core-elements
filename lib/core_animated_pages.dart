@@ -4,7 +4,7 @@
 library core_elements.core_animated_pages;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_selector.dart';
@@ -222,7 +222,7 @@ class CoreAnimatedPages extends CoreSelector {
   /// The last page selected. This property is useful to dynamically set transitions based
   /// on incoming and outgoing pages.
   get lastSelected => jsElement['lastSelected'];
-  set lastSelected(value) { jsElement['lastSelected'] = value; }
+  set lastSelected(value) { jsElement['lastSelected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreAnimatedPages() => registerDartType('core-animated-pages', CoreAnimatedPages);
