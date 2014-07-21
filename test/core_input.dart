@@ -28,10 +28,10 @@ class MyModel extends Object with Observable {
   Function inputValidHandler;
 }
 
-const INITIAL_VALUE = 'Initial value';
-const INPUT_VALUE = 'Input value';
-const NUMBER_VALUE = '1234';
-const PASSWORD_VALUE = 'My secret password 19 !\"§\$';
+const INITIAL_VALUE = "Initial value";
+const INPUT_VALUE = "Input value";
+const NUMBER_VALUE = "1234";
+const PASSWORD_VALUE = "My secret password 19 !\"§\$";
 
 void main() {
   useHtmlConfiguration();
@@ -40,15 +40,17 @@ void main() {
     return Polymer.onReady.then((_) {
 
       group("core-input", () {
-      // TODO(zoechi) test multiline
-      // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
+        // TODO(zoechi) test multiline
+
+        // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
         test("type='text'", () {
           var input = dom.document.querySelector("#typeText") as CoreInput;
           expect(input.value, equals("Some content"));
         });
 
         test("bind value", () {
-          var template = dom.document.querySelector("#bindValueTemplate") as AutoBindingElement;
+          var template =
+              dom.document.querySelector("#bindValueTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE;
           return new async.Future(() {
@@ -56,8 +58,7 @@ void main() {
             input.value = INPUT_VALUE;
             return new async.Future(() {
               expect(model.stringValue, equals(INPUT_VALUE));
-
-              final MODEL_VALUE = 'Model value';
+              final MODEL_VALUE = "Model value";
               model.stringValue = MODEL_VALUE;
               return new async.Future(() {
                 expect(input.value, equals(MODEL_VALUE));
@@ -66,19 +67,32 @@ void main() {
           });
         });
 
-        test("validate number", () {
-          var template = dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
+        test("change and input event", () {
+          var template =
+              dom.document.querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()
-              ..stringValue = INITIAL_VALUE
-              ..inputInvalidHandler = (dom.CustomEvent e) {
-                logMessage("invalid: ${e.detail}");
-              }
-              ..inputValidHandler = (dom.CustomEvent e) {
-                logMessage("valid: ${e.detail}");
-              };
+              ..changeHandler = expectAsync((e) {}, id: "change event handler called")
+              ..inputHandler = expectAsync((e) {}, id: "input event handler called");
 
           return new async.Future(() {
-            var input = dom.document.querySelector("#validateNumber") as CoreInput;
+            var input = dom.document.querySelector("#changeAndInputEvent") as CoreInput;
+            var domInput = (input.shadowRoot.querySelector('#input') as dom.InputElement);
+            domInput.dispatchEvent(new dom.CustomEvent("change", detail: {"source": "changeAndInputEventTest}"}));
+            domInput.dispatchEvent(new dom.CustomEvent("input", canBubble: true, detail: {"source": "changeEventTest"}));
+          });
+        });
+
+        test("validate number", () {
+          var template =
+              dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
+          var model = template.model = new MyModel()
+              ..stringValue = INITIAL_VALUE
+              ..inputInvalidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputValidCalled")
+              ..inputValidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputInvalidCalled");
+
+          return new async.Future(() {
+            var input =
+                dom.document.querySelector("#validateNumber") as CoreInput;
             input.value = INPUT_VALUE;
             return new async.Future(() {
               expect(model.stringValue, equals(INPUT_VALUE));
@@ -95,17 +109,17 @@ void main() {
           });
         });
 
-        // TODO(zoechi) #48 <core-input type="password"> works in JS but not in Dart
-        skip_test("type='password'", () {
-          var template = dom.document.querySelector("#passwordTemplate") as AutoBindingElement;
-          var model = template.model = new MyModel()
-              ..stringValue = "";
+        test("type='password'", () {
+          var template =
+              dom.document.querySelector("#passwordTemplate") as AutoBindingElement;
+          var model = template.model = new MyModel()..stringValue = "";
 
           return new async.Future(() {
             var input = dom.document.querySelector("#password") as CoreInput;
 
-            var innerInputElement = input.shadowRoot.querySelector("#input");
-            expect(innerInputElement, new isInstanceOf(dom.PasswordInputElement));
+            var innerInputElement = input.shadowRoot.querySelector("#input") as dom.PasswordInputElement;
+            expect(
+                innerInputElement.attributes['type'].toLowerCase(), equals('password'));
 
             input.value = PASSWORD_VALUE;
             return new async.Future(() {
@@ -126,4 +140,3 @@ void main() {
     });
   });
 }
-
