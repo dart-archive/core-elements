@@ -55,8 +55,7 @@ void main() {
             expect(s.selectedItem.length, selectEventCounter);
           });
           // set selected
-          // TODO(zoechi) #57
-          s.selected = new js.JsObject.jsify([0, 2]);
+          s.selected = [0, 2];
           return new async.Future.delayed(new Duration(milliseconds: 50), () {
             // check polymer-select event
             expect(selectEventCounter, equals(2));
