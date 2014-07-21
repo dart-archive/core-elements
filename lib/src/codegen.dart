@@ -46,12 +46,12 @@ void _generateProperty(Property property, StringBuffer sb,
   sb.write('  ${t}get $dartName => $body;\n');
   if (type == null) {
     sb.write('  set $dartName(${t}value) { '
-             '(value is Map || value is Iterable) ? '
-             '$body = new JsObject.jsify(value) : $body = value;}\n');
+             '$body = (value is Map || value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
   } else if (type == "JsArray") {
     sb.write('  set $dartName(${t}value) { '
-             '(value is Iterable) ? '
-             '$body = new JsObject.jsify(value) : $body = value;}\n');
+             '$body = (value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
   } else {
     sb.write('  set $dartName(${t}value) { $body = value; }\n');
   }
