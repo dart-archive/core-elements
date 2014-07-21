@@ -45,6 +45,8 @@ class CoreIconsetSvg extends CoreMeta {
   num get iconSize => jsElement['iconSize'];
   set iconSize(num value) { jsElement['iconSize'] = value; }
 
+  get iconNames => jsElement['iconNames'];
+
   /// Applies an icon to the given element. The svg icon is added to the
   /// element's shadowRoot if one exists or directly to itself.
   /// [element]: The element to which the icon is

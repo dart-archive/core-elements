@@ -108,6 +108,10 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   /// If true, the drop-shadow is always shown no matter what mode is set to.
   bool get shadow => jsElement['shadow'];
   set shadow(bool value) { jsElement['shadow'] = value; }
+
+  get header => jsElement['header'];
+
+  get scroller => jsElement['scroller'];
 }
 @initMethod
 upgradeCoreHeaderPanel() => registerDartType('core-header-panel', CoreHeaderPanel);

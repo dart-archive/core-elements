@@ -50,6 +50,10 @@ class CoreAnimationGroup extends CoreAnimation {
   /// "auto", any children without a set duration will be assigned the group's duration.
   num get duration => jsElement['duration'];
   set duration(num value) { jsElement['duration'] = value; }
+
+  get childAnimationElements => jsElement['childAnimationElements'];
+
+  get childAnimations => jsElement['childAnimations'];
 }
 @initMethod
 upgradeCoreAnimationGroup() => registerDartType('core-animation-group', CoreAnimationGroup);

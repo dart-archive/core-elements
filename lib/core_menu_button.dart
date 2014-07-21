@@ -66,7 +66,6 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
 
   /// The selected menu item.
   get selection => jsElement['selection'];
-  set selection(value) { jsElement['selection'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Toggle the opened state of the dropdown.
   void toggle() =>
