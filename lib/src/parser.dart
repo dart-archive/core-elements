@@ -38,7 +38,7 @@ FileSummary parsePolymerElements(String text, {onWarning(String msg)}) {
   }
 
   _parseDocumentation(elements, text, onWarning: onWarning);
-  _parseGetters(elements, text, onWarning: onWarning);
+  _parseCustomProperties(elements, text, onWarning: onWarning);
   return new FileSummary(
       _parseImports(doc), elements.values);
 }
@@ -197,8 +197,9 @@ void _parseDocumentation(Map elements, String text, {onWarning(String msg)}) {
   }
 }
 
-/// Extract javascript getters from text.
-void _parseGetters(Map elements, String text, {onWarning(String msg)}) {
+/// Extract custom javascript getters and setters from text.
+void _parseCustomProperties(
+    Map elements, String text, {onWarning(String msg)}) {
   var current = null;
   var _warn = onWarning != null ? onWarning : (_) {};
   for (var m in _elementPragmasAndGettersRegex.allMatches(text)) {
