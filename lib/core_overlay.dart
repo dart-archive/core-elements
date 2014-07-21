@@ -4,7 +4,7 @@
 library core_elements.core_overlay;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -55,7 +55,7 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   /// The target element that will be shown when the overlay is
   /// opened. If unspecified, the core-overlay itself is the target.
   get target => jsElement['target'];
-  set target(value) { jsElement['target'] = value; }
+  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// A `core-overlay`'s size is guaranteed to be
   /// constrained to the window size. To achieve this, the sizingElement
@@ -64,7 +64,7 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   /// inside the target if that is more appropriate. This is useful, for
   /// example, when a region inside the overlay should scroll if needed.
   get sizingTarget => jsElement['sizingTarget'];
-  set sizingTarget(value) { jsElement['sizingTarget'] = value; }
+  set sizingTarget(value) { jsElement['sizingTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Set opened to true to show an overlay and to false to hide it.
   /// A `core-overlay` may be made initially opened by setting its

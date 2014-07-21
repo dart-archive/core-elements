@@ -4,7 +4,7 @@
 library core_elements.core_transition;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_meta.dart';

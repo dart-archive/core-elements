@@ -22,7 +22,6 @@ transformers:
     - example/core_animated_pages/list.html
     - example/core_animated_pages/music.html
     - example/core_animated_pages/nested.html
-    - example/core_animated_pages/nested_animated_pages.html
     - example/core_animated_pages/news.html
     - example/core_animated_pages/quiz1.html
     - example/core_animated_pages/shadow.html

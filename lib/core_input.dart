@@ -4,7 +4,7 @@
 library core_elements.core_input;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -74,7 +74,7 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// false. You can also set this property to "fit" and size the
   /// component with CSS to make the input fit the CSS size.
   get rows => jsElement['rows'];
-  set rows(value) { jsElement['rows'] = value; }
+  set rows(value) { jsElement['rows'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The current value of this input. Changing inputValue programmatically
   /// will cause value to be out of sync. Instead, change value directly
@@ -110,7 +110,7 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   ///         return value === 'foo';
   ///     }
   get validate => jsElement['validate'];
-  set validate(value) { jsElement['validate'] = value; }
+  set validate(value) { jsElement['validate'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// If this property is true, the text input's inputValue failed validation.
   bool get invalid => jsElement['invalid'];
