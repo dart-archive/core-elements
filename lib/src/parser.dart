@@ -202,34 +202,30 @@ void _parseGetters(Map elements, String text, {onWarning(String msg)}) {
   var current = null;
   var _warn = onWarning != null ? onWarning : (_) {};
   for (var m in _elementPragmasAndGettersRegex.allMatches(text)) {
-    if (m.group(1) == "@element" || m.group(1) == "@class") {
+    if (m.group(1) == '@element' || m.group(1) == '@class') {
       current = elements[m.group(2)];
-    } else if (m.group(3) == "get") {
-      var name = m.group(4);
-      if (current == null) {
-        _warn('not in element, ignoring getter: $name');
-        continue;
-      }
-      if (current.properties[name] == null) {
-        current.properties[name] = new Property(name, "", hasGetter: true);
-      } else {
-        current.properties[name].hasGetter = true;
-      }
-    } else if (m.group(5) == "set") {
-      var name = m.group(6);
-      if (current == null) {
-        _warn('not in element, ignoring setter: $name');
-        continue;
-      }
-      if (current.properties[name] == null) {
-        current.properties[name] = new Property(name, "", hasSetter: true);
-      } else {
-        current.properties[name].hasSetter = true;
-      }
-    } else {
+      continue;
+    }
+
+    var isGetter = m.group(3) == 'get';
+    var isSetter = m.group(5) == 'set';
+    if (!isGetter && !isSetter) {
       _warn("Invalid match, expecting '@element', '@class', 'get' or 'set' "
             "but got: ${m.group(0)}");
     }
+
+    var name = (isGetter) ? m.group(4) : m.group(6);
+    if (current == null) {
+      _warn('not in element, ignoring: $name');
+      continue;
+    }
+    if (current.properties[name] == null) {
+      current.properties[name] = new Property(name, '');
+    }
+
+    var property = current.properties[name];
+    if (isGetter) property.hasGetter = true;
+    if (isSetter) property.hasSetter = true;
   }
 }
 
