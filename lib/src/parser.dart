@@ -210,7 +210,11 @@ void _parseGetters(Map elements, String text, {onWarning(String msg)}) {
         _warn('not in element, ignoring getter: $name');
         continue;
       }
-      current.getters.add(name);
+      if (current.properties[name] == null) {
+        current.properties[name] = new Property(name, "", readOnly: true);
+      } else {
+        current.properties[name].readOnly = true;
+      }
     } else {
       _warn("Got invalid match, expecting '@element', '@class', or 'get' "
             "but got: ${m.group(0)}");

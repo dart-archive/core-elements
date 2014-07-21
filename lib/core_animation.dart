@@ -172,6 +172,10 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   num get playbackRate => jsElement['playbackRate'];
   set playbackRate(num value) { jsElement['playbackRate'] = value; }
 
+  get timingProps => jsElement['timingProps'];
+
+  get animationEffect => jsElement['animationEffect'];
+
   /// Plays the animation. If the animation is currently paused, seeks the animation
   /// to the beginning before starting playback.
   play() =>
@@ -196,8 +200,6 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// plays it if autoplay is true.
   apply() =>
       jsElement.callMethod('apply', []);
-  get timingProps => jsElement["timingProps"];
-  get animationEffect => jsElement["animationEffect"];
 }
 @initMethod
 upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
@@ -215,7 +217,8 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
   /// An offset from 0 to 1.
   get offset => jsElement['offset'];
   set offset(value) { jsElement['offset'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-  get properties => jsElement["properties"];
+
+  get properties => jsElement['properties'];
 }
 @initMethod
 upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', CoreAnimationKeyframe);

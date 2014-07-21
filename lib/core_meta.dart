@@ -55,7 +55,6 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
 
   /// Returns a list of all meta-data elements with the same type.
   JsArray get list => jsElement['list'];
-  set list(JsArray value) { jsElement['list'] = (value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get label => jsElement['label'];
   set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
@@ -65,13 +64,14 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
   String get type => jsElement['type'];
   set type(String value) { jsElement['type'] = value; }
 
+  get metaArray => jsElement['metaArray'];
+
+  get metaData => jsElement['metaData'];
+
   /// Retrieves meta-data by ID.
   /// [id]: The ID of the meta-data to be returned.
   byId(String id) =>
       jsElement.callMethod('byId', [id]);
-  get metaArray => jsElement["metaArray"];
-  get metaData => jsElement["metaData"];
-  get list => jsElement["list"];
 }
 @initMethod
 upgradeCoreMeta() => registerDartType('core-meta', CoreMeta);

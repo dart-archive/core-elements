@@ -18,7 +18,6 @@ String generateClass(Element element, FileConfig config) {
   var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
-  element.getters.forEach((g) => _generateGetter(g, sb, getDartName));
   sb.write('}\n');
   sb.write(_generateUpdateMethod(element.name));
   return sb.toString();
@@ -45,6 +44,9 @@ void _generateProperty(Property property, StringBuffer sb,
   sb.write(comment == '' ? '\n' : '\n$comment\n');
   var t = type != null ? '$type ' : '';
   sb.write('  ${t}get $dartName => $body;\n');
+
+  // Write the setter, if not readOnly.
+  if (property.readOnly) return;
   if (type == null) {
     sb.write('  set $dartName(${t}value) { '
              '$body = (value is Map || value is Iterable) ? '
@@ -87,11 +89,6 @@ void _generateMethod(Method method, StringBuffer sb,
     argList.write(arg.name);
   }
   sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
-}
-
-void _generateGetter(String name, StringBuffer sb, String getDartName(String)) {
-  var dartName = getDartName(name);
-  sb.write('  get $dartName => jsElement["$name"];\n');
 }
 
 String generateDirectives(String name, Iterable<String> extendNames,

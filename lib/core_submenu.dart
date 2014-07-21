@@ -52,7 +52,8 @@ class CoreSubmenu extends HtmlElement with DomProxyMixin {
 
   get valueattr => jsElement['valueattr'];
   set valueattr(value) { jsElement['valueattr'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-  get items => jsElement["items"];
+
+  get items => jsElement['items'];
 }
 @initMethod
 upgradeCoreSubmenu() => registerDartType('core-submenu', CoreSubmenu);

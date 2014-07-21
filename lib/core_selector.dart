@@ -136,8 +136,10 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///     </form>
   String get itemSelector => jsElement['itemSelector'];
   set itemSelector(String value) { jsElement['itemSelector'] = value; }
-  get items => jsElement["items"];
-  get selection => jsElement["selection"];
+
+  get items => jsElement['items'];
+
+  get selection => jsElement['selection'];
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);
