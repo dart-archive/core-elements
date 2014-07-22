@@ -19,6 +19,16 @@ files_to_generate:
       # this import has no polymer elements
       omit_imports:
         - iconsets/icons.html
+  - core-icons/iconsets/av-icons.html
+  - core-icons/iconsets/communication-icons.html
+  - core-icons/iconsets/device-icons.html
+  - core-icons/iconsets/hardware-icons.html
+  - core-icons/iconsets/icons.html
+  - core-icons/iconsets/image-icons.html
+  - core-icons/iconsets/maps-icons.html
+  - core-icons/iconsets/notification-icons.html
+  - core-icons/iconsets/png-icons.html
+  - core-icons/iconsets/social-icons.html
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
   - core-input/core-input.html

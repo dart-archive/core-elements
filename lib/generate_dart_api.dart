@@ -87,10 +87,10 @@ void generateDartApi(String inputPath, FileConfig config) {
     exit(1);
   }
   var segments = path.split(inputPath);
-  if (segments.length != 4 || segments[0] != 'lib' || segments[1] != 'src'
-      || !segments[3].endsWith('.html')) {
+  if (segments.length < 4 || segments[0] != 'lib' || segments[1] != 'src'
+      || !segments.last.endsWith('.html')) {
     print('error: expected $inputPath to be of the form '
-        'lib/src/x-tag/x-tag2.html');
+        'lib/src/x-tag/**/x-tag2.html');
     exit(1);
   }
   var text = new File(inputPath).readAsStringSync();
@@ -98,10 +98,14 @@ void generateDartApi(String inputPath, FileConfig config) {
       onWarning: (s) => _showMessage('warning: $s'));
   _showMessage('$info');
 
-  var dashName = path.join(segments[2], segments[3]);
-  var name = path.withoutExtension(segments[3]).replaceAll('-', '_');
-  var dirName = segments[2].replaceAll('-', '_');
-  var outputDir = 'lib';
+  var dashName = path.joinAll(segments.getRange(2, segments.length));
+  var name = path.withoutExtension(segments.last).replaceAll('-', '_');
+  var outputDirSegments = ['lib'];
+  if (segments.length > 4) {
+    segments.getRange(2, segments.length - 1).forEach(
+            (segment) => outputDirSegments.add(segment.replaceAll('-', '_')));
+  }
+  var outputDir = path.joinAll(outputDirSegments);
 
   var directives = generateDirectives(name,
       info.elements.map((e) => e.extendName), config);
@@ -109,8 +113,13 @@ void generateDartApi(String inputPath, FileConfig config) {
       .map((i) => generateClass(i, config))
       .join('\n\n');
 
-  new File(path.join(outputDir, '$name.dart'))
-      .writeAsStringSync('$directives$classes');
+  // Only create a dart file if we found at least one polymer element.
+  var hasDartFile = info.elements.length > 0;
+  if (hasDartFile) {
+    new File(path.join(outputDir, '$name.dart'))
+        ..createSync(recursive: true)
+        ..writeAsStringSync('$directives$classes');
+  }
 
   var extraImports = new StringBuffer();
   for (var jsImport in info.imports) {
@@ -130,9 +139,13 @@ void generateDartApi(String inputPath, FileConfig config) {
     }
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
-  new File(path.join(outputDir, '$name.html')).writeAsStringSync(
-      '<link rel="import" href="src/$dashName">\n$extraImports'
-      '<script type="application/dart" src="$name.dart"></script>\n');
+  var htmlBody = '<link rel="import" href="src/$dashName">\n$extraImports';
+  if (hasDartFile) {
+    htmlBody += '<script type="application/dart" src="$name.dart"></script>\n';
+  }
+  new File(path.join(outputDir, '$name.html'))
+      ..createSync(recursive: true)
+      ..writeAsStringSync(htmlBody);
 }
 
 int _lastLength = 0;
