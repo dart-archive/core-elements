@@ -153,8 +153,12 @@ void _parseDocumentation(Map elements, String text, {onWarning(String msg)}) {
             break;
           }
           var desc = '${param.group(3)}\n$description';
-          currentMember.args.add(new Argument(
-              param.group(2), desc, param.group(1)));
+          var arg = new Argument(param.group(2), desc, param.group(1));
+          if (param.group(3).contains(_optionalMatcher)) {
+            currentMember.optionalArgs.add(arg);
+          } else {
+            currentMember.args.add(arg);
+          }
 
           break;
 
@@ -241,6 +245,7 @@ final _docCommentRegex = () {
   // matches text between /** and */ inclusive and <!-- and --> inclusive
   return new RegExp('$scriptDocCommentClause|$htmlDocCommentClause');
 }();
+final _optionalMatcher = new RegExp(r'([\(]|(,\s*))optional\s*[,\)]');
 
 // Regexp used for matching ES5 getters and @element/@class pragmas.
 final _elementPragmasAndGettersRegex = () {

@@ -69,28 +69,52 @@ void _generateMethod(Method method, StringBuffer sb,
   for (var arg in method.args) {
     _generateArgComment(arg, sb);
   }
+  for (var arg in method.optionalArgs) {
+    _generateArgComment(arg, sb);
+  }
   sb.write('  ');
   if (method.isVoid) sb.write('void ');
   var name = method.name;
   var dartName = getDartName(name);
   sb.write('$dartName(');
-  bool first = true;
   var argList = new StringBuffer();
-  for (var arg in method.args) {
+  // First do the regular args, then the optional ones if there are any.
+  bool first = _generateArgList(method.args, sb, argList);
+  if (!method.optionalArgs.isEmpty) {
     if (!first) {
       sb.write(',');
       argList.write(',');
+    }
+    sb.write('[');
+    _generateArgList(method.optionalArgs, sb, argList);
+    sb.write(']');
+  }
+
+  sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
+}
+
+// Returns whether it found any args or not.
+bool _generateArgList(
+    List<Argument> args, StringBuffer dartArgList, StringBuffer jsArgList) {
+  bool first = true;
+  for (var arg in args) {
+    if (!first) {
+      dartArgList.write(',');
+      jsArgList.write(',');
     }
     first = false;
     var type = arg.type;
     if (type != null) {
       type = _docToDartType[type];
     }
-    if (type != null) sb..write(type)..write(' ');
-    sb.write(arg.name);
-    argList.write(arg.name);
+    if (type != null) {
+      dartArgList..write(type)
+                 ..write(' ');
+    }
+    dartArgList.write(arg.name);
+    jsArgList.write(arg.name);
   }
-  sb.write(") =>\n      jsElement.callMethod('$name', [$argList]);\n");
+  return first;
 }
 
 String generateDirectives(String name, Iterable<String> extendNames,

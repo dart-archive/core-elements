@@ -107,7 +107,7 @@ class CoreIconset extends CoreMeta {
   /// [theme]: (optional) The name of the theme for the icon.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
-  void applyIcon(element,icon,String theme,scale) =>
+  void applyIcon(element,icon,[String theme,scale]) =>
       jsElement.callMethod('applyIcon', [element,icon,theme,scale]);
 }
 @initMethod
