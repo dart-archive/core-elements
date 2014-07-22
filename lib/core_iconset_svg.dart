@@ -4,7 +4,7 @@
 library core_elements.core_iconset_svg;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_meta.dart';
@@ -44,6 +44,8 @@ class CoreIconsetSvg extends CoreMeta {
   /// The size of an individual icon. Note that icons must be square.
   num get iconSize => jsElement['iconSize'];
   set iconSize(num value) { jsElement['iconSize'] = value; }
+
+  get iconNames => jsElement['iconNames'];
 
   /// Applies an icon to the given element. The svg icon is added to the
   /// element's shadowRoot if one exists or directly to itself.

@@ -4,7 +4,7 @@
 library core_elements.core_style;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -108,7 +108,7 @@ class CoreStyle extends HtmlElement with DomProxyMixin {
   /// should be considered readonly. It's useful for nesting one `core-style`
   /// inside another.
   get list => jsElement['list'];
-  set list(value) { jsElement['list'] = value; }
+  set list(value) { jsElement['list'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreStyle() => registerDartType('core-style', CoreStyle);

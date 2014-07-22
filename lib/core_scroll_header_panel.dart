@@ -4,7 +4,7 @@
 library core_elements.core_scroll_header_panel;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -60,6 +60,10 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   /// By default, this will be 1/3 of `headerHeight`.
   num get condensedHeaderHeight => jsElement['condensedHeaderHeight'];
   set condensedHeaderHeight(num value) { jsElement['condensedHeaderHeight'] = value; }
+
+  get header => jsElement['header'];
+
+  get scroller => jsElement['scroller'];
 }
 @initMethod
 upgradeCoreScrollHeaderPanel() => registerDartType('core-scroll-header-panel', CoreScrollHeaderPanel);

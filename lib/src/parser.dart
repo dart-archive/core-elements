@@ -38,6 +38,7 @@ FileSummary parsePolymerElements(String text, {onWarning(String msg)}) {
   }
 
   _parseDocumentation(elements, text, onWarning: onWarning);
+  _parseCustomProperties(elements, text, onWarning: onWarning);
   return new FileSummary(
       _parseImports(doc), elements.values);
 }
@@ -56,8 +57,7 @@ List<Import> _parseImports(doc) {
 final _ATTRIBUTES_REGEX = new RegExp(r'\s|,');
 
 /// Extract information from documentation comments in [text].
-void _parseDocumentation(Map elements, String text,
-    {onWarning(String msg)}) {
+void _parseDocumentation(Map elements, String text, {onWarning(String msg)}) {
   var current = null;
   var currentMember = null;
   var _warn = onWarning != null ? onWarning : (_) {};
@@ -197,6 +197,39 @@ void _parseDocumentation(Map elements, String text,
   }
 }
 
+/// Extract custom javascript getters and setters from text.
+void _parseCustomProperties(
+    Map elements, String text, {onWarning(String msg)}) {
+  var current = null;
+  var _warn = onWarning != null ? onWarning : (_) {};
+  for (var m in _elementPragmasAndGettersRegex.allMatches(text)) {
+    if (m.group(1) == '@element' || m.group(1) == '@class') {
+      current = elements[m.group(2)];
+      continue;
+    }
+
+    var isGetter = m.group(3) == 'get';
+    var isSetter = m.group(5) == 'set';
+    if (!isGetter && !isSetter) {
+      _warn("Invalid match, expecting '@element', '@class', 'get' or 'set' "
+            "but got: ${m.group(0)}");
+    }
+
+    var name = (isGetter) ? m.group(4) : m.group(6);
+    if (current == null) {
+      _warn('not in element, ignoring: $name');
+      continue;
+    }
+    if (current.properties[name] == null) {
+      current.properties[name] = new Property(name, '');
+    }
+
+    var property = current.properties[name];
+    if (isGetter) property.hasGetter = true;
+    if (isSetter) property.hasSetter = true;
+  }
+}
+
 
 // Regexp used for parsing the documentation.
 final _pragmaMatcher = new RegExp(r"\s*@([\w-]*) (.*)");
@@ -207,6 +240,14 @@ final _docCommentRegex = () {
   var htmlDocCommentClause = r'<!--([\s\S]*?)-->';
   // matches text between /** and */ inclusive and <!-- and --> inclusive
   return new RegExp('$scriptDocCommentClause|$htmlDocCommentClause');
+}();
+
+// Regexp used for matching ES5 getters and @element/@class pragmas.
+final _elementPragmasAndGettersRegex = () {
+  var elementPragma = r'(@element|@class)\s([\w-_]+)';
+  var es5Getter = r'\n\s*(get)\s*([\w-_]+)\s*\(\)\s+\{';
+  var es5Setter = r'\n\s*(set)\s*([\w-_]+)\s*\(\s*([\w_-]*)\s*\)\s+\{';
+  return new RegExp('$elementPragma|$es5Getter|$es5Setter');
 }();
 
 final _lineEnds = new RegExp(r'\r\n');

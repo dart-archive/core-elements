@@ -4,7 +4,7 @@
 library core_elements.core_splitter;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -59,7 +59,7 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
 
   /// Disables the selection of text while the splitter is being moved
   get disableSelection => jsElement['disableSelection'];
-  set disableSelection(value) { jsElement['disableSelection'] = value; }
+  set disableSelection(value) { jsElement['disableSelection'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreSplitter() => registerDartType('core-splitter', CoreSplitter);

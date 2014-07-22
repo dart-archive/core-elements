@@ -4,7 +4,7 @@
 library core_elements.core_selector;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -66,7 +66,7 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///
   ///     this.$.selector.selected = ['foo', 'zot'];
   get selected => jsElement['selected'];
-  set selected(value) { jsElement['selected'] = value; }
+  set selected(value) { jsElement['selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// If true, multiple selections are allowed.
   bool get multi => jsElement['multi'];
@@ -93,12 +93,12 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   /// Returns the currently selected element. In multi-selection this returns
   /// an array of selected elements.
   get selectedItem => jsElement['selectedItem'];
-  set selectedItem(value) { jsElement['selectedItem'] = value; }
+  set selectedItem(value) { jsElement['selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the model associated with the
   /// selected element.
   get selectedModel => jsElement['selectedModel'];
-  set selectedModel(value) { jsElement['selectedModel'] = value; }
+  set selectedModel(value) { jsElement['selectedModel'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the selected index.
   num get selectedIndex => jsElement['selectedIndex'];
@@ -112,10 +112,10 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   /// The target element that contains items.  If this is not set
   /// core-selector is the container.
   get target => jsElement['target'];
-  set target(value) { jsElement['target'] = value; }
+  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get itemsSelector => jsElement['itemsSelector'];
-  set itemsSelector(value) { jsElement['itemsSelector'] = value; }
+  set itemsSelector(value) { jsElement['itemsSelector'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The event that would be fired from the item element to indicate
   /// it is being selected.
@@ -136,6 +136,10 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///     </form>
   String get itemSelector => jsElement['itemSelector'];
   set itemSelector(String value) { jsElement['itemSelector'] = value; }
+
+  get items => jsElement['items'];
+
+  get selection => jsElement['selection'];
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);

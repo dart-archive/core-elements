@@ -4,7 +4,7 @@
 library core_elements.core_header_panel;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -108,6 +108,10 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   /// If true, the drop-shadow is always shown no matter what mode is set to.
   bool get shadow => jsElement['shadow'];
   set shadow(bool value) { jsElement['shadow'] = value; }
+
+  get header => jsElement['header'];
+
+  get scroller => jsElement['scroller'];
 }
 @initMethod
 upgradeCoreHeaderPanel() => registerDartType('core-header-panel', CoreHeaderPanel);

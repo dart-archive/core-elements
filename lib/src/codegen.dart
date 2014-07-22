@@ -44,7 +44,22 @@ void _generateProperty(Property property, StringBuffer sb,
   sb.write(comment == '' ? '\n' : '\n$comment\n');
   var t = type != null ? '$type ' : '';
   sb.write('  ${t}get $dartName => $body;\n');
-  sb.write('  set $dartName(${t}value) { $body = value; }\n');
+
+  // Don't output the setter if it has a getter but no setter in the original
+  // source code. In all other cases we want a dart setter (normal js property
+  // with no getter or setter, or custom property with a js setter).
+  if (property.hasGetter && !property.hasSetter) return;
+  if (type == null) {
+    sb.write('  set $dartName(${t}value) { '
+             '$body = (value is Map || value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
+  } else if (type == "JsArray") {
+    sb.write('  set $dartName(${t}value) { '
+             '$body = (value is Iterable) ? '
+             'new JsObject.jsify(value) : value;}\n');
+  } else {
+    sb.write('  set $dartName(${t}value) { $body = value; }\n');
+  }
 }
 
 void _generateMethod(Method method, StringBuffer sb,
@@ -106,7 +121,7 @@ String generateDirectives(String name, Iterable<String> extendNames,
 library core_elements.$libName;
 
 import 'dart:html';
-import 'dart:js' show JsArray;
+import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 ${extraImports.join('\n')}
