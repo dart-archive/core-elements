@@ -102,8 +102,8 @@ void generateDartApi(String inputPath, FileConfig config) {
   var name = path.withoutExtension(segments.last).replaceAll('-', '_');
   var outputDirSegments = ['lib'];
   if (segments.length > 4) {
-    segments.getRange(2, segments.length - 1).forEach(
-            (segment) => outputDirSegments.add(segment.replaceAll('-', '_')));
+    outputDirSegments.addAll(segments.getRange(2, segments.length - 1)
+        .map((s) => s.replaceAll('-', '_')));
   }
   var outputDir = path.joinAll(outputDirSegments);
 
@@ -114,7 +114,7 @@ void generateDartApi(String inputPath, FileConfig config) {
       .join('\n\n');
 
   // Only create a dart file if we found at least one polymer element.
-  var hasDartFile = info.elements.length > 0;
+  var hasDartFile = !info.elements.isEmpty;
   if (hasDartFile) {
     new File(path.join(outputDir, '$name.dart'))
         ..createSync(recursive: true)
@@ -140,12 +140,13 @@ void generateDartApi(String inputPath, FileConfig config) {
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
   var htmlBody = '<link rel="import" href="src/$dashName">\n$extraImports';
+  var scriptTag = '';
   if (hasDartFile) {
-    htmlBody += '<script type="application/dart" src="$name.dart"></script>\n';
+    scriptTag = '<script type="application/dart" src="$name.dart"></script>\n';
   }
   new File(path.join(outputDir, '$name.html'))
       ..createSync(recursive: true)
-      ..writeAsStringSync(htmlBody);
+      ..writeAsStringSync('$htmlBody$scriptTag');
 }
 
 int _lastLength = 0;
