@@ -18,8 +18,10 @@ String generateClass(Element element, FileConfig config) {
   var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
+  sb.write(_noSuchMethodFallback);
   sb.write('}\n');
   sb.write(_generateUpdateMethod(element.name));
+
   return sb.toString();
 }
 
@@ -121,7 +123,8 @@ String generateDirectives(String name, Iterable<String> extendNames,
 library core_elements.$libName;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 ${extraImports.join('\n')}
@@ -187,3 +190,21 @@ final _docToDartType = {
   'Object': null, // keep as dynamic
   'any': null,    // keep as dynamic
 };
+
+// Fallback to pass through unrecognized method calls to the jsElement using
+// noSuchMethod. This isn't ideal but it enables functionality that would have
+// previously been missing. A print has been added to try and ensure that we
+// still have bug reports filed on us for missing methods.
+final _noSuchMethodFallback = '''\n
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call \${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }\n''';

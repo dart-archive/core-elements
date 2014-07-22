@@ -4,7 +4,8 @@
 library core_elements.core_menu;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_selector.dart';
@@ -52,6 +53,19 @@ import 'core_selector.dart';
 ///     }
 class CoreMenu extends CoreSelector {
   CoreMenu.created() : super.created();
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreMenu() => registerDartType('core-menu', CoreMenu);

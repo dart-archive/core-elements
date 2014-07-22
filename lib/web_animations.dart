@@ -4,7 +4,8 @@
 library core_elements.web_animations;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 

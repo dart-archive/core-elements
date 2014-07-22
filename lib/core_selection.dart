@@ -4,7 +4,8 @@
 library core_elements.core_selection;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -83,6 +84,19 @@ class CoreSelection extends HtmlElement with DomProxyMixin {
   /// [item]: The item to toggle.
   void toggle(item) =>
       jsElement.callMethod('toggle', [item]);
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreSelection() => registerDartType('core-selection', CoreSelection);
