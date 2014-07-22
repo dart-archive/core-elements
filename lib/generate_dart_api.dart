@@ -90,7 +90,7 @@ void generateDartApi(String inputPath, FileConfig config) {
   if (segments.length < 4 || segments[0] != 'lib' || segments[1] != 'src'
       || !segments.last.endsWith('.html')) {
     print('error: expected $inputPath to be of the form '
-        'lib/src/x-tag/**/x-tag2.html');
+          'lib/src/x-tag/**/x-tag2.html');
     exit(1);
   }
   var text = new File(inputPath).readAsStringSync();
@@ -122,6 +122,8 @@ void generateDartApi(String inputPath, FileConfig config) {
   }
 
   var extraImports = new StringBuffer();
+  var packageLibDir =
+      (segments.length > 4) ? '../' * (segments.length - 3) : '';
   for (var jsImport in info.imports) {
     var importPath = jsImport.importPath;
     if (importPath.contains('polymer.html')) continue;
@@ -130,16 +132,23 @@ void generateDartApi(String inputPath, FileConfig config) {
       continue;
     }
     var importSegments = path.split(importPath);
-    if (importSegments[0] == '..') importSegments.removeRange(0, 2);
+    if (importSegments[0] == '..') {
+      importSegments.removeRange(0, segments.length - 2);
+    }
     var dartImport = path.joinAll(importSegments).replaceAll('-', '_');
     var targetElement = importSegments.last;
     var packageName = config.global.findPackageNameForElement(targetElement);
     if (packageName != null) {
-      dartImport = path.join('..', '..', 'packages', packageName, dartImport);
+      dartImport = path.join(
+          '..', '..', packageLibDir, 'packages', packageName, dartImport);
+    } else {
+      dartImport = path.join(packageLibDir, dartImport);
     }
     extraImports.write('<link rel="import" href="$dartImport">\n');
   }
-  var htmlBody = '<link rel="import" href="src/$dashName">\n$extraImports';
+
+  var htmlBody =
+      '<link rel="import" href="${packageLibDir}src/$dashName">\n$extraImports';
   var scriptTag = '';
   if (hasDartFile) {
     scriptTag = '<script type="application/dart" src="$name.dart"></script>\n';
