@@ -4,7 +4,8 @@
 library core_elements.core_icon_button;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -38,6 +39,19 @@ class CoreIconButton extends HtmlElement with DomProxyMixin {
   /// active state.
   bool get active => jsElement['active'];
   set active(bool value) { jsElement['active'] = value; }
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreIconButton() => registerDartType('core-icon-button', CoreIconButton);

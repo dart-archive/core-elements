@@ -4,7 +4,8 @@
 library core_elements.core_animation;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -200,6 +201,19 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   /// plays it if autoplay is true.
   apply() =>
       jsElement.callMethod('apply', []);
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
@@ -219,6 +233,19 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
   set offset(value) { jsElement['offset'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   get properties => jsElement['properties'];
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', CoreAnimationKeyframe);
@@ -237,6 +264,19 @@ class CoreAnimationProp extends HtmlElement with DomProxyMixin {
   /// The value for the CSS property.
   get value => jsElement['value'];
   set value(value) { jsElement['value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreAnimationProp() => registerDartType('core-animation-prop', CoreAnimationProp);

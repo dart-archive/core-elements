@@ -4,7 +4,8 @@
 library core_elements.core_tooltip;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
@@ -61,6 +62,19 @@ class CoreTooltip extends HtmlElement with DomProxyMixin {
   /// If true, the tooltip displays by default.
   bool get show => jsElement['show'];
   set show(bool value) { jsElement['show'] = value; }
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreTooltip() => registerDartType('core-tooltip', CoreTooltip);

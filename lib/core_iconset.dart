@@ -4,7 +4,8 @@
 library core_elements.core_iconset;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_meta.dart';
@@ -109,6 +110,19 @@ class CoreIconset extends CoreMeta {
   ///     with which the icon can be magnified.
   void applyIcon(element,icon,String theme,scale) =>
       jsElement.callMethod('applyIcon', [element,icon,theme,scale]);
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreIconset() => registerDartType('core-iconset', CoreIconset);

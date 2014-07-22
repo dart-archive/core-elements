@@ -4,7 +4,8 @@
 library core_elements.core_iconset_svg;
 
 import 'dart:html';
-import 'dart:js' show JsArray, JsObject;
+import 'dart:js' show JsArray, JsObject, JsFunction;
+import 'dart:mirrors';
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'core_meta.dart';
@@ -64,6 +65,19 @@ class CoreIconsetSvg extends CoreMeta {
   ///     defaults to 'updateIcon'
   void updateIcons(String css,String method) =>
       jsElement.callMethod('updateIcons', [css,method]);
+
+  noSuchMethod(Invocation invocation) {
+    String methodName = MirrorSystem.getName(invocation.memberName);
+    if (invocation.isMethod && jsElement[methodName] is JsFunction) {
+      print('Warning, passing missing method call ${methodName} to '
+            'JS element. This may impact performance, and should be wrapped '
+            'explicitely in dart.');
+      jsElement.callMethod(
+          methodName, invocation.positionalArguments);
+    } else {
+      super.noSuchMethod(invocation);
+    }
+  }
 }
 @initMethod
 upgradeCoreIconsetSvg() => registerDartType('core-iconset-svg', CoreIconsetSvg);
