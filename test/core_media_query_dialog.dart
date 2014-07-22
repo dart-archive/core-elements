@@ -7,47 +7,46 @@
 
 library core_media_query.test.dialog;
 
+import "dart:async" as async;
 import "dart:html" as dom;
 import "package:polymer/polymer.dart";
 
 class MyModel extends Object with Observable {
+  int _counter = 0;
   @observable
   String phoneQuery;
 
   @observable
   String tabletQuery;
 
-  @observable
   bool matchesPhone;
 
-  @observable
   bool matchesTablet;
 
-  Function coreMediaChangeHandler;
+  void coreMediaChangeHandler(_) {
+    dom.window.opener.postMessage({
+      'message_id': _counter,
+      'phone': matchesPhone,
+      'tablet': matchesTablet,
+      'width' : dom.window.innerWidth
+    }, "*");
+    _counter++;
+  }
 }
 
 void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
-      int counter = 0;
       var template =
           dom.document.querySelector("#simpleMatch") as AutoBindingElement;
-      var mqPhone;
-      var mqTablet;
-      var model;
-      model = template.model = new MyModel()
+      var model = template.model = new MyModel();
+      // assign the model and change the values later to verify data binding
+      new async.Future(() {
+        model
           ..tabletQuery = "(min-width: 600px)"
-          ..phoneQuery = "(max-width: 599px)"
-          ..coreMediaChangeHandler = (dom.CustomEvent e) {
-            dom.window.opener.postMessage({
-              'message_nr': counter,
-              'phone': model.matchesPhone,
-              'tablet': model.matchesTablet,
-              'width' : dom.window.innerWidth
-            }, "*");
-            counter++;
-          };
+          ..phoneQuery = "(max-width: 599px)";
+      });
     });
   });
 }
