@@ -100,8 +100,9 @@ void generateDartApi(String inputPath, FileConfig config) {
 
   var dashName = path.joinAll(segments.getRange(2, segments.length));
   var name = path.withoutExtension(segments.last).replaceAll('-', '_');
+  var isSubdir = segments.length > 4;
   var outputDirSegments = ['lib'];
-  if (segments.length > 4) {
+  if (isSubdir) {
     outputDirSegments.addAll(segments.getRange(2, segments.length - 1)
         .map((s) => s.replaceAll('-', '_')));
   }
@@ -122,8 +123,7 @@ void generateDartApi(String inputPath, FileConfig config) {
   }
 
   var extraImports = new StringBuffer();
-  var packageLibDir =
-      (segments.length > 4) ? '../' * (segments.length - 3) : '';
+  var packageLibDir = (isSubdir) ? '../' * (segments.length - 3) : '';
   for (var jsImport in info.imports) {
     var importPath = jsImport.importPath;
     if (importPath.contains('polymer.html')) continue;
