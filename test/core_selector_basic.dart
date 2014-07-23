@@ -7,13 +7,13 @@
 
 library core_selector.test.basic;
 
-import "dart:async" as async;
-import "dart:html" as dom;
-import "dart:js" as js;
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_selector.dart" show CoreSelector;
+import 'dart:async' as async;
+import 'dart:html' as dom;
+import 'dart:js' as js;
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_selector.dart' show CoreSelector;
 
 void oneMutation(dom.Element node, options, Function cb) {
   var o = new dom.MutationObserver((List<dom.MutationRecord>
@@ -21,7 +21,7 @@ void oneMutation(dom.Element node, options, Function cb) {
     cb();
     observer.disconnect();
   });
-  o.observe(node, attributes: options["attributes"]);
+  o.observe(node, attributes: options['attributes']);
 }
 
 void main() {
@@ -30,44 +30,43 @@ void main() {
   initPolymer().run(() {
     Polymer.onReady.then((e) {
 
-      group("core-selector", () {
+      group('core-selector', () {
 
-        test("basic", () {
+        test('basic', () {
           // selector1
-          var s = (dom.document.querySelector("#selector1") as CoreSelector);
-          expect(s.selectedClass, equals("core-selected"));
+          var s = (dom.document.querySelector('#selector1') as CoreSelector);
+          expect(s.selectedClass, equals('core-selected'));
           expect(s.multi, isFalse);
-          expect(s.valueattr, equals("name"));
-          // TODO(zoechi) expect(s.items.length, equals(5)); // see #52 items getter not available
-          expect(s.jsElement['items']['length'], equals(5));
+          expect(s.valueattr, equals('name'));
+          expect(s.items.length, equals(5));
 
           // selector2
-          s = (dom.document.querySelector("#selector2") as CoreSelector);
-          expect(s.selected, equals("item3"));
-          expect(s.selectedClass, equals("my-selected"));
+          s = (dom.document.querySelector('#selector2') as CoreSelector);
+          expect(s.selected, equals('item3'));
+          expect(s.selectedClass, equals('my-selected'));
           // setup listener for core-select event
           var selectEventCounter = 0;
-          s.on["core-select"].listen((dom.CustomEvent e) {
-            // TODO(zoechi)if (e.detail["isSelected"]) { // event detail is null https://code.google.com/p/dart/issues/detail?id=19315
+          s.on['core-select'].listen((dom.CustomEvent e) {
+            // TODO(zoechi)if (e.detail['isSelected']) { // event detail is null https://code.google.com/p/dart/issues/detail?id=19315
             var detail = new js.JsObject.fromBrowserObject(e)['detail'];
-            if (detail["isSelected"]) {
+            if (detail['isSelected']) {
               selectEventCounter++;
               // selectedItem and detail.item should be the same
-              expect(detail["item"], equals(s.selectedItem));
+              expect(detail['item'], equals(s.selectedItem));
             }
           });
           // set selected
-          s.selected = "item5";
+          s.selected = 'item5';
           return new async.Future.delayed(new Duration(milliseconds: 50), () {
             // check core-select event
             expect(selectEventCounter, equals(1));
             // check selected class
-            expect(s.children[4].classes.contains("my-selected"), isTrue);
+            expect(s.children[4].classes.contains('my-selected'), isTrue);
             // check selectedItem
             expect(s.selectedItem, equals(s.children[4]));
             // selecting the same value shouldn't fire core-select
             selectEventCounter = 0;
-            s.selected = "item5";
+            s.selected = 'item5';
             // TODO(ffu): would be better to wait for something to happen
             // instead of not to happen
             new async.Future.delayed(new Duration(milliseconds: 50), () {
