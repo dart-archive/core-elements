@@ -79,11 +79,11 @@ void _generateMethod(Method method, StringBuffer sb,
   sb.write('$dartName(');
   var argList = new StringBuffer();
   // First do the regular args, then the optional ones if there are any.
-  bool first = _generateArgList(method.args, sb, argList);
+  _generateArgList(method.args, sb, argList);
   if (!method.optionalArgs.isEmpty) {
-    if (!first) {
-      sb.write(',');
-      argList.write(',');
+    if (!method.args.isEmpty) {
+      sb.write(', ');
+      argList.write(', ');
     }
     sb.write('[');
     _generateArgList(method.optionalArgs, sb, argList);
@@ -94,13 +94,13 @@ void _generateMethod(Method method, StringBuffer sb,
 }
 
 // Returns whether it found any args or not.
-bool _generateArgList(
+void _generateArgList(
     List<Argument> args, StringBuffer dartArgList, StringBuffer jsArgList) {
   bool first = true;
   for (var arg in args) {
     if (!first) {
-      dartArgList.write(',');
-      jsArgList.write(',');
+      dartArgList.write(', ');
+      jsArgList.write(', ');
     }
     first = false;
     var type = arg.type;
@@ -114,7 +114,6 @@ bool _generateArgList(
     dartArgList.write(arg.name);
     jsArgList.write(arg.name);
   }
-  return first;
 }
 
 String generateDirectives(String name, Iterable<String> extendNames,
