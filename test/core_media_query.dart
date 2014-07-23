@@ -55,6 +55,8 @@ void main() {
             }
           });
 
+          // TODO(zoechi) this will break when https://code.google.com/p/dart/issues/detail?id=20143 is fixed
+          // this also doesn't work in JavaScript
           dialog = dom.window.open(
               "core_media_query_dialog.html",
               "_blank") as dom.Window;
