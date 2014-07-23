@@ -94,19 +94,34 @@ class Property extends TypedEntry {
 class Method extends TypedEntry {
   bool isVoid = true;
   List<Argument> args = [];
+  List<Argument> optionalArgs = [];
   Method(name, desc) : super(name, desc);
 
   void _prettyPrint(StringBuffer sb) {
     if (isVoid) sb.write('void ');
     sb.write('$name(');
+
     bool first = true;
     for (var arg in args) {
-      if (!first) {
-        sb.write(',');
-      }
+      if (!first) sb.write(',');
       first = false;
       arg._prettyPrint(sb);
     }
+
+    bool firstOptional = true;
+    for (var arg in optionalArgs) {
+      if (firstOptional) {
+        if (!first) sb.write(',');
+        sb.write('[');
+      } else {
+        sb.write(',');
+      }
+      first = false;
+      firstOptional = false;
+      arg._prettyPrint(sb);
+    };
+    if (!firstOptional) sb.write(']');
+
     sb.write(');');
   }
 }

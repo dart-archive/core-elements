@@ -95,8 +95,8 @@ class CoreIconset extends CoreMeta {
   /// [icon]: The name of the icon or the index of the
   ///     icon within in the icon image.
   /// [theme]: The name of the theme.
-  getOffset(icon,String theme) =>
-      jsElement.callMethod('getOffset', [icon,theme]);
+  getOffset(icon, String theme) =>
+      jsElement.callMethod('getOffset', [icon, theme]);
 
   /// Applies an icon to the given element as a css background image. This
   /// method does not size the element, and it's often necessary to set
@@ -104,11 +104,10 @@ class CoreIconset extends CoreMeta {
   /// [element]: The element to which the background is
   ///     applied.
   /// [icon]: The name or index of the icon to apply.
-  /// [theme]: (optional) The name of the theme for the icon.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
-  void applyIcon(element,icon,String theme,scale) =>
-      jsElement.callMethod('applyIcon', [element,icon,theme,scale]);
+  void applyIcon(element, icon, [scale]) =>
+      jsElement.callMethod('applyIcon', [element, icon, scale]);
 }
 @initMethod
 upgradeCoreIconset() => registerDartType('core-iconset', CoreIconset);
