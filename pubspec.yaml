@@ -60,6 +60,7 @@ transformers:
     - example/core_toolbar.html
     - example/core_tooltip.html
     - test/core_ajax_dart.html
+    - test/core_animated_pages.html
     - test/core_collapse.html
     - test/core_input.html
     - test/core_localstorage_dart.html
