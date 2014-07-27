@@ -11,12 +11,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <head>
     <title>core-media-query</title>
 
-    <script src="packages/web_components/platform.js"></script>
-    <script src="packages/web_components/dart_support.js"></script>
+    <script src='packages/web_components/platform.js'></script>
+    <script src='packages/web_components/dart_support.js'></script>
+    <script>
+      // TODO(zoechi) workaround for issue 20216
+      var OpenDialogWorkaround = function() {
+        var dialog = null;
+        this.open = function(url, target) {
+          dialog = window.open(url, target, 'width=400, height=700');
+        }
 
-    <link rel="import" href="packages/core_elements/core_media_query.html">
+        this.close = function() {
+          if(dialog != null) {
+            dialog.close();
+          }
+        }
 
-    <script type="application/dart" src="core_media_query.dart"></script>
+        this.resizeTo = function(x, y) {
+          if(dialog != null) {
+            dialog.resizeTo(x, y);
+          }
+        }
+      }
+    </script>
+
+    <link rel='import' href='packages/core_elements/core_media_query.html'>
+
+    <script type='application/dart' src='core_media_query.dart'></script>
   </head>
   <body>
 
