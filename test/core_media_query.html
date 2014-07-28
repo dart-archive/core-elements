@@ -11,12 +11,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <head>
     <title>core-media-query</title>
 
-    <script src="packages/web_components/platform.js"></script>
-    <script src="packages/web_components/dart_support.js"></script>
+    <script src='packages/web_components/platform.js'></script>
+    <script src='packages/web_components/dart_support.js'></script>
+    <script>
+      // TODO(zoechi) workaround for issue 20216
+      // Calling these methods from Dart directly didn't work
+      // "Caught SecurityError: An attempt was made to break through the security policy of the user agent."
+      // see also https://code.google.com/p/dart/issues/detail?id=20221
+      var OpenDialogWorkaround = function() {
+        var dialog = null;
+        this.open = function(url, target) {
+          dialog = window.open(url, target);
+        }
 
-    <link rel="import" href="packages/core_elements/core_media_query.html">
+        this.close = function() {
+          if(dialog != null) {
+            dialog.close();
+          }
+        }
 
-    <script type="application/dart" src="core_media_query.dart"></script>
+        this.resizeTo = function(x, y) {
+          if(dialog != null) {
+            dialog.resizeTo(x, y);
+          }
+        }
+      }
+    </script>
+
+    <link rel='import' href='packages/core_elements/core_media_query.html'>
+
+    <script type='application/dart' src='core_media_query.dart'></script>
   </head>
   <body>
 
