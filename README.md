@@ -1,5 +1,5 @@
 # Core elements
-
+ 
 This package wraps the Polymer project's core elements, providing the
 following features:
 
