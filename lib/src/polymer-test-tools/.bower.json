@@ -3,13 +3,14 @@
   "private": true,
   "dependencies": {},
   "homepage": "https://github.com/Polymer/polymer-test-tools",
-  "_release": "5251582b3f",
+  "version": "0.3.3",
+  "_release": "0.3.3",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "5251582b3fefe5c338001fc3f25d8640d22086d8"
+    "type": "version",
+    "tag": "0.3.3",
+    "commit": "2a178e97400cf716aacc767cb63ea857cf8fc142"
   },
   "_source": "git://github.com/Polymer/polymer-test-tools.git",
-  "_target": "master",
+  "_target": ">=0.3.0 <1.0.0",
   "_originalSource": "Polymer/polymer-test-tools"
 }

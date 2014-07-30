@@ -104,6 +104,7 @@ class CoreIconset extends CoreMeta {
   /// [element]: The element to which the background is
   ///     applied.
   /// [icon]: The name or index of the icon to apply.
+  /// DART NOTE: Manually removed [theme] here, as it is no longer exists.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
   void applyIcon(element, icon, [scale]) =>

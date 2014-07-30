@@ -87,14 +87,6 @@ Use `mode` to control the header and scrolling behavior.
 <script>
 
   Polymer('core-header-panel', {
-    
-    /**
-     * Fired when the content has been scrolled.  `details.target` returns
-     * the scrollable element which you can use to access scroll info such as
-     * `scrollTop`.
-     *
-     * @event scroll
-     */
 
     publish: {
       /**
@@ -176,14 +168,6 @@ Use `mode` to control the header and scrolling behavior.
       return this.$.headerContent.getDistributedNodes()[0];
     },
     
-    /**
-     * Returns the scrollable element.
-     */
-    get scroller() {
-      return this.mode === 'scroll' ? 
-          this.$.outerContainer : this.$.mainContainer;
-    },
-    
     scroll: function() {
       var shadowMode = {'waterfall': 1, 'waterfall-tall': 1};
       var noShadow = {'seamed': 1, 'cover': 1, 'scroll': 1};
@@ -205,8 +189,6 @@ Use `mode` to control the header and scrolling behavior.
         
         header.classList.toggle('animate', tallMode[this.mode]);
       }
-      
-      this.fire('scroll', {target: this.scroller}, this, false);
     }
 
   });

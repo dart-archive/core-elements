@@ -3,6 +3,10 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+#### Pub version 0.1.0+1
+
+Updated all elements to the 0.3.4 js version.
+
 #### Pub version 0.0.4
 
 New generated wrappers for core-elements. This completely replaces and is

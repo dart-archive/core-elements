@@ -63,9 +63,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <polymer-element name="core-iconset" extends="core-meta" attributes="src width icons iconSize">
   
   <script>
-    // MANUAL EDITS:
-    //   - Removed depricated param 'theme' from applyIcon:
-    //     https://github.com/Polymer/core-iconset/pull/2
+  
     Polymer('core-iconset', {
   
       /**
@@ -214,6 +212,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
        * @param {Element} element The element to which the background is
        * applied.
        * @param {String|Number} icon The name or index of the icon to apply.
+       * @param {String} theme (optional) The name of the theme for the icon.
        * @param {Number} scale (optional, defaults to 1) A scaling factor 
        * with which the icon can be magnified.
        */

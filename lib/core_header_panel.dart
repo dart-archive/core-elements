@@ -110,8 +110,6 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   set shadow(bool value) { jsElement['shadow'] = value; }
 
   get header => jsElement['header'];
-
-  get scroller => jsElement['scroller'];
 }
 @initMethod
 upgradeCoreHeaderPanel() => registerDartType('core-header-panel', CoreHeaderPanel);

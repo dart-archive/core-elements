@@ -2,16 +2,17 @@
   "name": "core-docs",
   "private": true,
   "dependencies": {
-    "core-doc-viewer": "Polymer/core-doc-viewer#master"
+    "core-doc-viewer": "Polymer/core-doc-viewer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-docs",
-  "_release": "421ededccb",
+  "version": "0.3.4",
+  "_release": "0.3.4",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "421ededccbbda22a7a9f2c8978019a7cfdf3e5d1"
+    "type": "version",
+    "tag": "0.3.4",
+    "commit": "08cd3f9a750df188648585120c319e4721addc81"
   },
   "_source": "git://github.com/Polymer/core-docs.git",
-  "_target": "master",
+  "_target": ">=0.3.0 <1.0.0",
   "_originalSource": "Polymer/core-docs"
 }
