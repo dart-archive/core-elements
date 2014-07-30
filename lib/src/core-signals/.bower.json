@@ -2,16 +2,17 @@
   "name": "core-signals",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#master"
+    "polymer": "Polymer/polymer#>=0.3.0 <1.0.0"
   },
   "homepage": "https://github.com/Polymer/core-signals",
-  "_release": "d5627b7d55",
+  "version": "0.3.4",
+  "_release": "0.3.4",
   "_resolution": {
-    "type": "branch",
-    "branch": "master",
-    "commit": "d5627b7d55ff4b58353269b5ad513ce80cde2356"
+    "type": "version",
+    "tag": "0.3.4",
+    "commit": "9ffd4a5b3059fb476fd5102d5398d3a3204077aa"
   },
   "_source": "git://github.com/Polymer/core-signals.git",
-  "_target": "master",
+  "_target": ">=0.3.0 <1.0.0",
   "_originalSource": "Polymer/core-signals"
 }

@@ -8,7 +8,6 @@
   "private": true,
   "dependencies": {
     "polymer": "polymer/polymer#master",
-    "core-elements": "polymer/core-elements#master",
-    "core-animation": "polymer/core-animation#master"
+    "core-elements": "polymer/core-elements#0.3.4"
   }
 }
