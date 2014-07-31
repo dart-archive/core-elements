@@ -3,6 +3,11 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+#### Pub version 0.1.1
+
+Fix for https://github.com/dart-lang/core-elements/issues/39, added missing
+togglePanel method to core-drawer-panel.
+
 #### Pub version 0.1.0+1
 
 Updated all elements to the 0.3.4 js version.
