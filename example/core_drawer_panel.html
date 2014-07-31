@@ -75,12 +75,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     import 'dart:html';
     import 'package:polymer/polymer.dart';
     export 'package:polymer/init.dart' show main;
-
-    _js(x) => new JsObject.fromBrowserObject(x);
     
     @initMethod init() {
       querySelector('div[main] > button').onClick.listen((_) {
-        _js(querySelector('core-drawer-panel')).callMethod('togglePanel');
+        querySelector('core-drawer-panel').togglePanel();
       });
     }
     </script>

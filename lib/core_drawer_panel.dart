@@ -53,6 +53,10 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   /// need to show/hide elements based on the layout.
   bool get narrow => jsElement['narrow'];
   set narrow(bool value) { jsElement['narrow'] = value; }
+
+  /// DART NOTE: Manually added due to issue #39. This should be removed once it
+  /// is property documented in the js and we upgrade the elements.
+  void togglePanel() => jsElement.callMethod('togglePanel', []);
 }
 @initMethod
 upgradeCoreDrawerPanel() => registerDartType('core-drawer-panel', CoreDrawerPanel);
