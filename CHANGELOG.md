@@ -3,6 +3,11 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+#### Pub version 0.1.1+2
+
+Fix for https://dartbug.com/20265, core-ajax-dart no longer throws an exception
+when handling errors.
+
 #### Pub version 0.1.1+1
 
 Fix for https://github.com/dart-lang/core-elements/issues/84, core-ajax-dart no
