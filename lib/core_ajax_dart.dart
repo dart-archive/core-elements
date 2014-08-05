@@ -267,7 +267,7 @@ class CoreAjax extends PolymerElement {
     }
     var headers = firstNonNull(this.headers, args.headers, {});
 */
-    var params = JSON.decode(this.params);
+    var params = this.params.isEmpty ? {} : JSON.decode(this.params);
     var headers = firstNonNull(this.headers, {});
     if (headers is String) {
       headers = JSON.decode(headers);
