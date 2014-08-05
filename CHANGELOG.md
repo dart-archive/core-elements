@@ -3,6 +3,11 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+#### Pub version 0.1.1+1
+
+Fix for https://github.com/dart-lang/core-elements/issues/84, core-ajax-dart no
+longer fails if no params attribute is supplied.
+
 #### Pub version 0.1.1
 
 Fix for https://github.com/dart-lang/core-elements/issues/39, added missing
