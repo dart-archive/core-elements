@@ -167,7 +167,7 @@ class CoreAjax extends PolymerElement {
   }
 
   void error(xhr) {
-    var response = xhr.status + ': ' + xhr.responseText;
+    var response = '${xhr.status}: ${xhr.responseText}';
     this.fire('core-error', detail: {'response': response, 'xhr': xhr});
   }
 
