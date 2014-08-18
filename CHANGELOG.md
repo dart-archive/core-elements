@@ -3,6 +3,16 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+#### Pub version 0.2.0
+
+Updated all elements to the 0.3.5 js versions.
+  * **New** Added core-dropdown element, which acts like a <select> tag.
+  * **New** Ported examples/demo.html which provides a central page to run all
+    the other demos.
+  * **Breaking Change** All icons that previously lived under 
+    'packages/core_elements/core_icons/iconsets/' now live directly under
+    'packages/core_elements/'.
+
 #### Pub version 0.1.1+2
 
 Fix for https://dartbug.com/20265, core-ajax-dart no longer throws an exception

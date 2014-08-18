@@ -9,8 +9,8 @@ import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
-/// The `core-range` element is used for managing a numberic value within a given
-/// range.  It has no visual appearance and is typically used in conjunciton with
+/// The `core-range` element is used for managing a numeric value within a given
+/// range.  It has no visual appearance and is typically used in conjunction with
 /// another element.
 ///
 /// One can build a progress bar using `core-range` like this:

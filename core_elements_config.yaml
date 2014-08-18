@@ -13,24 +13,22 @@ files_to_generate:
   - core-collapse/core-collapse.html
   - core-drag-drop/core-drag-drop.html
   - core-drawer-panel/core-drawer-panel.html
+  - core-dropdown/core-dropdown.html
   - core-field/core-field.html
   - core-header-panel/core-header-panel.html
   - core-icon/core-icon.html
   - core-icon-button/core-icon-button.html
-  - core-icons/core-icons.html:
-      # this import has no polymer elements
-      omit_imports:
-        - iconsets/icons.html
-  - core-icons/iconsets/av-icons.html
-  - core-icons/iconsets/communication-icons.html
-  - core-icons/iconsets/device-icons.html
-  - core-icons/iconsets/hardware-icons.html
-  - core-icons/iconsets/icons.html
-  - core-icons/iconsets/image-icons.html
-  - core-icons/iconsets/maps-icons.html
-  - core-icons/iconsets/notification-icons.html
-  - core-icons/iconsets/png-icons.html
-  - core-icons/iconsets/social-icons.html
+  - core-icons/av-icons.html
+  - core-icons/communication-icons.html
+  - core-icons/core-icons.html
+  - core-icons/device-icons.html
+  - core-icons/editor-icons.html
+  - core-icons/hardware-icons.html
+  - core-icons/image-icons.html
+  - core-icons/maps-icons.html
+  - core-icons/notification-icons.html
+  - core-icons/png-icons.html
+  - core-icons/social-icons.html
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
   - core-input/core-input.html

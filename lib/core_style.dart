@@ -19,6 +19,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// multiple places, for example, in many different elements.
 ///
 /// It's common to place `core-style` producer elements inside HTMLImports.
+/// Remote stylesheets should be included this way, the &#64;import css mechanism is
 /// not currently supported.
 ///
 /// Here's a basic example:

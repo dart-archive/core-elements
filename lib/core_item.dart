@@ -37,10 +37,6 @@ class CoreItem extends HtmlElement with DomProxyMixin {
   /// The URL of an image for the icon.
   String get src => jsElement['src'];
   set src(String value) { jsElement['src'] = value; }
-
-  /// Specifies the size of the icon in pixel units.
-  num get size => jsElement['size'];
-  set size(num value) { jsElement['size'] = value; }
 }
 @initMethod
 upgradeCoreItem() => registerDartType('core-item', CoreItem);

@@ -13,6 +13,7 @@ import 'dart:convert' show JSON;
 import 'dart:async';
 import 'dart:html';
 
+import 'package:logging/logging.dart';
 import 'package:polymer/polymer.dart';
 import 'package:quiver/core.dart';
 import 'package:quiver/strings.dart';
@@ -32,7 +33,7 @@ class CoreAjax extends PolymerElement {
 //  var xhrArgs;
 
   CoreAjax.created() : super.created() {
-    print("CoreAjax.created");
+    logger.fine('CoreAjax.created');
     this.xhr = document.createElement('core-xhr-dart');
   }
 
@@ -50,6 +51,8 @@ class CoreAjax extends PolymerElement {
    * Fired whenever a response or an error is received.
    */
   Stream<CustomEvent> get onCoreError => _onCoreError.forElement(this);
+
+  final Logger logger = new Logger('polymer.core_elements.core_ajax_dart');
 
   /**
    * The URL target of the request.
@@ -146,7 +149,7 @@ class CoreAjax extends PolymerElement {
   bool withCredentials = false;
 
   void receive(response, HttpRequest xhr) {
-    print("receive");
+    logger.fine('receive');
     if (this.isSuccess(xhr)) {
       this.processResponse(xhr);
     } else {
@@ -205,6 +208,10 @@ class CoreAjax extends PolymerElement {
     try {
       return JSON.decode(r);
     } catch (x) {
+      logger.severe(
+          'core-ajax caught an exception trying to parse reponse as JSON:');
+      logger.severe('url: $url');
+      logger.severe(x);
       return r;
     }
   }

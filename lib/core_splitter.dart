@@ -9,7 +9,7 @@ import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
-/// `core-splitter` provides a spilt bar and dragging on the split bar
+/// `core-splitter` provides a split bar and dragging on the split bar
 /// will resize the sibling element.  Use its `direction` property to indicate
 /// which sibling element to be resized and the orientation.  Usually you would want
 /// to use `core-splitter` along with flex layout so that the other sibling
@@ -25,7 +25,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///
 /// In the above example, dragging the splitter will resize the _left_ element.  And
 /// since the parent container is a flexbox and the _right_ element has
-/// `flex`, the _right_ elemnt will be auto-resized.
+/// `flex`, the _right_ element will be auto-resized.
 ///
 /// For horizontal splitter set `direction` to "up" or "down".
 ///
@@ -56,10 +56,6 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
   /// these elements to overflow.
   bool get allowOverflow => jsElement['allowOverflow'];
   set allowOverflow(bool value) { jsElement['allowOverflow'] = value; }
-
-  /// Disables the selection of text while the splitter is being moved
-  get disableSelection => jsElement['disableSelection'];
-  set disableSelection(value) { jsElement['disableSelection'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreSplitter() => registerDartType('core-splitter', CoreSplitter);

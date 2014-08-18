@@ -112,28 +112,33 @@
 
   <script type="application/dart">
   import 'dart:html';
+  import 'package:core_elements/core_pages.dart';
   import 'package:polymer/polymer.dart';
 
   _toInt(x) => x is int ? x : int.parse(x);
 
-  main() => initPolymer().run(() {
-    var first = querySelector('#first');
-    first.onClick.listen((e) {
-      first.selected = (_toInt(first.selected) + 1) % first.children.length;      
-    });
+  main() {
+    initPolymer().run(() {
+      Polymer.onReady.then((_) {
+        var first = querySelector('#first') as CorePages;
+        first.onClick.listen((e) {
+          first.selected = (_toInt(first.selected) + 1) % first.children.length;
+        });
 
-    var fancy = querySelector('core-pages.fancy');
-    fancy.onClick.listen((e) {
-      fancy.selected = (_toInt(fancy.selected) + 1) % fancy.children.length;
-      fancy.jsElement.callMethod('async', [(_) {
-        if (fancy.selectedIndex == 0) {
-          fancy.selectedItem.classes.remove('begin');
-        } else if (fancy.selectedIndex == fancy.children.length - 1) {
-          fancy.jsElement['items'][0].classes.add('begin');
-        }
-      }]);
+        var fancy = querySelector('core-pages.fancy') as CorePages;
+        fancy.onClick.listen((e) {
+          fancy.selected = (_toInt(fancy.selected) + 1) % fancy.children.length;
+          fancy.jsElement.callMethod('async', [(_) {
+            if (fancy.selectedIndex == 0) {
+              fancy.selectedItem.classes.remove('begin');
+            } else if (fancy.selectedIndex == fancy.children.length - 1) {
+              fancy.items[0].classes.add('begin');
+            }
+          }]);
+        });
+      });
     });
-  });
+  }
   </script>
 
 </body>

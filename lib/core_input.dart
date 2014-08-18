@@ -18,27 +18,37 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///
 ///     <core-input multiline placeholder="Enter multiple lines here"></core-input>
 ///
-/// The text input's value is considered "committed" if the user hits the `enter`
-/// key or blurs the input after changing the value. The "change" event is fired
+/// The text input's value is considered "committed" if the user hits the "enter"
+/// key or blurs the input after changing the value. The `change` event is fired
 /// when the value becomes committed, and the committed value is stored in the
-/// "value" property. The current value of the input is stored in the "inputValue"
+/// `value` property. The current value of the input is stored in the `inputValue`
 /// property.
 ///
-/// core-input also can optionally validate the value by providing it with a
-/// regular expression to match against, or a validation function. The
-/// "input-invalid" event is fired if the input value changes and is invalid.
-/// The "invalid" property is also available for observation.
+/// Validation
+/// ----------
+///
+/// core-input can optionally validate the value using the HTML5 constraints API,
+/// similar to native inputs. There are two methods to enable input validation:
+///
+/// 1. By setting the `type` attribute. For example, setting it to `email` will
+///    check the value is a valid email, and setting it to `number` will check
+///    the input is a number.
+///
+/// 2. By setting attributes related to validation. The attributes are `pattern`,
+///    `min`, `max`, `step` and `required`.
+///
+/// Only `required` is supported for multiline inputs currently.
 ///
 /// Example:
 ///
-///     // valid only if the value is a number
-///     <core-input validate="^[0-9]*$" on-input-invalid="{{inputInvalidAction}}"></core-input>
+///     <core-input type="email" placeholder="enter your email"></core-input>
 ///
-///     this.$.input.validate = /^[0-9]*$/;  // valid only if the value is a number
+///     <core-input type="number" min="5" placeholder="enter a number greater than or equal to 5"></core-input>
 ///
-///     this.$.input2.validate = function(value) {
-///       return value === 'foo';  // valid only if the value is 'foo'
-///     }
+///     <core-input pattern=".*abc.*" placeholder="enter something containing 'abc'"></core-input>
+///
+/// See https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation
+/// for more info on validation.
 class CoreInput extends HtmlElement with DomProxyMixin {
   CoreInput.created() : super.created();
 
@@ -52,17 +62,13 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   bool get disabled => jsElement['disabled'];
   set disabled(bool value) { jsElement['disabled'] = value; }
 
-  /// Set the input type. Not supported for `multiline`.
-  String get type => jsElement['type'];
-  set type(String value) { jsElement['type'] = value; }
-
   /// If true, the user cannot modify the value of the input.
   bool get readonly => jsElement['readonly'];
   set readonly(bool value) { jsElement['readonly'] = value; }
 
-  /// If true, the input is invalid until the value becomes non-null.
-  bool get required => jsElement['required'];
-  set required(bool value) { jsElement['required'] = value; }
+  /// If true, this input will automatically gain focus on page load.
+  bool get autofocus => jsElement['autofocus'];
+  set autofocus(bool value) { jsElement['autofocus'] = value; }
 
   /// If true, this input accepts multi-line input like a `<textarea>`
   bool get multiline => jsElement['multiline'];
@@ -87,34 +93,52 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   String get value => jsElement['value'];
   set value(String value) { jsElement['value'] = value; }
 
-  /// If this property is not null, the text input's inputValue will be
-  /// validated. You can validate the value with either a regular expression
-  /// or a custom function.
-  ///
-  /// To use a regular expression, set this property to a RegExp object or
-  /// a string containing the regular expression to match against. To use a
-  /// custom validator, set this property to a function with the signature
-  /// function(value) that returns a boolean. The input is valid if the
-  /// function returns true.
-  ///
-  /// Example:
-  ///
-  ///     // valid only if the value is a number
-  ///     <core-input validate="^[0-9]*$"></core-input>
-  ///
-  ///     // valid only if the value is a number
-  ///     this.$.input.validate = /^[0-9]*$/;
-  ///
-  ///     this.$.input2.validate = function(value) {
-  ///         // valid only if the value is 'foo'
-  ///         return value === 'foo';
-  ///     }
-  get validate => jsElement['validate'];
-  set validate(value) { jsElement['validate'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  /// Set the input type. Not supported for `multiline`.
+  String get type => jsElement['type'];
+  set type(String value) { jsElement['type'] = value; }
+
+  /// If true, the input is invalid if its value is null.
+  bool get required => jsElement['required'];
+  set required(bool value) { jsElement['required'] = value; }
+
+  /// A regular expression to validate the input value against. See
+  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+  /// for more info. Not supported if `multiline` is true.
+  String get pattern => jsElement['pattern'];
+  set pattern(String value) { jsElement['pattern'] = value; }
+
+  /// If set, the input is invalid if the value is less than this property. See
+  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+  /// for more info. Not supported if `multiline` is true.
+  get min => jsElement['min'];
+  set min(value) { jsElement['min'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// If set, the input is invalid if the value is greater than this property. See
+  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+  /// for more info. Not supported if `multiline` is true.
+  get max => jsElement['max'];
+  set max(value) { jsElement['max'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// If set, the input is invalid if the value is not `min` plus an integral multiple
+  /// of this property. See
+  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
+  /// for more info. Not supported if `multiline` is true.
+  get step => jsElement['step'];
+  set step(value) { jsElement['step'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  /// The maximum length of the input value.
+  num get maxlength => jsElement['maxlength'];
+  set maxlength(num value) { jsElement['maxlength'] = value; }
 
   /// If this property is true, the text input's inputValue failed validation.
   bool get invalid => jsElement['invalid'];
   set invalid(bool value) { jsElement['invalid'] = value; }
+
+  get willValidate => jsElement['willValidate'];
+
+  get validity => jsElement['validity'];
+
+  get validationMessage => jsElement['validationMessage'];
 
   /// Commits the inputValue to value.
   void commit() =>

@@ -114,14 +114,6 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   get target => jsElement['target'];
   set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  get itemsSelector => jsElement['itemsSelector'];
-  set itemsSelector(value) { jsElement['itemsSelector'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// The event that would be fired from the item element to indicate
-  /// it is being selected.
-  String get activateEvent => jsElement['activateEvent'];
-  set activateEvent(String value) { jsElement['activateEvent'] = value; }
-
   /// This can be used to query nodes from the target node to be used for
   /// selection items.  Note this only works if the 'target' property is set.
   ///
@@ -134,8 +126,13 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///       <label><input type="radio" name="color" value="blue"> Blue</label> <br>
   ///       <p>color = {{color}}</p>
   ///     </form>
-  String get itemSelector => jsElement['itemSelector'];
-  set itemSelector(String value) { jsElement['itemSelector'] = value; }
+  String get itemsSelector => jsElement['itemsSelector'];
+  set itemsSelector(String value) { jsElement['itemsSelector'] = value; }
+
+  /// The event that would be fired from the item element to indicate
+  /// it is being selected.
+  String get activateEvent => jsElement['activateEvent'];
+  set activateEvent(String value) { jsElement['activateEvent'] = value; }
 
   get items => jsElement['items'];
 

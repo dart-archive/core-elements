@@ -1,0 +1,102 @@
+<!doctype html>
+<!--
+Copyright 2013 The Polymer Authors. All rights reserved.
+Use of this source code is governed by a BSD-style
+license that can be found in the LICENSE file.
+-->
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <title>core-dropdown</title>
+
+  <script src="packages/web_components/platform.js"></script>
+  <script src="packages/web_components/dart_support.js"></script>
+
+
+  <link rel="import" href="packages/core_elements/core_dropdown.html">
+  <style shim-shadowdom>
+    html, body {
+      height: 100%;
+    }
+
+    dropdown-demo {
+      display: block;
+    }
+
+    dropdown-demo::shadow > section {
+      padding: 12px;
+    }
+
+    body /deep/ core-dropdown {
+      background-color: #eee;
+    }
+
+    body /deep/ core-dropdown.narrow {
+      max-width: 100px;
+    }
+
+    body /deep/ core-dropdown::shadow #menu {
+      background-color: #eee;
+      border: 1px solid #ccc;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+<polymer-element name="dropdown-demo">
+  <template>
+    <section layout vertical fit>
+      <section layout horizontal>
+
+        <core-dropdown>
+          <template repeat="{{countries}}">
+            <core-item label="{{name}}"></core-item>
+          </template>
+        </core-dropdown>
+
+        <div style="margin:0 12px;">
+          narrow:
+          <core-dropdown class="narrow">
+            <template repeat="{{countries}}">
+              <core-item label="{{name}}"></core-item>
+            </template>
+          </core-dropdown>
+        </div>
+
+        <div flex></div>
+
+        <core-dropdown halign="right">
+          <template repeat="{{countries}}">
+            <core-item label="{{name}}"></core-item>
+          </template>
+        </core-dropdown>
+
+      </section>
+
+      <div flex></div>
+
+      <section>
+        drop-up:
+        <core-dropdown valign="top" valueattr="label" selected="Donut">
+          <core-item label="Croissant"></core-item>
+          <core-item label="Donut"></core-item>
+          <core-item label="Financier"></core-item>
+          <core-item label="Madeleine"></core-item>
+        </core-dropdown>
+      </section>
+
+    </section>
+
+  </template>
+  <script type="application/dart" src="core_dropdown.dart"></script>
+</polymer-element>
+
+<dropdown-demo fit></dropdown-demo>
+
+</body>
+</html>

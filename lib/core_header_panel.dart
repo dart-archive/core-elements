@@ -33,8 +33,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///       height: 100%;
 ///     }
 ///
-/// Special
-/// support is provided for scrolling modes when one uses a core-toolbar or equivalent
+/// Special support is provided for scrolling modes when one uses a core-toolbar or equivalent
 /// for the header section.
 ///
 /// Example:
@@ -52,6 +51,13 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     <core-header-panel>
 ///       <div class="core-header">Header</div>
 ///       <div>Content goes here...</div>
+///     </core-header-panel>
+///
+/// To have the content fits to the main area, use `fit` attribute.
+///
+///     <core-header-panel>
+///       <div class="core-header">standard</div>
+///       <div class="content" fit>content fits 100% below the header</div>
 ///     </core-header-panel>
 ///
 /// Use `mode` to control the header and scrolling behavior.
@@ -108,6 +114,9 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   /// If true, the drop-shadow is always shown no matter what mode is set to.
   bool get shadow => jsElement['shadow'];
   set shadow(bool value) { jsElement['shadow'] = value; }
+
+  /// Returns the scrollable element.
+  get scroller => jsElement['scroller'];
 
   get header => jsElement['header'];
 }

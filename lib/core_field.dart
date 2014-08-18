@@ -14,7 +14,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// Example:
 ///
 ///     <core-field>
-///       <core-icon icon="menu" size="48"></core-icon>
+///       <core-icon icon="menu"></core-icon>
 ///       <label>I'm a label!</label>
 ///       <input placeholder="I have a label" flex>
 ///     </core-field>

@@ -21,40 +21,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body unresolved>
 
-
-    <polymer-element name="x-buttons">
-      <template>
-        <core-iconset id="meta"></core-iconset>
-        <template repeat="{{icon in iconNames}}">
-          <core-icon-button icon="{{icon}}"></core-icon-button>
-        </template>
+    <template is="auto-binding-dart">
+      <template repeat="{{icon in $['meta'].metaData['icons'].iconNames}}">
+        <core-icon-button icon="{{icon}}" title="{{icon}}"></core-icon-button>
       </template>
-      <script type="application/dart">
-        import 'package:polymer/polymer.dart';
+      <core-icon-button icon="menu"><span>label</span></core-icon-button>
+      <core-iconset id="meta"></core-iconset>
+    </template>
 
-        @CustomTag('x-buttons')
-        class XButtons extends PolymerElement {
-          XButtons.created() : super.created();
-          @observable var iconNames;
-          ready() {
-            // TODO: should be able to do this without JS interop.
-            iconNames = $['meta'].byId('icons').jsElement['iconNames'];
-          }
-        }
-        main() => initPolymer();
-      </script>
-    </polymer-element>
+    <script type="application/dart">
+      import 'dart:html';
+      import 'package:polymer/polymer.dart';
 
-    <div>
-      <x-buttons></x-buttons>
-    </div>
-    <br>
-    <div theme="core-light-theme">
-      <x-buttons></x-buttons>
-    </div>
-    <br>
-    <div theme="core-dark-theme" style="background: #333;">
-      <x-buttons></x-buttons>
-    </div>
+      main() {
+        initPolymer();
+
+        Polymer.onReady.then((_) {
+          var template = document.querySelector('template');
+          // It looks like I have to assign a model to the template, which is not
+          // consistent with the JS side?
+          template.model = template;
+        });
+      }
+    </script>
+    
   </body>
 </html>

@@ -49,10 +49,12 @@ class CoreIconsetSvg extends CoreMeta {
 
   /// Applies an icon to the given element. The svg icon is added to the
   /// element's shadowRoot if one exists or directly to itself.
+  ///
+  /// Returns icon element
   /// [element]: The element to which the icon is
   ///     applied.
   /// [icon]: The name the icon to apply.
-  void applyIcon(element, icon) =>
+  applyIcon(element, icon) =>
       jsElement.callMethod('applyIcon', [element, icon]);
 
   /// Tell users of the iconset, that the set has loaded.

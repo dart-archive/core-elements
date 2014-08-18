@@ -26,14 +26,34 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
 ///
-/// To position the drawer to the right, add `right-drawer` to the class list.
+/// The drawer and the main panels are not scrollable.  You can set CSS overflow
+/// property on the elements to make them scrollable or use `core-header-panel`.
 ///
-///     <core-drawer-panel class="right-drawer">
+/// Example:
+///
+///     <core-drawer-panel>
+///       <core-header-panel drawer>
+///         <core-toolbar></core-toolbar>
+///         <div> Drawer content... </div>
+///       </core-header-panel>
+///       <core-header-panel main>
+///         <core-toolbar></core-toolbar>
+///         <div> Main content... </div>
+///       </core-header-panel>
+///     </core-drawer-panel>
+///
+/// To position the drawer to the right, add `rightDrawer` attribute.
+///
+///     <core-drawer-panel rightDrawer>
 ///       <div drawer> Drawer panel... </div>
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
 class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   CoreDrawerPanel.created() : super.created();
+
+  /// Width of the drawer panel.
+  String get drawerWidth => jsElement['drawerWidth'];
+  set drawerWidth(String value) { jsElement['drawerWidth'] = value; }
 
   /// Max-width when the panel changes to narrow layout.
   String get responsiveWidth => jsElement['responsiveWidth'];
@@ -54,9 +74,25 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   bool get narrow => jsElement['narrow'];
   set narrow(bool value) { jsElement['narrow'] = value; }
 
-  /// DART NOTE: Manually added due to issue #39. This should be removed once it
-  /// is property documented in the js and we upgrade the elements.
-  void togglePanel() => jsElement.callMethod('togglePanel', []);
+  /// If true, position the drawer to the right.
+  bool get rightDrawer => jsElement['rightDrawer'];
+  set rightDrawer(bool value) { jsElement['rightDrawer'] = value; }
+
+  /// If true, swipe to open/close the drawer is disabled.
+  bool get disableSwipe => jsElement['disableSwipe'];
+  set disableSwipe(bool value) { jsElement['disableSwipe'] = value; }
+
+  /// Toggles the panel open and closed.
+  void togglePanel() =>
+      jsElement.callMethod('togglePanel', []);
+
+  /// Opens the drawer.
+  void openDrawer() =>
+      jsElement.callMethod('openDrawer', []);
+
+  /// Closes the drawer.
+  void closeDrawer() =>
+      jsElement.callMethod('closeDrawer', []);
 }
 @initMethod
 upgradeCoreDrawerPanel() => registerDartType('core-drawer-panel', CoreDrawerPanel);

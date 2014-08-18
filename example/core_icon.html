@@ -20,19 +20,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     segment {
       min-width: 200px;
     }
+
+    core-icon.big {
+      height: 128px;
+      width: 128px;
+    }
   </style>
 </head>
 <body unresolved>
 
-<template is="auto-binding">
+<template is="auto-binding-dart">
   <div wrap horizontal layout>
-    <template repeat="{{icon in $.meta.metaData.icons.iconNames}}">
+    <template repeat="{{icon in $['meta'].metaData['icons'].iconNames}}">
       <segment><core-icon icon="{{icon}}"></core-icon> {{icon}}</segment>
     </template>
   </div>
   <core-iconset id="meta"></core-iconset>
+  <div hidden?="{{$['meta'].metaData['icons'].iconNames.isEmpty}}">
+    Sized icon:
+    <core-icon class="big" icon="accessibility"></core-icon>
+  </div>
 </template>
 
-<script type="application/dart">export 'package:polymer/init.dart';</script>
+<script type="application/dart">
+  import 'dart:html';
+  import 'package:polymer/polymer.dart';
+
+  main() {
+    initPolymer();
+
+    Polymer.onReady.then((_) {
+      var template = document.querySelector('template');
+      // It looks like I have to assign a model to the template, which is not
+      // consistent with the JS side?
+      template.model = template;
+    });
+  }
+</script>
 </body>
 </html>

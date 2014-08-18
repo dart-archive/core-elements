@@ -15,6 +15,28 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// header scrolls back into view.  This saves screen space and allows users to
 /// access important controls by easily moving them back to the view.
 ///
+/// __Important:__ The `core-scroll-header-panel` will not display if its parent does not have a height.
+///
+/// Using [layout attributes](http://www.polymer-project.org/docs/polymer/layout-attrs.html), you can easily make the `core-scroll-header-panel` fill the screen
+///
+///     <body fullbleed layout vertical>
+///       <core-scroll-header-panel flex>
+///         <core-toolbar>
+///           <div>Hello World!</div>
+///         </core-toolbar>
+///       </core-scroll-header-panel>
+///     </body>
+///
+/// or, if you would prefer to do it in CSS, just give `html`, `body`, and `core-scroll-header-panel` a height of 100%:
+///
+///     html, body {
+///       height: 100%;
+///       margin: 0;
+///     }
+///     core-scroll-header-panel {
+///       height: 100%;
+///     }
+///
 /// `core-scroll-header-panel` works well with `core-toolbar` but can use any element
 /// that represents a header by adding a `core-header` class to it.  Use the attribute
 /// or class `content` to delineate the content section.
@@ -26,7 +48,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
 
-  /// If true, the header's height will condense to `condensedHeaderHeight`
+  /// If true, the header's height will condense to `_condensedHeaderHeight`
   /// as the user scrolls down from the top of the content area.
   bool get condenses => jsElement['condenses'];
   set condenses(bool value) { jsElement['condenses'] = value; }
@@ -57,7 +79,8 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
 
   /// The height of the header when it is condensed.
   ///
-  /// By default, this will be 1/3 of `headerHeight`.
+  /// By default, `_condensedHeaderHeight` is 1/3 of `headerHeight` unless
+  /// this is specified.
   num get condensedHeaderHeight => jsElement['condensedHeaderHeight'];
   set condensedHeaderHeight(num value) { jsElement['condensedHeaderHeight'] = value; }
 

@@ -29,6 +29,16 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///
 /// Use `mode` to control the header and scrolling behavior of `core-header-panel`
 /// and `responsiveWidth` to change the layout of the scaffold.
+///
+/// To have the content fits to the main area, use `fit` attribute.
+///
+///     <core-scaffold>
+///       <core-header-panel navigation flex mode="seamed">
+///         ....
+///       </core-header-panel>
+///       <div tool>Title</div>
+///       <div fit>Content fits to the main area</div>
+///     </core-scaffold>
 class CoreScaffold extends HtmlElement with DomProxyMixin {
   CoreScaffold.created() : super.created();
 

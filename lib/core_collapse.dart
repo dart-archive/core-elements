@@ -14,7 +14,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///
 ///     <button on-click="{{toggle}}">toggle collapse</button>
 ///
-///     <core-collapse id="collapse"></core-collapse>
+///     <core-collapse id="collapse">
 ///       ...
 ///     </core-collapse>
 ///

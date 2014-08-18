@@ -101,13 +101,14 @@ class CoreIconset extends CoreMeta {
   /// Applies an icon to the given element as a css background image. This
   /// method does not size the element, and it's often necessary to set
   /// the element's height and width so that the background image is visible.
+  ///
+  /// Returns icon element.
   /// [element]: The element to which the background is
   ///     applied.
   /// [icon]: The name or index of the icon to apply.
-  /// DART NOTE: Manually removed [theme] here, as it is no longer exists.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
-  void applyIcon(element, icon, [scale]) =>
+  applyIcon(element, icon, [scale]) =>
       jsElement.callMethod('applyIcon', [element, icon, scale]);
 }
 @initMethod

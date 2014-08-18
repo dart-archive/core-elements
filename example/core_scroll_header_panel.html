@@ -107,6 +107,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var titleStyle = document.querySelector('.title').style;
           document.on['core-header-transform'].listen((e) {
             var d = e.detail;
+            // The first time this gets called the event is often not fully
+            // filled out, in that case we just bail.
+            if (d['height'] == null || d['condensedHeight'] == null
+                || d['y'] == null) {
+              return;
+            };
             num m = d['height'] - d['condensedHeight'];
             num y = d['y'];
             var scale = Math.max(0.75, (m - y) / (m / 0.25)  + 0.75);

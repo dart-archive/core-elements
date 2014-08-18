@@ -1,14 +1,14 @@
 name: core_elements
-version: 0.1.1+2
+version: 0.2.0
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer-dart/
 dependencies:
-  polymer: ">=0.12.0 <0.13.0"
+  polymer: ">=0.12.2 <0.13.0"
   quiver: ">=0.17.0 <0.19.0"
   web_components: ">=0.5.0 <0.6.0"
 dev_dependencies:
-  html5lib: ">=0.11.0 <0.12.0"
+  html5lib: ">=0.11.0 <0.13.0"
   paper_elements: ">=0.1.0 <0.2.0"
   path: ">=1.0.0 <2.0.0"
   yaml: ">=1.0.0 <3.0.0"
@@ -28,6 +28,8 @@ transformers:
     - example/core_animated_pages/simple.html
     - example/core_animation.html
     - example/core_collapse.html
+    - example/core_drag_drop.html
+    - example/core_dropdown.html
     - example/core_drag_drop.html
     - example/core_drawer_panel.html
     - example/core_field.html
@@ -59,6 +61,9 @@ transformers:
     - example/core_style.html
     - example/core_toolbar.html
     - example/core_tooltip.html
+    # Each individual example must also be listed as an entrypoint since
+    # demo.html file uses iframes to load them in.
+    - example/demo.html
     - test/core_ajax_dart.html
     - test/core_animated_pages.html
     - test/core_collapse.html

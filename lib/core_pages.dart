@@ -23,7 +23,7 @@ import 'core_selector.dart';
 ///       document.addEventListener('click', function(e) {
 ///         var pages = document.querySelector('core-pages');
 ///         pages.selected = (pages.selected + 1) % pages.children.length;
-///       };
+///       });
 ///     </script>
 class CorePages extends CoreSelector {
   CorePages.created() : super.created();

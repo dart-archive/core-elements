@@ -13,39 +13,22 @@ import 'package:polymer/polymer.dart';
 import 'package:template_binding/template_binding.dart';
 import 'package:core_elements/core_meta.dart';
 
-@CustomTag('svg-icon-demo')
-class SvgIconDemo extends PolymerElement {
-  @observable String icon;
-  @observable int size = 100;
+class MyModel {
+  List<String> icons;
 
-  SvgIconDemo.created() : super.created();
-
-  iconChanged() {
-    if (icon == null) return;
-
-    var parts = this.icon.split(':');
-    var iconName = parts.removeLast();
-    // find the iconSet for the name given via the icon property
-    var iconset = $['meta'].byId(parts.removeLast());
-    if (iconset != null) {
-      // size the element as needed
-      this.style.height = this.style.width = '${size}px';
-      // use iconset's applyAsBackground method to set the given icon
-      // as the element's background image.
-      iconset.applyIcon(this, iconName);
-    }
-  }
+  MyModel(this.icons);
 }
 
-main() => initPolymer().run(() {
-  Polymer.onReady.then((_) {
-    var iconset = querySelector('#meta') as CoreMeta;
-    var icons = iconset.byId('svg-sample-icons')
-        .jsElement['iconNames'];
-
-    icons = icons.map((ic) => 'svg-sample-icons:$ic');
-    for (var p in querySelectorAll('template')) {
-      templateBind(p).model = icons;
-    }
+main() {
+  initPolymer().run(() {
+    Polymer.onReady.then((_) {
+      var template = querySelector('template') as TemplateElement;
+      template.on['template-bound'].listen((_) {
+        var setName = 'svg-sample-icons';
+        var meta = querySelector('#meta') as CoreMeta;
+        var icons = meta.byId(setName).iconNames;
+        template.model = new MyModel(icons.map((icon) => '$setName:$icon').toList());
+      });
+    });
   });
-});
+}

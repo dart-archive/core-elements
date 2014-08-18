@@ -53,9 +53,6 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 class CoreMeta extends HtmlElement with DomProxyMixin {
   CoreMeta.created() : super.created();
 
-  /// Returns a list of all meta-data elements with the same type.
-  JsArray get list => jsElement['list'];
-
   get label => jsElement['label'];
   set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
@@ -63,6 +60,9 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
   /// stored together.
   String get type => jsElement['type'];
   set type(String value) { jsElement['type'] = value; }
+
+  /// Returns a list of all meta-data elements with the same type.
+  JsArray get list => jsElement['list'];
 
   get metaArray => jsElement['metaArray'];
 
