@@ -8,6 +8,7 @@
  */
 library core_elements.core_list_dart;
 
+import 'dart:js' show JsObject;
 import 'dart:html';
 import 'dart:math' as math;
 import 'package:core_elements/core_selection.dart';
@@ -296,8 +297,11 @@ class CoreList extends PolymerElement {
     }
   }
 
-  selectedHandler(e, detail) {
+  selectedHandler(e) {
     if (this.selectedProperty != null) {
+      // TODO(sigmund): remove this use of JsInterop when dartbug.com/20648 is
+      // fixed
+      var detail = new JsObject.fromBrowserObject(e)['detail'];
       var i$ = this.indexesForData(detail['item']);
       // TODO(sorvell): we should be relying on selection to store the
       // selected data but we want to optimize for lookup.
