@@ -3,7 +3,7 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
-#### Pub version 0.2.0
+#### Pub version 0.2.0-dev
 
 Updated all elements to the 0.3.5 js versions.
   * **New** Added core-dropdown element, which acts like a <select> tag.
@@ -12,6 +12,8 @@ Updated all elements to the 0.3.5 js versions.
   * **Breaking Change** All icons that previously lived under 
     'packages/core_elements/core_icons/iconsets/' now live directly under
     'packages/core_elements/'.
+  * Workaround in core-list-dart for [bug
+20648](https://code.google.com/p/dart/issues/detail?id=20648)
 
 #### Pub version 0.1.1+2
 
