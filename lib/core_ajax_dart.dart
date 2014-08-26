@@ -160,7 +160,7 @@ class CoreAjax extends PolymerElement {
 
   bool isSuccess(HttpRequest xhr) {
     var status = xhr.status;
-    return (status == null) || (status >= 200 && status < 300);
+    return (status == null || status == 0) || (status >= 200 && status < 300);
   }
 
   void processResponse(xhr) {
