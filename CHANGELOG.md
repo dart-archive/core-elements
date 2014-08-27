@@ -14,6 +14,7 @@ Updated all elements to the 0.3.5 js versions.
     'packages/core_elements/'.
   * Workaround in core-list-dart for [bug
 20648](https://code.google.com/p/dart/issues/detail?id=20648)
+  * Expanded polymer version constraint to <0.14.0.
 
 #### Pub version 0.1.1+2
 
