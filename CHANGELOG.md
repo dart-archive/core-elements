@@ -3,6 +3,10 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
+## Pub version 0.2.0+1
+
+Upgrade polymer dependency to >=0.13.0
+
 ## Pub version 0.2.0
 
 Updated all elements to the 0.3.5 js versions.
