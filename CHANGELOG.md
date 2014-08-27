@@ -3,7 +3,7 @@
 This file contains highlights of what changes on each version of the
 core_elements package.
 
-#### Pub version 0.2.0-dev
+#### Pub version 0.2.0
 
 Updated all elements to the 0.3.5 js versions.
   * **New** Added core-dropdown element, which acts like a <select> tag.
