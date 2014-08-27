@@ -21,7 +21,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <body unresolved>
 
-    <template is="auto-binding-dart">
+    <template id="myTemplate" is="auto-binding-dart">
       <template repeat="{{icon in $['meta'].metaData['icons'].iconNames}}">
         <core-icon-button icon="{{icon}}" title="{{icon}}"></core-icon-button>
       </template>
@@ -37,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         initPolymer();
 
         Polymer.onReady.then((_) {
-          var template = document.querySelector('template');
+          var template = document.querySelector('#myTemplate');
           // It looks like I have to assign a model to the template, which is not
           // consistent with the JS side?
           template.model = template;
