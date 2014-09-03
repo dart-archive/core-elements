@@ -22,10 +22,15 @@ class MyModel extends Object with Observable {
   @observable
   bool isInvalid;
 
-  Function changeHandler;
-  Function inputHandler;
-  Function inputInvalidHandler;
-  Function inputValidHandler;
+  int _changeHandlerCount = 0;
+  int _inputHandlerCount = 0;
+  int _inputInvalidHandlerCount = 0;
+  int _inputValidHandlerCount = 0;
+
+  void changeHandler(e) => _changeHandlerCount++;
+  void inputHandler(e) => _inputHandlerCount++;
+  void inputInvalidHandler(e) => _inputInvalidHandlerCount++;
+  void inputValidHandler(e) => _inputValidHandlerCount++;
 }
 
 const INITIAL_VALUE = "Initial value";
@@ -70,15 +75,15 @@ void main() {
         test("change and input event", () {
           var template =
               dom.document.querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
-          var model = template.model = new MyModel()
-              ..changeHandler = expectAsync((e) {}, id: "change event handler called")
-              ..inputHandler = expectAsync((e) {}, id: "input event handler called");
+          var model = template.model = new MyModel();
 
           return new async.Future(() {
             var input = dom.document.querySelector("#changeAndInputEvent") as CoreInput;
             var domInput = (input.shadowRoot.querySelector('#input') as dom.InputElement);
             domInput.dispatchEvent(new dom.CustomEvent("change", detail: {"source": "changeAndInputEventTest}"}));
             domInput.dispatchEvent(new dom.CustomEvent("input", canBubble: true, detail: {"source": "changeEventTest"}));
+            expect(model._changeHandlerCount, 1);
+            expect(model._inputHandlerCount, 1);
           });
         });
 
@@ -86,9 +91,7 @@ void main() {
           var template =
               dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()
-              ..stringValue = INITIAL_VALUE
-              ..inputInvalidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputValidCalled")
-              ..inputValidHandler = expectAsync((dom.CustomEvent e) {}, id: "inputInvalidCalled");
+              ..stringValue = INITIAL_VALUE;
 
           return new async.Future(() {
             var input =

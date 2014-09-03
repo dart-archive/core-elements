@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <!--
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -9,16 +9,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
   <head>
-    <title>core-selection</title>
+    <title>core-ajax-dart</title>
 
     <script src="packages/web_components/platform.js"></script>
     <script src="packages/web_components/dart_support.js"></script>
-
-    <link rel="import" href="packages/core_elements/core_selection.html">
-
-    <script type="application/dart" src="core_selection.dart"></script>
+    <link rel='import' href='packages/core_elements/core_ajax_dart.html'>
+    <script src="packages/unittest/test_controller.js"></script>
   </head>
   <body>
-    <core-selection></core-selection>
+    <core-ajax-dart
+      url="core_ajax_dart.json"
+      params='{"alt":"json", "q":"chrome"}'
+      handleAs="json"
+      auto></core-ajax-dart>
+    <script type="application/dart" src="core_ajax_dart_test.dart"></script>
   </body>
 </html>

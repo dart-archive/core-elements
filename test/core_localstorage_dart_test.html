@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--
 Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
@@ -9,19 +9,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
   <head>
-    <title>core-ajax-dart</title>
+    <title>core-localstorate</title>
 
     <script src="packages/web_components/platform.js"></script>
     <script src="packages/web_components/dart_support.js"></script>
-    <link rel='import' href='packages/core_elements/core_ajax_dart.html'>
-    <script src="packages/unittest/test_controller.js"></script>
+
+    <link rel="import" href="packages/core_elements/core_localstorage_dart.html">
+
+    <script type="application/dart" src="core_localstorage_dart_test.dart"></script>
   </head>
   <body>
-    <core-ajax-dart
-      url="core_ajax_dart.json"
-      params='{"alt":"json", "q":"chrome"}'
-      handleAs="json"
-      auto></core-ajax-dart>
-    <script type="application/dart" src="core_ajax_dart.dart"></script>
+    <core-localstorage-dart id="localstorage" name="core-localstorage-test" useRaw></core-localstorage-dart>
   </body>
 </html>

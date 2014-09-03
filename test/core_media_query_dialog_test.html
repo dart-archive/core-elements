@@ -9,20 +9,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
   <head>
-    <title>core-shared-lib</title>
+    <title>core-media-query-dialog</title>
 
     <script src="packages/web_components/platform.js"></script>
     <script src="packages/web_components/dart_support.js"></script>
 
-    <link rel="import" href="packages/core_elements/core_shared_lib.html">
+    <link rel="import" href="packages/core_elements/core_media_query.html">
 
-    <script type="application/dart" src="core_shared_lib.dart"></script>
+    <script type="application/dart" src="core_media_query_dialog_test.dart"></script>
   </head>
   <body>
-    <core-shared-lib url="https://apis.google.com/js/client.js?onload=%%callback%%"></core-shared-lib>
 
-    <template id="t" is='auto-binding-dart'>
-      <core-shared-lib url="https://apis.google.com/js/client.js?onload=%%callback%%"></core-shared-lib>
+    <!-- should fire when size is changed and change value when width is wider or smaller than threshold -->
+    <template id="simpleMatch" is="auto-binding-dart">
+      <core-media-query
+        id="phone"
+        query="{{phoneQuery}}"
+        queryMatches="{{matchesPhone}}"
+        ></core-media-query>
+      <core-media-query
+        id="tablet"
+        query="{{tabletQuery}}"
+        queryMatches="{{matchesTablet}}"
+        on-core-media-change="{{coreMediaChangeHandler}}"></core-media-query>
     </template>
+
   </body>
 </html>
