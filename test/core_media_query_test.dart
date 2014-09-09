@@ -68,7 +68,8 @@ void main() {
           //   'core_media_query_dialog.html', '_blank') as dom.Window;
           // dialog.resizeTo(WIDTHS[0], 700);
           dialog = new js.JsObject(js.context['OpenDialogWorkaround']);
-          dialog.callMethod('open', ['core_media_query_dialog.html', '_blank']);
+          dialog.callMethod('open',
+                            ['core_media_query_dialog_test.html', '_blank']);
           dialog.callMethod('resizeTo', [WIDTHS[0], 700]);
         });
 
