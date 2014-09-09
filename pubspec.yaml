@@ -64,19 +64,19 @@ transformers:
     # Each individual example must also be listed as an entrypoint since
     # demo.html file uses iframes to load them in.
     - example/demo.html
-    - test/core_ajax_dart.html
-    - test/core_animated_pages.html
-    - test/core_collapse.html
-    - test/core_input.html
-    - test/core_localstorage_dart.html
-    - test/core_media_query.html
-    - test/core_media_query_dialog.html
-    - test/core_menu_button.html
-    - test/core_selection.html
-    - test/core_selection_multi.html
-    - test/core_selection_multi.html
-    - test/core_selector_activate_event.html
-    - test/core_selector_basic.html
-    - test/core_selector_multi.html
-    - test/core_shared_lib.html
+    - test/core_ajax_dart_test.html
+    - test/core_animated_pages_test.html
+    - test/core_collapse_test.html
+    - test/core_input_test.html
+    - test/core_localstorage_dart_test.html
+    - test/core_media_query_test.html
+    - test/core_media_query_dialog_test.html
+    - test/core_menu_button_test.html
+    - test/core_selection_test.html
+    - test/core_selection_multi_test.html
+    - test/core_selection_multi_test.html
+    - test/core_selector_activate_event_test.html
+    - test/core_selector_basic_test.html
+    - test/core_selector_multi_test.html
+    - test/core_shared_lib_test.html
     lint: false
