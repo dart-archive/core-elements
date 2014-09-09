@@ -13,7 +13,7 @@ import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 
-class BasicModel {
+class BasicModel extends Observable {
   var _done = expectAsync(() {}, count: 4, id: 'transistion-end event');
 
   @observable

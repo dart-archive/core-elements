@@ -12,13 +12,12 @@ import 'dart:html';
 import 'dart:js' show JsObject;
 import 'package:polymer/polymer.dart';
 export 'package:polymer/init.dart' show main;
+
 @initMethod init() {
   window.on['drag-start'].listen((e) {
-    var dragInfo = e.detail;
-    // TODO(sigmund): this shouldn't be necessary. See issue 19315.
-    if (dragInfo == null) {
-      dragInfo = _js(e)['detail'];
-    }
+    // TODO(sigmund): remove this use of JsInterop when dartbug.com/20648 and
+    // dartbug.com/19315 are fixed.
+    var dragInfo = _js(e)['detail'];
 
     // flaw #2: e vs dragInfo.event
     var color = dragInfo['event'].target.style.backgroundColor;
@@ -31,6 +30,7 @@ export 'package:polymer/init.dart' show main;
   });
   //
 }
+
 drop(dragInfo) {
   var color = dragInfo['avatar'].style.borderColor;
   var dropTarget = _js(dragInfo['event'])['relatedTarget'];

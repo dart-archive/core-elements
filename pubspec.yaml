@@ -51,6 +51,7 @@ transformers:
     - example/core_meta.html
     - example/core_overlay.html
     - example/core_pages.html
+    - example/core_popup_menu.html
     - example/core_range.html
     - example/core_scaffold.html
     - example/core_scroll_header_panel.html

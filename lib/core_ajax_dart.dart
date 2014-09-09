@@ -279,7 +279,7 @@ class CoreAjax extends PolymerElement {
     if (headers is String) {
       headers = JSON.decode(headers);
     }
-    var hasContentType = headers.keys.some((header) {
+    var hasContentType = headers.keys.any((header) {
       return header.toLowerCase() == 'content-type';
     });
     if (!hasContentType && this.contentType) {
