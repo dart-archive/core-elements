@@ -28,7 +28,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// ----------
 ///
 /// core-input can optionally validate the value using the HTML5 constraints API,
-/// similar to native inputs. There are two methods to enable input validation:
+/// similar to native inputs. There are two methods to configure input validation:
 ///
 /// 1. By setting the `type` attribute. For example, setting it to `email` will
 ///    check the value is a valid email, and setting it to `number` will check
@@ -133,6 +133,10 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// If this property is true, the text input's inputValue failed validation.
   bool get invalid => jsElement['invalid'];
   set invalid(bool value) { jsElement['invalid'] = value; }
+
+  /// If this property is true, validate the input as they are entered.
+  bool get validateImmediately => jsElement['validateImmediately'];
+  set validateImmediately(bool value) { jsElement['validateImmediately'] = value; }
 
   get willValidate => jsElement['willValidate'];
 
