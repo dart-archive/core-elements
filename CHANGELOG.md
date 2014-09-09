@@ -1,7 +1,12 @@
-# changelog
+## Pub version 0.2.1
 
-This file contains highlights of what changes on each version of the
-core_elements package.
+  * Update all elements to the 0.4.0 js versions.
+    * **New** Added new element core_popup_menu.
+    * Fix core_drag_drop example.
+  * Upgrade polymer dependency to >= 0.14.0.
+    * Removed platform.js from all tests and examples. This may require an
+      update of Dartium for users running a simple server (not pub serve/build).
+  * Upgrade dependency on web_components to >=0.7.0.
 
 ## Pub version 0.2.0+1
 
