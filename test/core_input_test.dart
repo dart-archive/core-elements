@@ -27,10 +27,10 @@ class MyModel extends Object with Observable {
   int _inputInvalidHandlerCount = 0;
   int _inputValidHandlerCount = 0;
 
-  void changeHandler(e) => _changeHandlerCount++;
-  void inputHandler(e) => _inputHandlerCount++;
-  void inputInvalidHandler(e) => _inputInvalidHandlerCount++;
-  void inputValidHandler(e) => _inputValidHandlerCount++;
+  changeHandler(e) => _changeHandlerCount++;
+  inputHandler(e) => _inputHandlerCount++;
+  inputInvalidHandler(e) => _inputInvalidHandlerCount++;
+  inputValidHandler(e) => _inputValidHandlerCount++;
 }
 
 const INITIAL_VALUE = "Initial value";
