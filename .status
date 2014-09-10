@@ -11,6 +11,10 @@
 */*/*/*/packages/*/*: Skip
 */*/*/*/*/packages/*/*: Skip
 
+[ $compiler == dart2js ]
+test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run
+              # the output of pub-build
 
 [ $runtime == vm || $runtime == jsshell || $runtime == d8 ]]
-test/*: Skip  # All tests are meant to run in the browser
+build/test/*: Skip  # All tests are meant to run in a browser
+test/*: Skip  # All tests are meant to run in a browser
