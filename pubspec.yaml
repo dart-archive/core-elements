@@ -14,6 +14,8 @@ dev_dependencies:
   yaml: ">=1.0.0 <3.0.0"
   unittest: ">=0.11.0+2 <0.12.0"
   matcher: ">=0.10.1+1 <0.11.0"
+environment:
+  sdk: '>=1.6.0 <2.0.0'
 transformers:
 - polymer:
     entry_points:

@@ -4,8 +4,7 @@
     * **New** Added new element core_popup_menu.
     * Fix core_drag_drop example.
   * Upgrade polymer dependency to >= 0.14.0.
-    * Removed platform.js from all tests and examples. This may require an
-      update of Dartium for users running a simple server (not pub serve/build).
+    * Removed platform.js from all tests and examples.
   * Upgrade dependency on web_components to >=0.7.0.
 
 ## Pub version 0.2.0+1
