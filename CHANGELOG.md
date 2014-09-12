@@ -1,3 +1,10 @@
+## Pub version 0.2.1+1
+
+  * Update `core-input` element to
+    [88cbe6f](https://github.com/Polymer/core-input/commit/88cbe6f). This
+    removes the need to use js interop for many methods that are forwarded to
+    the underlying input element.
+
 ## Pub version 0.2.1
 
   * Update all elements to the 0.4.0 js versions.
