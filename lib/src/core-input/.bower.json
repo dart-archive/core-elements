@@ -1,17 +1,16 @@
 {
   "name": "core-input",
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0"
+    "polymer": "Polymer/polymer#master"
   },
-  "homepage": "https://github.com/Polymer/core-input",
-  "version": "0.4.0",
-  "_release": "0.4.0",
+  "homepage": "https://github.com/polymer/core-input",
+  "_release": "88cbe6f678",
   "_resolution": {
-    "type": "version",
-    "tag": "0.4.0",
-    "commit": "dc72934870f95aa95134db5cb2d341192bfad0b2"
+    "type": "branch",
+    "branch": "master",
+    "commit": "88cbe6f678b7005472a337d64f5152ca0d63c212"
   },
-  "_source": "git://github.com/Polymer/core-input.git",
-  "_target": ">=0.4.0 <1.0.0",
-  "_originalSource": "Polymer/core-input"
+  "_source": "git://github.com/polymer/core-input.git",
+  "_target": "master",
+  "_originalSource": "polymer/core-input"
 }

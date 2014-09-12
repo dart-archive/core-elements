@@ -147,6 +147,52 @@ class CoreInput extends HtmlElement with DomProxyMixin {
   /// Commits the inputValue to value.
   void commit() =>
       jsElement.callMethod('commit', []);
+
+  /// Forwards to the internal input / textarea element.
+  void blur() =>
+      jsElement.callMethod('blur', []);
+
+  /// Forwards to the internal input / textarea element.
+  void click() =>
+      jsElement.callMethod('click', []);
+
+  /// Forwards to the internal input / textarea element.
+  void focus() =>
+      jsElement.callMethod('focus', []);
+
+  /// Forwards to the internal input / textarea element.
+  void select() =>
+      jsElement.callMethod('select', []);
+
+  /// Forwards to the internal input / textarea element.
+  /// [selectionDirection]: (optional)
+  void setSelectionRange(num selectionStart, num selectionEnd, [String selectionDirection]) =>
+      jsElement.callMethod('setSelectionRange', [selectionStart, selectionEnd, selectionDirection]);
+
+  /// Forwards to the internal input element, not implemented for multiline.
+  /// [start]: (optional)
+  /// [end]: (optional)
+  /// [selectMode]: (optional)
+  void setRangeText(String replacement, [num start, num end, String selectMode]) =>
+      jsElement.callMethod('setRangeText', [replacement, start, end, selectMode]);
+
+  /// Forwards to the internal input, not implemented for multiline.
+  /// [n]: (optional)
+  void stepDown([num n]) =>
+      jsElement.callMethod('stepDown', [n]);
+
+  /// Forwards to the internal input, not implemented for multiline.
+  /// [n]: (optional)
+  void stepUp([num n]) =>
+      jsElement.callMethod('stepUp', [n]);
+
+  /// Forwards to the internal input / textarea element and updates state.
+  checkValidity() =>
+      jsElement.callMethod('checkValidity', []);
+
+  /// Forwards to the internal input / textarea element and updates state.
+  void setCustomValidity(num message) =>
+      jsElement.callMethod('setCustomValidity', [message]);
 }
 @initMethod
 upgradeCoreInput() => registerDartType('core-input', CoreInput);
