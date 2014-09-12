@@ -7,7 +7,7 @@
   ],
   "private": true,
   "dependencies": {
-    "polymer": "polymer/polymer#0.3.5",
-    "core-elements": "polymer/core-elements#0.3.5"
+    "polymer": "polymer/polymer#0.4.0",
+    "core-elements": "polymer/core-elements#0.4.0"
   }
 }

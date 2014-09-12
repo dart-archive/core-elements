@@ -43,13 +43,11 @@ class CoreMenuButton extends HtmlElement with DomProxyMixin {
   bool get opened => jsElement['opened'];
   set opened(bool value) { jsElement['opened'] = value; }
 
-  /// Horizontally align the overlay with the button. Accepted values are
-  /// ["left", "center", "right"].
+  /// Horizontally align the overlay with the button.
   String get halign => jsElement['halign'];
   set halign(String value) { jsElement['halign'] = value; }
 
-  /// Display the overlay on top or below the button. Accepted values are
-  /// ["top", "bottom"].
+  /// Display the overlay on top or below the button.
   String get valign => jsElement['valign'];
   set valign(String value) { jsElement['valign'] = value; }
 

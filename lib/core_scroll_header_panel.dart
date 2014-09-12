@@ -84,6 +84,12 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   num get condensedHeaderHeight => jsElement['condensedHeaderHeight'];
   set condensedHeaderHeight(num value) { jsElement['condensedHeaderHeight'] = value; }
 
+  /// By default, the top part of the header stays when the header is being
+  /// condensed.  Set this to true if you want the top part of the header
+  /// to be scrolled away.
+  bool get scrollAwayTopbar => jsElement['scrollAwayTopbar'];
+  set scrollAwayTopbar(bool value) { jsElement['scrollAwayTopbar'] = value; }
+
   get header => jsElement['header'];
 
   get scroller => jsElement['scroller'];

@@ -209,7 +209,7 @@ class CoreAjax extends PolymerElement {
       return JSON.decode(r);
     } catch (x) {
       logger.severe(
-          'core-ajax caught an exception trying to parse reponse as JSON:');
+          'core-ajax caught an exception trying to parse response as JSON:');
       logger.severe('url: $url');
       logger.severe(x);
       return r;
@@ -279,8 +279,11 @@ class CoreAjax extends PolymerElement {
     if (headers is String) {
       headers = JSON.decode(headers);
     }
-    if (this.contentType != null) {
-      headers['content-type'] = this.contentType;
+    var hasContentType = headers.keys.any((header) {
+      return header.toLowerCase() == 'content-type';
+    });
+    if (!hasContentType && this.contentType) {
+      headers['Content-Type'] = this.contentType;
     }
     var responseType;
     if (this.handleAs == 'arraybuffer' || this.handleAs == 'blob' ||

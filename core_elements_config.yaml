@@ -47,6 +47,8 @@ files_to_generate:
   - core-overlay/core-overlay.html
   - core-overlay/core-overlay-layer.html
   - core-pages/core-pages.html
+  - core-popup-menu/core-popup-menu.html
+  - core-popup-menu/core-popup-overlay.html
   - core-range/core-range.html
   - core-scaffold/core-scaffold.html
   - core-scroll-header-panel/core-scroll-header-panel.html

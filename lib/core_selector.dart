@@ -134,9 +134,18 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   String get activateEvent => jsElement['activateEvent'];
   set activateEvent(String value) { jsElement['activateEvent'] = value; }
 
+  /// Returns an array of all items.
   get items => jsElement['items'];
 
   get selection => jsElement['selection'];
+
+  /// Selects the previous item.  This should be used in single selection only.
+  void selectPrevious() =>
+      jsElement.callMethod('selectPrevious', []);
+
+  /// Selects the next item.  This should be used in single selection only.
+  void selectNext() =>
+      jsElement.callMethod('selectNext', []);
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);
