@@ -11,10 +11,12 @@ library core_elements.src.codegen;
 import 'package:core_elements/src/config.dart';
 import 'ast.dart';
 
-String generateClass(Element element, FileConfig config) {
+String generateClass(
+    Element element, FileConfig config, Map<String, Element> allElements) {
   var sb = new StringBuffer();
   var comment = _toComment(element.description);
-  sb.write(_generateHeader(element.name, comment, element.extendName));
+  sb.write(_generateHeader(
+      element.name, comment, element.extendName, allElements));
   var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
@@ -151,21 +153,38 @@ ${extraImports.join('\n')}
 ''';
 }
 
-String _generateHeader(String name, String comment, String extendName) {
+String _generateHeader(
+    String name, String comment, String extendName,
+    Map<String, Element> allElements) {
   var className = _toCamelCase(name);
 
+  var extendClassName;
   if (extendName == null || !extendName.contains('-')) {
-    extendName = 'HtmlElement with DomProxyMixin';
+    extendClassName = 'HtmlElement with DomProxyMixin';
   } else {
-    extendName = _toCamelCase(extendName);
+    extendClassName = _toCamelCase(extendName);
+  }
+
+  var baseExtendName = extendName;
+  var baseExtendElement = allElements[baseExtendName];
+  while (baseExtendElement != null && !baseExtendElement.extendName.isEmpty) {
+    baseExtendName = baseExtendElement.extendName;
+    baseExtendElement = allElements[baseExtendName];
+  }
+
+  var factoryMethod = new StringBuffer('factory ${className}() => ');
+  if (baseExtendName == null || baseExtendName.contains('-')) {
+    factoryMethod.write('new Element.tag(\'$name\');');
+  } else {
+    factoryMethod.write('new Element.html(\'<$baseExtendName is "$name"\'>)');
   }
 
   return '''
 
 $comment
-class $className extends $extendName {
+class $className extends $extendClassName {
   ${className}.created() : super.created();
-  factory ${className}() => document.createElement('$name');
+  $factoryMethod
 ''';
 }
 

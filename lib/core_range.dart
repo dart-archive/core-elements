@@ -19,7 +19,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     <div class="progress-bar" style="width: {{ratio}}%;"></div>
 class CoreRange extends HtmlElement with DomProxyMixin {
   CoreRange.created() : super.created();
-  factory CoreRange() => document.createElement('core-range');
+  factory CoreRange() => new Element.tag('core-range');
 
   /// The number that represents the current value.
   num get value => jsElement['value'];

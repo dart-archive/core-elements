@@ -12,7 +12,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
 class CoreKeyHelper extends HtmlElement with DomProxyMixin {
   CoreKeyHelper.created() : super.created();
-  factory CoreKeyHelper() => document.createElement('core-key-helper');
+  factory CoreKeyHelper() => new Element.tag('core-key-helper');
 }
 @initMethod
 upgradeCoreKeyHelper() => registerDartType('core-key-helper', CoreKeyHelper);

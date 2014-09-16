@@ -36,7 +36,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     }
 class CoreDropdown extends HtmlElement with DomProxyMixin {
   CoreDropdown.created() : super.created();
-  factory CoreDropdown() => document.createElement('core-dropdown');
+  factory CoreDropdown() => new Element.tag('core-dropdown');
 
   /// True if the menu is open.
   bool get opened => jsElement['opened'];

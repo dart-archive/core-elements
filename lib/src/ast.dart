@@ -12,7 +12,7 @@ library core_elements.src.ast;
 
 class FileSummary {
   List<Import> imports;
-  List<Element> elements;
+  Map<String, Element> elements;
 
   FileSummary(this.imports, this.elements);
 

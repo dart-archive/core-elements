@@ -50,7 +50,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-drawer-panel>
 class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   CoreDrawerPanel.created() : super.created();
-  factory CoreDrawerPanel() => document.createElement('core-drawer-panel');
+  factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
 
   /// Width of the drawer panel.
   String get drawerWidth => jsElement['drawerWidth'];

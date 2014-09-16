@@ -47,7 +47,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-scroll-header-panel>
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
-  factory CoreScrollHeaderPanel() => document.createElement('core-scroll-header-panel');
+  factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
 
   /// If true, the header's height will condense to `_condensedHeaderHeight`
   /// as the user scrolls down from the top of the content area.

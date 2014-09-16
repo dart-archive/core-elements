@@ -25,7 +25,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     }
 class CoreCollapse extends HtmlElement with DomProxyMixin {
   CoreCollapse.created() : super.created();
-  factory CoreCollapse() => document.createElement('core-collapse');
+  factory CoreCollapse() => new Element.tag('core-collapse');
 
   /// The target element.
   get target => jsElement['target'];

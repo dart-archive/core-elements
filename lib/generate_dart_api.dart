@@ -109,10 +109,9 @@ void generateDartApi(String inputPath, FileConfig config) {
   var outputDir = path.joinAll(outputDirSegments);
 
   var directives = generateDirectives(name,
-      info.elements.map((e) => e.extendName), config);
-  var classes = info.elements
-      .map((i) => generateClass(i, config))
-      .join('\n\n');
+      info.elements.values.map((e) => e.extendName), config);
+  var classes = info.elements.values.map(
+      (i) => generateClass(i, config, info.elements)).join('\n\n');
 
   // Only create a dart file if we found at least one polymer element.
   var hasDartFile = !info.elements.isEmpty;

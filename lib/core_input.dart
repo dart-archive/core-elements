@@ -51,7 +51,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// for more info on validation.
 class CoreInput extends HtmlElement with DomProxyMixin {
   CoreInput.created() : super.created();
-  factory CoreInput() => document.createElement('core-input');
+  factory CoreInput() => new Element.tag('core-input');
 
   /// Placeholder text that hints to the user what can be entered in
   /// the input.
