@@ -2,7 +2,7 @@ name: core_elements
 version: 0.2.1+1
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
-homepage: https://www.dartlang.org/polymer-dart/
+homepage: https://www.dartlang.org/polymer/
 dependencies:
   polymer: ">=0.14.0 <0.15.0"
   quiver: ">=0.17.0 <0.19.0"
