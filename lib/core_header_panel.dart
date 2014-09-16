@@ -63,6 +63,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// Use `mode` to control the header and scrolling behavior.
 class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreHeaderPanel.created() : super.created();
+  factory CoreHeaderPanel() => document.createElement('core-header-panel');
 
   /// Controls header and scrolling behavior. Options are
   /// `standard`, `seamed`, `waterfall`, `waterfall-tall`,

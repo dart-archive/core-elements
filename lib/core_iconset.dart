@@ -51,6 +51,7 @@ import 'core_meta.dart';
 ///     iconset.applyIcon(iconNode, 'car', 'special');
 class CoreIconset extends CoreMeta {
   CoreIconset.created() : super.created();
+  factory CoreIconset() => document.createElement('core-iconset');
 
   /// The URL of the iconset image.
   String get src => jsElement['src'];

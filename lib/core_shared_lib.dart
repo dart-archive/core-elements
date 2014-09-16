@@ -28,6 +28,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     <script src="lib.js"></script>
 class CoreSharedLib extends HtmlElement with DomProxyMixin {
   CoreSharedLib.created() : super.created();
+  factory CoreSharedLib() => document.createElement('core-shared-lib');
 
   get url => jsElement['url'];
   set url(value) { jsElement['url'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

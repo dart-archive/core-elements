@@ -12,6 +12,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
 class CoreDragDrop extends HtmlElement with DomProxyMixin {
   CoreDragDrop.created() : super.created();
+  factory CoreDragDrop() => document.createElement('core-drag-drop');
 }
 @initMethod
 upgradeCoreDragDrop() => registerDartType('core-drag-drop', CoreDragDrop);

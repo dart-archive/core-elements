@@ -30,6 +30,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// of where they are in DOM.
 class CoreSignals extends HtmlElement with DomProxyMixin {
   CoreSignals.created() : super.created();
+  factory CoreSignals() => document.createElement('core-signals');
 }
 @initMethod
 upgradeCoreSignals() => registerDartType('core-signals', CoreSignals);

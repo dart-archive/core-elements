@@ -59,6 +59,7 @@ import 'core_transition_pages.dart';
 /// `CoreStyle.g.transitions.heroDuration`.
 class HeroTransition extends CoreTransitionPages {
   HeroTransition.created() : super.created();
+  factory HeroTransition() => document.createElement('hero-transition');
 }
 @initMethod
 upgradeHeroTransition() => registerDartType('hero-transition', HeroTransition);

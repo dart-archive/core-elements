@@ -96,6 +96,7 @@ import 'core_transition.dart';
 /// `core-transition-right`: Slides the node into the final position from the right.
 class CoreTransitionCss extends CoreTransition {
   CoreTransitionCss.created() : super.created();
+  factory CoreTransitionCss() => document.createElement('core-transition-css');
 
   /// A secondary configuration attribute for the animation. The class
   /// `<baseClass>-<transitionType` is applied to the animated node during

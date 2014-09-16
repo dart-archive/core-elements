@@ -58,6 +58,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </selection-example>
 class CoreSelection extends HtmlElement with DomProxyMixin {
   CoreSelection.created() : super.created();
+  factory CoreSelection() => document.createElement('core-selection');
 
   /// If true, multiple selections are allowed.
   bool get multi => jsElement['multi'];

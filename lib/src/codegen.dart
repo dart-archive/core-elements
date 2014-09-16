@@ -165,6 +165,7 @@ String _generateHeader(String name, String comment, String extendName) {
 $comment
 class $className extends $extendName {
   ${className}.created() : super.created();
+  factory ${className}() => document.createElement('$name');
 ''';
 }
 

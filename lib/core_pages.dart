@@ -27,6 +27,7 @@ import 'core_selector.dart';
 ///     </script>
 class CorePages extends CoreSelector {
   CorePages.created() : super.created();
+  factory CorePages() => document.createElement('core-pages');
 }
 @initMethod
 upgradeCorePages() => registerDartType('core-pages', CorePages);

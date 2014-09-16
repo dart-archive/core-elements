@@ -34,6 +34,7 @@ import 'core_animation.dart';
 ///     </core-animation-group>
 class CoreAnimationGroup extends CoreAnimation {
   CoreAnimationGroup.created() : super.created();
+  factory CoreAnimationGroup() => document.createElement('core-animation-group');
 
   /// The type of the animation group. 'par' creates a parallel group and 'seq' creates
   /// a sequential group.

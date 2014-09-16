@@ -52,6 +52,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </script>
 class CoreMeta extends HtmlElement with DomProxyMixin {
   CoreMeta.created() : super.created();
+  factory CoreMeta() => document.createElement('core-meta');
 
   get label => jsElement['label'];
   set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

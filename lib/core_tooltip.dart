@@ -44,6 +44,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-tooltip>
 class CoreTooltip extends HtmlElement with DomProxyMixin {
   CoreTooltip.created() : super.created();
+  factory CoreTooltip() => document.createElement('core-tooltip');
 
   /// If true, the tooltip an arrow pointing towards the content.
   bool get noarrow => jsElement['noarrow'];

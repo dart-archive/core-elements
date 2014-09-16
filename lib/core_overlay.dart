@@ -51,6 +51,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// that, for example, a drop shadow is always visible around the overlay.
 class CoreOverlay extends HtmlElement with DomProxyMixin {
   CoreOverlay.created() : super.created();
+  factory CoreOverlay() => document.createElement('core-overlay');
 
   /// The target element that will be shown when the overlay is
   /// opened. If unspecified, the core-overlay itself is the target.

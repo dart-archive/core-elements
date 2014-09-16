@@ -12,6 +12,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// TODO
 class CoreLayoutGrid extends HtmlElement with DomProxyMixin {
   CoreLayoutGrid.created() : super.created();
+  factory CoreLayoutGrid() => document.createElement('core-layout-grid');
 
   get nodes => jsElement['nodes'];
   set nodes(value) { jsElement['nodes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

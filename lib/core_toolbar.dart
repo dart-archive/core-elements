@@ -48,6 +48,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-toolbar>
 class CoreToolbar extends HtmlElement with DomProxyMixin {
   CoreToolbar.created() : super.created();
+  factory CoreToolbar() => document.createElement('core-toolbar');
 }
 @initMethod
 upgradeCoreToolbar() => registerDartType('core-toolbar', CoreToolbar);

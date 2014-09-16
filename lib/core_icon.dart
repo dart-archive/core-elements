@@ -40,6 +40,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html) for the default set of icons. To use the default set of icons you'll need to include an import for `core-icons.html`. To use a different built-in set of icons, you'll need to include an import for `core-icons/iconsets/<iconset>.html`.
 class CoreIcon extends HtmlElement with DomProxyMixin {
   CoreIcon.created() : super.created();
+  factory CoreIcon() => document.createElement('core-icon');
 
   /// The URL of an image for the icon. If the src property is specified,
   /// the icon property should not be.

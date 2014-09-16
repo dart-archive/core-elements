@@ -40,6 +40,7 @@ import 'core_meta.dart';
 ///     iconset.applyIcon(iconNode, 'car');
 class CoreIconsetSvg extends CoreMeta {
   CoreIconsetSvg.created() : super.created();
+  factory CoreIconsetSvg() => document.createElement('core-iconset-svg');
 
   /// The size of an individual icon. Note that icons must be square.
   num get iconSize => jsElement['iconSize'];

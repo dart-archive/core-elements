@@ -12,6 +12,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
 class CoreOverlayLayer extends HtmlElement with DomProxyMixin {
   CoreOverlayLayer.created() : super.created();
+  factory CoreOverlayLayer() => document.createElement('core-overlay-layer');
 }
 @initMethod
 upgradeCoreOverlayLayer() => registerDartType('core-overlay-layer', CoreOverlayLayer);

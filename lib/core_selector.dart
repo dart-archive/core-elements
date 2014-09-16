@@ -39,6 +39,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-selector>
 class CoreSelector extends HtmlElement with DomProxyMixin {
   CoreSelector.created() : super.created();
+  factory CoreSelector() => document.createElement('core-selector');
 
   /// Gets or sets the selected element.  Default to use the index
   /// of the item element.

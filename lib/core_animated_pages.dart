@@ -212,6 +212,7 @@ import 'core_selector.dart';
 ///     </core-animated-pages>
 class CoreAnimatedPages extends CoreSelector {
   CoreAnimatedPages.created() : super.created();
+  factory CoreAnimatedPages() => document.createElement('core-animated-pages');
 
   /// A space-delimited string of transitions to use when switching between pages in this element.
   /// The strings are `id`s of `core-transition-pages` elements included elsewhere. See the

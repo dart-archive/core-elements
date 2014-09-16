@@ -34,6 +34,7 @@ import 'core_transition.dart';
 /// See the individual transition documentation for specific details.
 class CoreTransitionPages extends CoreTransition {
   CoreTransitionPages.created() : super.created();
+  factory CoreTransitionPages() => document.createElement('core-transition-pages');
 
   /// This class will be applied to the scope element in the `prepare` function.
   /// It is removed in the `complete` function. Used to activate a set of CSS

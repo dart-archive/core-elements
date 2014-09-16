@@ -12,6 +12,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 
 class CoreSlide extends HtmlElement with DomProxyMixin {
   CoreSlide.created() : super.created();
+  factory CoreSlide() => document.createElement('core-slide');
 
   get open => jsElement['open'];
   set open(value) { jsElement['open'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

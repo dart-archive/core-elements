@@ -55,6 +55,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// Elements that are targets to a `core-animation` are given the `core-animation-target` class.
 class CoreAnimation extends HtmlElement with DomProxyMixin {
   CoreAnimation.created() : super.created();
+  factory CoreAnimation() => document.createElement('core-animation');
 
   /// One or more nodes to animate.
   get target => jsElement['target'];
@@ -213,6 +214,7 @@ upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
 /// the animation.
 class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
   CoreAnimationKeyframe.created() : super.created();
+  factory CoreAnimationKeyframe() => document.createElement('core-animation-keyframe');
 
   /// An offset from 0 to 1.
   get offset => jsElement['offset'];
@@ -229,6 +231,7 @@ upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', Co
 /// `core-animation-keyframe`.
 class CoreAnimationProp extends HtmlElement with DomProxyMixin {
   CoreAnimationProp.created() : super.created();
+  factory CoreAnimationProp() => document.createElement('core-animation-prop');
 
   /// A CSS property name.
   String get name => jsElement['name'];

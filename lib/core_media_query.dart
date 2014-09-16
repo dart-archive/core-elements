@@ -25,6 +25,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 /// Fired when the media query state changes
 class CoreMediaQuery extends HtmlElement with DomProxyMixin {
   CoreMediaQuery.created() : super.created();
+  factory CoreMediaQuery() => document.createElement('core-media-query');
 
   /// The CSS media query to evaulate
   String get mediaQuery => jsElement['query'];

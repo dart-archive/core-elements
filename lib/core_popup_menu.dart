@@ -25,6 +25,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </template>
 class CorePopupMenu extends HtmlElement with DomProxyMixin {
   CorePopupMenu.created() : super.created();
+  factory CorePopupMenu() => document.createElement('core-popup-menu');
 
   /// The element associated with this menu, usually the element that
   /// causes the menu the open.

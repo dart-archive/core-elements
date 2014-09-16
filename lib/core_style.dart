@@ -92,6 +92,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-style>
 class CoreStyle extends HtmlElement with DomProxyMixin {
   CoreStyle.created() : super.created();
+  factory CoreStyle() => document.createElement('core-style');
 
   /// The `id` property should be set if the `core-style` is a producer
   /// of styles. In this case, the `core-style` should have text content

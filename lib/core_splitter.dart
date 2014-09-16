@@ -38,6 +38,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </div>
 class CoreSplitter extends HtmlElement with DomProxyMixin {
   CoreSplitter.created() : super.created();
+  factory CoreSplitter() => document.createElement('core-splitter');
 
   /// Possible values are "left", "right", "up" and "down".
   String get direction => jsElement['direction'];
