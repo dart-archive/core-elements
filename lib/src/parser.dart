@@ -39,7 +39,7 @@ FileSummary parsePolymerElements(String text, {onWarning(String msg)}) {
 
   _parseDocumentation(elements, text, onWarning: onWarning);
   _parseCustomProperties(elements, text, onWarning: onWarning);
-  return new FileSummary(_parseImports(doc), elements);
+  return new FileSummary(_parseImports(doc), elements.values);
 }
 
 /// Extract imports seen in the document

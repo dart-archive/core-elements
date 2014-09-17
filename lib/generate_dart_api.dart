@@ -46,7 +46,14 @@ main(args) {
     _progress('${++i} of $len: $inputPath');
     var summary = parseFile(inputPath);
     fileSummaries.add(summary);
-    elementSummaries.addAll(summary.elements);
+    for (var elementSummary in summary.elements) {
+      var name = elementSummary.name;
+      if (elementSummaries.containsKey(name)) {
+        print('Error: found two elements with the same name ${name}');
+        exit(1);
+      }
+      elementSummaries[name] = elementSummary;
+    }
   });
 
   _progress('Running codegen... ');
@@ -130,8 +137,8 @@ void generateDartApi(FileSummary summary, Map<String, Element> elementSummaries,
   var outputDir = path.joinAll(outputDirSegments);
 
   var directives = generateDirectives(name,
-      summary.elements.values.map((e) => e.extendName), config);
-  var classes = summary.elements.values.map(
+      summary.elements.map((e) => e.extendName), config);
+  var classes = summary.elements.map(
       (i) => generateClass(i, config, elementSummaries)).join('\n\n');
 
   // Only create a dart file if we found at least one polymer element.
