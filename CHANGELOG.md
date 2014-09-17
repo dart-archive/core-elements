@@ -1,3 +1,8 @@
+## Pub version 0.2.1+2
+  * Fix for [107](https://github.com/dart-lang/core-elements/issues/107).
+    The `core-ajax-dart` element no longer throws exception in checked mode, and
+    the `content-type` header will have the proper default.
+
 ## Pub version 0.2.1+1
 
   * Update `core-input` element to
