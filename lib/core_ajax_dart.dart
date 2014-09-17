@@ -282,7 +282,8 @@ class CoreAjax extends PolymerElement {
     var hasContentType = headers.keys.any((header) {
       return header.toLowerCase() == 'content-type';
     });
-    if (!hasContentType && this.contentType) {
+    if (!hasContentType && this.contentType != null
+        && !this.contentType.isEmpty) {
       headers['Content-Type'] = this.contentType;
     }
     var responseType;
