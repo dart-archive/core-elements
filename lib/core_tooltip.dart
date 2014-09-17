@@ -1,4 +1,4 @@
-// DO NOT EDIT: auto-generated with core_elements/src/codegen.dart
+// DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_tooltip`.
 library core_elements.core_tooltip;
@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:core_elements/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
 /// The `core-tooltip` element creates a hover tooltip centered for the content
 /// it contains. It can be positioned on the top|bottom|left|right of content using

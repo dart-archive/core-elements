@@ -1,4 +1,4 @@
-// DO NOT EDIT: auto-generated with core_elements/src/codegen.dart
+// DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `hero_transition`.
 library core_elements.hero_transition;
