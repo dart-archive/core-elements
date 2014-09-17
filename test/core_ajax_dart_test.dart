@@ -8,6 +8,7 @@
 library core_ajax.test;
 
 import "dart:html" as dom;
+import "package:core_elements/core_ajax_dart.dart";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
@@ -20,14 +21,25 @@ void main() {
 
       group("core-ajax", () {
 
-        test("basic", () {
+        test("auto basic", () {
           var done = expectAsync(() {});
 
-          var s = dom.document.querySelector("core-ajax-dart");
+          var s = dom.document.querySelector("#auto");
           s.addEventListener("core-response", (event) {
             expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
             done();
           });
+        });
+
+        test("no auto basic", () {
+          var done = expectAsync(() {});
+
+          var s = dom.document.querySelector("#manual");
+          s.addEventListener("core-response", (event) {
+            expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
+            done();
+          });
+          (s as CoreAjax).go();
         });
 
       });
