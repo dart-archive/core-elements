@@ -9,20 +9,34 @@
 library core_elements.src.codegen;
 
 import 'package:core_elements/src/config.dart';
+import 'package:polymer/html_element_names.dart';
 import 'ast.dart';
 
 String generateClass(
     Element element, FileConfig config, Map<String, Element> allElements) {
   var sb = new StringBuffer();
   var comment = _toComment(element.description);
+  var baseExtendName = _baseExtendName(element.extendName, allElements);
   sb.write(_generateHeader(
-      element.name, comment, element.extendName, allElements));
+      element.name, comment, element.extendName, baseExtendName));
   var getDartName = _substituteFunction(config.nameSubstitutions);
   element.properties.values.forEach((p) => _generateProperty(p, sb, getDartName));
   element.methods.forEach((m) => _generateMethod(m, sb, getDartName));
   sb.write('}\n');
-  sb.write(_generateUpdateMethod(element.name));
+  sb.write(_generateUpdateMethod(element.name, baseExtendName));
   return sb.toString();
+}
+
+String _baseExtendName(String extendName, Map<String, Element> allElements) {
+  if (extendName == null || extendName.isEmpty) return null;
+  var baseExtendName = extendName;
+  var baseExtendElement = allElements[baseExtendName];
+  while (baseExtendElement != null && baseExtendElement.extendName != null
+         && !baseExtendElement.extendName.isEmpty) {
+    baseExtendName = baseExtendElement.extendName;
+    baseExtendElement = allElements[baseExtendName];
+  }
+  return baseExtendName;
 }
 
 Function _substituteFunction(Map<String, String> nameSubstitutions) {
@@ -154,23 +168,17 @@ ${extraImports.join('\n')}
 }
 
 String _generateHeader(
-    String name, String comment, String extendName,
-    Map<String, Element> allElements) {
+    String name, String comment, String extendName, String baseExtendName) {
   var className = _toCamelCase(name);
 
   var extendClassName;
-  if (extendName == null || !extendName.contains('-')) {
+  if (extendName == null) {
     extendClassName = 'HtmlElement with DomProxyMixin';
+  } else if (!extendName.contains('-')) {
+    extendClassName =
+        '${HTML_ELEMENT_NAMES[baseExtendName]} with DomProxyMixin';
   } else {
     extendClassName = _toCamelCase(extendName);
-  }
-
-  var baseExtendName = extendName;
-  var baseExtendElement = allElements[baseExtendName];
-  while (baseExtendElement != null && baseExtendElement.extendName != null
-         && !baseExtendElement.extendName.isEmpty) {
-    baseExtendName = baseExtendElement.extendName;
-    baseExtendElement = allElements[baseExtendName];
   }
 
   var factoryMethod = new StringBuffer('factory ${className}() => ');
@@ -189,11 +197,16 @@ class $className extends $extendClassName {
 ''';
 }
 
-String _generateUpdateMethod(String name) {
+String _generateUpdateMethod(String name, String baseExtendName) {
   var className = _toCamelCase(name);
+  // Only pass the extendsTag if its a native element.
+  var maybeExtendsTag = '';
+  if (baseExtendName != null && !baseExtendName.contains('-')) {
+    maybeExtendsTag = ', extendsTag: \'$baseExtendName\'';
+  }
   return '''
 @initMethod
-upgrade$className() => registerDartType('$name', ${className});
+upgrade$className() => registerDartType('$name', ${className}$maybeExtendsTag);
 ''';
 }
 
