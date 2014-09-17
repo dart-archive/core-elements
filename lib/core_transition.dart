@@ -54,6 +54,7 @@ import 'core_meta.dart';
 ///     </script>
 class CoreTransition extends CoreMeta {
   CoreTransition.created() : super.created();
+  factory CoreTransition() => new Element.tag('core-transition');
 
   /// Run the animation.
   /// [node]: The node to apply the animation on

@@ -8,6 +8,7 @@
 
 import 'dart:io';
 import 'package:path/path.dart' as path;
+import 'package:core_elements/src/ast.dart';
 import 'package:core_elements/src/codegen.dart';
 import 'package:core_elements/src/config.dart';
 import 'package:core_elements/src/parser.dart';
@@ -36,12 +37,32 @@ main(args) {
     }
   }
 
-  _progress('Running codegen... ');
+  _progress('Parsing files... ');
+  var fileSummaries = [];
+  var elementSummaries = {};
   var len = config.files.length;
   int i = 0;
   config.files.forEach((inputPath, fileConfig) {
     _progress('${++i} of $len: $inputPath');
-    generateDartApi(inputPath, fileConfig);
+    var summary = parseFile(inputPath);
+    fileSummaries.add(summary);
+    for (var elementSummary in summary.elements) {
+      var name = elementSummary.name;
+      if (elementSummaries.containsKey(name)) {
+        print('Error: found two elements with the same name ${name}');
+        exit(1);
+      }
+      elementSummaries[name] = elementSummary;
+    }
+  });
+
+  _progress('Running codegen... ');
+  len = config.files.length;
+  i = 0;
+  config.files.forEach((inputPath, fileConfig) {
+    var fileSummary = fileSummaries[i];
+    _progress('${++i} of $len: $inputPath');
+    generateDartApi(fileSummary, elementSummaries, inputPath, fileConfig);
   });
 
   _progress('Generating stubs... ');
@@ -77,15 +98,26 @@ void generateImportStub(String inputPath, String packageName) {
 }
 
 /// Reads the contents of [inputPath], parses the documentation, and then
-/// generates a Dart API for it. The input code must be under lib/src/ (for
-/// example, lib/src/x-tag/x-tag.html), the output will be generated under lib/
-/// (for example, lib/x_tag/x_tag.dart).
-void generateDartApi(String inputPath, FileConfig config) {
+/// generates a FileSummary for it.
+FileSummary parseFile(String inputPath) {
   _progressLineBroken = false;
   if (!new File(inputPath).existsSync()) {
     print("error: file $inputPath doesn't exist");
     exit(1);
   }
+  var text = new File(inputPath).readAsStringSync();
+  var summary = parsePolymerElements(text,
+      onWarning: (s) => _showMessage('warning: $s'));
+  _showMessage('$summary');
+  return summary;
+}
+
+/// Takes a FileSummary, and generates a Dart API for it. The input code must be
+/// under lib/src/ (for example, lib/src/x-tag/x-tag.html), the output will be
+/// generated under lib/ (for example, lib/x_tag/x_tag.dart).
+void generateDartApi(FileSummary summary, Map<String, Element> elementSummaries,
+      String inputPath, FileConfig config) {
+  _progressLineBroken = false;
   var segments = path.split(inputPath);
   if (segments.length < 4 || segments[0] != 'lib' || segments[1] != 'src'
       || !segments.last.endsWith('.html')) {
@@ -93,10 +125,6 @@ void generateDartApi(String inputPath, FileConfig config) {
           'lib/src/x-tag/**/x-tag2.html');
     exit(1);
   }
-  var text = new File(inputPath).readAsStringSync();
-  var info = parsePolymerElements(text,
-      onWarning: (s) => _showMessage('warning: $s'));
-  _showMessage('$info');
 
   var dashName = path.joinAll(segments.getRange(2, segments.length));
   var name = path.withoutExtension(segments.last).replaceAll('-', '_');
@@ -109,13 +137,12 @@ void generateDartApi(String inputPath, FileConfig config) {
   var outputDir = path.joinAll(outputDirSegments);
 
   var directives = generateDirectives(name,
-      info.elements.map((e) => e.extendName), config);
-  var classes = info.elements
-      .map((i) => generateClass(i, config))
-      .join('\n\n');
+      summary.elements.map((e) => e.extendName), config);
+  var classes = summary.elements.map(
+      (i) => generateClass(i, config, elementSummaries)).join('\n\n');
 
   // Only create a dart file if we found at least one polymer element.
-  var hasDartFile = !info.elements.isEmpty;
+  var hasDartFile = !summary.elements.isEmpty;
   if (hasDartFile) {
     new File(path.join(outputDir, '$name.dart'))
         ..createSync(recursive: true)
@@ -124,7 +151,7 @@ void generateDartApi(String inputPath, FileConfig config) {
 
   var extraImports = new StringBuffer();
   var packageLibDir = (isSubdir) ? '../' * (segments.length - 3) : '';
-  for (var jsImport in info.imports) {
+  for (var jsImport in summary.imports) {
     var importPath = jsImport.importPath;
     if (importPath.contains('polymer.html')) continue;
     var omit = config.omitImports;

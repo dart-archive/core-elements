@@ -25,6 +25,7 @@ import 'package:core_elements/src/common.dart' show DomProxyMixin;
 ///     </core-item>
 class CoreItem extends HtmlElement with DomProxyMixin {
   CoreItem.created() : super.created();
+  factory CoreItem() => new Element.tag('core-item');
 
   /// Specifies the label for the menu item.
   String get label => jsElement['label'];

@@ -13,6 +13,7 @@ import 'core_overlay.dart';
 /// element.
 class CorePopupOverlay extends CoreOverlay {
   CorePopupOverlay.created() : super.created();
+  factory CorePopupOverlay() => new Element.tag('core-popup-overlay');
 
   /// The `relatedTarget` is an element used to position the overlay, for example a
   /// button the user taps to show a menu.
