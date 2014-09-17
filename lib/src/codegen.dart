@@ -177,7 +177,7 @@ String _generateHeader(
   if (baseExtendName == null || baseExtendName.contains('-')) {
     factoryMethod.write('new Element.tag(\'$name\');');
   } else {
-    factoryMethod.write('new Element.html(\'<$baseExtendName is="$name">\')');
+    factoryMethod.write('new Element.tag(\'$baseExtendName\', \'$name\');');
   }
 
   return '''
