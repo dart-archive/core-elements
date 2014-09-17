@@ -167,7 +167,8 @@ String _generateHeader(
 
   var baseExtendName = extendName;
   var baseExtendElement = allElements[baseExtendName];
-  while (baseExtendElement != null && !baseExtendElement.extendName.isEmpty) {
+  while (baseExtendElement != null && baseExtendElement.extendName != null
+         && !baseExtendElement.extendName.isEmpty) {
     baseExtendName = baseExtendElement.extendName;
     baseExtendElement = allElements[baseExtendName];
   }
@@ -176,7 +177,7 @@ String _generateHeader(
   if (baseExtendName == null || baseExtendName.contains('-')) {
     factoryMethod.write('new Element.tag(\'$name\');');
   } else {
-    factoryMethod.write('new Element.html(\'<$baseExtendName is "$name"\'>)');
+    factoryMethod.write('new Element.html(\'<$baseExtendName is="$name">\')');
   }
 
   return '''
