@@ -13,13 +13,19 @@
 
 # core_media_query_dialog_test is actually launched in a window by
 # core_media_query_test:
-test/core_media_query_dialog_test: Skip 
+test/core_media_query_dialog_test: Skip
 build/test/core_media_query_dialog_test: Skip
+
+[ $runtime == dartium || $runtime == drt ]
+test/core_media_query_test: Skip # Flaky
+build/test/core_media_query_test: Skip # Flaky
+test/core_ajax_dart_test: Pass, Timeout
+build/test/core_ajax_dart_test: Pass, Timeout
 
 [ $compiler == dart2js ]
 test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run
               # the output of pub-build
 
-[ $runtime == vm || $runtime == jsshell || $runtime == d8 ]]
+[ $runtime == vm || $runtime == jsshell || $runtime == d8 ]
 build/test/*: Skip  # All tests are meant to run in a browser
 test/*: Skip  # All tests are meant to run in a browser
