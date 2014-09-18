@@ -12,6 +12,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
 class CoreKeyHelper extends HtmlElement with DomProxyMixin {
   CoreKeyHelper.created() : super.created();
+  factory CoreKeyHelper() => new Element.tag('core-key-helper');
 }
 @initMethod
 upgradeCoreKeyHelper() => registerDartType('core-key-helper', CoreKeyHelper);

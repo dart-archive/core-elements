@@ -25,6 +25,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// Fired when the media query state changes
 class CoreMediaQuery extends HtmlElement with DomProxyMixin {
   CoreMediaQuery.created() : super.created();
+  factory CoreMediaQuery() => new Element.tag('core-media-query');
 
   /// The CSS media query to evaulate
   String get mediaQuery => jsElement['query'];

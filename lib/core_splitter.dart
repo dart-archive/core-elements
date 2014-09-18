@@ -38,6 +38,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </div>
 class CoreSplitter extends HtmlElement with DomProxyMixin {
   CoreSplitter.created() : super.created();
+  factory CoreSplitter() => new Element.tag('core-splitter');
 
   /// Possible values are "left", "right", "up" and "down".
   String get direction => jsElement['direction'];

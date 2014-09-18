@@ -24,6 +24,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-menu-button>
 class CoreMenuButton extends HtmlElement with DomProxyMixin {
   CoreMenuButton.created() : super.created();
+  factory CoreMenuButton() => new Element.tag('core-menu-button');
 
   /// The icon to display.
   String get icon => jsElement['icon'];

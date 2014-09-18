@@ -58,6 +58,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </selection-example>
 class CoreSelection extends HtmlElement with DomProxyMixin {
   CoreSelection.created() : super.created();
+  factory CoreSelection() => new Element.tag('core-selection');
 
   /// If true, multiple selections are allowed.
   bool get multi => jsElement['multi'];

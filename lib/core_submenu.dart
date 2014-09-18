@@ -34,6 +34,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     }
 class CoreSubmenu extends HtmlElement with DomProxyMixin {
   CoreSubmenu.created() : super.created();
+  factory CoreSubmenu() => new Element.tag('core-submenu');
 
   get selected => jsElement['selected'];
   set selected(value) { jsElement['selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

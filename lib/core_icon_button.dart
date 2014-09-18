@@ -22,6 +22,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// how to use a custom icon set.
 class CoreIconButton extends HtmlElement with DomProxyMixin {
   CoreIconButton.created() : super.created();
+  factory CoreIconButton() => new Element.tag('core-icon-button');
 
   /// The URL of an image for the icon.  Should not use `icon` property
   /// if you are using this property.

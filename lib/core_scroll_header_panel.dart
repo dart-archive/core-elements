@@ -47,6 +47,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-scroll-header-panel>
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
+  factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
 
   /// If true, the header's height will condense to `_condensedHeaderHeight`
   /// as the user scrolls down from the top of the content area.
