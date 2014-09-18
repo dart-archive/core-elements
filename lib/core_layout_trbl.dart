@@ -120,6 +120,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///      --------------------------------
 class CoreLayoutTrbl extends HtmlElement with DomProxyMixin {
   CoreLayoutTrbl.created() : super.created();
+  factory CoreLayoutTrbl() => new Element.tag('core-layout-trbl');
 
   get vertical => jsElement['vertical'];
   set vertical(value) { jsElement['vertical'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

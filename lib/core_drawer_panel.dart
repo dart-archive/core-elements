@@ -50,6 +50,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-drawer-panel>
 class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   CoreDrawerPanel.created() : super.created();
+  factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
 
   /// Width of the drawer panel.
   String get drawerWidth => jsElement['drawerWidth'];

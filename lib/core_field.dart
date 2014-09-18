@@ -20,6 +20,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-field>
 class CoreField extends HtmlElement with DomProxyMixin {
   CoreField.created() : super.created();
+  factory CoreField() => new Element.tag('core-field');
 }
 @initMethod
 upgradeCoreField() => registerDartType('core-field', CoreField);

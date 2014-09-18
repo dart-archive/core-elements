@@ -1,4 +1,11 @@
+## Pub version 0.2.2
+
+  * Update all elements so they can be built from code using a normal factory
+    constructor, such as `new CoreInput()`. It is still necessary however to
+    include the html import for each element you wish to create this way.
+
 ## Pub version 0.2.1+2
+
   * Fix for [107](https://github.com/dart-lang/core-elements/issues/107).
     The `core-ajax-dart` element no longer throws exception in checked mode, and
     the `content-type` header will have the proper default.

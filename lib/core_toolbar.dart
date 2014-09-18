@@ -48,6 +48,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-toolbar>
 class CoreToolbar extends HtmlElement with DomProxyMixin {
   CoreToolbar.created() : super.created();
+  factory CoreToolbar() => new Element.tag('core-toolbar');
 }
 @initMethod
 upgradeCoreToolbar() => registerDartType('core-toolbar', CoreToolbar);

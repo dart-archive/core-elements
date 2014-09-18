@@ -41,6 +41,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-scaffold>
 class CoreScaffold extends HtmlElement with DomProxyMixin {
   CoreScaffold.created() : super.created();
+  factory CoreScaffold() => new Element.tag('core-scaffold');
 
   /// When the browser window size is smaller than the `responsiveWidth`,
   /// `core-drawer-panel` changes to a narrow layout. In narrow layout,

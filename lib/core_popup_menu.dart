@@ -25,6 +25,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </template>
 class CorePopupMenu extends HtmlElement with DomProxyMixin {
   CorePopupMenu.created() : super.created();
+  factory CorePopupMenu() => new Element.tag('core-popup-menu');
 
   /// The element associated with this menu, usually the element that
   /// causes the menu the open.
