@@ -1,3 +1,8 @@
+## Pub version 0.2.2+1
+
+  * Upgrade `custom_element_apigen` to a real dependency as its required in the
+  wrappers.
+  
 ## Pub version 0.2.2
 
   * Update all elements so they can be built from code using a normal factory
