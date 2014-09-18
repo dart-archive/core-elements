@@ -11,8 +11,10 @@
 */*/*/*/packages/*/*: Skip
 */*/*/*/*/packages/*/*: Skip
 
-test/core_media_query_dialog_test: Skip # This is part of core_media_query_test
-                                        # that is launched in a window
+# core_media_query_dialog_test is actually launched in a window by
+# core_media_query_test:
+test/core_media_query_dialog_test: Skip 
+build/test/core_media_query_dialog_test: Skip
 
 [ $compiler == dart2js ]
 test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run
