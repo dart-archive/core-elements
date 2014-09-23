@@ -66,9 +66,8 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   factory CoreHeaderPanel() => new Element.tag('core-header-panel');
 
   /// Controls header and scrolling behavior. Options are
-  /// `standard`, `seamed`, `waterfall`, `waterfall-tall`,
-  /// `waterfall-medium-tall`, `scroll` and `cover`.
-  /// Default is `standard`.
+  /// `standard`, `seamed`, `waterfall`, `waterfall-tall`, `scroll` and
+  /// `cover`. Default is `standard`.
   ///
   /// `standard`: The header is a step above the panel. The header will consume the
   /// panel at the point of entry, preventing it from passing through to the

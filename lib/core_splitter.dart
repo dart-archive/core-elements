@@ -27,7 +27,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// since the parent container is a flexbox and the _right_ element has
 /// `flex`, the _right_ element will be auto-resized.
 ///
-/// For horizontal splitter set `direction` to "up" or "down".
+/// For horizontal splitter set `direction` to `up` or `down`.
 ///
 /// Example:
 ///
@@ -40,7 +40,7 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
   CoreSplitter.created() : super.created();
   factory CoreSplitter() => new Element.tag('core-splitter');
 
-  /// Possible values are "left", "right", "up" and "down".
+  /// Possible values are `left`, `right`, `up` and `down`.
   String get direction => jsElement['direction'];
   set direction(String value) { jsElement['direction'] = value; }
 
@@ -48,9 +48,10 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
   bool get locked => jsElement['locked'];
   set locked(bool value) { jsElement['locked'] = value; }
 
-  /// Minimum width to which the splitter target can be sized
-  num get minSize => jsElement['minSize'];
-  set minSize(num value) { jsElement['minSize'] = value; }
+  /// Minimum width to which the splitter target can be sized, e.g.
+  /// `minSize="100px"`
+  String get minSize => jsElement['minSize'];
+  set minSize(String value) { jsElement['minSize'] = value; }
 
   /// By default the parent and siblings of the splitter are set to overflow hidden. This helps
   /// avoid elements bleeding outside the splitter regions. Set this property to true to allow

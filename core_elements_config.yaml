@@ -14,6 +14,8 @@ files_to_generate:
   - core-drag-drop/core-drag-drop.html
   - core-drawer-panel/core-drawer-panel.html
   - core-dropdown/core-dropdown.html
+  - core-dropdown/core-dropdown-overlay.html
+  - core-dropdown-menu/core-dropdown-menu.html
   - core-field/core-field.html
   - core-header-panel/core-header-panel.html
   - core-icon/core-icon.html
@@ -47,8 +49,6 @@ files_to_generate:
   - core-overlay/core-overlay.html
   - core-overlay/core-overlay-layer.html
   - core-pages/core-pages.html
-  - core-popup-menu/core-popup-menu.html
-  - core-popup-menu/core-popup-overlay.html
   - core-range/core-range.html
   - core-scaffold/core-scaffold.html
   - core-scroll-header-panel/core-scroll-header-panel.html

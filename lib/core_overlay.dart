@@ -44,10 +44,15 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-overlay>
 ///
 /// `core-overlay` will automatically size and position itself according to the
-/// following rules. If the target's style.top and style.left are unset, the
-/// target will be centered. The size of the target is constrained to be no larger
-/// than the window dimensions. The `margin` property specifies the extra amount
-/// of space that should be reserved around the overlay. This can be used to ensure
+/// following rules. The overlay's size is constrained such that it does not
+/// overflow the screen. This is done by setting maxHeight/maxWidth on the
+/// `sizingTarget`. If the `sizingTarget` already has a setting for one of these
+/// properties, it will not be overridden. The overlay should
+/// be positioned via css or imperatively using the `core-overlay-position` event.
+/// If the overlay is not positioned vertically via setting `top` or `bottom`, it
+/// will be centered vertically. The same is true horizontally via a setting to
+/// `left` or `right`. In addition, css `margin` can be used to provide some space
+/// around the overlay. This can be used to ensure
 /// that, for example, a drop shadow is always visible around the overlay.
 class CoreOverlay extends HtmlElement with DomProxyMixin {
   CoreOverlay.created() : super.created();
@@ -90,6 +95,12 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   bool get autoCloseDisabled => jsElement['autoCloseDisabled'];
   set autoCloseDisabled(bool value) { jsElement['autoCloseDisabled'] = value; }
 
+  /// By default an overlay will focus its target or an element inside
+  /// it with the `autoFocus` attribute. Disable this
+  /// behavior by setting the `autoFocusDisabled` property to true.
+  bool get autoFocusDisabled => jsElement['autoFocusDisabled'];
+  set autoFocusDisabled(bool value) { jsElement['autoFocusDisabled'] = value; }
+
   /// This property specifies an attribute on elements that should
   /// close the overlay on tap. Should not set `closeSelector` if this
   /// is set.
@@ -101,13 +112,6 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   /// is set.
   String get closeSelector => jsElement['closeSelector'];
   set closeSelector(String value) { jsElement['closeSelector'] = value; }
-
-  /// A `core-overlay` target's size is constrained to the window size.
-  /// The `margin` property specifies a pixel amount around the overlay
-  /// that will be reserved. It's useful for ensuring that, for example,
-  /// a shadow displayed outside the target will always be visible.
-  num get margin => jsElement['margin'];
-  set margin(num value) { jsElement['margin'] = value; }
 
   /// The transition property specifies a string which identifies a
   /// <a href="../core-transition/">`core-transition`</a> element that

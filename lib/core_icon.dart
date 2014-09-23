@@ -9,7 +9,7 @@ import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
-/// The `core-icon` element displays an icon. By default an icon renders as 24px square.
+/// The `core-icon` element displays an icon. By default an icon renders as a 24px square.
 ///
 /// Example using src:
 ///
@@ -26,18 +26,32 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       }
 ///     </style>
 ///
-/// Example using icon from default iconset:
+/// The core elements include several sets of icons.
+/// To use the default set of icons, import  `core-icons.html` and use the `icon` attribute to specify an icon:
+///
+///     &lt;!-- import default iconset and core-icon --&gt;
+///     <link rel="import" href="/components/core-icons/core-icons.html">
 ///
 ///     <core-icon icon="menu"></core-icon>
 ///
-/// Example using icon `cherry` from custom iconset `fruit`:
+/// To use a different built-in set of icons, import  `core-icons/<iconset>-icons.html`, and
+/// specify the icon as `<iconset>:<icon>`. For example:
+///
+///     &lt;!-- import communication iconset and core-icon --&gt;
+///     <link rel="import" href="/components/core-icons/communication-icons.html">
+///
+///     <core-icon icon="communication:email"></core-icon>
+///
+/// You can also create custom icon sets of bitmap or SVG icons.
+///
+/// Example of using an icon named `cherry` from a custom iconset with the ID `fruit`:
 ///
 ///     <core-icon icon="fruit:cherry"></core-icon>
 ///
 /// See [core-iconset](#core-iconset) and [core-iconset-svg](#core-iconset-svg) for more information about
-/// how to use a custom iconset.
+/// how to create a custom iconset.
 ///
-/// See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html) for the default set of icons. To use the default set of icons you'll need to include an import for `core-icons.html`. To use a different built-in set of icons, you'll need to include an import for `core-icons/iconsets/<iconset>.html`.
+/// See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html) for the default set of icons.
 class CoreIcon extends HtmlElement with DomProxyMixin {
   CoreIcon.created() : super.created();
   factory CoreIcon() => new Element.tag('core-icon');

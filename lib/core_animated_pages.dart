@@ -208,7 +208,7 @@ import 'core_selector.dart';
 ///
 ///     <core-animated-pages>
 ///       <section id="page1"></section>
-///       <nested-page id="page2"></section>
+///       <nested-page id="page2"></nested-page>
 ///     </core-animated-pages>
 class CoreAnimatedPages extends CoreSelector {
   CoreAnimatedPages.created() : super.created();
