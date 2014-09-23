@@ -6,7 +6,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-library core_elements.example.core_dropdown;
+library core_elements.example.core_menu_button;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
@@ -15,28 +15,6 @@ class Country {
   final String name;
   final String code;
   const Country(this.name, this.code);
-}
-
-@CustomTag('drop-down')
-class DropDown extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
-}
-
-@CustomTag('drop-down-2')
-class DropDown2 extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown2.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
 }
 
 class MyModel {
@@ -284,6 +262,18 @@ class MyModel {
     const Country('Yemen','YE'),
     const Country('Zambia','ZM'),
     const Country('Zimbabwe','ZW'),
+  ];
+
+  final List<String> pastries = [
+    'Apple fritter',
+    'Croissant',
+    'Donut',
+    'Financier',
+    'Jello',
+    'Madeleine',
+    'Pound cake',
+    'Pretzel',
+    'Sfogliatelle'
   ];
 }
 

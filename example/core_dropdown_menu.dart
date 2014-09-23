@@ -6,10 +6,10 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
-library core_elements.example.core_dropdown;
+library core_elements.example.core_dropdown_menu;
 
-import 'dart:html';
 import 'package:polymer/polymer.dart';
+export 'package:polymer/init.dart';
 
 class Country {
   final String name;
@@ -17,29 +17,9 @@ class Country {
   const Country(this.name, this.code);
 }
 
-@CustomTag('drop-down')
-class DropDown extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
-}
-
-@CustomTag('drop-down-2')
-class DropDown2 extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown2.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
-}
-
-class MyModel {
+@CustomTag('dropdown-demo')
+class DropdownDemo extends PolymerElement {
+  @published
   final List<Country> countries = [
     const Country('Afghanistan','AF'),
     const Country('Åland Islands','AX'),
@@ -285,13 +265,6 @@ class MyModel {
     const Country('Zambia','ZM'),
     const Country('Zimbabwe','ZW'),
   ];
-}
 
-main () {
-  initPolymer().run(() {
-    Polymer.onReady.then((_) {
-      var template = querySelector('#myTemplate');
-      template.model = new MyModel();
-    });
-  });
+  DropdownDemo.created() : super.created();
 }
