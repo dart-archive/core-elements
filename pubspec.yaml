@@ -1,5 +1,5 @@
 name: core_elements
-version: 0.2.2+1
+version: 0.3.0-dev
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer/
