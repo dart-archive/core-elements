@@ -9,6 +9,6 @@
   "dependencies": {
     "polymer": "polymer/polymer#0.4.1",
     "core-elements": "polymer/core-elements#0.4.1",
-    "core-input": "polymer/core-input#master"
+    "core-a11y-keys": "polymer/core-a11y-keys#0.4.1"
   }
 }

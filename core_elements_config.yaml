@@ -1,5 +1,6 @@
 # Configuration for running tool/generate_dart_api.dart
 files_to_generate:
+  - core-a11y-keys/core-a11y-keys.html
   - core-animated-pages/core-animated-pages.html:
       # subdir imports don't work.
       omit_imports:

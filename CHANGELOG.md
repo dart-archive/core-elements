@@ -1,4 +1,4 @@
-## version 0.3.0-dev
+## version 0.3.0
 
   * Update elements to the 0.4.1 js versions.
     * **Breaking Change** `core-dropdown` has been renamed to
