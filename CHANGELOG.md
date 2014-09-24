@@ -5,6 +5,8 @@
       `core-dropdown-menu`, `core-popup-menu` has been renamed to
       `core-dropdown`, and `core-popup-overlay` has been renamed to
       `core-dropdown-overlay`.
+    * **New** `core-a11y-keys` element, which helps when dealing with key
+      events.
 
 ## version 0.2.2+1
 
