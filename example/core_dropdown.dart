@@ -8,8 +8,8 @@
  */
 library core_elements.example.core_dropdown;
 
+import 'dart:html';
 import 'package:polymer/polymer.dart';
-export 'package:polymer/init.dart';
 
 class Country {
   final String name;
@@ -17,9 +17,29 @@ class Country {
   const Country(this.name, this.code);
 }
 
-@CustomTag('dropdown-demo')
-class DropdownDemo extends PolymerElement {
-  @published
+@CustomTag('drop-down')
+class DropDown extends PolymerElement {
+  @published bool opened = false;
+  @published var halign;
+  @published var valign;
+
+  DropDown.created() : super.created();
+
+  toggle() => this.opened = !this.opened;
+}
+
+@CustomTag('drop-down-2')
+class DropDown2 extends PolymerElement {
+  @published bool opened = false;
+  @published var halign;
+  @published var valign;
+
+  DropDown2.created() : super.created();
+
+  toggle() => this.opened = !this.opened;
+}
+
+class MyModel {
   final List<Country> countries = [
     const Country('Afghanistan','AF'),
     const Country('Åland Islands','AX'),
@@ -265,6 +285,13 @@ class DropdownDemo extends PolymerElement {
     const Country('Zambia','ZM'),
     const Country('Zimbabwe','ZW'),
   ];
+}
 
-  DropdownDemo.created() : super.created();
+main () {
+  initPolymer().run(() {
+    Polymer.onReady.then((_) {
+      var template = querySelector('#myTemplate');
+      template.model = new MyModel();
+    });
+  });
 }

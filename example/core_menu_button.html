@@ -1,102 +1,144 @@
 
 <!doctype html>
 <!--
-Copyright 2013 The Polymer Authors. All rights reserved.
-Use of this source code is governed by a BSD-style
-license that can be found in the LICENSE file.
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <html>
 <head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
   <title>core-menu-button</title>
 
   <script src="packages/web_components/dart_support.js"></script>
 
-  <link rel="import" href="packages/core_elements/core_menu_button.html">
+  <link rel="import" href="packages/core_elements/core_icons.html">
   <link rel="import" href="packages/core_elements/core_item.html">
-  <link rel="import" href="packages/core_elements/core_toolbar.html">
 
-  <script type="application/dart">export 'package:polymer/init.dart';</script>
+  <link rel="import" href="packages/core_elements/core_menu_button.html">
   
   <style>
-    body {
+    b body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 16px;
+    }
+
+    html, body {
+      height: 100%;
       margin: 0;
-      font-family: sans-serif;
     }
 
-    core-toolbar {
-      background-color: #cfa0e9;
-      overflow: hidden;
-    }
-
-    core-menu-button::shadow #menu {
-      border: 1px solid #ccc;
-    }
-
-    core-item {
+    .toolbar {
+      color: #fff;
+      font-size: 16px;
       padding: 12px;
     }
 
-    .small::shadow core-icon-button {
-      padding: 12px;
+    .toolbar-1 {
+      background-color: #3b78e7;
     }
- 
-    .small::shadow core-icon-button::shadow core-icon {
-      display: block;
-      height: 14px;
-      width: 14px;
+
+    .toolbar-2 {
+      background-color: #4285f4;
+    }
+
+    .toolbar-3 {
+      background-color: #5e97f6;
+    }
+
+    .bottom-toolbar-1 {
+      background-color: #0d904f;
+    }
+
+    .bottom-toolbar-2 {
+      background-color: #0f9d58;
+    }
+
+    .bottom-toolbar-3 {
+      background-color: #33ac71;
     }
   </style>
 </head>
-<body class="core-body-text" unresolved>
+<body unresolved>
 
-  
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <core-toolbar>
+  <template id="myTemplate" is="auto-binding-dart">
 
-    <core-menu-button icon="menu">
+    <div layout vertical fit>
 
-      <core-item icon="settings" label="Settings"></core-item>
-      <core-item icon="add" label="Add"></core-item>
-      <core-item icon="search" label="Search"></core-item>
+      <div class="toolbar toolbar-1" layout horizontal center>
 
-    </core-menu-button>
+        <core-menu-button icon="menu">
+          <template repeat="{{pastries}}">
+            <core-item>{{}}</core-item>
+          </template>
+        </core-menu-button>
 
-    <core-menu-button icon="menu" class="small">
- 
-      <core-item icon="settings" label="Settings"></core-item>
-      <core-item icon="add" label="Add"></core-item>
-      <core-item icon="search" label="Search"></core-item>
- 
-    </core-menu-button>
+        <core-menu-button icon="menu">
+          <template repeat="{{countries}}">
+            <core-item>{{name}}</core-item>
+          </template>
+        </core-menu-button>
 
-    <div flex>Toolbar</div>
+        <div flex></div>
 
-    <core-menu-button icon="add" halign="right" valign="top">
+        <core-menu-button icon="more-vert" halign="right">
+          <template repeat="{{countries}}">
+            <core-item>{{name}}</core-item>
+          </template>
+        </core-menu-button>
 
-      <core-item icon="star-rate" label="Rate"></core-item>
-      <core-item icon="today" label="Today"></core-item>
-      <core-item icon="keep" label="Keep"></core-item>
+        <core-menu-button icon="more-vert" halign="right">
+          <template repeat="{{pastries}}">
+            <core-item>{{}}</core-item>
+          </template>
+        </core-menu-button>
 
-    </core-menu-button>
+      </div>
 
-    <core-menu-button icon="more-vert" valign="top">
+      <div flex></div>
 
-      <core-item icon="visibility" label="Visibility"></core-item>
-      <core-item icon="extension" label="Extension"></core-item>
-      <core-item icon="info" label="Info"></core-item>
+      <div class="toolbar bottom-toolbar-1" layout horizontal center>
 
-    </core-menu-button>
+        <core-menu-button icon="menu" valign="bottom">
+          <template repeat="{{pastries}}">
+            <core-item>{{}}</core-item>
+          </template>
+        </core-menu-button>
 
-  </core-toolbar>
+        <core-menu-button icon="menu" valign="bottom">
+          <template repeat="{{countries}}">
+            <core-item>{{name}}</core-item>
+          </template>
+        </core-menu-button>
+
+        <div flex></div>
+
+        <core-menu-button icon="more-vert" halign="right" valign="bottom">
+          <template repeat="{{countries}}">
+            <core-item>{{name}}</core-item>
+          </template>
+        </core-menu-button>
+
+        <core-menu-button icon="more-vert" halign="right" valign="bottom">
+          <template repeat="{{pastries}}">
+            <core-item>{{}}</core-item>
+          </template>
+        </core-menu-button>
+
+      </div>
+
+    </div>
+
+  </template>
+
+  <script type="application/dart" src="core_menu_button.dart"></script>
 
 </body>
 </html>

@@ -93,15 +93,21 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
 
   /// Returns the currently selected element. In multi-selection this returns
   /// an array of selected elements.
+  /// Note that you should not use this to set the selection. Instead use
+  /// `selected`.
   get selectedItem => jsElement['selectedItem'];
   set selectedItem(value) { jsElement['selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the model associated with the
   /// selected element.
+  /// Note that you should not use this to set the selection. Instead use
+  /// `selected`.
   get selectedModel => jsElement['selectedModel'];
   set selectedModel(value) { jsElement['selectedModel'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the selected index.
+  /// Note that you should not use this to set the selection. Instead use
+  /// `selected`.
   num get selectedIndex => jsElement['selectedIndex'];
   set selectedIndex(num value) { jsElement['selectedIndex'] = value; }
 
@@ -110,13 +116,29 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   bool get notap => jsElement['notap'];
   set notap(bool value) { jsElement['notap'] = value; }
 
+  /// Nodes with local name that are in the list will not be included
+  /// in the selection items.  In the following example, `items` returns four
+  /// `core-item`'s and doesn't include `h3` and `hr`.
+  ///
+  ///     <core-selector excludedLocalNames="h3 hr">
+  ///       <h3>Header</h3>
+  ///       <core-item>Item1</core-item>
+  ///       <core-item>Item2</core-item>
+  ///       <hr>
+  ///       <core-item>Item3</core-item>
+  ///       <core-item>Item4</core-item>
+  ///     </core-selector>
+  String get excludedLocalNames => jsElement['excludedLocalNames'];
+  set excludedLocalNames(String value) { jsElement['excludedLocalNames'] = value; }
+
   /// The target element that contains items.  If this is not set
   /// core-selector is the container.
   get target => jsElement['target'];
   set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// This can be used to query nodes from the target node to be used for
-  /// selection items.  Note this only works if the 'target' property is set.
+  /// selection items.  Note this only works if `target` is set
+  /// and is not `core-selector` itself.
   ///
   /// Example:
   ///
@@ -141,12 +163,14 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   get selection => jsElement['selection'];
 
   /// Selects the previous item.  This should be used in single selection only.
-  void selectPrevious() =>
-      jsElement.callMethod('selectPrevious', []);
+  /// [wrap]: if true and it is already at the first item, wrap to the end
+  selectPrevious(bool wrap) =>
+      jsElement.callMethod('selectPrevious', [wrap]);
 
   /// Selects the next item.  This should be used in single selection only.
-  void selectNext() =>
-      jsElement.callMethod('selectNext', []);
+  /// [wrap]: if true and it is already at the last item, wrap to the front
+  selectNext(bool wrap) =>
+      jsElement.callMethod('selectNext', [wrap]);
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);

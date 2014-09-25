@@ -46,6 +46,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     <core-toolbar class="tall">
 ///       <div id="progressBar" class="bottom fit"></div>
 ///     </core-toolbar>
+///
+/// `core-toolbar` adapts to mobile/narrow layout when there is a `core-narrow` class set
+/// on itself or any of its ancestors.
 class CoreToolbar extends HtmlElement with DomProxyMixin {
   CoreToolbar.created() : super.created();
   factory CoreToolbar() => new Element.tag('core-toolbar');

@@ -15,6 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="packages/core_elements/core_toolbar.html">
   
   <link rel="import" href="packages/core_elements/core_icon_button.html">
+  <link rel="import" href="packages/core_elements/core_media_query.html">
 
   <style shim-shadowdom>
 
@@ -102,7 +103,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <div class="middle indent">element (e.g. progress) fits at the bottom of the toolbar</div>
     <div class="bottom fit" style="height: 20px; background-color: #0f9d58;"></div>
   </core-toolbar>
+
+   <core-media-query id="mediaQuery" query="max-width: 640px"></core-media-query>
   
-  <script type="application/dart">export 'package:polymer/init.dart';</script>
+  <script type="application/dart">
+    import 'dart:html';
+    import 'dart:js';
+    import 'package:polymer/polymer.dart';
+
+    main() {
+      initPolymer().run(() {
+        Polymer.onReady.then((_) {
+          querySelector('#mediaQuery').on['core-media-change'].listen((e) {
+            var m = new JsObject.fromBrowserObject(e)['detail']['matches'];
+            document.body.classes.toggle('core-narrow', m);
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>

@@ -2,16 +2,16 @@
   "name": "highlightjs-element",
   "private": true,
   "dependencies": {
-    "polymer": "Polymer/polymer#>=0.4.0 <1.0.0",
+    "polymer": "Polymer/polymer#^0.4.0",
     "highlightjs": "*"
   },
   "homepage": "https://github.com/PolymerLabs/highlightjs-element",
-  "version": "0.4.0",
-  "_release": "0.4.0",
+  "version": "0.4.1",
+  "_release": "0.4.1",
   "_resolution": {
     "type": "version",
-    "tag": "0.4.0",
-    "commit": "f7bdae6219f6297f0d09a454f06fea48ae1bb8d1"
+    "tag": "0.4.1",
+    "commit": "ede25bcd2e243e174c6c6b6e00842337f06d5ff3"
   },
   "_source": "git://github.com/PolymerLabs/highlightjs-element.git",
   "_target": ">=0.3.0 <1.0.0",

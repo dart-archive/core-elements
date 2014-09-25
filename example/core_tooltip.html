@@ -159,8 +159,38 @@
 
       </section>
     
+      <section layout horizontal center-center>
+
+        <div class="example">
+
+          <core-tooltip id="dynamic" show>
+            Tooltips are only shown (on hover) when a label is set<br> or a html rich snippet is given. &rarr;
+          </core-tooltip>
+          <button id="fillbutton">Fill tooltip</button>
+
+        </div>
+
+      </section>
+
   </article>
 
-  <script type="application/dart">export 'package:polymer/init.dart';</script>
+  <script type="application/dart">
+    import 'dart:html';
+    import 'dart:js';
+    import 'package:polymer/polymer.dart';
+
+    main() {
+      initPolymer().run(() {
+        Polymer.onReady.then((_) {
+          querySelector('#fillbutton').on['click'].listen((Event e) {
+            e.stopPropagation();
+            var el = querySelector('#dynamic');
+            el.insertAdjacentHtml(
+                'beforeend', '<div tip><b>See</b>. Told ya so!</div>');
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>
