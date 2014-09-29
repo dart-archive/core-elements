@@ -1,3 +1,8 @@
+## version 0.3.0+1
+
+  * Fix import in `core_transition_pages`
+    [118](https://github.com/dart-lang/core-elements/issues/118).
+
 ## version 0.3.0
 
   * Update elements to the 0.4.1 js versions.
