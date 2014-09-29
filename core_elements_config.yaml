@@ -6,7 +6,8 @@ files_to_generate:
       omit_imports:
         - transitions/hero-transition.html
         - transitions/cross-fade.html
-  - core-animated-pages/transitions/core-transition-pages.html
+  - core-animated-pages/transitions/core-transition-pages.html:
+      extends_import: ../../core_transition.dart
   - core-animated-pages/transitions/hero-transition.html
   - core-animation/core-animation.html
   - core-animation/core-animation-group.html
