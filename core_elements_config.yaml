@@ -82,9 +82,6 @@ deletion_patterns:
   - ^marked-element$
   - ^polymer-test-tools$
   - ^platform$
-  - ^polymer/b.*$
-  - ^polymer/layout.html$
-  - ^polymer/polymer.js$
-  - ^polymer/README.md$
+  - ^polymer$
   - ^polymer-test-tools$
   - ^prettify-element$
