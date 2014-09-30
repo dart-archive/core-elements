@@ -64,3 +64,27 @@ files_to_generate:
   - core-tooltip/core-tooltip.html
   - core-transition/core-transition-css.html
   - core-transition/core-transition.html
+deletion_patterns:
+  - metadata\.html$
+  - index\.html$
+  - bower\.json$
+  - ^context-free-parser$
+  - ^core-bind$
+  - ^core-component-page$
+  - ^core-doc-viewer$
+  - ^core-docs$
+  - ^core-elements$
+  - ^core-tests$
+  - ^google-code-prettify$
+  - ^highlightjs$
+  - ^highlightjs-element$
+  - ^marked$
+  - ^marked-element$
+  - ^polymer-test-tools$
+  - ^platform$
+  - ^polymer/b.*$
+  - ^polymer/layout.html$
+  - ^polymer/polymer.js$
+  - ^polymer/README.md$
+  - ^polymer-test-tools$
+  - ^prettify-element$
