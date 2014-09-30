@@ -1,3 +1,8 @@
+## version 0.3.1
+
+  * Update `core_elements_config.yaml` with the new `deletion_patterns` option.
+    This deletes a lot of cruft code from `bower update`.
+
 ## version 0.3.0+1
 
   * Fix import in `core_transition_pages`
