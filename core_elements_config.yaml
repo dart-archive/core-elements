@@ -73,7 +73,6 @@ deletion_patterns:
   - ^core-component-page$
   - ^core-doc-viewer$
   - ^core-docs$
-  - ^core-elements$
   - ^core-tests$
   - ^google-code-prettify$
   - ^highlightjs$
