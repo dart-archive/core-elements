@@ -1,10 +1,10 @@
 name: core_elements
-version: 0.3.0+1
+version: 0.3.1
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer/
 dependencies:
-  custom_element_apigen: ">= 0.0.2 <0.1.0"
+  custom_element_apigen: ">= 0.1.0 <0.2.0"
   polymer: ">=0.14.0 <0.16.0"
   quiver: ">=0.17.0 <0.19.0"
   web_components: ">=0.7.0 <0.8.0"
@@ -85,4 +85,3 @@ transformers:
     - test/core_selector_basic_test.html
     - test/core_selector_multi_test.html
     - test/core_shared_lib_test.html
-    lint: false
