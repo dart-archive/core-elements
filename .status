@@ -26,12 +26,6 @@ build/test/core_ajax_dart_test: Pass, Timeout
 test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run
               # the output of pub-build
               
-[ $compiler == dart2js && browser == ff ]
-build/test/core_ajax_dart_response_and_error_test: Fail
-
-[ $compiler == dart2js && browser == chrome ]
-build/test/core_ajax_dart_response_and_error_test: Timeout
-
 [ $runtime == vm || $runtime == jsshell || $runtime == d8 ]
 build/test/*: Skip  # All tests are meant to run in a browser
 test/*: Skip  # All tests are meant to run in a browser
