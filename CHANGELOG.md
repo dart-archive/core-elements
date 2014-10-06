@@ -1,3 +1,8 @@
+## version 0.3.1+1
+
+  * Fix `core-list-dart` division by zero error when list is empty
+    [124](https://github.com/dart-lang/core-elements/issues/124).
+
 ## version 0.3.1
 
   * Update `core_elements_config.yaml` with the new `deletion_patterns` option.
