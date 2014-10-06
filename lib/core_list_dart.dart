@@ -246,7 +246,8 @@ class CoreList extends PolymerElement {
     firstReifiedIndex = math.min(firstReifiedIndex, data.length -
         _physicalCount);
 
-    int firstPhysicalIndex = firstReifiedIndex % _physicalCount;
+    int firstPhysicalIndex =
+        (_physicalCount > 0) ? firstReifiedIndex % _physicalCount : 0;
     int baseVirtualIndex = firstReifiedIndex - firstPhysicalIndex;
 
     int baseTransformValue = (this.height * baseVirtualIndex).floor();
