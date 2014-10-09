@@ -21,6 +21,9 @@ test/core_media_query_test: Skip # Flaky
 build/test/core_media_query_test: Skip # Flaky
 test/core_ajax_dart_test: Pass, Timeout
 build/test/core_ajax_dart_test: Pass, Timeout
+# These seem to timeout internally
+test/core_ajax_dart_response_and_error_test: Fail
+build/test/core_ajax_dart_response_and_error_test: Fail
 
 [ $compiler == dart2js ]
 test/*: Skip  # raw tests only meant to be run in dartium. Other browsers run

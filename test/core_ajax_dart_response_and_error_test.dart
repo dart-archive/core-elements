@@ -63,7 +63,10 @@ class RaceCondition extends PolymerElement {
     }
   }
 
-  @ObserveProperty("\$['ajax'].activeRequest")
+  // TODO(sigmund): using $['ajax'] inside @ObserveProperty should be allowed,
+  // but it currently breaks the polymer compiler dartbug.com/21255
+  get ajaxObject => $['ajax'];
+  @ObserveProperty("ajaxObject.activeRequest")
   requestDidChange(o, n) {
     this.requests.add({
       'statusText': 'pending',
