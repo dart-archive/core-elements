@@ -3,7 +3,6 @@
   <head>
     <title>core-animation</title>
 
-  <script src="packages/web_components/dart_support.js"></script>
   <link rel="import" href="packages/core_elements/core_animation.html">
   <link rel="import" href="packages/core_elements/core_animation_group.html">
 
@@ -114,11 +113,11 @@
  -->    </div>
     <script type="application/dart">
       import 'dart:html';
-      
+
       import 'package:core_elements/core_animation.dart';
       import 'package:core_elements/core_animation_group.dart';
       import 'package:polymer/polymer.dart';
-      
+
       customAnimationFn(timeFraction, target, animation) {
         if (timeFraction < 1) {
           target.text = '$timeFraction';

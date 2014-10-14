@@ -10,31 +10,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
   <title>core-scaffold</title>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-  <script src="packages/web_components/dart_support.js"></script>
-  
   <link rel="import" href="packages/core_elements/core_scaffold.html">
   <link rel="import" href="packages/core_elements/core_header_panel.html">
   <link rel="import" href="packages/core_elements/core_menu.html">
   <link rel="import" href="packages/core_elements/core_item.html">
 
   <script type="application/dart">export 'package:polymer/init.dart';</script>
-  
+
   <style>
 
     html, body {
       height: 100%;
       margin: 0;
     }
-  
+
     body {
       font-family: sans-serif;
     }
-    
+
     core-scaffold {
       position: absolute;
       top: 0;
@@ -57,15 +55,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     core-scaffold[mode=cover] .content {
       margin: 20px 100px 20px 0;
     }
-    
+
   </style>
-  
+
 </head>
 
 <body unresolved>
 
   <core-scaffold>
-  
+
     <core-header-panel navigation flex mode="seamed">
       <core-toolbar style="background-color: #526E9C; color: #fff;">Application</core-toolbar>
       <core-menu>
@@ -73,12 +71,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <core-item icon="settings" label="item2"></core-item>
       </core-menu>
     </core-header-panel>
-    
+
     <div tool>Title</div>
-    
+
     <div class="content">Content goes here...</div>
-  
+
   </core-scaffold>
-  
+
 </body>
 </html>

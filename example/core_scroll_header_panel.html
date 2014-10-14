@@ -10,17 +10,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <html>
 <head>
   <title>core-scroll-header-panel</title>
-  
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
 
-
-  <script src="packages/web_components/dart_support.js"></script>
   <link rel="import" href="packages/core_elements/core_scroll_header_panel.html">
   <link rel="import" href="packages/core_elements/core_toolbar.html">
   <link rel="import" href="packages/core_elements/core_icon_button.html">
-  
+
   <link rel="import" href="packages/core_elements/src/core-scroll-header-panel/demos/lorem-ipsum.html">
 
   <style shim-shadowdom>
@@ -42,29 +40,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       bottom: 0;
       left: 0;
     }
-    
+
     /* background for toolbar when it is at its full size */
     core-scroll-header-panel::shadow #headerBg {
       background-image: url(demos/images/bg9.jpg);
     }
-    
+
     /* background for toolbar when it is condensed */
     core-scroll-header-panel::shadow #condensedHeaderBg {
       background-color: #f4b400;
     }
-    
+
     core-toolbar {
       color: #f1f1f1;
       fill: #f1f1f1;
       background-color: transparent;
     }
-    
+
     .title {
       -webkit-transform-origin: 0;
       transform-origin: 0;
       font-size: 40px;
     }
-    
+
     .content {
       padding: 10px 30px;
     }
@@ -77,28 +75,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <core-scroll-header-panel condenses>
 
     <core-toolbar class="tall">
-    
+
       <core-icon-button icon="arrow-back"></core-icon-button>
       <div flex></div>
       <core-icon-button icon="search"></core-icon-button>
       <core-icon-button icon="more-vert"></core-icon-button>
       <div class="bottom indent title">Title</div>
-      
+
     </core-toolbar>
-    
+
     <div class="content">
-      
+
       <lorem-ipsum paragraphs="100"></lorem-ipsum>
-      
+
     </div>
-    
+
   </core-scroll-header-panel>
-  
+
   <script type="application/dart">
     import 'dart:html';
     import 'dart:math' as Math;
     import 'package:polymer/polymer.dart';
-  
+
     main() {
       initPolymer().run(() {
         Polymer.onReady.then((_) {
@@ -121,6 +119,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
     }
   </script>
-  
+
 </body>
 </html>

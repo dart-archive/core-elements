@@ -2,7 +2,6 @@
 <html>
 <head>
 
-  <script src="packages/web_components/dart_support.js"></script>
   <link href="packages/core_elements/core_animated_pages.html" rel="import">
   <link href="packages/core_elements/src/core-animated-pages/transitions/cross-fade.html" rel="import">
   <link href="packages/core_elements/src/core-animated-pages/transitions/slide-from-right.html" rel="import">
@@ -68,7 +67,7 @@
   <script type="application/dart">
     import 'dart:html';
     import 'package:polymer/polymer.dart';
-    
+
     main() => initPolymer();
 
     @initMethod
@@ -78,7 +77,7 @@
 
       var up = true;
       var max = 4;
-      
+
       pages.onClick.listen((_) {
         var p = pages;
         if (up && p.selected == max || !up && p.selected == 0) {

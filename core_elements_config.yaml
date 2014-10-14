@@ -8,7 +8,9 @@ files_to_generate:
         - transitions/cross-fade.html
   - core-animated-pages/transitions/core-transition-pages.html:
       extends_import: ../../core_transition.dart
-  - core-animated-pages/transitions/hero-transition.html
+  - core-animated-pages/transitions/hero-transition.html:
+      omit_imports:
+        - core-transition-pages.html
   - core-animation/core-animation.html
   - core-animation/core-animation-group.html
   - core-animation/web-animations.html
