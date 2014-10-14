@@ -11,8 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <head>
 
   <title>core-ajax</title>
-
-  <script src="packages/web_components/dart_support.js"></script>
   <link rel="import" href="packages/core_elements/core_ajax_dart.html">
 
 </head>
@@ -21,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <core-ajax-dart auto url="http://gdata.youtube.com/feeds/api/videos/" 
       params='{"alt":"json", "q":"chrome"}'
       handleAs="json"></core-ajax-dart>
-    
+
   <template id="t2" bind repeat="{{ response.feed.entry }}">
     <div>{{ title.$t }}</div>
   </template>

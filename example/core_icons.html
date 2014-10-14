@@ -13,8 +13,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>core-icons</title>
 
-  <script src="packages/web_components/dart_support.js"></script>
-
   <!-- load default set -->
   <link rel="import" href="packages/core_elements/core_icons.html">
   <!-- load the rest -->
@@ -78,10 +76,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body unresolved>
 
-  <template is="auto-binding">
-    <template repeat="{{iconset in $.meta.metaArray}}">
+  <template is="auto-binding-dart" id="myTemplate">
+    <template repeat="{{iconset in $['meta'].metaArray}}">
       <h2>{{iconset.id}}</h2>
-      
+
       <div class="set" horizontal wrap justified layout>
         <template repeat="{{ icon in iconset.iconNames }}">
           <span class="container" vertical center layout>
@@ -94,7 +92,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
     <core-iconset id="meta"></core-iconset>
   </template>
-  
-<script type="application/dart">export 'package:polymer/init.dart';</script>
+
+<script type="application/dart">
+  import 'dart:html';
+  import 'package:polymer/polymer.dart';
+
+  main() => initPolymer().run(() {
+    Polymer.onReady.then((_) {
+      var template = document.querySelector('#myTemplate');
+      template.model = template;
+    });
+  });
+</script>
 </body>
 </html>

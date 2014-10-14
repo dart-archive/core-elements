@@ -11,7 +11,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <head>
     <title>core-animated-pages</title>
     <script src='packages/unittest/test_controller.js'></script>
-    <script src='packages/web_components/dart_support.js'></script>
+
     <link rel='import' href='packages/core_elements/core_animated_pages.html'>
     <link href="packages/core_elements/src/core-animated-pages/transitions/slide-from-right.html" rel="import">
 
@@ -42,7 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
   </head>
-  <body>
+  <body unresolved>
     <template id='basic' is='auto-binding-dart'>
       <core-animated-pages transitions='{{transitions}}'
         selected='{{selected}}'

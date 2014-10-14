@@ -4,21 +4,21 @@
 
   <title>core-item</title>
 
-  <script src="packages/web_components/dart_support.js"></script>
-  
+
+
   <link rel="import" href="packages/core_elements/core_icons.html">
   <link rel="import" href="packages/core_elements/core_item.html">
 
   <script type="application/dart">export 'package:polymer/init.dart';</script>
-  
+
   <style>
-  
+
     body {
       font-family: sans-serif;
       font-size: 16px;
       margin: 20px;
     }
-    
+
     core-item {
       width: 300px;
     }
@@ -30,7 +30,7 @@
     core-item.small {
       font-size: 12px;
     }
-    
+
     core-item.contact-item {
       height: 50px;
       background-color: #efefef;
@@ -44,7 +44,7 @@
     core-item.contact-item .address {
       font-size: 0.75em;
     }
-    
+
   </style>
 
 </head>
@@ -54,14 +54,14 @@
 
     <core-item icon="settings" label="Settings"></core-item>
     <core-item icon="account-box" label="Account"></core-item>
-    
+
     <h2>items with label only:</h2>
 
     <core-item label="Settings"></core-item>
     <core-item label="Account"></core-item>
-    
+
     <h2>links (via &lt;a&gt;):</h2>
-    
+
     <core-item icon="settings" label="Settings"><a href="#settings" target="_self"></a></core-item>
     <core-item icon="account-box" label="Account"><a href="#account" target="_self"></a></core-item>
 
@@ -70,9 +70,9 @@
     <core-item icon="account-box" label="Account" class="font-scalable big"></core-item>
     <core-item icon="settings" label="Settings" class="font-scalable small"></core-item>
     <core-item icon="account-box" label="Account" class="font-scalable small"></core-item>
-    
+
     <h2>custom item:</h2>
-    
+
     <core-item icon="account-circle" class="contact-item">
       <div flex>
         <div class="name">John Doe</div>
