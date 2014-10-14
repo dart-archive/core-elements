@@ -70,6 +70,7 @@ deletion_patterns:
   - metadata\.html$
   - index\.html$
   - bower\.json$
+  - README\.md$
   - ^context-free-parser$
   - ^core-bind$
   - ^core-component-page$
