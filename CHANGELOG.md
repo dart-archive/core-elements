@@ -1,3 +1,17 @@
+## version 0.4.0-dev
+  * Updated core elements to match JavaScript version 0.4.2
+    * **Important breaking change**: core_list_dart behaves differently. You no
+      longer need special properties on the model of the list item. The template
+      will be bound to a wrapper model object that contains the index, whether
+      the item is selected, and the model you provided. See dartdoc for details.
+  * Cherry-picked newer version of core-tooltip/core-focusable to avoid adding a
+    dependency to paper elements.
+  * removed unnecessary files (README from the core element repos)
+
+## version 0.3.2
+  * Updated to use polymer 0.15.1 (Dart interop support is loaded automatically
+    now.)
+
 ## version 0.3.1+1
 
   * Fix `core-list-dart` division by zero error when list is empty

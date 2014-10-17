@@ -36,52 +36,102 @@ _generateName(inMin, inMax) {
 
 @CustomTag('list-test')
 class ListTest extends PolymerElement {
-  final int count = 50000;
+  @observable int addIdx = 0;
+  @observable int deleteIdx = 0;
+  @observable bool multi = false;
+  @observable bool selectionEnabled = true;
+  @observable int count = 50000;
   @observable ObservableList data;
+  @observable var selection;
 
   ListTest.created() : super.created();
 
   @override ready() {
-    this.data = this.generateData();
+    this.initArrayFull();
   }
 
   generateData() {
-    var names = <String>[], data = new ObservableList();
-    for (var i=0; i<this.count; i++) {
+    var names = <String>[];
+    var data = new ObservableList();
+    for (var i = 0; i < this.count; i++) {
       names.add(_generateName(4, 8));
     }
     names.sort();
-    for (var i=0; i<this.count; i++) {
-      var name = names[i];
-      var divider = name[0];
-
-      if (i == 0 || divider == names[i-1][0]) {
-        divider = null;
-      }
+    for (var i = 0; i < this.count; i++) {
       data.add(new TestItem(
-        index: i,
-        name: name,
-        divider: divider,
+        id: i,
+        name: names[i],
         details: strings[i % 3],
-        time: '8:29pm'
+        image: i % 4,
+        value: 0,
+        type: 0,
+        checked: false
       ));
     }
     return data;
   }
-  tapAction(e) {
-    window.console.log('tap $e');
+
+  addRecord() {
+    data.insert(addIdx, new TestItem(
+        id: ++this.count,
+        name: _generateName(4, 8),
+        details: strings[this.count % 3],
+        image: this.count % 4,
+        value: 0,
+        type: 0,
+        checked: false));
   }
+
+  deleteRecord() {
+    data.removeAt(deleteIdx);
+  }
+
+  deleteSelection() {
+    if (this.multi) {
+      if (this.selection.length > 0) {
+        for (var item in this.selection) {
+          this.data.removeAt(this.data.indexOf(item));
+        }
+      }
+    } else {
+      var x = data.remove(this.selection);
+    }
+  }
+
+  clearSelection() {
+    $['list'].clearSelection();
+  }
+
+  deleteAll() {
+    data.clear();
+  }
+
+  deleteArray() {
+    data = null;
+  }
+
+  initArrayEmpty() {
+    data = toObservable([]);
+  }
+
+  initArrayFull() {
+    data = generateData();
+  }
+
+  charFor(type) => ['a', 'b', 'c'][type];
 }
 
-class TestItem {
-  int index;
-  String name;
-  String divider;
-  String details;
-  String time;
-  bool selected = false;
+class TestItem extends Observable {
+  final int id;
+  final String name;
+  final String details;
+  final int image;
+  @observable int value;
+  @observable int type;
+  @observable bool checked;
 
-  TestItem({this.index, this.name, this.divider, this.details, this.time});
+  TestItem({this.id, this.name, this.details, this.image, this.value, this.type,
+      this.checked});
 }
 
 main() => initPolymer();

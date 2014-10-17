@@ -24,7 +24,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///         </core-menu>
 ///       </core-header-panel>
 ///       <div tool>Title</div>
-///       <div>Content goes here...</div>
+///       <div>Main content goes here...</div>
 ///     </core-scaffold>
 ///
 /// Use `mode` to control the header and scrolling behavior of `core-header-panel`

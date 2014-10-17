@@ -275,6 +275,18 @@ class MyModel {
     'Pretzel',
     'Sfogliatelle'
   ];
+
+   selectAction(e) {
+     var text = e.target.selectedItem == null ? null :
+         e.target.selectedItem.text;
+     window.console.log('core-select: $text');
+   }
+
+   activateAction(e) {
+     var text = e.target.selectedItem == null ? null :
+         e.target.selectedItem.text;
+     window.console.log('core-activate: $text');
+   }
 }
 
 main () {

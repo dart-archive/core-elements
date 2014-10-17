@@ -32,6 +32,26 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     core-submenu::shadow #submenu {
 ///       margin-left: 20px;
 ///     }
+///
+/// To style the item for the submenu, do something like this:
+///
+///     core-submenu::shadow > #submenuItem {
+///       color: blue;
+///     }
+///
+/// To style all the `core-item`s in the light DOM:
+///
+///     polyfill-next-selector { content: 'core-submenu > #submenu > core-item'; }
+///     core-submenu > core-item {
+///       color: red;
+///     }
+///
+/// The above will style `Topic1` and `Topic2` to have font color red.
+///
+///     <core-submenu icon="settings" label="Topics">
+///       <core-item label="Topic1"></core-item>
+///       <core-item label="Topic2"></core-item>
+///     </core-submenu>
 class CoreSubmenu extends HtmlElement with DomProxyMixin {
   CoreSubmenu.created() : super.created();
   factory CoreSubmenu() => new Element.tag('core-submenu');

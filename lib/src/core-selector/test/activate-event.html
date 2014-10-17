@@ -9,13 +9,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>core-selector-activate-event</title>
 
-  <script src="../../../platform/platform.js"></script>
-  <script src="../../../polymer-test-tools/chai/chai.js"></script>
-  <script src="../../../polymer-test-tools/htmltest.js"></script>
+  <script src="../../platform/platform.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
-  <link rel="import" href="../../core-selector.html">
+  <link rel="import" href="../core-selector.html">
 
   <style>
     .core-selected {
@@ -36,19 +36,25 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    document.addEventListener('polymer-ready', function() {
-      var assert = chai.assert;
-      var s = document.querySelector('#selector');
-      s.addEventListener("core-activate", function(event) {
-        assert.equal(event.detail.item, s.children[1]);
-        assert.equal(s.selected, 1);
-        done();
+    var s = document.querySelector('#selector');
+
+    suite('activate event', function() {
+
+      test('activates on tap', function(done) {
+        assert.equal(s.selected, '0');
+
+        async.nextTick(function() {
+          // select Item 2
+          s.children[1].dispatchEvent(new CustomEvent('tap', {bubbles: true}));
+        });
+
+        s.addEventListener("core-activate", function(event) {
+          assert.equal(event.detail.item, s.children[1]);
+          assert.equal(s.selected, 1);
+          done();
+        });
       });
-      assert.equal(s.selected, '0');
-      requestAnimationFrame(function() {
-        // select Item 2
-        s.children[1].dispatchEvent(new CustomEvent('tap', {bubbles: true}));
-      });
+
     });
 
   </script>

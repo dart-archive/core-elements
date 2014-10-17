@@ -7,8 +7,10 @@
   ],
   "private": true,
   "dependencies": {
-    "polymer": "polymer/polymer#0.4.1",
-    "core-elements": "polymer/core-elements#0.4.1",
-    "core-a11y-keys": "polymer/core-a11y-keys#0.4.1"
+    "polymer": "polymer/polymer#0.4.2",
+    "core-elements": "polymer/core-elements#0.4.2",
+    "core-tooltip": "Polymer/core-tooltip#c3f028a",
+    "core-focusable": "Polymer/core-focusable#8443acf",
+    "core-a11y-keys": "polymer/core-a11y-keys#0.4.2"
   }
 }

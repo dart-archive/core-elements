@@ -68,7 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <template id="myTemplate" is="auto-binding-dart">
 
-    <div layout vertical fit>
+    <div layout vertical fit on-core-select="{{selectAction}}" on-core-activate="{{activateAction}}">
 
       <div class="toolbar toolbar-1" layout horizontal center>
 

@@ -21,6 +21,7 @@ files_to_generate:
   - core-dropdown/core-dropdown-overlay.html
   - core-dropdown-menu/core-dropdown-menu.html
   - core-field/core-field.html
+  - core-focusable/core-focusable.html
   - core-header-panel/core-header-panel.html
   - core-icon/core-icon.html
   - core-icon-button/core-icon-button.html

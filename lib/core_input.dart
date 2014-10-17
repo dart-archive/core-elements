@@ -192,7 +192,7 @@ class CoreInput extends HtmlElement with DomProxyMixin {
       jsElement.callMethod('checkValidity', []);
 
   /// Forwards to the internal input / textarea element and updates state.
-  void setCustomValidity(num message) =>
+  void setCustomValidity(String message) =>
       jsElement.callMethod('setCustomValidity', [message]);
 }
 @initMethod

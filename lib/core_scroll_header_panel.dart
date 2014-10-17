@@ -95,6 +95,11 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   get scroller => jsElement['scroller'];
 
   get header => jsElement['header'];
+
+  /// Invoke this to tell `core-scroll-header-panel` to re-measure the header's
+  /// height.
+  void measureHeaderHeight() =>
+      jsElement.callMethod('measureHeaderHeight', []);
 }
 @initMethod
 upgradeCoreScrollHeaderPanel() => registerDartType('core-scroll-header-panel', CoreScrollHeaderPanel);

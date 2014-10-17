@@ -9,14 +9,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 <html>
 <head>
+  <meta charset="UTF-8">
   <title>core-selector-template-repeat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <script src="../../../platform/platform.js"></script>
-  <script src="../../../polymer-test-tools/chai/chai.js"></script>
-  <script src="../../../polymer-test-tools/htmltest.js"></script>
+  <script src="../../platform/platform.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
 
-  <link rel="import" href="../../core-selector.html">
+  <link rel="import" href="../core-selector.html">
 
   <style>
     .core-selected {
@@ -35,23 +35,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
 
-    document.addEventListener('polymer-ready', function() {
-      var assert = chai.assert;
-      var s = document.querySelector('#selector');
-      var t = document.querySelector('#itemsTemplate');
-      t.model = {items: ['Item1', 'Item2', 'Item3', "Item4"]};
-      Platform.flush();
-      setTimeout(function() {
-        // check items
-        assert.equal(s.items.length, 4);
-        assert.equal(s.selected, 1);
-        // check selectedItem
-        var item = s.selectedItem;
-        assert.equal(s.items[1], item);
-        // check selected class
-        assert.isTrue(item.classList.contains('core-selected'));
-        done();
-      }, 50);
+    var s = document.querySelector('#selector');
+    var t = document.querySelector('#itemsTemplate');
+
+    suite('<template repeat...>', function() {
+
+      test('supports repeated children', function(done) {
+        t.model = {items: ['Item1', 'Item2', 'Item3', "Item4"]};
+        asyncPlatformFlush(function() {
+          // check items
+          assert.equal(s.items.length, 4);
+          assert.equal(s.selected, 1);
+          // check selectedItem
+          var item = s.selectedItem;
+          assert.equal(s.items[1], item);
+          // check selected class
+          assert.isTrue(item.classList.contains('core-selected'));
+          done();
+        });
+      });
+
     });
 
   </script>

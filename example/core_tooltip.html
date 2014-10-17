@@ -4,6 +4,8 @@
 
   <meta charset="utf-8">
   <title>Core Tooltip</title>
+  <link rel="import" href="packages/core_elements/core_icon_button.html">
+  <link rel="import" href="packages/paper_elements/paper_fab.html">
   <link rel="import" href="packages/core_elements/core_tooltip.html">
 
   <style>
@@ -59,10 +61,11 @@
       padding:20px;
       border-radius: 5px;
     }
+
   </style>
 
   <style shim-shadowdom>
-    core-tooltip.fancy::shadow .polymer-tooltip {
+    core-tooltip.fancy::shadow .core-tooltip {
       opacity: 0;
       -webkit-transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
       transition: all 300ms cubic-bezier(0,1.92,.99,1.07);
@@ -70,43 +73,39 @@
       transform: translate3d(0, -10px, 0);
     }
 
-    core-tooltip.fancy:hover::shadow .polymer-tooltip,
-    core-tooltip.fancy:focus::shadow .polymer-tooltip {
+    core-tooltip.fancy:hover::shadow .core-tooltip,
+    core-tooltip.fancy:focus::shadow .core-tooltip {
       opacity: 1;
       -webkit-transform: translate3d(0, 0, 0);
       transform: translate3d(0, 0, 0);
-    }
-
-    .on /deep/ .polymer-tooltip {
-      visibility: visible !important;
     }
   </style>
 
 </head>
 <body unresolved>
 
-  <article onclick="this.classList.toggle('on');">
+  <article>
 
-    <em>click the page to toggle all examples...</em>
+      <button>Toggle all</button>
 
       <section class="small" layout horizontal center-center>
 
         <div class="example">
 
           <core-tooltip label='position="left"' position="left">
-            <div class="fakebutton">|||</div>
+            <core-icon-button icon="drawer"></core-icon-button>
           </core-tooltip>
 
           <core-tooltip label='position="top"' position="top">
-            <div class="fakebutton">|||</div>
+            <core-icon-button icon="drawer"></core-icon-button>
           </core-tooltip>
 
           <core-tooltip label='position="bottom"' position="bottom">
-            <div class="fakebutton">|||</div>
+            <core-icon-button icon="drawer"></core-icon-button>
           </core-tooltip>
 
           <core-tooltip label='position="right"' position="right">
-            <div class="fakebutton">|||</div>
+            <core-icon-button icon="drawer"></core-icon-button>
           </core-tooltip>
 
         </div>
@@ -114,8 +113,7 @@
         <div class="example">
 
           <core-tooltip label="Fancy effect" class="fancy">
-            <img src="https://pbs.twimg.com/profile_images/378800000548263523/c110b0a4c3e3e4d3dcce1d2020f3eded.jpeg
-        " class="profile">
+            <paper-fab icon="add"></paper-fab>
           </core-tooltip>
 
         </div>
@@ -139,6 +137,14 @@
 
           <core-tooltip label="<core-tooltip large>" large>
             Larger tooltips for mobile
+          </core-tooltip>
+
+        </div>
+
+        <div class="example">
+
+          <core-tooltip label="disabled" disabled>
+            Disabled Tooltip
           </core-tooltip>
 
         </div>
@@ -180,6 +186,14 @@
     main() {
       initPolymer().run(() {
         Polymer.onReady.then((_) {
+
+          querySelector('button').on['click'].listen((e) {
+            var tooltips = querySelectorAll('core-tooltip');
+            tooltips.forEach((tooltip) {
+              tooltip.show = !tooltip.show;
+            });
+          });
+
           querySelector('#fillbutton').on['click'].listen((Event e) {
             e.stopPropagation();
             var el = querySelector('#dynamic');

@@ -9,6 +9,7 @@
 library core_elements.core_list_dart;
 
 import 'dart:js' show JsObject;
+import 'dart:js' as js;
 import 'dart:html';
 import 'dart:math' as math;
 import 'package:core_elements/core_selection.dart';
@@ -70,32 +71,24 @@ class CoreList extends PolymerElement {
   @published int extraItems = 30;
 
   /**
+   * 
+   * When true, tapping a row will select the item, placing its data model
+   * in the set of selected items retrievable via the `selection` property.
    *
-   * The property set on the list view data to represent selection state.
-   * This should set so that it does not conflict with other data properties.
-   * Note, selection data is not stored on the data in given in the data 
-   * property.
+   * Note that tapping focusable elements within the list item will not
+   * result in selection, since they are presumed to have their own action.
    *
-   * @attribute selectedProperty
-   * @type string
-   * @default null
+   * @attribute selectionEnabled
+   * @type {boolean}
+   * @default true
    */
-  @published String selectedProperty = 'selected';
-
-  // TODO(sorvell): experimental
-  /**
-   *
-   * If true, data is sync'd from the list back to the list's data.
-   *
-   * @attribute sync
-   * @type boolean
-   * @default false
-   */
-  @published bool sync = false;
+  @published bool selectionEnabled = true;
 
   /**
    *
-   * Set to true to support multiple selection.
+   * Set to true to support multiple selection. Note, existing selection state
+   * is maintained only when changing `multi` from `false` to `true`; it is
+   * cleared when changing from `true` to `false`.
    *
    * @attribute multi
    * @type boolean
@@ -103,13 +96,27 @@ class CoreList extends PolymerElement {
    */
   @published bool multi = false;
 
+  /**
+   * 
+   * Data record (or array of records, if `multi: true`) corresponding to
+   * the currently selected set of items.
+   *
+   * @attribute selection
+   * @type {any}
+   * @default null
+   */
+  @published var selection;
+
   @observable var selected;
 
   var _target;
+  var _targetScrollSubscription;
   int _visibleCount;
   int _physicalCount;
   double _physicalHeight;
   double _scrollTop = 0.0;
+  bool _oldMulti = false;
+  bool _oldSelectionEnabled = false;
 
   ObservableList<_ListModel> _physicalData;
   var _physicalItems;
@@ -127,103 +134,123 @@ class CoreList extends PolymerElement {
 
   @override
   ready() {
-    this.clearSelection();
+    _oldMulti = multi;
+    _oldSelectionEnabled = selectionEnabled;
   }
 
   @override
   attached() {
     this.template = this.querySelector('template');
+    if (templateBind(this.template).bindingDelegate == null) {
+      templateBind(this.template).bindingDelegate = this.element.syntax;
+    }
   }
 
+  @ObserveProperty('multi selectionEnabled')
+  resetSelection() {
+    if ((_oldMulti != multi && !multi) ||
+        (_oldSelectionEnabled != selectionEnabled && !selectionEnabled)) {
+      this._clearSelection();
+      this.refresh(true);
+    } else {
+      this.selection = _getSelection();
+    }
+    _oldMulti = multi;
+    _oldSelectionEnabled = selectionEnabled;
+  }
+
+  // TODO(debug): not sure why we need to add this bogus handler. Without it
+  // data modifications are not being handled in initialize if run in Dartium
+  // & dirty-checking
+  @ObserveProperty('data') updateData() {}
 
   // TODO(sorvell): it'd be nice to dispense with 'data' and just use
   // template repeat's model. However, we need tighter integration
   // with TemplateBinding for this.
+  // Dart note: added data.length so we detect modifications in the list.
   @ObserveProperty('data template scrollTarget')
-  initialize() {
-    if (this.data == null || this.template == null) {
-      return;
+  initialize(changes) {
+    if (this.template == null) return;
+
+    if (changes is List<ListChangeRecords>) {
+      for (var s in changes) {
+        for (var d in s.removed) {
+          _setItemSelected(_selection, _wrap(d), false);
+        }
+      }
+    } else {
+     this._clearSelection();
     }
+
     var target = scrollTarget != null ? scrollTarget : this;
     if (_target != target) {
-      if (_target != null) {
-        _target.removeEventListener('scroll', scrollHandler, false);
+      if (_targetScrollSubscription != null) {
+        _targetScrollSubscription.cancel();
+        _targetScrollSubscription = null;
       }
       _target = target;
-      _target.addEventListener('scroll', scrollHandler, false);
+      _targetScrollSubscription = _target.on['scroll'].listen(scrollHandler);
+    }
+    // Only use -webkit-overflow-touch from iOS8+, where scroll events are fired
+    var ios = new RegExp('iP(?:hone|ad;(?: U;)? CPU) OS (\d+)').firstMatch(
+        window.navigator.userAgent);
+    if (ios != null && int.parse(ios.group(1)) >= 8) {
+      target.style.webkitOverflowScrolling = 'touch';
     }
 
-    this.initializeViewport();
-    this.initalizeData();
-    this.onMutation(this).then((_) => initializeItems());
+    this.initializeData();
   }
 
-  // TODO(sorvell): need to handle resizing
-  initializeViewport() {
-    $['viewport'].style.height = '${this.height * this.data.length}px';
+  initializeData() {
+    var currentCount = _physicalCount == null ? 0 : _physicalCount;
+    var dataLen = data != null ? data.length : 0;
     _visibleCount = (_target.offsetHeight / this.height).ceil();
-    _physicalCount = math.min(_visibleCount + this.extraItems,
-        this.data.length);
-    _physicalHeight = this.height * _physicalCount;
-  }
+    _physicalCount = math.min(_visibleCount + this.extraItems, dataLen);
+    _physicalCount = math.max(currentCount, _physicalCount);
 
-  // TODO(sorvell): selection currently cannot be maintained when
-  // items are added or deleted.
-  initalizeData() {
-    _physicalData = new ObservableList<_ListModel>(_physicalCount);
-    for (var i = 0; i < _physicalCount; ++i) {
-      _physicalData[i] = new _ListModel();
-      this.updateItem(i, i);
+    if (_physicalData == null) _physicalData = new ObservableList<_ListModel>();
+    if (_physicalData.length < _physicalCount) {
+      _physicalData.length = _physicalCount;
+    }
+    var needItemInit = false;
+    while (currentCount < _physicalCount) {
+      _physicalData[currentCount++] = new _ListModel();
+      needItemInit = true;
     }
     templateBind(this.template).model = _physicalData;
     this.template.attributes['repeat'] = '';
+    if (needItemInit) {
+      this.onMutation(this).then((_) => initializeItems());
+    } else {
+      this.refresh(true);
+    }
   }
 
   initializeItems() {
-    _physicalItems = new List(_physicalCount);
+    var currentCount = _physicalItems != null ? _physicalItems.length : 0;
+    if (_physicalItems == null) _physicalItems = new List();
+    if (_physicalItems.length < _physicalCount) {
+      _physicalItems.length = _physicalCount;
+    }
     for (var i = 0, item = this.template.nextElementSibling;
          item != null && i < _physicalCount;
          ++i, item = item.nextElementSibling) {
       _physicalItems[i] = item;
       _transformValue[item] = 0;
     }
-    this.refresh(false);
+    this.refresh(true);
   }
 
   updateItem(virtualIndex, physicalIndex) {
-    var virtualDatum = this.data[virtualIndex];
+    var virtualDatum = data == null ? null : data[virtualIndex];
     var physicalDatum = _physicalData[physicalIndex];
-    this.pushItemData(virtualDatum, physicalDatum);
-    physicalDatum._physicalIndex = physicalIndex;
-    physicalDatum._virtualIndex = virtualIndex;
-    if (this.selectedProperty != null) {
-      physicalDatum._set(this.selectedProperty, _selectedData[virtualDatum]);
-    }
-  }
-
-  pushItemData(source, _ListModel dest) {
-    dest._item = source;
-    dest._notifyChanges();
-  }
-
-  // experimental: push physical data back to this.data.
-  // this is optional when scrolling and needs to be called at other times.
-  syncData() {
-    if (this.firstPhysicalIndex == null ||
-        this.baseVirtualIndex == null) {
-      return;
-    }
-    var p, v;
-    for (var i = 0; i < this.firstPhysicalIndex; ++i) {
-      p = _physicalData[i];
-      v = this.data[this.baseVirtualIndex + _physicalCount + i];
-      this.pushItemData(p, v);
-    }
-    for (var i = this.firstPhysicalIndex; i < _physicalCount; ++i) {
-      p = _physicalData[i];
-      v = this.data[this.baseVirtualIndex + i];
-      this.pushItemData(p, v);
-    }
+    physicalDatum.model = virtualDatum;
+    physicalDatum.physicalIndex = physicalIndex;
+    physicalDatum.index = virtualIndex;
+    physicalDatum.selected = selectionEnabled && virtualDatum != null
+        ? _selectedData[virtualDatum] : null;
+    var physicalItem = this._physicalItems[physicalIndex];
+    physicalItem.hidden = virtualDatum == null;
   }
 
   scrollHandler(e) {
@@ -238,13 +265,27 @@ class CoreList extends PolymerElement {
    * @method refresh
    */
   refresh(bool force) {
+    var dataLen = this.data != null ? this.data.length : 0;
+    if (force) {
+      if (this._physicalCount < 
+          math.min(this._visibleCount + this.extraItems, dataLen)) {
+        // Need to add more items; once new data & items are initialized,
+        // refresh will be run again
+        this.initializeData();
+        return;
+      }
+      this._physicalHeight = this.height * this._physicalCount;
+      this.$['viewport'].style.height = '${this.height * dataLen}px';
+    }
+
     int firstVisibleIndex = (_scrollTop / height).floor();
     num visibleMidpoint = firstVisibleIndex + _visibleCount / 2;
 
     int firstReifiedIndex = math.max(0, (visibleMidpoint -
         _physicalCount / 2).floor());
-    firstReifiedIndex = math.min(firstReifiedIndex, data.length -
+    firstReifiedIndex = math.min(firstReifiedIndex, dataLen -
         _physicalCount);
+    firstReifiedIndex = (firstReifiedIndex < 0) ? 0 : firstReifiedIndex;
 
     int firstPhysicalIndex =
         (_physicalCount > 0) ? firstReifiedIndex % _physicalCount : 0;
@@ -255,10 +296,6 @@ class CoreList extends PolymerElement {
 
     var baseTransformString = 'translate3d(0,${baseTransformValue}px,0)';
     var nextTransformString = 'translate3d(0,${nextTransformValue}px,0)';
-    // TODO(sorvell): experiemental for sync'ing back to virtual data.
-    if (this.sync) {
-      this.syncData();
-    }
     this.firstPhysicalIndex = firstPhysicalIndex;
     this.baseVirtualIndex = baseVirtualIndex;
 
@@ -280,38 +317,91 @@ class CoreList extends PolymerElement {
 
   // list selection
   tapHandler(e) {
-    if (e.target == this) {
-      return;
-    }
-    if (this.sync) {
-      this.syncData();
-    }
     var n = e.target;
-    var instance = nodeBind(n).templateInstance;
-    _ListModel model = instance != null ? instance.model.model : null;
-    if (model != null) {
-      var vi = model._virtualIndex, pi = model._physicalIndex;
-      var data = this.data[vi], item = _physicalItems[pi];
-      _selection.select(data);
-      this.asyncFire('core-activate', detail:
-          new CoreActivateEvent(data: data, item: item));
-    }
+    var p = e.path;
+    if (!this.selectionEnabled || identical(n, this)) return;
+    window.requestAnimationFrame((_) {
+      // Gambit: only select the item if the tap wasn't on a focusable child
+      // of the list (since anything with its own action should be focusable
+      // and not result in result in list selection).  To check this, we
+      // asynchronously check that shadowRoot.activeElement is null, which 
+      // means the tapped item wasn't focusable. On polyfill where
+      // activeElement doesn't follow the data-hinding part of the spec, we
+      // can check that document.activeElement is the list itself, which will
+      // catch focus in lieu of the tapped item being focusable, as we make
+      // the list focusable (tabindex="-1") for this purpose.  Note we also
+      // allow the list items themselves to be focusable if desired, so those
+      // are excluded as well.
+      var active = (js.context['ShadowDOMPolyfill'] != null)
+          ? js.context['wrap'].apply([document.activeElement])
+          : this.shadowRoot.activeElement;
+      if (active != null && active != this && active.parentNode != this
+          && document.activeElement != document.body) {
+        return;
+      }
+      // Unfortunately, Safari does not focus certain form controls via mouse,
+      // so we also blacklist input, button, & select
+      // (https://bugs.webkit.org/show_bug.cgi?id=118043)
+      if ((p[0].localName == 'input') || 
+          (p[0].localName == 'button') || 
+          (p[0].localName == 'select')) {
+        return;
+      }
+      var instance = nodeBind(n).templateInstance;
+      _ListModel model = instance != null ? instance.model.model : null;
+      if (model != null) {
+        var vi = model.index, pi = model.physicalIndex;
+        var data = this.data[vi], item = _physicalItems[pi];
+        _invokeSelect(data);
+        this.asyncFire('core-activate', detail:
+            new CoreActivateEvent(data: data, item: item));
+      }
+    });
   }
 
-  selectedHandler(e) {
-    if (this.selectedProperty != null) {
-      // TODO(sigmund): remove this use of JsInterop when dartbug.com/20648 is
-      // fixed
-      var detail = new JsObject.fromBrowserObject(e)['detail'];
-      var i$ = this.indexesForData(detail['item']);
-      // TODO(sorvell): we should be relying on selection to store the
-      // selected data but we want to optimize for lookup.
-      _selectedData[detail['item']] = detail['isSelected'];
+  // Dart note: Dartium creates a new proxy every time a Dart object is sent via
+  // jsinterop, unless the object is previsously jsified. This extra logic here
+  // is used to ensure taht core-selection works correctly in `multi` mode
+  // (tapping an element twice should deselect it).
+  _invokeSelect(item) => _selection.select(_wrap(item));
 
-      var physical = i$['physical'];
-      if (physical != null && physical >= 0) {
-        this.updateItem(i$['virtual'], physical);
-      }
+  _getSelection() {
+    var s = _selection.getSelection();
+    if (!_inDartium || s == null) return s;
+    if (s is List) return s.map(_unwrap).toList();
+    return _unwrap(s);
+  }
+
+  static final _inDartium = window.navigator.dartEnabled;
+
+  Expando dartObjectProxy = new Expando();
+
+  _wrap(item) {
+    if (!_inDartium) return item;
+    var o = dartObjectProxy[item];
+    if (o == null) {
+      o = new JsObject.jsify({'original': item});
+      dartObjectProxy[item] = o;
+    }
+    return o;
+  }
+
+  _unwrap(item) => _inDartium ? item['original'] : item;
+
+  selectedHandler(e) {
+    this.selection = _getSelection();
+    // TODO(sigmund): remove this use of JsInterop when dartbug.com/20648 is
+    // fixed
+    var detail = new JsObject.fromBrowserObject(e)['detail'];
+    var item = _unwrap(detail['item']);
+    var i$ = this.indexesForData(item);
+    // TODO(sorvell): we should be relying on selection to store the
+    // selected data but we want to optimize for lookup.
+    _selectedData[item] = detail['isSelected'];
+
+    var physical = i$['physical'];
+    if (physical != null && physical >= 0) {
+      this.updateItem(i$['virtual'], physical);
     }
   }
 
@@ -322,9 +412,10 @@ class CoreList extends PolymerElement {
    * @param {number} index
    */
   selectItem(index) {
-    var data = this.data[index];
-    if (data != null) {
-      _selection.select(data);
+    if (!selectionEnabled) return;
+    var item = this.data[index];
+    if (item != null) {
+      _invokeSelect(item);
     }
   }
 
@@ -336,9 +427,9 @@ class CoreList extends PolymerElement {
    * @param {boolean} isSelected
    */
   setItemSelected(index, isSelected) {
-    var data = this.data[index];
-    if (data) {
-      _setItemSelected(_selection, data, isSelected);
+    var item = this.data[index];
+    if (item != null) {
+      _setItemSelected(_selection, _wrap(item), isSelected);
     }
   }
 
@@ -350,30 +441,27 @@ class CoreList extends PolymerElement {
 
   virtualToPhysicalIndex(index) {
     for (var i=0, l=_physicalData.length; i<l; i++) {
-      if (_physicalData[i]._virtualIndex == index) {
+      if (_physicalData[i].index == index) {
         return i;
       }
     }
     return -1;
   }
 
-  get selection => _selection.getSelection();
-
-  selectedChanged() {
-    _selection.select(this.selected);
+  /**
+   * Clears the current selection state of the list.
+   *
+   * @method clearSelection
+   */
+  clearSelection() {
+    _clearSelection();
+    this.refresh(true);
   }
 
-  clearSelection() {
+  _clearSelection() {
     _selectedData = new Expando();
-    if (this.multi) {
-      var s$ = this.selection;
-      for (var i=0, l=s$.length, s; (i<l) && (s=s$[i]); i++) {
-        _setItemSelected(_selection, s, false);
-      }
-    } else {
-      _setItemSelected(_selection, this.selection, false);
-    }
     _selection.jsElement.callMethod('clear');
+    this.selection = _getSelection();
   }
 
   scrollToItem(index) {
@@ -389,39 +477,12 @@ class CoreActivateEvent {
   CoreActivateEvent({this.data, this.item});
 }
 
-// Dart note:
-// core-list creates a shallow copy of the object. We do the same via a proxy
-// Also we don't observe original because of:
-// https://github.com/Polymer/core-list/issues/2
-class _ListModel extends ChangeNotifier {
-  var _item;
-  int _physicalIndex;
-  int _virtualIndex;
-  final _props = new Map<Symbol, Object>();
-
-  // Called to refresh the list after an item has been replaced.
-  _notifyChanges() {
-    _props.forEach((name, oldValue) {
-      var newValue = smoke.read(_item, name);
-      _props[name] = newValue;
-      notifyChange(new PropertyChangeRecord(this, name, oldValue, newValue));
-    });
-  }
-
-  _set(String name, value) {
-    var field = smoke.nameToSymbol(name);
-    smoke.write(_item, field, value);
-    _props.putIfAbsent(field, () => value);
-  }
-
-  noSuchMethod(Invocation invocation) {
-    if (invocation.isGetter) {
-      var value = smoke.read(_item, invocation.memberName);
-      _props.putIfAbsent(invocation.memberName, () => value);
-      return value;
-    }
-    return super.noSuchMethod(invocation);
-  }
+/// Model used for the template of each item in the list.
+class _ListModel extends Observable {
+  @observable int physicalIndex;
+  @observable int index;
+  @observable bool selected;
+  @observable var model;
 }
 
 // TODO: this should be on the CoreSelection type.

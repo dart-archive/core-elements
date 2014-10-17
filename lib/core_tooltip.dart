@@ -34,6 +34,12 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <img src="image.jpg">
 ///     </core-tooltip>
 ///
+/// <b>Example</b> - disable the tooltip.
+///
+///     <core-tooltip label="Disabled label never shows" disabled>
+///       ...
+///     </core-tooltip>
+///
 /// <b>Example</b> - rich tooltip using the `tip` attribute:
 ///
 ///     <core-tooltip>
@@ -70,7 +76,7 @@ class CoreTooltip extends HtmlElement with DomProxyMixin {
   String get label => jsElement['label'];
   set label(String value) { jsElement['label'] = value; }
 
-  /// If true, the tooltip displays by default.
+  /// Forces the tooltip to display. If `disabled` is set, this property is ignored.
   bool get show => jsElement['show'];
   set show(bool value) { jsElement['show'] = value; }
 

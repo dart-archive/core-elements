@@ -166,7 +166,7 @@ import 'core_selector.dart';
 /// Dynamically setting up transitions
 /// ----------------------------------
 ///
-/// An easy way to dynamically set up transitions dynamically is to use property binding on
+/// An easy way to set up transitions dynamically is to use property binding on
 /// the transition attributes.
 ///
 /// Example:
