@@ -172,7 +172,9 @@ class CoreList extends PolymerElement {
   initialize(changes) {
     if (this.template == null) return;
 
-    if (changes is List<ListChangeRecords>) {
+    // `changes is List<ListChangeRecord>` does not work in Dart. We assume here
+    // that if the first item is a ListChangeRecord then the rest is too.
+    if (changes is List && !changes.isEmpty && changes[0] is ListChangeRecord) {
       for (var s in changes) {
         for (var d in s.removed) {
           _setItemSelected(_selection, _wrap(d), false);

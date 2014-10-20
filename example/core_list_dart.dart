@@ -36,8 +36,8 @@ _generateName(inMin, inMax) {
 
 @CustomTag('list-test')
 class ListTest extends PolymerElement {
-  @observable int addIdx = 0;
-  @observable int deleteIdx = 0;
+  @observable String addIdx = '0';
+  @observable String deleteIdx = '0';
   @observable bool multi = false;
   @observable bool selectionEnabled = true;
   @observable int count = 50000;
@@ -72,7 +72,7 @@ class ListTest extends PolymerElement {
   }
 
   addRecord() {
-    data.insert(addIdx, new TestItem(
+    data.insert(int.parse(addIdx), new TestItem(
         id: ++this.count,
         name: _generateName(4, 8),
         details: strings[this.count % 3],
@@ -83,7 +83,7 @@ class ListTest extends PolymerElement {
   }
 
   deleteRecord() {
-    data.removeAt(deleteIdx);
+    data.removeAt(int.parse(deleteIdx));
   }
 
   deleteSelection() {
