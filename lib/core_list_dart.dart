@@ -215,7 +215,7 @@ class CoreList extends PolymerElement {
       _physicalData.length = _physicalCount;
     }
     var needItemInit =
-        _physicalItems == null || _physicalCount != _physicalItems.length;
+        _physicalItems != null && _physicalCount != _physicalItems.length;
     while (currentCount < _physicalCount) {
       _physicalData[currentCount++] = new _ListModel();
       needItemInit = true;
