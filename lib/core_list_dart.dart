@@ -212,7 +212,8 @@ class CoreList extends PolymerElement {
     if (_physicalData.length < _physicalCount) {
       _physicalData.length = _physicalCount;
     }
-    var needItemInit = false;
+    var needItemInit =
+        _physicalItems == null || _physicalCount != _physicalItems.length;
     while (currentCount < _physicalCount) {
       _physicalData[currentCount++] = new _ListModel();
       needItemInit = true;
@@ -242,7 +243,8 @@ class CoreList extends PolymerElement {
   }
 
   updateItem(virtualIndex, physicalIndex) {
-    var virtualDatum = data == null ? null : data[virtualIndex];
+    var virtualDatum = (data == null || virtualIndex >= data.length) ?
+        null : data[virtualIndex];
     var physicalDatum = _physicalData[physicalIndex];
     physicalDatum.model = virtualDatum;
     physicalDatum.physicalIndex = physicalIndex;

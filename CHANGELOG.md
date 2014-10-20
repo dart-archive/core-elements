@@ -1,4 +1,9 @@
-## version 0.4.0-dev
+## version 0.4.0+1
+  * Fixes for `core-list-dart`, coming from
+    [130](https://github.com/dart-lang/core-elements/issues/130). Adding and
+    removing items from small lists is fixed.
+
+## version 0.4.0
   * Updated core elements to match JavaScript version 0.4.2
     * **Important breaking change**: core_list_dart behaves differently. You no
       longer need special properties on the model of the list item. The template
