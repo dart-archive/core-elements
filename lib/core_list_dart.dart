@@ -172,7 +172,9 @@ class CoreList extends PolymerElement {
   initialize(changes) {
     if (this.template == null) return;
 
-    if (changes is List<ListChangeRecords>) {
+    // `changes is List<ListChangeRecord>` does not work in Dart. We assume here
+    // that if the first item is a ListChangeRecord then the rest is too.
+    if (changes is List && !changes.isEmpty && changes[0] is ListChangeRecord) {
       for (var s in changes) {
         for (var d in s.removed) {
           _setItemSelected(_selection, _wrap(d), false);
@@ -212,7 +214,8 @@ class CoreList extends PolymerElement {
     if (_physicalData.length < _physicalCount) {
       _physicalData.length = _physicalCount;
     }
-    var needItemInit = false;
+    var needItemInit =
+        _physicalItems != null && _physicalCount != _physicalItems.length;
     while (currentCount < _physicalCount) {
       _physicalData[currentCount++] = new _ListModel();
       needItemInit = true;
@@ -242,7 +245,8 @@ class CoreList extends PolymerElement {
   }
 
   updateItem(virtualIndex, physicalIndex) {
-    var virtualDatum = data == null ? null : data[virtualIndex];
+    var virtualDatum = (data == null || virtualIndex >= data.length) ?
+        null : data[virtualIndex];
     var physicalDatum = _physicalData[physicalIndex];
     physicalDatum.model = virtualDatum;
     physicalDatum.physicalIndex = physicalIndex;
