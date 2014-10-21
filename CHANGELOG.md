@@ -1,3 +1,8 @@
+## version 0.4.0+2
+  * Optimize `core-list-dart` for cases where the original list is cleared out
+    entirely but not replaced by a new list (such as calling `.clear()` or
+    setting `.length = 0`).
+
 ## version 0.4.0+1
   * Fixes for `core-list-dart`, coming from
     [130](https://github.com/dart-lang/core-elements/issues/130). Adding and
