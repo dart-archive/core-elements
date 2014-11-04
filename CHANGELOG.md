@@ -1,3 +1,7 @@
+## version 0.4.0+3
+  * Fix `core-list-dart` for the case where it is initialized with an empty
+    array [137](https://github.com/dart-lang/core-elements/issues/137).
+
 ## version 0.4.0+2
   * Optimize `core-list-dart` for cases where the original list is cleared out
     entirely but not replaced by a new list (such as calling `.clear()` or
