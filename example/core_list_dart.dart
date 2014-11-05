@@ -38,6 +38,7 @@ _generateName(inMin, inMax) {
 class ListTest extends PolymerElement {
   @observable String addIdx = '0';
   @observable String deleteIdx = '0';
+  @observable String scrollToIdx = '0';
   @observable bool multi = false;
   @observable bool selectionEnabled = true;
   @observable int count = 50000;
@@ -84,6 +85,10 @@ class ListTest extends PolymerElement {
 
   deleteRecord() {
     data.removeAt(int.parse(deleteIdx));
+  }
+
+  scrollTo() {
+    $['list'].scrollToItem(int.parse(scrollToIdx));
   }
 
   deleteSelection() {
