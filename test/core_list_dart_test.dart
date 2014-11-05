@@ -13,7 +13,8 @@ import 'dart:async' show Future;
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
-import 'package:core_elements/core_list_dart.dart' show CoreList, CoreActivateEvent;
+import 'package:core_elements/core_list_dart.dart' show CoreList,
+    CoreActivateEvent;
 
 class Item {
   String value;
@@ -38,16 +39,19 @@ void main() {
 
         test('update selection from model', () {
           final template =
-              dom.document.querySelector('#bindSelectionTemplate') as AutoBindingElement;
+              dom.document.querySelector('#bindSelectionTemplate')
+                  as AutoBindingElement;
           final model = template.model = new MyModel();
           final done1 = expectAsync(() {});
 
           return new Future(() {
-            final list = dom.document.querySelector('#bindSelection') as CoreList;
+            final list = dom.document.querySelector('#bindSelection')
+                as CoreList;
 
 // TODO(zoechi) check if this event should be fired when selection was changed
 // probably not because the doc says `Fired when an item element is tapped`
-// but it is handy during debugging of the test (remove this code when the problem is fixed)
+// but it is handy during debugging of the test (remove this code when the
+// problem is fixed)
 //            list.on['core-activate'].first.then((e) {
 //              expect((e.detail as CoreActivateEvent).data, equals(model.data[0]));
 //              done1();
@@ -55,7 +59,8 @@ void main() {
 
             model.selection = model.data[0];
             return new Future(() {
-              final foundSelected = dom.document.querySelector('#bindSelection .selected');
+              final foundSelected =
+                  dom.document.querySelector('#bindSelection .selected');
               expect(foundSelected.innerHtml, contains(model.data[0].value));
             });
           });
