@@ -1,3 +1,7 @@
+## version 0.4.0+4
+  * Cherry pick [33](https://github.com/Polymer/core-overlay/pull/33) to fix
+    repeated quick showing and hiding of core overlays.
+
 ## version 0.4.0+3
   * Fix `core-list-dart` for the case where it is initialized with an empty
     array [137](https://github.com/dart-lang/core-elements/issues/137).

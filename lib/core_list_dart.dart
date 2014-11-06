@@ -470,7 +470,7 @@ class CoreList extends PolymerElement {
   }
 
   scrollToItem(index) {
-    this.scrollTop = index * this.height;
+    this.scrollTop = (index * this.height).floor();
   }
 }
 
