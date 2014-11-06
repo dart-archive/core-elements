@@ -26,7 +26,7 @@ transformers:
         - example/core_animated_pages/shadow
     entry_points:
     - example/core_a11y_keys.html
-    - example/core_ajax_dart.htmlp
+    - example/core_ajax_dart.html
     - example/core_animated_pages/grid.html
     - example/core_animated_pages/list.html
     - example/core_animated_pages/music.html
@@ -80,6 +80,7 @@ transformers:
     - test/core_animated_pages_test.html
     - test/core_collapse_test.html
     - test/core_input_test.html
+    - test/core_list_dart_test.html
     - test/core_localstorage_dart_test.html
     - test/core_media_query_test.html
     - test/core_media_query_dialog_test.html

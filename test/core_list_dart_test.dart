@@ -35,18 +35,16 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
-      group('core-list-dart', () {
+      skip_test('update selection from model', () {
+        var template =
+            dom.document.querySelector('#bindSelectionTemplate')
+                as AutoBindingElement;
+        var model = template.model = new MyModel();
+        var done1 = expectAsync(() {});
 
-        test('update selection from model', () {
-          final template =
-              dom.document.querySelector('#bindSelectionTemplate')
-                  as AutoBindingElement;
-          final model = template.model = new MyModel();
-          final done1 = expectAsync(() {});
-
-          return new Future(() {
-            final list = dom.document.querySelector('#bindSelection')
-                as CoreList;
+        return new Future(() {
+          var list = dom.document.querySelector('#bindSelection')
+              as CoreList;
 
 // TODO(zoechi) check if this event should be fired when selection was changed
 // probably not because the doc says `Fired when an item element is tapped`
@@ -57,15 +55,13 @@ void main() {
 //              done1();
 //            });
 
-            model.selection = model.data[0];
-            return new Future(() {
-              final foundSelected =
-                  dom.document.querySelector('#bindSelection .selected');
-              expect(foundSelected.innerHtml, contains(model.data[0].value));
-            });
+          model.selection = model.data[0];
+          return new Future(() {
+            var foundSelected =
+                dom.document.querySelector('#bindSelection .selected');
+            expect(foundSelected.innerHtml, contains(model.data[0].value));
           });
         });
-
       });
 
     });
