@@ -1,3 +1,8 @@
+## version 0.4.0+5
+  * Cherry pick
+    [core-focusable#3](https://github.com/Polymer/core-focusable/pull/3/files)
+    which removes invalid comment tokens from a .js file.
+
 ## version 0.4.0+4
   * Cherry pick [33](https://github.com/Polymer/core-overlay/pull/33) to fix
     repeated quick showing and hiding of core overlays.
