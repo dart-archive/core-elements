@@ -1,3 +1,7 @@
+## version 0.4.0+6
+  * Update core-list-dart to have runtime checks for valid templates,
+    [142](https://github.com/dart-lang/core-elements/issues/142).
+
 ## version 0.4.0+5
   * Cherry pick
     [core-focusable#3](https://github.com/Polymer/core-focusable/pull/3/files)
