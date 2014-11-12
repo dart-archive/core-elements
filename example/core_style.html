@@ -8,6 +8,7 @@ license that can be found in the LICENSE file.
 <head>
   <title>core-style</title>
 
+  <link rel="import" href="../../packages/polymer/polymer.html">
   <link rel="import" href="core_style/elements.html">
   <link rel="import" href="core_style/my_theme.html">
 
@@ -15,17 +16,17 @@ license that can be found in the LICENSE file.
 <body unresolved fullbleed vertical layout>
   <core-style ref="main"></core-style>
 
-  <template is="auto-binding">
+  <template is="auto-binding-dart" id="myTemplate">
     <my-toolbar>
       <span flex>core-style</span>
-      <input type="color" value="{{g.theme.colorOne}}">
-      <input type="color" value="{{g.theme.colorTwo}}">
-      <input type="color" value="{{g.theme.colorThree}}">
-      <input type="range" min="1" max="8" value="{{g.columns}}">
+      <input type="color" value="{{g['theme']['colorOne']}}">
+      <input type="color" value="{{g['theme']['colorTwo']}}">
+      <input type="color" value="{{g['theme']['colorThree']}}">
+      <input type="range" min="1" max="8" value="{{g['columns']}}">
       <button>A button</button>
     </my-toolbar>
     <section flex horizontal wrap layout>
-      <template repeat="{{item in g.items}}">
+      <template repeat="{{item in g['items']}}">
         <my-panel>{{item}}</my-panel>
       </template>
     </section>
@@ -33,19 +34,21 @@ license that can be found in the LICENSE file.
 
   <script type="application/dart">
   import 'dart:js' show JsObject, context;
-  import 'dart:html' show window;
-  import 'package:polymer/polymer.dart' show initMethod, Polymer;
+  import 'dart:html';
+  import 'package:polymer/polymer.dart';
   export 'package:polymer/init.dart' show main;
   import 'package:quiver/iterables.dart' show range;
+
+  class MyModel {
+    JsObject g = context['CoreStyle']['g'];
+  }
 
   @initMethod init() {
     Polymer.onReady.then((_) {
       context['CoreStyle']['g']['items'] = new JsObject.jsify(range(0, 100));
 
-      window.on['template-bound'].listen((e) {
-        var template = new JsObject.fromBrowserObject(e.target);
-        template['g'] = context['CoreStyle']['g'];
-      });
+      var template = querySelector('#myTemplate') as AutoBindingElement;
+      template.model = new MyModel();
     });
   }
   </script>
