@@ -257,6 +257,10 @@ class CoreList extends PolymerElement {
     }
     for (var i = 0, item = this.template.nextElementSibling; i < _physicalCount;
          ++i, item = item.nextElementSibling) {
+      // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
+      // fixed then we should do this check by examining the templates content
+      // inside attached().
+      //
       // Null item means they didn't have any elements in their <template>, only
       // text nodes (or a single binding most likely).
       if (item == null) {
@@ -266,6 +270,10 @@ class CoreList extends PolymerElement {
       _physicalItems[i] = item;
       _transformValue[item] = 0;
     }
+    // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
+    // fixed then we should do this check by examining the templates content
+    // inside attached().
+    //
     // Check for multiple top level elements in a <template>
     if (_physicalItems.last.nextElementSibling != null) {
       throw '\n\n It looks like you have multiple top level elements inside '
