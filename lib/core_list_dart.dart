@@ -109,6 +109,20 @@ class CoreList extends PolymerElement {
 
   @observable var selected;
 
+  static const String CONTENT_ERROR = '\n\n'
+'The content of a <core-list-dart> element should be a single template tag '
+'which contains a single element (which can itself contain whatever content or '
+'elements you wish). For example: '
+'''\n\n
+<core-list-dart model="{{data}}">
+  <template>
+    <div>
+      // All your custom content/elements here.
+    </div>
+  </template>
+</core-list-dart>
+''';
+
   var _target;
   var _targetScrollSubscription;
   int _visibleCount;
@@ -141,6 +155,11 @@ class CoreList extends PolymerElement {
   @override
   attached() {
     this.template = this.querySelector('template');
+    // Make sure they supplied a template in the content.
+    if (this.template == null) {
+      throw '\n\nIt looks like you are missing the <template> '
+          'tag in your <core-list-dart> content. $CONTENT_ERROR';
+    }
     if (templateBind(this.template).bindingDelegate == null) {
       templateBind(this.template).bindingDelegate = this.element.syntax;
     }
@@ -236,12 +255,31 @@ class CoreList extends PolymerElement {
     if (_physicalItems.length < _physicalCount) {
       _physicalItems.length = _physicalCount;
     }
-    for (var i = 0, item = this.template.nextElementSibling;
-         item != null && i < _physicalCount;
+    for (var i = 0, item = this.template.nextElementSibling; i < _physicalCount;
          ++i, item = item.nextElementSibling) {
+      // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
+      // fixed then we should do this check by examining the templates content
+      // inside attached().
+      //
+      // Null item means they didn't have any elements in their <template>, only
+      // text nodes (or a single binding most likely).
+      if (item == null) {
+        throw '\n\nIt looks like you are missing an element inside your '
+            'template.$CONTENT_ERROR';
+      }
       _physicalItems[i] = item;
       _transformValue[item] = 0;
     }
+    // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
+    // fixed then we should do this check by examining the templates content
+    // inside attached().
+    //
+    // Check for multiple top level elements in a <template>
+    if (_physicalItems.last.nextElementSibling != null) {
+      throw '\n\n It looks like you have multiple top level elements inside '
+          'your template. $CONTENT_ERROR';
+    }
+
     this.refresh(true);
   }
 
