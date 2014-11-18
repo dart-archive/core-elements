@@ -38,12 +38,11 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     }
 ///
 /// `core-scroll-header-panel` works well with `core-toolbar` but can use any element
-/// that represents a header by adding a `core-header` class to it.  Use the attribute
-/// or class `content` to delineate the content section.
+/// that represents a header by adding a `core-header` class to it.
 ///
 ///     <core-scroll-header-panel>
 ///       <core-toolbar>Header</core-toolbar>
-///       <div content>Content goes here...</div>
+///       <div>Content goes here...</div>
 ///     </core-scroll-header-panel>
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();

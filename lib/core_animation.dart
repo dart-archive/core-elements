@@ -66,8 +66,10 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   get keyframes => jsElement['keyframes'];
   set keyframes(value) { jsElement['keyframes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  get sample => jsElement['sample'];
-  set sample(value) { jsElement['sample'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  /// A custom animation function. Either provide this or `keyframes`. The signature
+  /// of the callback is `EffectsCallback(timeFraction, target, animation)`
+  get customEffect => jsElement['customEffect'];
+  set customEffect(value) { jsElement['customEffect'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Controls the composition behavior. If set to "replace", the effect overrides
   /// the underlying value for the target. If set the "add", the effect is added to
@@ -93,7 +95,7 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
   ///
   /// "none" means the animation has no effect when it's not playing.
   ///
-  /// "forward" applies the value at the end of the animation after it's finished.
+  /// "forwards" applies the value at the end of the animation after it's finished.
   ///
   /// "backwards" applies the value at the start of the animation to the target
   /// before it starts playing and has no effect when the animation finishes.
@@ -136,11 +138,6 @@ class CoreAnimation extends HtmlElement with DomProxyMixin {
 
   get targetSelector => jsElement['targetSelector'];
   set targetSelector(value) { jsElement['targetSelector'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// A custom animation function. Either provide this or `keyframes`. The signature
-  /// of the callback is `EffectsCallback(timeFraction, target, animation)`
-  get customEffect => jsElement['customEffect'];
-  set customEffect(value) { jsElement['customEffect'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The number of milliseconds to wait after the animation finishes. This is
   /// useful, for example, in an animation group to wait for some time before

@@ -10,12 +10,12 @@ import 'package:polymer/polymer.dart' show initMethod;
 import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
 /// `core-collapse` creates a collapsible block of content.  By default, the content
-/// will be collapsed.  Use `opened` to show/hide the content.
+/// will be collapsed.  Use `opened` or `toggle()` to show/hide the content.
 ///
 ///     <button on-click="{{toggle}}">toggle collapse</button>
 ///
 ///     <core-collapse id="collapse">
-///       ...
+///       Content goes here...
 ///     </core-collapse>
 ///
 ///     ...
@@ -23,11 +23,29 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     toggle: function() {
 ///       this.$.collapse.toggle();
 ///     }
+///
+/// `core-collapse` adjusts the height/width of the collapsible element to show/hide
+/// the content.  So avoid putting padding/margin/border on the collapsible directly,
+/// and instead put a div inside and style that.
+///
+///     <style>
+///       .collapse-content {
+///         padding: 15px;
+///         border: 1px solid #dedede;
+///       }
+///     </style>
+///
+///     <core-collapse>
+///       <div class="collapse-content">
+///         Content goes here...
+///       </div>
+///     </core-collapse>
 class CoreCollapse extends HtmlElement with DomProxyMixin {
   CoreCollapse.created() : super.created();
   factory CoreCollapse() => new Element.tag('core-collapse');
 
-  /// The target element.
+  /// The target element that will be opened when the `core-collapse` is
+  /// opened. If unspecified, the `core-collapse` itself is the target.
   get target => jsElement['target'];
   set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
@@ -49,6 +67,13 @@ class CoreCollapse extends HtmlElement with DomProxyMixin {
   /// for collapsing/expanding.
   bool get fixedSize => jsElement['fixedSize'];
   set fixedSize(bool value) { jsElement['fixedSize'] = value; }
+
+  /// By default the collapsible element is set to overflow hidden. This helps
+  /// avoid element bleeding outside the region and provides consistent overflow
+  /// style across opened and closed states. Set this property to true to allow
+  /// the collapsible element to overflow when it's opened.
+  bool get allowOverflow => jsElement['allowOverflow'];
+  set allowOverflow(bool value) { jsElement['allowOverflow'] = value; }
 
   /// Toggle the opened state.
   void toggle() =>

@@ -42,6 +42,28 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       </core-header-panel>
 ///     </core-drawer-panel>
 ///
+/// An element that should toggle the drawer will automatically do so if it's
+/// given the `core-drawer-toggle` attribute.  Also this element will automatically
+/// be hidden in wide layout.
+///
+/// Example:
+///
+///     <core-drawer-panel>
+///       <core-header-panel drawer>
+///         <core-toolbar>
+///           <div>Application</div>
+///         </core-toolbar>
+///         <div> Drawer content... </div>
+///       </core-header-panel>
+///       <core-header-panel main>
+///         <core-toolbar>
+///           <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
+///           <div>Title</div>
+///         </core-toolbar>
+///         <div> Main content... </div>
+///       </core-header-panel>
+///     </core-drawer-panel>
+///
 /// To position the drawer to the right, add `rightDrawer` attribute.
 ///
 ///     <core-drawer-panel rightDrawer>
@@ -82,6 +104,10 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   /// If true, swipe to open/close the drawer is disabled.
   bool get disableSwipe => jsElement['disableSwipe'];
   set disableSwipe(bool value) { jsElement['disableSwipe'] = value; }
+
+  /// If true, ignore `responsiveWidth` setting and force the narrow layout.
+  bool get forceNarrow => jsElement['forceNarrow'];
+  set forceNarrow(bool value) { jsElement['forceNarrow'] = value; }
 
   /// Toggles the panel open and closed.
   void togglePanel() =>

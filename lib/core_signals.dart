@@ -21,12 +21,12 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     this.fire('core-signal', {name: 'hello', data: null});
 ///
 /// To receive a signal, listen for `core-signal-<name>` event on a
-/// `core-signal` element.
+/// `core-signals` element.
 ///
-///   <core-signal on-core-signal-hello="{{helloSignal}}">
+///   <core-signals on-core-signal-hello="{{helloSignal}}">
 ///
 /// You can fire a signal event from anywhere, and all
-/// `core-signal` elements will receive the event, regardless
+/// `core-signals` elements will receive the event, regardless
 /// of where they are in DOM.
 class CoreSignals extends HtmlElement with DomProxyMixin {
   CoreSignals.created() : super.created();

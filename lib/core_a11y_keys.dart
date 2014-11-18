@@ -77,6 +77,7 @@ class CoreA11yKeys extends HtmlElement with DomProxyMixin {
   set keys(value) { jsElement['keys'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The node that will fire keyboard events.
+  /// Default to this element's parentNode unless one is assigned
   get target => jsElement['target'];
   set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }

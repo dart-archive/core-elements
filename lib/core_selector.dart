@@ -162,15 +162,17 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
 
   get selection => jsElement['selection'];
 
-  /// Selects the previous item.  This should be used in single selection only.
-  /// [wrap]: if true and it is already at the first item, wrap to the end
-  selectPrevious(bool wrap) =>
-      jsElement.callMethod('selectPrevious', [wrap]);
+  /// Selects the previous item. This should be used in single selection only.
+  /// [wrapped]: if true and it is already at the first item,
+  ///                      wrap to the end
+  selectPrevious(bool wrapped) =>
+      jsElement.callMethod('selectPrevious', [wrapped]);
 
   /// Selects the next item.  This should be used in single selection only.
-  /// [wrap]: if true and it is already at the last item, wrap to the front
-  selectNext(bool wrap) =>
-      jsElement.callMethod('selectNext', [wrap]);
+  /// [wrapped]: if true and it is already at the last item,
+  ///                      wrap to the front
+  selectNext(bool wrapped) =>
+      jsElement.callMethod('selectNext', [wrapped]);
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);

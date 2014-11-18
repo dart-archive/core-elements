@@ -18,7 +18,7 @@ files_to_generate:
   - core-drag-drop/core-drag-drop.html
   - core-drawer-panel/core-drawer-panel.html
   - core-dropdown/core-dropdown.html
-  - core-dropdown/core-dropdown-overlay.html
+  - core-dropdown/core-dropdown-base.html
   - core-dropdown-menu/core-dropdown-menu.html
   - core-field/core-field.html
   - core-focusable/core-focusable.html
