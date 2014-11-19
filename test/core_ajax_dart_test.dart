@@ -7,43 +7,180 @@
 
 library core_ajax.test;
 
-import "dart:html" as dom;
+import "dart:async";
+import "dart:html";
 import "package:core_elements/core_ajax_dart.dart";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
+
+CoreAjax ajax;
+Completer done;
 
 void main() {
   useHtmlConfiguration();
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
+      ajax = querySelector('core-ajax-dart') as CoreAjax;
 
-      group("core-ajax", () {
+      group("handleAs", () {
 
-        test("auto basic", () {
-          var done = expectAsync(() {});
+        setUp(() {
+          reset();
+        });
 
-          var s = dom.document.querySelector("#auto");
-          s.addEventListener("core-response", (event) {
-            expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
-            done();
+        test('txt', () {
+          ajax..url = 'core_ajax_dart.txt'
+              ..auto = true;
+          ajax.onCoreResponse.take(1).listen((_) {
+            expect(ajax.response, 'test text\n');
+            done.complete();
+          });
+          return done.future;
+        });
+
+        test('xml', () {
+          ajax..handleAs = 'xml'
+              ..url = 'core_ajax_dart.xml'
+              ..auto = true;
+          ajax.onCoreResponse.take(1).listen((_) {
+            var response = ajax.response;
+            expect(response, isNotNull);
+            expect(response is Document, true);
+            expect(response.querySelector('note body q').text, 'Feed me!');
+            expect(response.querySelector('to').text, 'AJ');
+            done.complete();
+          });
+          return done.future;
+        });
+
+        test('json', () {
+          ajax..handleAs = 'json'
+              ..url = 'core_ajax_dart.json'
+              ..auto = true;
+          ajax.onCoreResponse.take(1).listen((_) {
+            var response = ajax.response;
+            expect(response, isNotNull);
+            expect(response is Map, true);
+            expect(response['object']['list'][1], 3);
+            expect(response['object']['list'][2]['key'], 'value');
+            done.complete();
+          });
+          return done.future;
+        });
+
+        // TODO(jakemac): arraybuffer test
+
+      });
+
+      group('auto', () {
+
+        setUp(() {
+          reset();
+          ajax..url = 'core_ajax_dart.txt'
+              ..auto = true;
+          var firstDone = new Completer();
+          ajax.onCoreResponse.take(1).listen((_) {
+            firstDone.complete();
+          });
+          return firstDone.future;
+        });
+
+        test('url change should trigger request', () {
+          ajax.url = 'core_ajax_dart.json';
+          ajax.onCoreResponse.take(1).listen((_) {
+            done.complete();
+          });
+          return done.future;
+        });
+
+        test('params change should trigger request', () {
+          ajax.params = {'param': 'value'};
+          ajax.onCoreResponse.take(1).listen((_) {
+            done.complete();
+          });
+          return done.future;
+        });
+
+        test('body change should trigger request', () {
+          ajax..method = 'POST'
+              ..body = 'bodystuff';
+          // We use complete instead of response here, depending on how you are
+          // running the tests POST may not be valid.
+          ajax.onCoreComplete.take(1).listen((_) {
+            done.complete();
+          });
+          return done.future;
+        });
+
+      });
+
+      group('events', () {
+        var responseCalled;
+        var errorCalled;
+        var subscriptions;
+
+        setUp(() {
+          reset();
+          responseCalled = false;
+          errorCalled = false;
+          ajax..handleAs = 'text'
+              ..url = 'core_ajax_dart.txt';
+
+          // Subscribe to error/response/complete events and track what gets
+          // called.
+          subscriptions = [
+            ajax.onCoreError.take(1).listen((_) {
+              errorCalled = true;
+            }),
+            ajax.onCoreResponse.take(1).listen((_) {
+              responseCalled = true;
+            }),
+            ajax.onCoreComplete.take(1).listen((_) {
+              // Give other events a chance to fire fired and throw.
+              new Future(() {}).then((_) {
+                subscriptions.forEach((s) => s.cancel());
+                subscriptions = null;
+                done.complete();
+              });
+            })
+          ];
+        });
+
+        test('successful request', () {
+          ajax.go();
+          return done.future.then((_) {
+            expect(responseCalled, true,
+                reason: 'core-response should fire on success');
+            expect(errorCalled, false,
+                reason: 'core-error should not fire on success');
           });
         });
 
-        test("no auto basic", () {
-          var done = expectAsync(() {});
-
-          var s = dom.document.querySelector("#manual");
-          s.addEventListener("core-response", (event) {
-            expect(event.detail['response']['feed']['entry'].length, greaterThan(0));
-            done();
+        test('failed request', () {
+          ajax..url = 'bad_url'
+              ..go();
+          return done.future.then((_) {
+            expect(responseCalled, false,
+                reason: 'core-response should not fire on failure');
+            expect(errorCalled, true,
+                reason: 'core-error should fire on failure');
           });
-          (s as CoreAjax).go();
         });
 
       });
 
     });
   });
+}
+
+void reset() {
+  ajax..auto = false
+      ..url = ''
+      ..params = ''
+      ..handleAs = 'text'
+      ..body = ''
+      ..method = '';
+  done = new Completer();
 }

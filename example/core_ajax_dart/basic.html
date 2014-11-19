@@ -15,7 +15,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body>
 
-  <core-ajax-dart auto url="http://gdata.youtube.com/feeds/api/videos/" 
+  <core-ajax-dart auto url="//gdata.youtube.com/feeds/api/videos/"
       params='{"alt":"json", "q":"chrome"}'
       handleAs="json"></core-ajax-dart>
 
@@ -25,8 +25,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <!-- If this template is not here, the next template does not render :( -->
   <template id="t1" bind>
-    <div style="border: solid 1px blue;">x: {{ response.feed.entry.0.title.$t }}</div>
+    <div style="border: solid 1px blue;">x: {{ response.feed.entry[0].title.$t }}</div>
   </template>
-  <script type="application/dart" src="core_ajax_dart.dart"></script>
+  <script type="application/dart" src="basic.dart"></script>
 </body>
 </html>
