@@ -10,33 +10,13 @@ library core_elements.example.core_dropdown;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
+import 'package:core_elements/core_collapse.dart';
+import 'package:core_elements/core_dropdown.dart';
 
 class Country {
   final String name;
   final String code;
   const Country(this.name, this.code);
-}
-
-@CustomTag('drop-down')
-class DropDown extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
-}
-
-@CustomTag('drop-down-2')
-class DropDown2 extends PolymerElement {
-  @published bool opened = false;
-  @published var halign;
-  @published var valign;
-
-  DropDown2.created() : super.created();
-
-  toggle() => this.opened = !this.opened;
 }
 
 class MyModel {
@@ -285,6 +265,12 @@ class MyModel {
     const Country('Zambia','ZM'),
     const Country('Zimbabwe','ZW'),
   ];
+
+  toggle(CustomEvent e) {
+    var dropdown = (e.target as HtmlElement)
+        .querySelector('core-dropdown') as CoreDropdown;
+    if (dropdown != null) dropdown.toggle();
+  }
 }
 
 main () {
@@ -292,6 +278,12 @@ main () {
     Polymer.onReady.then((_) {
       var template = querySelector('#myTemplate');
       template.model = new MyModel();
+
+      template.on['template-bound'].listen((_) {
+        (querySelector('#toggleCollapse') as ButtonElement).onClick.listen((_) {
+          (querySelector('#collapse') as CoreCollapse).toggle();
+        });
+      });
     });
   });
 }

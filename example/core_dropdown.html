@@ -13,21 +13,28 @@ license that can be found in the LICENSE file.
 
   <title>core-dropdown</title>
 
-  <link rel="import" href="packages/core_elements/core_dropdown.html">
-  <link rel="import" href="packages/core_elements/core_icon.html">
+  <link rel="import" href="packages/core_elements/core_collapse.html">
   <link rel="import" href="packages/core_elements/core_icons.html">
-  <link rel="import" href="packages/core_elements/social_icons.html">
   <link rel="import" href="packages/core_elements/core_icon_button.html">
+  <link rel="import" href="packages/core_elements/core_dropdown.html">
 
   <style shim-shadowdom>
     body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 16px;
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      font-size: 14px;
+      margin: 0;
+      padding: 24px;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
     }
 
-    html, body {
-      height: 100%;
-      margin: 0;
+    section {
+      padding: 20px 0;
+    }
+
+    section > div {
+      padding: 14px;
+      font-size: 16px;
     }
 
     html /deep/ core-dropdown {
@@ -35,349 +42,116 @@ license that can be found in the LICENSE file.
       color: #000;
       border: 1px solid #ccc;
       border-radius: 3px;
+      padding: 8px;
     }
 
-    drop-down.margin::shadow core-dropdown {
+    .with-margin {
       margin: 12px;
     }
 
-    drop-down.open-below::shadow core-dropdown {
-      position: absolute;
+    .open-below {
       top: 38px;
-      left: 0px;
-    }
-
-    drop-down.constrained::shadow core-dropdown {
-      max-height: 500px;
-    }
-
-    .dropdown {
-      padding: 12px;
-    }
-
-    .toolbar {
-      color: #fff;
-      font-size: 16px;
-    }
-
-    .toolbar-1 {
-      background-color: #3b78e7;
-    }
-
-    .toolbar-2 {
-      background-color: #4285f4;
-    }
-
-    .toolbar-3 {
-      background-color: #5e97f6;
-    }
-
-    .bottom-toolbar-1 {
-      background-color: #0d904f;
-    }
-
-    .bottom-toolbar-2 {
-      background-color: #0f9d58;
-    }
-
-    .bottom-toolbar-3 {
-      background-color: #33ac71;
-    }
-
-    .toolbar > * {
-      padding: 12px;
-    }
-
-    .toolbar-label {
-      width: 100px;
-    }
-
-    .middle {
-      overflow: auto;
-    }
-
-    .middle > * {
-      padding: 12px;
     }
 
   </style>
 
 </head>
 <body unresolved>
+  <!--
+  DART NOTE: We can't extend JS elements so we use core-icon-button directly
+  below instead of creating the x-trigger element like they do in js.
+  -->
+  <template is="auto-binding-dart" id="myTemplate">
 
-  <polymer-element name="drop-down" attributes="opened halign valign">
-    <template>
-      <style>
-        :host {
-          display: inline-block;
-          position: relative;
-        }
-      </style>
-      <div id="trigger" on-tap="{{toggle}}">
-        <content select=".core-dropdown-trigger"></content>
-      </div>
-      <core-dropdown relatedTarget="{{$['trigger']}}" halign="{{halign}}" valign="{{valign}}" opened="{{opened}}" margin="12">
-        <content></content>
-      </core-dropdown>
-    </template>
-  </polymer-element>
+    <section>
 
-  <polymer-element name="drop-down-2" attributes="opened halign valign">
-    <template>
-      <style>
-        :host {
-          display: inline-block;
-        }
-        #trigger {
-          position: relative;
-        }
-      </style>
-      <div id="trigger" on-tap="{{toggle}}">
-        <content select=".core-dropdown-trigger"></content>
-        <core-dropdown relatedTarget="{{$['trigger']}}" halign="{{halign}}" valign="{{valign}}" opened="{{opened}}" margin="12">
-          <content></content>
+      <div>Absolutely positioned dropdowns</div>
+
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown>
+          halign = left
+          <br>
+          valign = top
         </core-dropdown>
-      </div>
-    </template>
-  </polymer-element>
+      </core-icon-button>
 
-  <template id="myTemplate" is="auto-binding-dart">
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown valign="bottom">
+          halign = left
+          <br>
+          valign = bottom
+        </core-dropdown>
+      </core-icon-button>
 
-    <div layout vertical fit>
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown halign="right">
+          halign = right
+          <br>
+          valign = top
+        </core-dropdown>
+      </core-icon-button>
 
-      <div class="toolbar toolbar-1" layout horizontal center>
+    </section>
 
-        <div class="toolbar-label">
-          halign=left valign=top
-        </div>
+    <section>
 
-        <drop-down halign="left">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>Hello World!</h2>
-          </div>
-        </drop-down>
+      <div>Layered dropdowns</div>
 
-        <drop-down-2 halign="left">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>I'm a child of the button</h2>
-          </div>
-        </drop-down-2>
+      <button id="toggleCollapse">toggle core-collapse</button>
 
-        <drop-down halign="left">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>scrollable-vertical</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
+      <br>
 
-        <drop-down class="margin" halign="left">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>margins</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
+      <core-collapse id="collapse">
 
-        <div flex>
-        </div>
+        <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+          <core-dropdown layered>
+            halign = left
+            <br>
+            valign = top
+          </core-dropdown>
+        </core-icon-button>
 
-      </div>
+      </core-collapse>
 
-      <div class="toolbar toolbar-2" layout horizontal center>
+    </section>
 
-        <div class="toolbar-label">
-          halign=right valign=top
-        </div>
+    <section>
 
-        <div flex></div>
+      <div>Scrolling and margin</div>
 
-        <drop-down class="margin" halign="right">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>margin</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown>
+          no margin<br>
+          <br>
+          <template repeat="{{countries}}">
+            {{name}}<br>
+          </template>
+        </core-dropdown>
+      </core-icon-button>
 
-        <drop-down halign="right">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>scrollable-vertical</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown class="with-margin">
+          with margin<br>
+          <br>
+          <template repeat="{{countries}}">
+            {{name}}<br>
+          </template>
+        </core-dropdown>
+      </core-icon-button>
 
-        <drop-down-2 halign="right">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>I'm a child of the button</h2>
-          </div>
-        </drop-down-2>
+    </section>
 
-        <drop-down halign="right">
-          <core-icon-button class="core-dropdown-trigger" icon="more-vert"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>Hello World!</h2>
-          </div>
-        </drop-down>
+    <section>
 
-      </div>
+      <div>Custom position</div>
 
-      <div flex class="middle">
-        <div>
-          <drop-down>
-            <core-icon-button class="core-dropdown-trigger" icon="social:notifications"></core-icon-button>
-            <div class="dropdown">
-              <h2>Hello World!</h2>
-            </div>
-          </drop-down>
+      <core-icon-button relative on-tap="{{toggle}}" icon="menu">
+        <core-dropdown class="open-below">
+          top: 38px
+        </core-dropdown>
+      </core-icon-button>
 
-          <drop-down class="open-below">
-            <core-icon-button class="core-dropdown-trigger" icon="social:notifications"></core-icon-button>
-            <div class="dropdown">
-              <h2>Custom positioning</h2>
-            </div>
-          </drop-down>
-
-          <drop-down class="open-below constrained">
-            <core-icon-button class="core-dropdown-trigger" icon="social:notifications"></core-icon-button>
-            <div class="dropdown">
-              <h2>Scrollable + custom size + custom positioning</h2>
-              <template repeat="{{countries}}">
-                <p>{{name}}</p>
-              </template>
-            </div>
-          </drop-down>
-        </div>
-
-        <p>scroll me...</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </div>
-
-      <div class="toolbar bottom-toolbar-2" layout horizontal center>
-
-        <div class="toolbar-label">
-          halign=left valign=bottom
-        </div>
-
-        <drop-down halign="left" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>Hello World!</h2>
-          </div>
-        </drop-down>
-
-        <drop-down-2 halign="left" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>I'm a child of the button</h2>
-          </div>
-        </drop-down-2>
-
-        <drop-down halign="left" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>scrollable-vertical</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
-
-        <drop-down class="margin" halign="left" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>margin</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
-
-        <div flex>
-        </div>
-
-      </div>
-
-      <div class="toolbar bottom-toolbar-1" layout horizontal center>
-
-        <div class="toolbar-label">
-          halign=right valign=bottom
-        </div>
-
-        <div flex></div>
-
-        <drop-down class="margin" halign="right" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>margin</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
-
-        <drop-down halign="right" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown">
-            <h2>scrollable-vertical</h2>
-            <template repeat="{{countries}}">
-              <p>{{name}}</p>
-            </template>
-          </div>
-        </drop-down>
-
-        <drop-down-2 halign="right" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="menu"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>I'm a child of the button</h2>
-          </div>
-        </drop-down-2>
-
-        <drop-down halign="right" valign="bottom">
-          <core-icon-button class="core-dropdown-trigger" icon="more-vert"></core-icon-button>
-          <div class="dropdown" layout horizontal center-center>
-            <h2>Hello World!</h2>
-          </div>
-        </drop-down>
-
-      </div>
-
-    </div>
+    </section>
 
   </template>
 

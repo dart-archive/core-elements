@@ -15,10 +15,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <link rel="import" href="packages/core_elements/core_localstorage_dart.html">
   </head>
   <body>
-    <core-localstorage-dart id="localstorage" name="core-localstorage-test">
-    </core-localstorage-dart>
+    <polymer-element name="x-foo" attributes="value">
+      <template>
+        <div>{{value}}</div>
+      </template>
+    </polymer-element>
 
-    <script type="application/dart" src="core_localstorage_dart_test.dart">
+    <polymer-element name="x-test" attributes="value">
+      <template>
+        <x-foo value="{{value}}"></x-foo>
+        <core-localstorage-dart id="localstorage" name="core-localstorage-test" value="{{value}}"></core-localstorage-dart>
+      </template>
+    </polymer-element>
+
+    <x-test></x-test>
+
+    <script type="application/dart" src="core_localstorage_dart_value_binding_test.dart">
     </script>
   </body>
 </html>

@@ -5,44 +5,39 @@
 //Code distributed by Google as part of the polymer project is also
 //subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 
-library core_localstorage_dart.test;
+library core_input.a11y_test;
 
-import "dart:async";
-import "dart:convert";
 import "dart:html";
+import "dart:async";
+
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_localstorage_dart.dart";
+import "package:core_elements/core_input.dart";
 
 void main() {
   useHtmlConfiguration();
-  window.localStorage['core-localstorage-test'] = '{"foo":"bar"}';
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      var storage = document.querySelector("#localstorage") as CoreLocalStorage;
+      CoreInput i1 = querySelector('#input1');
+      CoreInput i2 = querySelector('#input2');
 
-      group("basic", () {
-
-        test("load", () {
-          expect(storage.value, isNotNull);
-          expect(storage.value['foo'], 'bar');
+      test('aria-label set to placeholder', () {
+        expect(i1.attributes['aria-label'], 'label');
+        i1.setAttribute('placeholder', 'new label');
+        return new Future(() {}).then((_) {
+          expect(i1.attributes['aria-label'], 'new label');
         });
-
-        test('save', () {
-          var newValue = {'foo': 'zot'};
-          storage.value = newValue;
-          return new Future(() {}).then((_) {
-            var v = window.localStorage[storage.name];
-            v = JSON.decode(v);
-            expect(v['foo'], newValue['foo']);
-          });
-        });
-
       });
 
+      test('aria-disabled is set', () {
+        expect(i2.attributes.containsKey('aria-disabled'), true);
+        i2.attributes.remove('disabled');
+        return new Future(() {}).then((_) {
+          expect(i2.attributes.containsKey('aria-disabled'), false);
+        });
+      });
     });
   });
 }
-

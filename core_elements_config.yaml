@@ -38,8 +38,12 @@ files_to_generate:
   - core-icons/social-icons.html
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
+  - core-image/core-image.html
   - core-input/core-input.html
   - core-item/core-item.html
+  - core-label/core-label.html:
+      name_substitutions:
+        for: htmlFor
   - core-layout-grid/core-layout-grid.html
   - core-layout-trbl/core-layout-trbl.html
   - core-layout-trbl/core-slide.html

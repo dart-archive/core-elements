@@ -5,44 +5,43 @@
 //Code distributed by Google as part of the polymer project is also
 //subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 
-library core_localstorage_dart.test;
+library core_dropdown_a11y.test;
 
 import "dart:async";
-import "dart:convert";
 import "dart:html";
+import "package:core_elements/core_dropdown_menu.dart";
+import "package:core_elements/core_menu.dart";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_localstorage_dart.dart";
+
+CoreDropdownMenu dropdown;
+CoreMenu menu;
 
 void main() {
   useHtmlConfiguration();
-  window.localStorage['core-localstorage-test'] = '{"foo":"bar"}';
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      var storage = document.querySelector("#localstorage") as CoreLocalStorage;
+       dropdown = querySelector('#dropdown1') as CoreDropdownMenu;
+       menu = querySelector('#menu1') as CoreMenu;
 
-      group("basic", () {
-
-        test("load", () {
-          expect(storage.value, isNotNull);
-          expect(storage.value['foo'], 'bar');
-        });
-
-        test('save', () {
-          var newValue = {'foo': 'zot'};
-          storage.value = newValue;
-          return new Future(() {}).then((_) {
-            var v = window.localStorage[storage.name];
-            v = JSON.decode(v);
-            expect(v['foo'], newValue['foo']);
-          });
-        });
-
-      });
+       test('aria-disabled is set', () {
+         expect(dropdown.attributes.containsKey('aria-disabled'), false);
+         dropdown.setAttribute('disabled', '');
+         return flushLayoutAndRender().then((_) {
+           expect(dropdown.attributes.containsKey('aria-disabled'), true);
+           dropdown.attributes.remove('disabled');
+         });
+       });
 
     });
   });
 }
+
+Future flushLayoutAndRender() {
+  document.body.offsetTop;
+  return new Future(() {});
+}
+
 

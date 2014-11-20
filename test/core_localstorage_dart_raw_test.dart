@@ -5,7 +5,7 @@
 //Code distributed by Google as part of the polymer project is also
 //subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 
-library core_localstorage_dart.test;
+library core_localstorage_dart.raw_test;
 
 import "dart:async";
 import "dart:convert";
@@ -17,7 +17,7 @@ import "package:core_elements/core_localstorage_dart.dart";
 
 void main() {
   useHtmlConfiguration();
-  window.localStorage['core-localstorage-test'] = '{"foo":"bar"}';
+  window.localStorage['core-localstorage-test'] = 'hello world';
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
@@ -26,17 +26,15 @@ void main() {
       group("basic", () {
 
         test("load", () {
-          expect(storage.value, isNotNull);
-          expect(storage.value['foo'], 'bar');
+          expect(storage.value, 'hello world');
         });
 
         test('save', () {
-          var newValue = {'foo': 'zot'};
-          storage.value = newValue;
+          var m = 'goodby';
+          storage.value = m;
           return new Future(() {}).then((_) {
             var v = window.localStorage[storage.name];
-            v = JSON.decode(v);
-            expect(v['foo'], newValue['foo']);
+            expect(v, m);
           });
         });
 

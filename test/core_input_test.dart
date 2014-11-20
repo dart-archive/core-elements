@@ -7,13 +7,13 @@
 
 library core_input.test;
 
-import "dart:html" as dom;
-import "dart:async" as async;
+import "dart:html";
+import "dart:async";
 
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_input.dart" show CoreInput;
+import "package:core_elements/core_input.dart";
 
 class MyModel extends Object with Observable {
   @observable
@@ -24,13 +24,9 @@ class MyModel extends Object with Observable {
 
   int _changeHandlerCount = 0;
   int _inputHandlerCount = 0;
-  int _inputInvalidHandlerCount = 0;
-  int _inputValidHandlerCount = 0;
 
   changeHandler(e) => _changeHandlerCount++;
   inputHandler(e) => _inputHandlerCount++;
-  inputInvalidHandler(e) => _inputInvalidHandlerCount++;
-  inputValidHandler(e) => _inputValidHandlerCount++;
 }
 
 const INITIAL_VALUE = "Initial value";
@@ -45,43 +41,39 @@ void main() {
     return Polymer.onReady.then((_) {
 
       group("core-input", () {
-        // TODO(zoechi) test multiline
-
         // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
         test("type='text'", () {
-          var input = dom.document.querySelector("#typeText") as CoreInput;
+          var input = querySelector("#typeText") as CoreInput;
           expect(input.value, equals("Some content"));
         });
 
         test("bind value", () {
           var template =
-              dom.document.querySelector("#bindValueTemplate") as AutoBindingElement;
+              querySelector("#bindValueTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE;
-          return new async.Future(() {
-            var input = dom.document.querySelector("#bindValue") as CoreInput;
+          return new Future(() {
+            var input = querySelector("#bindValue") as CoreInput;
             input.value = INPUT_VALUE;
-            return new async.Future(() {
-              expect(model.stringValue, equals(INPUT_VALUE));
-              final MODEL_VALUE = "Model value";
-              model.stringValue = MODEL_VALUE;
-              return new async.Future(() {
-                expect(input.value, equals(MODEL_VALUE));
-              });
+            dispatchInputEvent(input);
+            expect(model.stringValue, equals(INPUT_VALUE));
+            final MODEL_VALUE = "Model value";
+            model.stringValue = MODEL_VALUE;
+            return new Future(() {
+              expect(input.value, equals(MODEL_VALUE));
             });
           });
         });
 
         test("change and input event", () {
           var template =
-              dom.document.querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
+              querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
           var model = template.model = new MyModel();
 
-          return new async.Future(() {
-            var input = dom.document.querySelector("#changeAndInputEvent") as CoreInput;
-            var domInput = (input.shadowRoot.querySelector('#input') as dom.InputElement);
-            domInput.dispatchEvent(new dom.CustomEvent("change", detail: {"source": "changeAndInputEventTest}"}));
-            domInput.dispatchEvent(new dom.CustomEvent("input", canBubble: true, detail: {"source": "changeEventTest"}));
+          return new Future(() {
+            var input = querySelector("#changeAndInputEvent") as CoreInput;
+            input.dispatchEvent(new CustomEvent("change", detail: {"source": "changeAndInputEventTest}"}));
+            input.dispatchEvent(new CustomEvent("input", canBubble: true, detail: {"source": "changeEventTest"}));
             expect(model._changeHandlerCount, 1);
             expect(model._inputHandlerCount, 1);
           });
@@ -89,51 +81,43 @@ void main() {
 
         test("validate number", () {
           var template =
-              dom.document.querySelector("#validateNumberTemplate") as AutoBindingElement;
+              querySelector("#validateNumberTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE;
 
-          return new async.Future(() {
-            var input =
-                dom.document.querySelector("#validateNumber") as CoreInput;
+          return new Future(() {
+            var input = querySelector("#validateNumber") as CoreInput;
             input.value = INPUT_VALUE;
-            return new async.Future(() {
-              expect(model.stringValue, equals(INPUT_VALUE));
-              expect(model.isInvalid, isTrue);
-              expect(input.invalid, isTrue);
+            dispatchInputEvent(input);
+            expect(model.stringValue, equals(INPUT_VALUE));
+            expect(input.checkValidity(), isFalse);
 
-              model.stringValue = NUMBER_VALUE;
-              return new async.Future(() {
-                expect(input.value, equals(NUMBER_VALUE));
-                expect(model.isInvalid, isFalse);
-                expect(input.invalid, isFalse);
-              });
+            model.stringValue = NUMBER_VALUE;
+            return new Future(() {
+              expect(input.value, equals(NUMBER_VALUE));
+              expect(input.checkValidity(), isTrue);
             });
           });
         });
 
         test("type='password'", () {
           var template =
-              dom.document.querySelector("#passwordTemplate") as AutoBindingElement;
+              querySelector("#passwordTemplate") as AutoBindingElement;
           var model = template.model = new MyModel()..stringValue = "";
 
-          return new async.Future(() {
-            var input = dom.document.querySelector("#password") as CoreInput;
-
-            var innerInputElement = input.shadowRoot.querySelector("#input") as dom.PasswordInputElement;
-            expect(
-                innerInputElement.attributes['type'].toLowerCase(), equals('password'));
+          return new Future(() {
+            var input = querySelector("#password") as CoreInput;
+            expect(input.attributes['type'].toLowerCase(), equals('password'));
 
             input.value = PASSWORD_VALUE;
-            return new async.Future(() {
-              expect(model.stringValue, equals(PASSWORD_VALUE));
+            dispatchInputEvent(input);
+            expect(model.stringValue, equals(PASSWORD_VALUE));
 
-              final MODEL_VALUE = "another password";
-              model.stringValue = MODEL_VALUE;
-              return new async.Future(() {
-                expect(input.value, equals(MODEL_VALUE));
-                expect(input.invalid, isFalse);
-              });
+            final MODEL_VALUE = "another password";
+            model.stringValue = MODEL_VALUE;
+            return new Future(() {
+              expect(input.value, equals(MODEL_VALUE));
+              expect(input.checkValidity(), isTrue);
             });
           });
         });
@@ -142,4 +126,9 @@ void main() {
 
     });
   });
+}
+
+void dispatchInputEvent(InputElement target) {
+  var e = new Event('input', canBubble: true);
+  target.dispatchEvent(e);
 }

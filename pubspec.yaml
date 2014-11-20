@@ -49,8 +49,10 @@ transformers:
     - example/core_iconset.html
     - example/core_iconset_svg.html
     - example/core_icon_button.html
+    - example/core_image.html
     - example/core_input.html
     - example/core_item.html
+    - example/core_label.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
     - example/core_list_dart.html
@@ -79,12 +81,20 @@ transformers:
     - test/core_ajax_dart_progress_test.html
     - test/core_animated_pages_test.html
     - test/core_collapse_test.html
+    - test/core_dropdown_test.html
+    - test/core_dropdown_menu_test.html
+    - test/core_dropdown__menu_a11y_test.html
     - test/core_input_test.html
+    - test/core_input_basic_test.html
+    - test/core_input_a11y_test.html
     - test/core_list_dart_test.html
     - test/core_localstorage_dart_test.html
+    - test/core_localstorage_dart_raw_test.html
+    - test/core_localstorage_dart_value_binding_test.html
     - test/core_media_query_test.html
     - test/core_media_query_dialog_test.html
     - test/core_menu_button_test.html
+    - test/core_overlay_positioning_test.html
     - test/core_selection_test.html
     - test/core_selection_multi_test.html
     - test/core_selection_multi_test.html
