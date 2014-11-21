@@ -100,5 +100,7 @@ transformers:
     - test/core_selection_multi_test.html
     - test/core_selector_activate_event_test.html
     - test/core_selector_basic_test.html
+    - test/core_selector_content_test.html
     - test/core_selector_multi_test.html
     - test/core_shared_lib_test.html
+    - test/core_toolbar_test.html

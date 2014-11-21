@@ -92,3 +92,13 @@ deletion_patterns:
   - ^polymer$
   - ^polymer-test-tools$
   - ^prettify-element$
+  - ^paper-.*\/test.*$
+  - ^paper-.*\/demo.*$
+  - ^paper-.*\/.*\.css$
+stubs_to_generate:
+  paper_elements:
+    - paper-button/paper-button.html
+    - paper-button/paper-button-base.html
+    - paper-fab/paper-fab.html
+    - paper-ripple/paper-ripple.html
+    - paper-shadow/paper-shadow.html

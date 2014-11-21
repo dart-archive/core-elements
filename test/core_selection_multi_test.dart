@@ -7,11 +7,11 @@
 
 library core_selection.test.multi;
 
-import "dart:html" as dom;
+import "dart:html";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_selection.dart" show CoreSelection;
+import "package:core_elements/core_selection.dart";
 
 void main() {
   useHtmlConfiguration();
@@ -20,36 +20,27 @@ void main() {
     Polymer.onReady.then((e) {
 
       group("core-selection", () {
+        var s = querySelector("core-selection") as CoreSelection;
 
-        test("core-selection-multi", () {
-          var done = expectAsync(() {}, count: 2);
-          var s = dom.document.querySelector("core-selection") as CoreSelection;
-          int testNr = 0;
-
-          s.addEventListener("core-select", (event) {
-            if (testNr == 1) {
-              // check test1
-              expect(event.detail["isSelected"], isTrue);
-              expect(event.detail["item"], equals("(item1)"));
-              expect(s.isSelected(event.detail["item"]), isTrue);
-              expect(s.getSelection().length, equals(1));
-              // test2
-              testNr++;
-              s.select("(item2)");
-              done();
-            } else {
-              if (testNr == 2) {
-                // check test2
-                expect(event.detail["isSelected"], isTrue);
-                expect(event.detail["item"], equals("(item2)"));
-                expect(s.isSelected(event.detail["item"]), isTrue);
-                expect(s.getSelection().length, equals(2));
-                done();
-              }
-            }
-          });
-          testNr = 1;
-          s.select("(item1)");
+        test('select item', () {
+          var func = (event) {
+            expect(event.detail['isSelected'], true);
+            expect(event.detail['item'], '(item1)');
+            expect(s.isSelected(event.detail['item']), true);
+            expect(s.getSelection().length, 1);
+          };
+          s.on['core-select'].take(1).listen(expectAsync(func));
+          s.select('(item1)');
+        });
+        test('select null', () {
+          var func = (event) {
+            expect(event.detail['isSelected'], true);
+            expect(event.detail['item'], '(item2)');
+            expect(s.isSelected(event.detail['item']), true);
+            expect(s.getSelection().length, 2);
+          };
+          s.on['core-select'].take(1).listen(expectAsync(func));
+          s.select('(item2)');
         });
 
       });
