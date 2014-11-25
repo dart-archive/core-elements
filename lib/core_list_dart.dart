@@ -8,6 +8,7 @@
  */
 library core_elements.core_list_dart;
 
+import 'dart:async';
 import 'dart:js' show JsObject;
 import 'dart:js' as js;
 import 'dart:html';
@@ -17,6 +18,10 @@ import 'package:polymer/polymer.dart';
 import 'package:smoke/smoke.dart' as smoke;
 import 'package:template_binding/template_binding.dart';
 
+final RegExp IOS_REGEX = new RegExp('/iP(?:hone|ad;(?: U;)? CPU) OS (\d+)/');
+final Match IOS = IOS_REGEX.firstMatch(window.navigator.userAgent);
+final bool IOS_TOUCH_SCROLLING = IOS != null && int.parse(IOS[1]) >= 8;
+
 @CustomTag('core-list-dart')
 class CoreList extends PolymerElement {
   /**
@@ -24,18 +29,50 @@ class CoreList extends PolymerElement {
    *
    * @event core-activate
    * @param {Object} detail
-   *   @param {Object} detail.item the item element
+   * @param {Object} detail.item the item element
    */
 
   /**
+   * An array of source data for the list to display.  Elements
+   * from this array will be set to the `model` peroperty on each
+   * template instance scope for binding.
    *
-   * An array of source data for the list to display.
+   * When `groups` is used, this array may either be flat, with
+   * the group lengths specified in the `groups` array; otherwise
+   * `data` may be specified as an array of arrays, such that the
+   * each array in `data` specifies a group.  See examples above.
    *
    * @attribute data
    * @type array
    * @default null
    */
   @published ObservableList data;
+
+  /**
+   * An array of data conveying information about groupings of items
+   * in the `data` array.  Elements from this array will be set to the
+   * `groupModel` property of each template instance scope for binding.
+   *
+   * When `groups` is used, template children with the `divider` attribute
+   * will be shown above each group.  Typically data from the `groupModel`
+   * would be bound to dividers.
+   *
+   * If `data` is specified as a flat array, the `groups` array must
+   * contain instances of CoreListGroup class, where
+   * `length` determines the number of items from the `data` array
+   * that should be grouped, and `data` specifies the user data that will
+   * be assigned to the `groupModel` property on the template instance
+   * scope.
+   *
+   * If `data` is specified as a nested array of arrays, group lengths
+   * are derived from these arrays, so each object in `groups` need only
+   * contain the user data to be assigned to `groupModel`.
+   *
+   * @attribute groups
+   * @type array
+   * @default null
+   */
+  @published ObservableList<CoreListGroup> groups;
 
   /**
    *
@@ -46,18 +83,6 @@ class CoreList extends PolymerElement {
    * @default core-list-dart
    */
   @published Element scrollTarget;
-
-  /**
-   *
-   * The height of a list item. `core-list-dart` currently supports only
-   * fixed-height list items. This height must be specified via the height 
-   * property.
-   *
-   * @attribute height
-   * @type number
-   * @default 80
-   */
-  @published double height = 80.0;
 
   /**
    *
@@ -107,7 +132,53 @@ class CoreList extends PolymerElement {
    */
   @published var selection;
 
-  @observable var selected;
+  /**
+   *
+   * When true, the list is rendered as a grid.  Grid items must be fixed
+   * height and width, with the width of each item specified in the `width`
+   * property.
+   *
+   * @attribute grid
+   * @type boolean
+   * @default false
+   */
+   @published bool grid;
+
+  /**
+   *
+   * When `grid` is used, `width` determines the width of each grid item.
+   * This property has no meaning when not in `grid` mode.
+   *
+   * @attribute width
+   * @type number
+   * @default null
+   */
+   @published int width;
+
+  /**
+   * The approximate height of a list item, in pixels. This is used only for determining
+   * the number of physical elements to render based on the viewport size
+   * of the list.  Items themselves may vary in height between each other
+   * depending on their data model.  There is typically no need to adjust
+   * this value unless the average size is much larger or smaller than the default.
+   *
+   * @attribute height
+   * @type number
+   * @default 200
+   */
+  @published int height = 200;
+
+  /**
+   * The amount of scrolling runway the list keeps rendered, as a factor of
+   * the list viewport size.  There is typically no need to adjust this value
+   * other than for performance tuning.  Larger value correspond to more
+   * physical elements being rendered.
+   *
+   * @attribute runwayFactor
+   * @type number
+   * @default 4
+   */
+  @published int runwayFactor = 4;
 
   static const String CONTENT_ERROR = '\n\n'
 'The content of a <core-list-dart> element should be a single template tag '
@@ -123,19 +194,54 @@ class CoreList extends PolymerElement {
 </core-list-dart>
 ''';
 
-  var _target;
+  int _virtualStart = 0;
+  int _virtualCount = 0;
+  int _physicalStart = 0;
+  int _physicalOffset = 0;
+  int _physicalSize = 0;
+  List<int> _physicalSizes = [];
+  // don't initialize to zero to prevent some division by zero bugs
+  int _physicalAverage = 0;
+  int _physicalAverageCount = 0;
+  List<int> _itemSizes = [];
+  List<int> _dividerSizes = [];
+  List<int> _repositionedItems = [];
+  int _aboveSize = 0;
+  bool _nestedGroups = false;
+  int _groupStart = 0;
+  int _groupStartIndex = 0;
+  StreamSubscription _resizeSubscription;
+  _GetScrollTopFn getScrollTop;
+  _SetScrollTopFn setScrollTop;
+  _VoidFn syncScroller;
+  bool adjustPositionAllowed;
+  int _targetSize = 0;
+  bool _grouped;
+  int _rowFactor;
+  double _rowMargin;
+  List<StreamSubscription> _groupObservers;
+  int _dir;
+  bool _needItemInit;
+  Future _raf;
+  int _viewportSize;
+  int _upperBound;
+  int _lowerBound;
+
+  Element _target;
   var _targetScrollSubscription;
   int _visibleCount;
   int _physicalCount;
-  double _physicalHeight;
-  double _scrollTop = 0.0;
+  int _physicalHeight;
+  int _scrollTop = 0;
   bool _oldMulti = false;
   bool _oldSelectionEnabled = false;
 
   ObservableList<_ListModel> _physicalData;
-  var _physicalItems;
+  List<Element> _physicalItems;
+  List<Element> _physicalDividers;
 
   Expando _selectedData;
+  Expando<_PhysicalItemData> _physicalItemData = new Expando();
 
   int firstPhysicalIndex;
   int baseVirtualIndex;
@@ -154,28 +260,122 @@ class CoreList extends PolymerElement {
 
   @override
   attached() {
-    this.template = this.querySelector('template');
+    template = this.querySelector('template');
     // Make sure they supplied a template in the content.
-    if (this.template == null) {
+    if (template == null) {
       throw '\n\nIt looks like you are missing the <template> '
           'tag in your <core-list-dart> content. $CONTENT_ERROR';
     }
-    if (templateBind(this.template).bindingDelegate == null) {
-      templateBind(this.template).bindingDelegate = this.element.syntax;
+    if (templateBind(template).bindingDelegate == null) {
+      templateBind(template).bindingDelegate = element.syntax;
     }
+
+    // Dart Note: Moved from ready since this seems more correct.
+    _resizeSubscription = window.onResize.listen((_) => updateSize());
+
+    // TODO(jakemac): call initialize()?
+  }
+
+  @override detached() {
+    if (_resizeSubscription != null) {
+      _resizeSubscription.cancel();
+      _resizeSubscription = null;
+    }
+    if (_targetScrollSubscription != null) {
+      _targetScrollSubscription.cancel();
+      _targetScrollSubscription = null;
+    }
+  }
+
+  /**
+   * To be called by the user when the list is resized or shown
+   * after being hidden.  Note, `core-list` calls this automatically
+   * when the window is resized.
+   *
+   * @method updateSize
+   */
+  void updateSize() {
+    _resetIndex(_getFirstVisibleIndex());
+    initializeData();
   }
 
   @ObserveProperty('multi selectionEnabled')
   resetSelection() {
     if ((_oldMulti != multi && !multi) ||
         (_oldSelectionEnabled != selectionEnabled && !selectionEnabled)) {
-      this._clearSelection();
-      this.refresh(true);
+      _clearSelection();
+      refresh();
     } else {
-      this.selection = _getSelection();
+      selection = _getSelection();
     }
     _oldMulti = multi;
     _oldSelectionEnabled = selectionEnabled;
+  }
+
+  // Adjust virtual start index based on changes to backing data
+  void _adjustVirtualIndex (List<ListChangeRecord> splices, [group]) {
+    if (_targetSize == 0) {
+      return;
+    }
+    var totalDelta = 0;
+    for (var i = 0; i < splices.length; i++) {
+      var s = splices[i];
+      var idx = s.index;
+      var gidx, gitem;
+      if (group != null) {
+        gidx = data.indexOf(group);
+        idx += virtualIndexForGroup(gidx);
+      }
+      // We only need to care about changes happening above the current position
+      if (idx >= _virtualStart) {
+        break;
+      }
+      var delta = math.max(s.addedCount - s.removed.length,
+          idx - _virtualStart);
+      totalDelta += delta;
+      _physicalStart += delta;
+      _virtualStart += delta;
+      if (_grouped) {
+        if (group != null) {
+          gitem = s.index;
+        } else {
+          var g = groupForVirtualIndex(s.index);
+          gidx = g.group;
+          gitem = g.groupIndex;
+        }
+        if (gidx == _groupStart && gitem < _groupStartIndex) {
+          _groupStartIndex += delta;
+        }
+      }
+    }
+    // Adjust offset/scroll position based on total number of items changed
+    if (_virtualStart < _physicalCount) {
+      _resetIndex(_getFirstVisibleIndex());
+    } else {
+      totalDelta = math.max(
+          (totalDelta / _rowFactor) * _physicalAverage,
+          -_physicalOffset);
+      _physicalOffset += totalDelta;
+      _scrollTop = setScrollTop(_scrollTop + totalDelta);
+    }
+  }
+
+  void _updateSelection (List<ListChangeRecord> splices) {
+    for (var i = 0; i < splices.length; i++) {
+      var s = splices[i];
+      for (var j = 0; j < s.removed.length; j++) {
+        var d = s.removed[j];
+        _setItemSelected(_selection, _wrap(d), false);
+      }
+    }
+  }
+
+  void groupsChanged () {
+    if ((groups != null) != _grouped) {
+      initialize();
+      var firstIdx = _getFirstVisibleIndex();
+      _resetIndex((firstIdx != null) ? firstIdx : _virtualStart);
+    }
   }
 
   // TODO(debug): not sure why we need to add this bogus handler. Without it
@@ -187,182 +387,715 @@ class CoreList extends PolymerElement {
   // template repeat's model. However, we need tighter integration
   // with TemplateBinding for this.
   // Dart note: added data.length so we detect modifications in the list.
-  @ObserveProperty('data template scrollTarget')
-  initialize(changes) {
-    if (this.template == null) return;
+  @ObserveProperty('data grid width template scrollTarget')
+  initialize([changes]) {
+    if (template == null) return;
 
     // `changes is List<ListChangeRecord>` does not work in Dart. We assume here
     // that if the first item is a ListChangeRecord then the rest is too.
     if (changes is List && !changes.isEmpty && changes[0] is ListChangeRecord
         && !changes[0].object.isEmpty) {
-      for (var s in changes) {
-        for (var d in s.removed) {
-          _setItemSelected(_selection, _wrap(d), false);
-        }
+      if (!_nestedGroups) {
+        _adjustVirtualIndex(changes);
       }
+      _updateSelection(changes);
     } else {
-     this._clearSelection();
+      _clearSelection();
     }
 
+    // Initialize scroll target
     var target = scrollTarget != null ? scrollTarget : this;
     if (_target != target) {
-      if (_targetScrollSubscription != null) {
-        _targetScrollSubscription.cancel();
-        _targetScrollSubscription = null;
-      }
-      _target = target;
-      _targetScrollSubscription = _target.on['scroll'].listen(scrollHandler);
-    }
-    // Only use -webkit-overflow-touch from iOS8+, where scroll events are fired
-    var ios = new RegExp('iP(?:hone|ad;(?: U;)? CPU) OS (\d+)').firstMatch(
-        window.navigator.userAgent);
-    if (ios != null && int.parse(ios.group(1)) >= 8) {
-      target.style.webkitOverflowScrolling = 'touch';
+      initializeScrollTarget(target);
     }
 
-    this.initializeData();
+    // Initialize data
+    initializeData(changes);
   }
 
-  initializeData() {
+  void initializeScrollTarget(target) {
+    // Listen for scroll events
+    if (_targetScrollSubscription != null) {
+      _targetScrollSubscription.cancel();
+      _targetScrollSubscription = null;
+    }
+    _target = target;
+    _targetScrollSubscription = _target.on['scroll'].listen(scrollHandler);
+
+    // Support for non-native scrollers (must implement abstract API):
+    // getScrollTop, setScrollTop, sync
+    if (target is CoreListScroller) {
+      setScrollTop = (val) {
+        target.setScrollTop(val);
+        return target.getScrollTop();
+      };
+      getScrollTop = target.getScrollTop;
+      syncScroller = target.sync;
+      // Adjusting scroll position on non-native scrollers is risky
+      adjustPositionAllowed = false;
+    } else if (target is HtmlElement) {
+      setScrollTop = (int val) {
+        target.scrollTop = val;
+        return target.scrollTop;
+      };
+      getScrollTop = () => target.scrollTop;
+      syncScroller = () {};
+      adjustPositionAllowed = true;
+    } else {
+      throw 'unsupported target, must be an HtmlElement or implement '
+          'CoreListScroller';
+    }
+
+    // Only use -webkit-overflow-touch from iOS8+, where scroll events are fired
+    if (IOS_TOUCH_SCROLLING) {
+      _target.style.setProperty('-webkit-overflow-scrolling', 'touch');
+      // Adjusting scrollTop during iOS momentum scrolling is "no bueno"
+      adjustPositionAllowed = false;
+    }
+    // Force overflow as necessary
+    _target.style.willChange = 'transform';
+    if (_target.getComputedStyle().position == 'static') {
+      _target.style.position = 'relative';
+    }
+    style.overflowY = (target == this) ? 'auto' : null;
+  }
+
+  void updateGroupObservers (List<ListChangeRecord> splices) {
+    // If we're going from grouped to non-grouped, remove all observers
+    if (!_nestedGroups) {
+      if (_groupObservers != null && _groupObservers.length > 0) {
+        splices = [new ListChangeRecord(
+            _groupObservers, 0, removed: _groupObservers, addedCount: 0)];
+      } else {
+        splices = null;
+      }
+    } else {
+      // Otherwise, create observers for all groups, unless this is a group
+      // splice
+      splices = (splices != null) ? splices : [new ListChangeRecord(
+          _groupObservers, 0, removed: [], addedCount: data.length)];
+    }
+    if (splices != null) {
+      List<StreamSubscription> observers =
+          (_groupObservers == null) ? _groupObservers : [];
+      // Apply the splices to the observer array
+      for (var i = 0; i < splices.length; i++) {
+        var j;
+        var s = splices[i];
+        if (s.removed.length) {
+          for (j = s.index; j < s.removed.length; j++) {
+            observers[j].cancel();
+          }
+        }
+        observers.removeRange(s.index, s.removed.length);
+        var newSubscriptions = [];
+        if (s.addedCount) {
+          for (j = s.index; j < s.addedCount; j++) {
+            if (data[j] is ObservableList) {
+              var o = (data[j] as ObservableList).listChanges.listen(
+                  getGroupDataHandler(data[j]));
+              newSubscriptions.add(o);
+            }
+          }
+        }
+        observers.insertAll(s.index, newSubscriptions);
+      }
+      _groupObservers = observers;
+    }
+  }
+
+  Function getGroupDataHandler (ObservableList group) =>
+      (List<ListChangeRecord> splices) => groupDataChange(splices, group);
+
+  void groupDataChange(List<ListChangeRecord> splices, ObservableList group) {
+    _adjustVirtualIndex(splices, group);
+    _updateSelection(splices);
+    initializeData(null, true);
+  }
+
+  void initializeData(
+      [List<ListChangeRecord> splices, bool groupUpdate = false]) {
+    var i;
+
+    // Calculate row-factor for grid layout
+    if (grid) {
+      if (width == null || width <= 0) {
+        throw 'Grid requires the `width` property to be set and > 0';
+      }
+      _rowFactor = math.max((_target.offsetWidth / width).floor(), 1);
+      _rowMargin = (_target.offsetWidth - (_rowFactor * width)) / 2;
+    } else {
+      _rowFactor = 1;
+      _rowMargin = 0.0;
+    }
+
+    // Count virtual data size, depending on whether grouping is enabled
+    if (data == null || data.isEmpty) {
+      _virtualCount = 0;
+      _grouped = false;
+      _nestedGroups = false;
+    } else if (groups != null) {
+      _grouped = true;
+      _nestedGroups = data[0] is List;
+      if (_nestedGroups) {
+        if (data[0] is! ObservableList) {
+          throw 'When using nested lists for `data` groups, the nested lists '
+              'must be of type ObservableList';
+        }
+        if (groups.length != data.length) {
+          throw 'When using nested grouped data, data.length and groups.length '
+              'must agree!';
+        }
+        _virtualCount = 0;
+        for (i = 0; i < groups.length; i++) {
+          if (data[i] == null) continue;
+          _virtualCount += data[i].length;
+        }
+      } else {
+        _virtualCount = data.length;
+        var len = 0;
+        for (i = 0; i < groups.length; i++) {
+          len += groups[i].length;
+        }
+        if (len != data.length) {
+          throw 'When using groups data, the sum of group[n].length\'s and '
+              'data.length must agree!';
+        }
+      }
+      var g = groupForVirtualIndex(_virtualStart);
+      _groupStart = g.group;
+      _groupStartIndex = g.groupIndex;
+    } else {
+      _grouped = false;
+      _nestedGroups = false;
+      _virtualCount = data.length;
+    }
+
+    // Update grouped array observers used when group data is nested
+    if (!groupUpdate) {
+      updateGroupObservers(splices);
+    }
+
+    // Add physical items up to a max based on data length, viewport size, and
+    // extra item overhang
     var currentCount = _physicalCount == null ? 0 : _physicalCount;
-    var dataLen = data != null ? data.length : 0;
-    _visibleCount = (_target.offsetHeight / this.height).ceil();
-    _physicalCount = math.min(_visibleCount + this.extraItems, dataLen);
+    _physicalCount = math.min((_target.offsetHeight /
+        ((_physicalAverage > 0) ? _physicalAverage : height)).ceil() *
+        runwayFactor * _rowFactor, _virtualCount);
     _physicalCount = math.max(currentCount, _physicalCount);
 
     if (_physicalData == null) _physicalData = new ObservableList<_ListModel>();
     if (_physicalData.length < _physicalCount) {
       _physicalData.length = _physicalCount;
     }
+    // TODO(jakemac): re-evaluate if this is needed or can just be = false like
+    // it is on the js side.
     var needItemInit =
         _physicalItems == null || _physicalCount != _physicalItems.length;
     while (currentCount < _physicalCount) {
-      _physicalData[currentCount++] = new _ListModel();
+      // TODO(jakemac): how to make a new instance of templateInstance.model's class in dart?
+      //  var model = templateInstance != null ? Object.create(templateInstance.model) : {};
+      var model = new _ListModel();
+      _physicalData[currentCount++] = model;
       needItemInit = true;
     }
-    templateBind(this.template).model = _physicalData;
-    this.template.attributes['repeat'] = '';
-    if (needItemInit) {
-      this.onMutation(this).then((_) => initializeItems());
-    } else {
-      this.refresh(true);
+    templateBind(template).model = _physicalData;
+    template.attributes['repeat'] = '';
+    _dir = 0;
+
+    // If we've added new items, wait until the template renders then
+    // initialize the new items before refreshing
+    if (!_needItemInit) {
+      if (needItemInit) {
+        _needItemInit = true;
+        resetMetrics();
+        onMutation(this).then((_) => initializeItems());
+      } else {
+        refresh();
+      }
     }
   }
 
   initializeItems() {
     var currentCount = _physicalItems != null ? _physicalItems.length : 0;
-    if (_physicalItems == null) _physicalItems = new List();
+    if (_physicalItems == null) {
+      _physicalItems = []..length = _physicalCount;
+    }
     if (_physicalItems.length < _physicalCount) {
       _physicalItems.length = _physicalCount;
     }
-    for (var i = 0, item = this.template.nextElementSibling; i < _physicalCount;
-         ++i, item = item.nextElementSibling) {
-      // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
-      // fixed then we should do this check by examining the templates content
-      // inside attached().
-      //
-      // Null item means they didn't have any elements in their <template>, only
-      // text nodes (or a single binding most likely).
-      if (item == null) {
-        throw '\n\nIt looks like you are missing an element inside your '
-            'template.$CONTENT_ERROR';
-      }
-      _physicalItems[i] = item;
-      _transformValue[item] = 0;
+    if (_physicalDividers == null) {
+      _physicalDividers = []..length = _physicalCount;
     }
+    if (_physicalDividers.length < _physicalCount) {
+      _physicalDividers.length = _physicalCount;
+    }
+
+    var item = template.nextElementSibling;
+    // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
+    // fixed then we should do this check by examining the templates content
+    // inside attached().
+    //
+    // Null item means they didn't have any elements in their <template>, only
+    // text nodes (or a single binding most likely).
+    if (item == null) {
+      throw '\n\nIt looks like you are missing an element inside your '
+          'template.$CONTENT_ERROR';
+    }
+
+    for (var i = 0; i < _physicalCount;) {
+      if (item.getAttribute('divider') != null) {
+        _physicalDividers[i] = item;
+      } else {
+        _physicalItems[i] = item;
+        ++i;
+      }
+      item = item.nextElementSibling;
+    }
+
     // TODO(jakemac): once https://github.com/Polymer/polymer/issues/910 is
     // fixed then we should do this check by examining the templates content
     // inside attached().
     //
     // Check for multiple top level elements in a <template>
-    if (_physicalItems.last.nextElementSibling != null) {
+    if (item != null) {
       throw '\n\n It looks like you have multiple top level elements inside '
           'your template. $CONTENT_ERROR';
     }
 
-    this.refresh(true);
+    refresh();
+    _needItemInit = false;
   }
 
-  updateItem(virtualIndex, physicalIndex) {
-    var virtualDatum = (data == null || virtualIndex >= data.length) ?
-        null : data[virtualIndex];
+  bool _updateItemData(bool force, int physicalIndex, int virtualIndex,
+      int groupIndex, int groupItemIndex) {
+    var physicalItem = _physicalItems[physicalIndex];
     var physicalDatum = _physicalData[physicalIndex];
-    physicalDatum.model = virtualDatum;
-    physicalDatum.physicalIndex = physicalIndex;
-    physicalDatum.index = virtualIndex;
-    physicalDatum.selected = selectionEnabled && virtualDatum != null
-        ? _selectedData[virtualDatum] : null;
-    var physicalItem = this._physicalItems[physicalIndex];
-    physicalItem.hidden = virtualDatum == null;
+    var virtualDatum = dataForIndex(virtualIndex, groupIndex, groupItemIndex);
+    var needsReposition;
+    if (force || !identical(physicalDatum.model, virtualDatum)) {
+      // Dart Note: expando for hanging off extra data onto physicalItem
+      var physicalItemData = _physicalItemData[physicalItem];
+      if (physicalItemData == null) {
+        physicalItemData = new _PhysicalItemData();
+        _physicalItemData[physicalItem] = physicalItemData;
+      }
+      // Set model, index, and selected fields
+      physicalDatum.model = virtualDatum;
+      physicalDatum.index = virtualIndex;
+      physicalDatum.physicalIndex = physicalIndex;
+      physicalDatum.selected = selectionEnabled && virtualDatum ?
+          _selectedData[virtualDatum] : null;
+      // Set group-related fields
+      if (_grouped) {
+        var groupModel = groups[groupIndex];
+        if (groupModel != null) {
+          physicalDatum.groupModel =
+              _nestedGroups ? groupModel : groupModel.data as CoreListGroup;
+        }
+        physicalDatum.groupIndex = groupIndex;
+        physicalDatum.groupItemIndex = groupItemIndex;
+        physicalItemData.isDivider = data.isNotEmpty && (groupItemIndex == 0);
+        physicalItemData.isRowStart = (groupItemIndex % _rowFactor) == 0;
+      } else {
+        physicalDatum.groupModel = null;
+        physicalDatum.groupIndex = null;
+        physicalDatum.groupItemIndex = null;
+        physicalItemData.isDivider = false;
+        physicalItemData.isRowStart = ((virtualIndex % _rowFactor) == 0);
+      }
+      // Hide physical items when not in use (no model assigned)
+      physicalItem.hidden = virtualDatum == null;
+      var divider = _physicalDividers[physicalIndex];
+      if (divider != null && (divider.hidden == physicalItemData.isDivider)) {
+        divider.hidden = !physicalItemData.isDivider;
+      }
+      needsReposition = !force;
+    } else {
+      needsReposition = false;
+    }
+    return needsReposition || force;
   }
 
-  scrollHandler(e) {
-    _scrollTop = (e is CustomEvent && e.detail != null ?
-        e.detail.target.scrollTop : e.target.scrollTop).toDouble();
-    this.refresh(false);
+  void scrollHandler([_]) {
+    if (IOS_TOUCH_SCROLLING) {
+      // iOS sends multiple scroll events per rAF
+      // Align work to rAF to reduce overhead & artifacts
+      if (_raf == null) {
+        _raf = new Future(() {}).then((_) {
+          _raf = null;
+          refresh();
+        });
+      }
+    } else {
+      refresh();
+    }
   }
 
-  /**
-   * Refresh the list at the current scroll position.
-   *
-   * @method refresh
-   */
-  refresh(bool force) {
-    var dataLen = this.data != null ? this.data.length : 0;
-    if (force) {
-      if (this._physicalCount < 
-          math.min(this._visibleCount + this.extraItems, dataLen)) {
-        // Need to add more items; once new data & items are initialized,
-        // refresh will be run again
-        this.initializeData();
-        return;
-      }
-      this._physicalHeight = this.height * this._physicalCount;
-      this.$['viewport'].style.height = '${this.height * dataLen}px';
-    }
+  void resetMetrics() {
+    // don't initialize to zero to prevent some division by zero bugs
+    _physicalAverage = 0;
+    _physicalAverageCount = 0;
+  }
 
-    int firstVisibleIndex = (_scrollTop / height).floor();
-    num visibleMidpoint = firstVisibleIndex + _visibleCount / 2;
+  void updateMetrics([bool force = false]) {
+    // Measure physical items & dividers
+    var totalSize = 0;
+    var count = 0;
+   _physicalSizes.length = _itemSizes.length = _physicalCount;
 
-    int firstReifiedIndex = math.max(0, (visibleMidpoint -
-        _physicalCount / 2).floor());
-    firstReifiedIndex = math.min(firstReifiedIndex, dataLen -
-        _physicalCount);
-    firstReifiedIndex = (firstReifiedIndex < 0) ? 0 : firstReifiedIndex;
-
-    int firstPhysicalIndex =
-        (_physicalCount > 0) ? firstReifiedIndex % _physicalCount : 0;
-    int baseVirtualIndex = firstReifiedIndex - firstPhysicalIndex;
-
-    int baseTransformValue = (this.height * baseVirtualIndex).floor();
-    int nextTransformValue = (baseTransformValue + _physicalHeight).floor();
-
-    var baseTransformString = 'translate3d(0,${baseTransformValue}px,0)';
-    var nextTransformString = 'translate3d(0,${nextTransformValue}px,0)';
-    this.firstPhysicalIndex = firstPhysicalIndex;
-    this.baseVirtualIndex = baseVirtualIndex;
-
-    for (var i = 0; i < firstPhysicalIndex; ++i) {
+    for (var i = 0; i < _physicalCount; i++) {
       var item = _physicalItems[i];
-      if (force || _transformValue[item] != nextTransformValue) {
-        this.updateItem(baseVirtualIndex + _physicalCount + i, i);
-        _setTransform(item, nextTransformString, nextTransformValue);
+      var itemData = _physicalItemData[item];
+      if (!item.hidden) {
+        var size = _itemSizes[i] = item.offsetHeight;
+        if (itemData.isDivider) {
+          var divider = _physicalDividers[i];
+          if (divider != null) {
+            size += (_dividerSizes[i] = divider.offsetHeight);
+          }
+        }
+        _physicalSizes[i] = size;
+        if (itemData.isRowStart) {
+          totalSize += size;
+          count++;
+        }
       }
     }
-    for (var i = firstPhysicalIndex; i < _physicalCount; ++i) {
-      var item = _physicalItems[i];
-      if (force || _transformValue[item] != baseTransformValue) {
-        this.updateItem(baseVirtualIndex + i, i);
-        _setTransform(item, baseTransformString, baseTransformValue);
+    _physicalSize = totalSize;
+
+    // Measure other DOM
+    _viewportSize = $['viewport'].offsetHeight;
+    _targetSize = _target.offsetHeight;
+
+    // Measure content in scroller before virtualized items
+    if (!identical(_target, this)) {
+      var el1 = previousElementSibling;
+      _aboveSize = el1 ? el1.offsetTop + el1.offsetHeight : 0;
+    } else {
+      _aboveSize = 0;
+    }
+
+    // Calculate average height
+    if (count) {
+      totalSize = (_physicalAverage * _physicalAverageCount) + totalSize;
+      _physicalAverageCount += count;
+      _physicalAverage = (totalSize / _physicalAverageCount).round();
+    }
+  }
+
+  int getGroupLen([group]) {
+    if (group == null) _groupStart;
+    if (_nestedGroups) {
+      return data[group].length;
+    } else {
+      return groups[group].length;
+    }
+  }
+
+  void changeStartIndex(int inc) {
+    _virtualStart += inc;
+    if (_grouped) {
+      while (inc > 0) {
+        var groupMax = getGroupLen() - _groupStartIndex - 1;
+        if (inc > groupMax) {
+          inc -= (groupMax + 1);
+          _groupStart++;
+          _groupStartIndex = 0;
+        } else {
+          _groupStartIndex += inc;
+          inc = 0;
+        }
       }
+      while (inc < 0) {
+        if (-inc > _groupStartIndex) {
+          inc += _groupStartIndex;
+          _groupStart--;
+          _groupStartIndex = getGroupLen();
+        } else {
+          _groupStartIndex += inc;
+          inc = getGroupLen();
+        }
+      }
+    }
+    // In grid mode, virtualIndex must always start on a row start!
+    if (grid) {
+      if (_grouped) {
+        inc = _groupStartIndex % _rowFactor;
+      } else {
+        inc = _virtualStart % _rowFactor;
+      }
+      if (inc > 0) {
+        changeStartIndex(-inc);
+      }
+    }
+  }
+
+  int getRowCount(int dir) {
+    if (!grid) {
+      return dir;
+    } else if (!_grouped) {
+      return dir * _rowFactor;
+    } else {
+      if (dir < 0) {
+        if (_groupStartIndex > 0) {
+          return -math.min(_rowFactor, _groupStartIndex);
+        } else {
+          var prevLen = getGroupLen(_groupStart-1);
+          var mod = prevLen % _rowFactor;
+          return (mod == 0) ? _rowFactor : mod;
+        }
+      } else {
+        return math.min(_rowFactor, getGroupLen() - _groupStartIndex);
+      }
+    }
+  }
+
+  int _virtualToPhysical(int virtualIndex) {
+    var physicalIndex = (virtualIndex - _physicalStart) % _physicalCount;
+    return physicalIndex < 0 ? _physicalCount + physicalIndex : physicalIndex;
+  }
+
+  Map groupForVirtualIndex(int virtual) {
+    if (!_grouped) {
+      return {};
+    } else {
+      var group;
+      for (group = 0; group < groups.length; group++) {
+        var groupLen = getGroupLen(group);
+        if (groupLen > virtual) {
+          break;
+        } else {
+          virtual -= groupLen;
+        }
+      }
+      return {'group': group, 'groupIndex': virtual };
+    }
+  }
+
+  int virtualIndexForGroup(int group, int groupIndex) {
+    groupIndex =
+        (groupIndex == null) ? math.min(groupIndex, getGroupLen(group)) : 0;
+    group--;
+    while (group >= 0) {
+      groupIndex += getGroupLen(group--);
+    }
+    return groupIndex;
+  }
+
+  dataForIndex(int virtual, int group, int groupIndex) {
+    if (data != null && virtual >= 0) {
+      if (_nestedGroups && data.length > group) {
+        if (virtual < _virtualCount) {
+          return data[group][groupIndex];
+        }
+      } else if (data.length > virtual) {
+        return data[virtual];
+      }
+    }
+  }
+
+  // Refresh the list at the current scroll position.
+  refresh() {
+    var i, deltaCount;
+
+    // Determine scroll position & any scrollDelta that may have occurred
+    var lastScrollTop = _scrollTop;
+    _scrollTop = getScrollTop();
+    var scrollDelta = _scrollTop - lastScrollTop;
+    _dir = scrollDelta < 0 ? -1 : scrollDelta > 0 ? 1 : 0;
+
+    // Adjust virtual items and positioning offset if scroll occurred
+    if (scrollDelta.abs() > math.max(_physicalSize, _targetSize)) {
+      // Random access to point in list: guess new index based on average size
+      deltaCount = ((scrollDelta /
+          ((_physicalAverage > 0) ? _physicalAverage : height)) * _rowFactor)
+          .round();
+      deltaCount = math.max(deltaCount, -_virtualStart);
+      deltaCount = math.min(deltaCount, _virtualCount - _virtualStart - 1);
+      _physicalOffset += math.max(scrollDelta, -_physicalOffset);
+      changeStartIndex(deltaCount);
+      // console.log(_scrollTop, 'Random access to ' + _virtualStart,
+      //     _physicalOffset);
+    } else {
+      // Incremental movement: adjust index by flipping items
+      var base = _aboveSize + _physicalOffset;
+      var margin = 0.3 * math.max(_physicalSize - _targetSize, _physicalSize);
+      _upperBound = base + margin;
+      _lowerBound = base + _physicalSize - _targetSize - margin;
+      var flipBound = _dir > 0 ? _upperBound : _lowerBound;
+      if (((_dir > 0 && _scrollTop > flipBound) ||
+           (_dir < 0 && _scrollTop < flipBound))) {
+        var flipSize = (_scrollTop - flipBound).abs();
+        for (i = 0; (i < _physicalCount) && (flipSize > 0) &&
+            ((_dir < 0 && _virtualStart > 0) ||
+             (_dir > 0 && _virtualStart < _virtualCount-_physicalCount)); i++) {
+          var idx = _virtualToPhysical(
+              _dir > 0 ? _virtualStart : _virtualStart + _physicalCount -1);
+          var size = _physicalSizes[idx];
+          flipSize -= size;
+          var cnt = getRowCount(_dir);
+          // console.log(_scrollTop, 'flip ' + (_dir > 0 ? 'down' : 'up'),
+          //     cnt, _virtualStart, _physicalOffset);
+          if (_dir > 0) {
+            // When scrolling down, offset is adjusted based on previous item's
+            // size
+            _physicalOffset += size;
+            // console.log('  ->', _virtualStart, size, _physicalOffset);
+          }
+          changeStartIndex(cnt);
+          if (_dir < 0) {
+            _repositionedItems.add(_virtualStart);
+          }
+        }
+      }
+    }
+
+    // Assign data to items lazily if scrolling, otherwise force
+    if (_updateItems(!scrollDelta)) {
+      // Position items after bindings resolve.
+      // Dart Note: Polymer has different behavior based on the availability of
+      // Object Observers, but we always just use async().
+      async((_) => _positionItems());
+    }
+  }
+
+  bool _updateItems(force) {
+    var i, virtualIndex, physicalIndex;
+    var needsReposition = false;
+    var groupIndex = _groupStart;
+    var groupItemIndex = _groupStartIndex;
+    for (i = 0; i < _physicalCount; ++i) {
+      virtualIndex = _virtualStart + i;
+      physicalIndex = _virtualToPhysical(virtualIndex);
+      // Update physical item with new user data and list metadata
+      needsReposition = _updateItemData(force, physicalIndex, virtualIndex,
+          groupIndex, groupItemIndex) || needsReposition;
+      // Increment
+      groupItemIndex++;
+      if (groups != null && groupIndex < groups.length - 1) {
+        if (groupItemIndex >= getGroupLen(groupIndex)) {
+          groupItemIndex = 0;
+          groupIndex++;
+        }
+      }
+    }
+    return needsReposition;
+  }
+
+  void _positionItems() {
+    var i, virtualIndex, physicalIndex, physicalItem;
+
+    // Measure
+    updateMetrics();
+
+    // Pre-positioning tasks
+    if (_dir < 0) {
+      // When going up, remove offset after measuring size for
+      // new data for item being moved from bottom to top
+      while (_repositionedItems.length > 0) {
+        virtualIndex = _repositionedItems.removeLast();
+        physicalIndex = _virtualToPhysical(virtualIndex);
+        _physicalOffset -= _physicalSizes[physicalIndex];
+      }
+      // Adjust scroll position to home into top when going up
+      if (_scrollTop + _targetSize < _viewportSize) {
+        _updateScrollPosition(_scrollTop);
+      }
+    }
+
+    // Position items
+    var divider, upperBound, lowerBound;
+    var rowx = 0;
+    var x = _rowMargin;
+    var y = _physicalOffset;
+    var lastHeight = 0;
+    for (i = 0; i < _physicalCount; ++i) {
+      // Calculate indices
+      virtualIndex = _virtualStart + i;
+      physicalIndex = _virtualToPhysical(virtualIndex);
+      physicalItem = _physicalItems[physicalIndex];
+      var physicalItemData = _physicalItemData[physicalItem];
+      // Position divider
+      if (physicalItemData.isDivider) {
+        if (rowx != 0) {
+          y += lastHeight;
+          rowx = 0;
+        }
+        divider = _physicalDividers[physicalIndex];
+        var dividerData = _physicalItemData[divider];
+        if (dividerData == null) {
+          dividerData = new _PhysicalItemData();
+          _physicalItemData[divider] = dividerData;
+        }
+        x = _rowMargin;
+        if (divider != null &&
+            (dividerData.translateX != x || dividerData.translateY != y)) {
+          divider.style.opacity = '1';
+          if (grid) {
+            divider.style.width = '${width * _rowFactor}px';
+          }
+          _setTransform(divider, 'translate3d(${x}px,${y}px,0)');
+          dividerData.translateX = x;
+          dividerData.translateY = y;
+        }
+        y += _dividerSizes[physicalIndex];
+      }
+      // Position item
+      if (physicalItemData.translateX != x ||
+          physicalItemData.translateY != y) {
+        physicalItem.style.opacity = '1';
+        _setTransform(physicalItem, 'translate3d(${x}px,${y}px,0)');
+        physicalItemData.translateX = x;
+        physicalItemData.translateY = y;
+      }
+      // Increment offsets
+      lastHeight = (_itemSizes.length > physicalIndex) ?
+          _itemSizes[physicalIndex] : 0;
+      if (grid) {
+        rowx++;
+        if (rowx >= _rowFactor) {
+          rowx = 0;
+          y += lastHeight;
+        }
+        x = _rowMargin + rowx * width;
+      } else {
+        y += lastHeight;
+      }
+    }
+
+    if (_scrollTop >= 0) {
+      _updateViewportHeight();
+    }
+  }
+
+  void _updateViewportHeight() {
+    var remaining = math.max(_virtualCount - _virtualStart - _physicalCount, 0);
+    remaining = (remaining / _rowFactor).ceil();
+    var vs = _physicalOffset + _physicalSize + remaining * _physicalAverage;
+    if (_viewportSize != vs) {
+      _viewportSize = vs;
+      $['viewport'].style.height = '${_viewportSize}px';
+      syncScroller();
+    }
+  }
+
+  void _updateScrollPosition(int scrollTop) {
+    var deltaHeight = _virtualStart == 0 ? _physicalOffset :
+      math.min(scrollTop + _physicalOffset, 0);
+    if (deltaHeight) {
+      if (adjustPositionAllowed) {
+        _scrollTop = setScrollTop(scrollTop - deltaHeight);
+      }
+      _physicalOffset -= deltaHeight;
     }
   }
 
   // list selection
-  tapHandler(e) {
+  tapHandler(CustomEvent e) {
     var n = e.target;
     var p = e.path;
-    if (!this.selectionEnabled || identical(n, this)) return;
+    if (!selectionEnabled || identical(n, this)) return;
     window.requestAnimationFrame((_) {
       // Gambit: only select the item if the tap wasn't on a focusable child
       // of the list (since anything with its own action should be focusable
@@ -377,7 +1110,7 @@ class CoreList extends PolymerElement {
       // are excluded as well.
       var active = (js.context['ShadowDOMPolyfill'] != null)
           ? js.context['wrap'].apply([document.activeElement])
-          : this.shadowRoot.activeElement;
+          : shadowRoot.activeElement;
       if (active != null && active != this && active.parentNode != this
           && document.activeElement != document.body) {
         return;
@@ -393,18 +1126,23 @@ class CoreList extends PolymerElement {
       var instance = nodeBind(n).templateInstance;
       _ListModel model = instance != null ? instance.model.model : null;
       if (model != null) {
-        var vi = model.index, pi = model.physicalIndex;
-        var data = this.data[vi], item = _physicalItems[pi];
-        _invokeSelect(data);
-        this.asyncFire('core-activate', detail:
-            new CoreActivateEvent(data: data, item: item));
+        var theData = dataForIndex(
+            model.index, model.groupIndex, model.groupItemIndex);
+        var item = _physicalItems[model.physicalIndex];
+        if (!multi && identical(theData, selection)) {
+          _invokeSelect(null);
+        } else {
+          _invokeSelect(theData);
+        }
+        asyncFire('core-activate',
+            detail: new CoreActivateEvent(data: theData, item: item));
       }
     });
   }
 
   // Dart note: Dartium creates a new proxy every time a Dart object is sent via
   // jsinterop, unless the object is previsously jsified. This extra logic here
-  // is used to ensure taht core-selection works correctly in `multi` mode
+  // is used to ensure that core-selection works correctly in `multi` mode
   // (tapping an element twice should deselect it).
   _invokeSelect(item) => _selection.select(_wrap(item));
 
@@ -419,7 +1157,7 @@ class CoreList extends PolymerElement {
 
   Expando dartObjectProxy = new Expando();
 
-  _wrap(item) {
+  JsObject _wrap(item) {
     if (!_inDartium) return item;
     var o = dartObjectProxy[item];
     if (o == null) {
@@ -431,20 +1169,20 @@ class CoreList extends PolymerElement {
 
   _unwrap(item) => _inDartium ? item['original'] : item;
 
-  selectedHandler(e) {
-    this.selection = _getSelection();
+  void selectedHandler(CustomEvent e) {
+    selection = _getSelection();
     // TODO(sigmund): remove this use of JsInterop when dartbug.com/20648 is
     // fixed
     var detail = new JsObject.fromBrowserObject(e)['detail'];
     var item = _unwrap(detail['item']);
-    var i$ = this.indexesForData(item);
+    var id = indexesForData(item);
     // TODO(sorvell): we should be relying on selection to store the
     // selected data but we want to optimize for lookup.
     _selectedData[item] = detail['isSelected'];
 
-    var physical = i$['physical'];
+    var physical = id['physical'];
     if (physical != null && physical >= 0) {
-      this.updateItem(i$['virtual'], physical);
+      refresh();
     }
   }
 
@@ -454,9 +1192,9 @@ class CoreList extends PolymerElement {
    * @method selectItem
    * @param {number} index
    */
-  selectItem(index) {
+  void selectItem(int index) {
     if (!selectionEnabled) return;
-    var item = this.data[index];
+    var item = data[index];
     if (item != null) {
       _invokeSelect(item);
     }
@@ -469,16 +1207,31 @@ class CoreList extends PolymerElement {
    * @param {number} index
    * @param {boolean} isSelected
    */
-  setItemSelected(index, isSelected) {
-    var item = this.data[index];
+  void setItemSelected(int index, bool isSelected) {
+    var item = data[index];
     if (item != null) {
       _setItemSelected(_selection, _wrap(item), isSelected);
     }
   }
 
-  indexesForData(data) {
-    var virtual = this.data.indexOf(data);
-    var physical = this.virtualToPhysicalIndex(virtual);
+  Map indexesForData(dataItem) {
+    var virtual = -1;
+    var groupsLen = 0;
+    if (_nestedGroups) {
+      for (var i = 0; i < groups.length; i++) {
+        virtual = data[i].indexOf(dataItem);
+        if (virtual < 0) {
+          groupsLen += data[i].length;
+        } else {
+          virtual += groupsLen;
+          break;
+        }
+      }
+    } else {
+      virtual = data.indexOf(dataItem);
+    }
+
+    var physical = virtualToPhysicalIndex(virtual);
     return { 'virtual': virtual, 'physical': physical };
   }
 
@@ -498,17 +1251,75 @@ class CoreList extends PolymerElement {
    */
   clearSelection() {
     _clearSelection();
-    this.refresh(true);
+    refresh();
   }
 
   _clearSelection() {
     _selectedData = new Expando();
     _selection.jsElement.callMethod('clear');
-    this.selection = _getSelection();
+    selection = _getSelection();
   }
 
-  scrollToItem(index) {
-    this.scrollTop = (index * this.height).floor();
+  int _getFirstVisibleIndex() {
+    for (var i = 0; i < _physicalCount; i++) {
+      var virtualIndex = _virtualStart + i;
+      var physicalIndex = _virtualToPhysical(virtualIndex);
+      var item = _physicalItems[physicalIndex];
+      var itemData = _physicalItemData[item];
+      if (itemData.translateY >= _scrollTop) {
+        return virtualIndex;
+      }
+    }
+    return null;
+  }
+
+  _resetIndex(int index) {
+    index = math.min(index, _virtualCount-1);
+    index = math.max(index, 0);
+    changeStartIndex(index - _virtualStart);
+    _scrollTop = setScrollTop(
+        ((index / _rowFactor) * _physicalAverage).floor());
+    _physicalOffset = _scrollTop;
+    _dir = 0;
+  }
+
+  /**
+   * Scroll to an item.
+   *
+   * Note, when grouping is used, the index is based on the
+   * total flattened number of items.  For scrolling to an item
+   * within a group, use the `scrollToGroupItem` API.
+   *
+   * @method scrollToItem
+   * @param {number} index
+   */
+  void scrollToItem(index) {
+    scrollToGroupItem(null, index);
+  }
+
+  /**
+   * Scroll to a group.
+   *
+   * @method scrollToGroup
+   * @param {number} group
+   */
+  void scrollToGroup(int group) {
+    scrollToGroupItem(group, 0);
+  }
+
+  /**
+   * Scroll to an item within a group.
+   *
+   * @method scrollToGroupItem
+   * @param {number} group
+   * @param {number} index
+   */
+  scrollToGroupItem(int group, int index) {
+    if (group != null) {
+      index = virtualIndexForGroup(group, index);
+    }
+    _resetIndex(index);
+    refresh();
   }
 }
 
@@ -517,7 +1328,24 @@ class CoreActivateEvent {
   Element item;
   var data;
 
-  CoreActivateEvent({this.data, this.item});
+  CoreActivateEvent({data, item});
+}
+
+/// Model used for groups if supplied.
+class CoreListGroup extends Observable {
+  @observable int length;
+  @observable var data;
+  CoreListGroup(length, data);
+}
+
+typedef int _GetScrollTopFn();
+typedef int _SetScrollTopFn(int i);
+typedef void _VoidFn();
+/// Interface for custom scrollers.
+abstract class CoreListScroller {
+  int getScrollTop();
+  int setScrollTop(int top);
+  void sync() {}
 }
 
 /// Model used for the template of each item in the list.
@@ -526,17 +1354,25 @@ class _ListModel extends Observable {
   @observable int index;
   @observable bool selected;
   @observable var model;
+  @observable CoreListGroup groupModel;
+  @observable int groupIndex;
+  @observable int groupItemIndex;
+}
+
+class _PhysicalItemData {
+  bool isDivider;
+  bool isRowStart;
+  int translateX;
+  int translateY;
+  _PhysicalItemData({this.isDivider, this.isRowStart, this.translateX,
+      this.translateY});
 }
 
 // TODO: this should be on the CoreSelection type.
 _setItemSelected(CoreSelection node, x, y) =>
     node.jsElement.callMethod('setItemSelected', [x, y]);
 
-// Dart note: assuming our CssStyleDeclaration takes care of webkitTransform
-// vs transform differences.
-_setTransform(element, string, value) {
-  element.style.transform = string;
-  _transformValue[element] = value;
+void _setTransform(Element element, String value) {
+  element.style.setProperty('-webkit-transform', value);
+  element.style.transform = value;
 }
-
-final _transformValue = new Expando();

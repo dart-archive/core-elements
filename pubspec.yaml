@@ -55,7 +55,8 @@ transformers:
     - example/core_label.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
-    - example/core_list_dart.html
+    - example/core_list_dart/basic.html
+    - example/core_list_dart/grid.html
     - example/core_localstorage_dart.html
     - example/core_media_query.html
     - example/core_menu.html
