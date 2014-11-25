@@ -340,8 +340,8 @@ class CoreList extends PolymerElement {
           gitem = s.index;
         } else {
           var g = groupForVirtualIndex(s.index);
-          gidx = g.group;
-          gitem = g.groupIndex;
+          gidx = g['group'];
+          gitem = g['groupIndex'];
         }
         if (gidx == _groupStart && gitem < _groupStartIndex) {
           _groupStartIndex += delta;
@@ -460,7 +460,7 @@ class CoreList extends PolymerElement {
     style.overflowY = (target == this) ? 'auto' : null;
   }
 
-  void updateGroupObservers (List<ListChangeRecord> splices) {
+  void updateGroupObservers(List<ListChangeRecord> splices) {
     // If we're going from grouped to non-grouped, remove all observers
     if (!_nestedGroups) {
       if (_groupObservers != null && _groupObservers.length > 0) {
@@ -477,17 +477,20 @@ class CoreList extends PolymerElement {
     }
     if (splices != null) {
       List<StreamSubscription> observers =
-          (_groupObservers == null) ? _groupObservers : [];
+          (_groupObservers != null) ? _groupObservers : [];
       // Apply the splices to the observer array
       for (var i = 0; i < splices.length; i++) {
         var j;
         var s = splices[i];
         if (s.removed.length) {
-          for (j = s.index; j < s.removed.length; j++) {
+          for (j = s.index; j < s.removed.length && j < observers.length; j++) {
             observers[j].cancel();
           }
         }
-        observers.removeRange(s.index, s.removed.length);
+        if (observers.length > s.index) {
+          observers.removeRange(
+              s.index, math.min(s.removed.length + s.index, observers.length));
+        }
         var newSubscriptions = [];
         if (s.addedCount) {
           for (j = s.index; j < s.addedCount; j++) {
@@ -497,6 +500,9 @@ class CoreList extends PolymerElement {
               newSubscriptions.add(o);
             }
           }
+        }
+        if (observers.length <= s.index) {
+          observers.length = s.index;
         }
         observers.insertAll(s.index, newSubscriptions);
       }
@@ -563,8 +569,8 @@ class CoreList extends PolymerElement {
         }
       }
       var g = groupForVirtualIndex(_virtualStart);
-      _groupStart = g.group;
-      _groupStartIndex = g.groupIndex;
+      _groupStart = g['group'];
+      _groupStartIndex = g['groupIndex'];
     } else {
       _grouped = false;
       _nestedGroups = false;
@@ -690,8 +696,11 @@ class CoreList extends PolymerElement {
       if (_grouped) {
         var groupModel = groups[groupIndex];
         if (groupModel != null) {
-          physicalDatum.groupModel =
-              _nestedGroups ? groupModel : groupModel.data as CoreListGroup;
+          // Dart Note: Pretty sure the commented lines below is just a bug in
+          // the js code.
+          //  physicalDatum.groupModel =
+          //      _nestedGroups ? groupModel : groupModel.data;
+          physicalDatum.groupModel = groupModel.data;
         }
         physicalDatum.groupIndex = groupIndex;
         physicalDatum.groupItemIndex = groupItemIndex;
@@ -742,7 +751,8 @@ class CoreList extends PolymerElement {
     // Measure physical items & dividers
     var totalSize = 0;
     var count = 0;
-   _physicalSizes.length = _itemSizes.length = _physicalCount;
+   _physicalSizes.length = _itemSizes.length = _dividerSizes.length =
+      _physicalCount;
 
     for (var i = 0; i < _physicalCount; i++) {
       var item = _physicalItems[i];
@@ -784,8 +794,8 @@ class CoreList extends PolymerElement {
     }
   }
 
-  int getGroupLen([group]) {
-    if (group == null) _groupStart;
+  int getGroupLen([int group]) {
+    if (group == null) group = _groupStart;
     if (_nestedGroups) {
       return data[group].length;
     } else {
@@ -841,9 +851,9 @@ class CoreList extends PolymerElement {
         if (_groupStartIndex > 0) {
           return -math.min(_rowFactor, _groupStartIndex);
         } else {
-          var prevLen = getGroupLen(_groupStart-1);
+          var prevLen = getGroupLen(_groupStart - 1);
           var mod = prevLen % _rowFactor;
-          return (mod == 0) ? _rowFactor : mod;
+          return -math.min(_rowFactor, (mod == 0) ? _rowFactor : mod);
         }
       } else {
         return math.min(_rowFactor, getGroupLen() - _groupStartIndex);
@@ -915,8 +925,6 @@ class CoreList extends PolymerElement {
       deltaCount = math.min(deltaCount, _virtualCount - _virtualStart - 1);
       _physicalOffset += math.max(scrollDelta, -_physicalOffset);
       changeStartIndex(deltaCount);
-      // console.log(_scrollTop, 'Random access to ' + _virtualStart,
-      //     _physicalOffset);
     } else {
       // Incremental movement: adjust index by flipping items
       var base = _aboveSize + _physicalOffset;
@@ -935,13 +943,10 @@ class CoreList extends PolymerElement {
           var size = _physicalSizes[idx];
           flipSize -= size;
           var cnt = getRowCount(_dir);
-          // console.log(_scrollTop, 'flip ' + (_dir > 0 ? 'down' : 'up'),
-          //     cnt, _virtualStart, _physicalOffset);
           if (_dir > 0) {
             // When scrolling down, offset is adjusted based on previous item's
             // size
             _physicalOffset += size;
-            // console.log('  ->', _virtualStart, size, _physicalOffset);
           }
           changeStartIndex(cnt);
           if (_dir < 0) {
@@ -1039,7 +1044,9 @@ class CoreList extends PolymerElement {
           dividerData.translateX = x;
           dividerData.translateY = y;
         }
-        y += _dividerSizes[physicalIndex];
+        if (_dividerSizes.length > physicalIndex) {
+          y += _dividerSizes[physicalIndex];
+        }
       }
       // Position item
       if (physicalItemData.translateX != x ||
@@ -1266,7 +1273,7 @@ class CoreList extends PolymerElement {
       var physicalIndex = _virtualToPhysical(virtualIndex);
       var item = _physicalItems[physicalIndex];
       var itemData = _physicalItemData[item];
-      if (itemData.translateY >= _scrollTop) {
+      if (itemData.translateY != null && itemData.translateY >= _scrollTop) {
         return virtualIndex;
       }
     }
@@ -1328,14 +1335,14 @@ class CoreActivateEvent {
   Element item;
   var data;
 
-  CoreActivateEvent({data, item});
+  CoreActivateEvent({this.data, this.item});
 }
 
 /// Model used for groups if supplied.
 class CoreListGroup extends Observable {
   @observable int length;
   @observable var data;
-  CoreListGroup(length, data);
+  CoreListGroup({this.length, this.data});
 }
 
 typedef int _GetScrollTopFn();
