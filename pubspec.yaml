@@ -79,6 +79,7 @@ transformers:
     - test/core_ajax_dart_response_and_error_test.html
     - test/core_animated_pages_test.html
     - test/core_collapse_test.html
+    - test/core_icon_test.html
     - test/core_input_test.html
     - test/core_list_dart_test.html
     - test/core_localstorage_dart_test.html
