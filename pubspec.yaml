@@ -1,16 +1,16 @@
 name: core_elements
-version: 0.4.0+6
+version: 0.5.0
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer/
 dependencies:
   custom_element_apigen: ">= 0.1.1 <0.2.0"
-  polymer: ">=0.14.0 <0.16.0"
+  polymer: ">=0.15.2 <0.16.0"
   quiver: ">=0.17.0 <0.19.0"
-  web_components: ">=0.9.0 <0.10.0"
+  web_components: ">=0.10.0 <0.11.0"
 dev_dependencies:
   html5lib: ">=0.11.0 <0.13.0"
-  paper_elements: ">=0.4.0 <0.6.0"
+  paper_elements: ">=0.4.0 <0.7.0"
   path: ">=1.0.0 <2.0.0"
   yaml: ">=1.0.0 <3.0.0"
   unittest: ">=0.11.0+2 <0.12.0"
@@ -49,11 +49,15 @@ transformers:
     - example/core_iconset.html
     - example/core_iconset_svg.html
     - example/core_icon_button.html
+    - example/core_image.html
     - example/core_input.html
     - example/core_item.html
+    - example/core_label.html
     - example/core_layout_grid.html
     - example/core_layout_trbl.html
-    - example/core_list_dart.html
+    - example/core_list_dart/basic.html
+    - example/core_list_dart/grid.html
+    - example/core_list_dart/flickr_grid_grouped.html
     - example/core_localstorage_dart.html
     - example/core_media_query.html
     - example/core_menu.html
@@ -65,6 +69,7 @@ transformers:
     - example/core_range.html
     - example/core_scaffold.html
     - example/core_scroll_header_panel.html
+    - example/core_scroll_threshold.html
     - example/core_selection.html
     - example/core_selector.html
     - example/core_shared_lib.html
@@ -76,19 +81,29 @@ transformers:
     # demo.html file uses iframes to load them in.
     - example/demo.html
     - test/core_ajax_dart_test.html
-    - test/core_ajax_dart_response_and_error_test.html
+    - test/core_ajax_dart_progress_test.html
     - test/core_animated_pages_test.html
     - test/core_collapse_test.html
+    - test/core_dropdown_test.html
+    - test/core_dropdown_menu_test.html
+    - test/core_dropdown__menu_a11y_test.html
     - test/core_input_test.html
+    - test/core_input_basic_test.html
+    - test/core_input_a11y_test.html
     - test/core_list_dart_test.html
     - test/core_localstorage_dart_test.html
+    - test/core_localstorage_dart_raw_test.html
+    - test/core_localstorage_dart_value_binding_test.html
     - test/core_media_query_test.html
     - test/core_media_query_dialog_test.html
     - test/core_menu_button_test.html
+    - test/core_overlay_positioning_test.html
     - test/core_selection_test.html
     - test/core_selection_multi_test.html
     - test/core_selection_multi_test.html
     - test/core_selector_activate_event_test.html
     - test/core_selector_basic_test.html
+    - test/core_selector_content_test.html
     - test/core_selector_multi_test.html
     - test/core_shared_lib_test.html
+    - test/core_toolbar_test.html

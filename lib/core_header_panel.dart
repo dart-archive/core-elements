@@ -98,9 +98,9 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   ///     </style>
   ///
   ///     <core-header-panel mode="cover">
-  ///       <core-appbar class="tall">
+  ///       <core-toolbar class="tall">
   ///         <core-icon-button icon="menu"></core-icon-button>
-  ///       </core-appbar>
+  ///       </core-toolbar>
   ///       <div class="content"></div>
   ///     </core-header-panel>
   String get mode => jsElement['mode'];

@@ -1,0 +1,149 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <title>core-list-dart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <link rel="import" href="packages/core_elements/core_list_dart.html">
+
+  <style>
+    html, body {
+      margin: 0;
+      -webkit-tap-highlight-color: transparent;
+      overflow: hidden;
+    }
+
+    list-test {
+      display: block;
+      height: 100%;
+      margin: 0 auto;
+    }
+
+    .stuff {
+      min-height: 60px;
+      background: red !important;
+      border-bottom: 1px solid black;
+    }
+  </style>
+</head>
+<body fit>
+
+<list-test></list-test>
+
+<polymer-element name="list-test" layout vertical>
+<template>
+  <style>
+    .item {
+      box-sizing: border-box;
+      height: 80px;
+      border-bottom: 1px solid #ddd;
+      padding: 4px;
+      cursor: default;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    .selected {
+      background: silver;
+    }
+
+    .message {
+      padding-left: 77px;
+      line-height: 167%;
+      background-repeat: no-repeat;
+      background-position: 10px 10px;
+      background-size: 60px;
+    }
+
+    .from {
+      display: inline;
+      font-weight: bold;
+    }
+
+    .timestamp {
+      margin-left: 10px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    .body {
+      font-size: 12px;
+    }
+
+    .spaced {
+      margin: 10px;
+    }
+
+    .selection-display {
+      background: lightgray;
+      padding: 0 5px;
+      margin: 0 5px;
+    }
+
+    .narrow {
+      width: 40px;
+    }
+
+  </style>
+
+  <div class="spaced">
+    <button on-tap="{{addRecord}}">Add row at index:</button>
+    <input value="{{addIdx}}" class="narrow" type="number">
+    <br>
+    <button on-tap="{{deleteRecord}}">Delete row at index:</button>
+    <input value="{{deleteIdx}}" class="narrow" type="number">
+    <br>
+    <button on-tap="{{scrollTo}}">Scroll to item at index:</button>
+    <input value="{{scrollToIdx}}" class="narrow" type="number">
+    <br>
+    <button on-tap="{{deleteAll}}">Delete all</button>
+    <button on-tap="{{deleteArray}}">Delete data array</button>
+    <button on-tap="{{initArrayEmpty}}">Init empty array</button>
+    <button on-tap="{{initArrayFull}}">Init full array</button>
+    <br>
+    <label><input type="checkbox" checked="{{selectionEnabled}}">Selection enabled</label>
+    <label><input type="checkbox" checked="{{multi}}">Multiple selection</label>
+    <br>
+    <button on-tap="{{clearSelection}}">Clear selection</button>
+    <button on-tap="{{deleteSelection}}">Delete selection</button>
+  </div>
+  <div layout horizontal wrap class="spaced">
+    Selected values:
+    <!--
+      Dart note: without the 'if' this seems to incorrectly evaluate [null] as
+      if a null model is allowed. dartbug.com/21354
+    -->
+    <template repeat="{{multi ? selection : [selection]}}" if="{{selection}}">
+      <div class="selection-display">Id {{id}}: {{checked}} {{value}} {{['a', 'b', 'c'][type]}}</div>
+    </template>
+  </div>
+  <core-list-dart id="list" data="{{data}}" selectionEnabled="{{selectionEnabled}}"
+    selection="{{selection}}" height="80" flex multi?={{multi}}>
+    <template>
+      <div class="{{ {item: true, selected: selected} }}">
+        <div class="message" style="background-image: url(images/{{model.image}}.png);">
+          <span class="from">{{model.name}}</span>
+          <div class="subject">Row: {{index}}, Record ID: {{model.id}}</div>
+          <input type="checkbox" checked="{{model.checked}}">
+          <input type="number" value="{{model.value}}" class="narrow">
+          <select selectedIndex="{{model.type}}"><option>a</option><option>b</option><option>c</option></select>
+          <span class="body">{{model.details}}</span>
+        </div>
+      </div>
+    </template>
+  </core-list-dart>
+
+</template>
+<script type="application/dart" src="basic.dart"></script>
+</polymer-element>
+
+</body>
+</html>

@@ -7,12 +7,12 @@
 
 library core_selection.test;
 
-import "dart:async" as async;
-import "dart:html" as dom;
+import "dart:async";
+import "dart:html";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_selection.dart" show CoreSelection;
+import "package:core_elements/core_selection.dart";
 
 void main() {
   useHtmlConfiguration();
@@ -21,35 +21,27 @@ void main() {
     return Polymer.onReady.then((e) {
 
       group("core-selection", () {
+        var s = document.querySelector('core-selection') as CoreSelection;
+        
+        test('select item', () {
+          var func = (event) {
+            expect(event.detail['isSelected'], true);
+            expect(event.detail['item'], '(item)');
+            expect(s.isSelected(event.detail['item']), true);
+            expect(s.isSelected('(some_item_not_selected)'), false);
+          };
+          s.on['core-select'].take(1).listen(expectAsync(func));
+          s.select('(item)');
+        });
 
-        test("basic", () {
-          var done = expectAsync(() {}, count: 2);
-          var s = dom.document.querySelector("core-selection") as CoreSelection;
-          int testNr = 0;
-
-          async.StreamSubscription subscr;
-          subscr = s.on["core-select"].listen((event) {
-            if (testNr == 1) {
-              expect(event.detail["isSelected"], isTrue);
-              expect(event.detail["item"], equals("(item)"));
-              expect(s.isSelected(event.detail["item"]), isTrue);
-              expect(s.isSelected("(some_item_not_selected)"), isFalse);
-              testNr++;
-              s.select(null);
-              done();
-            } else {
-              if (testNr == 2) {
-                // check test2
-                expect(event.detail["isSelected"], isFalse);
-                expect(event.detail["item"], equals("(item)"));
-                expect(s.isSelected(event.detail["item"]), isFalse);
-                subscr.cancel(); // don't fire when other tests run
-                done();
-              }
-            }
-          });
-          testNr = 1;
-          s.select("(item)");
+        test('select null', () {
+          var func = (event) {
+            expect(event.detail['isSelected'], false);
+            expect(event.detail['item'], '(item)');
+            expect(s.isSelected(event.detail['item']), false);
+          };
+          s.on['core-select'].take(1).listen(expectAsync(func));
+          s.select(null);
         });
 
       });

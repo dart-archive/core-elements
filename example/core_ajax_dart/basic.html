@@ -1,0 +1,32 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+
+  <title>core-ajax</title>
+  <link rel="import" href="packages/core_elements/core_ajax_dart.html">
+</head>
+<body>
+
+  <core-ajax-dart auto url="//gdata.youtube.com/feeds/api/videos/"
+      params='{"alt":"json", "q":"chrome"}'
+      handleAs="json"></core-ajax-dart>
+
+  <template id="t2" bind repeat="{{ response.feed.entry }}">
+    <div>{{ title.$t }}</div>
+  </template>
+
+  <!-- If this template is not here, the next template does not render :( -->
+  <template id="t1" bind>
+    <div style="border: solid 1px blue;">x: {{ response.feed.entry[0].title.$t }}</div>
+  </template>
+  <script type="application/dart" src="basic.dart"></script>
+</body>
+</html>

@@ -16,13 +16,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <style>
 
-    body {
-      margin: 24px;
-    }
-
     .container {
-      width: 400px;
-      height: 200px;
+      height: 240px;
       border: 4px solid #aaa;
     }
 
@@ -39,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 <body unresolved>
   <div class="container" horizontal layout>
-    <div>left</div>
+    <div>left (min: 128px)</div>
     <core-splitter direction="left" minSize="128px"></core-splitter>
     <div flex>right</div>
   </div>

@@ -47,8 +47,8 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// `core-style` changes, all consumers of it are automatically kept in sync. This
 /// allows updating styling on the fly.
 ///
-/// The `core-style` element also supports bindings and it is the producer
-/// `core-style` element is the model for its content. Here's an example:
+/// The `core-style` element also supports bindings, in which case the producer
+/// `core-style` element is the model. Here's an example:
 ///
 ///     <core-style id="x-test">
 ///       :host {
