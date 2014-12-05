@@ -38,63 +38,64 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     }
 ///
 /// `core-scroll-header-panel` works well with `core-toolbar` but can use any element
-/// that represents a header by adding a `core-header` class to it.  Use the attribute
-/// or class `content` to delineate the content section.
+/// that represents a header by adding a `core-header` class to it.
 ///
 ///     <core-scroll-header-panel>
 ///       <core-toolbar>Header</core-toolbar>
-///       <div content>Content goes here...</div>
+///       <div>Content goes here...</div>
 ///     </core-scroll-header-panel>
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
   factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
 
+  get $ => jsElement[r'$'];
+
   /// If true, the header's height will condense to `_condensedHeaderHeight`
   /// as the user scrolls down from the top of the content area.
-  bool get condenses => jsElement['condenses'];
-  set condenses(bool value) { jsElement['condenses'] = value; }
+  bool get condenses => jsElement[r'condenses'];
+  set condenses(bool value) { jsElement[r'condenses'] = value; }
 
   /// If true, no cross-fade transition from one background to another.
-  bool get noDissolve => jsElement['noDissolve'];
-  set noDissolve(bool value) { jsElement['noDissolve'] = value; }
+  bool get noDissolve => jsElement[r'noDissolve'];
+  set noDissolve(bool value) { jsElement[r'noDissolve'] = value; }
 
   /// If true, the header doesn't slide back in when scrolling back up.
-  bool get noReveal => jsElement['noReveal'];
-  set noReveal(bool value) { jsElement['noReveal'] = value; }
+  bool get noReveal => jsElement[r'noReveal'];
+  set noReveal(bool value) { jsElement[r'noReveal'] = value; }
 
   /// If true, the header is fixed to the top and never moves away.
-  bool get fixed => jsElement['fixed'];
-  set fixed(bool value) { jsElement['fixed'] = value; }
+  bool get fixed => jsElement[r'fixed'];
+  set fixed(bool value) { jsElement[r'fixed'] = value; }
 
   /// If true, the condensed header is always shown and does not move away.
-  bool get keepCondensedHeader => jsElement['keepCondensedHeader'];
-  set keepCondensedHeader(bool value) { jsElement['keepCondensedHeader'] = value; }
+  bool get keepCondensedHeader => jsElement[r'keepCondensedHeader'];
+  set keepCondensedHeader(bool value) { jsElement[r'keepCondensedHeader'] = value; }
 
   /// The height of the header when it is at its full size.
   ///
   /// By default, the height will be measured when it is ready.  If the height
   /// changes later the user needs to either set this value to reflect the
   /// new height or invoke `measureHeaderHeight()`.
-  num get headerHeight => jsElement['headerHeight'];
-  set headerHeight(num value) { jsElement['headerHeight'] = value; }
+  num get headerHeight => jsElement[r'headerHeight'];
+  set headerHeight(num value) { jsElement[r'headerHeight'] = value; }
 
   /// The height of the header when it is condensed.
   ///
   /// By default, `_condensedHeaderHeight` is 1/3 of `headerHeight` unless
   /// this is specified.
-  num get condensedHeaderHeight => jsElement['condensedHeaderHeight'];
-  set condensedHeaderHeight(num value) { jsElement['condensedHeaderHeight'] = value; }
+  num get condensedHeaderHeight => jsElement[r'condensedHeaderHeight'];
+  set condensedHeaderHeight(num value) { jsElement[r'condensedHeaderHeight'] = value; }
 
   /// By default, the top part of the header stays when the header is being
   /// condensed.  Set this to true if you want the top part of the header
   /// to be scrolled away.
-  bool get scrollAwayTopbar => jsElement['scrollAwayTopbar'];
-  set scrollAwayTopbar(bool value) { jsElement['scrollAwayTopbar'] = value; }
+  bool get scrollAwayTopbar => jsElement[r'scrollAwayTopbar'];
+  set scrollAwayTopbar(bool value) { jsElement[r'scrollAwayTopbar'] = value; }
 
   /// Returns the scrollable element.
-  get scroller => jsElement['scroller'];
+  get scroller => jsElement[r'scroller'];
 
-  get header => jsElement['header'];
+  get header => jsElement[r'header'];
 
   /// Invoke this to tell `core-scroll-header-panel` to re-measure the header's
   /// height.

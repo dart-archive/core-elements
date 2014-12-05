@@ -65,6 +65,8 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   CoreHeaderPanel.created() : super.created();
   factory CoreHeaderPanel() => new Element.tag('core-header-panel');
 
+  get $ => jsElement[r'$'];
+
   /// Controls header and scrolling behavior. Options are
   /// `standard`, `seamed`, `waterfall`, `waterfall-tall`, `scroll` and
   /// `cover`. Default is `standard`.
@@ -98,27 +100,27 @@ class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
   ///     </style>
   ///
   ///     <core-header-panel mode="cover">
-  ///       <core-appbar class="tall">
+  ///       <core-toolbar class="tall">
   ///         <core-icon-button icon="menu"></core-icon-button>
-  ///       </core-appbar>
+  ///       </core-toolbar>
   ///       <div class="content"></div>
   ///     </core-header-panel>
-  String get mode => jsElement['mode'];
-  set mode(String value) { jsElement['mode'] = value; }
+  String get mode => jsElement[r'mode'];
+  set mode(String value) { jsElement[r'mode'] = value; }
 
   /// The class used in waterfall-tall mode.  Change this if the header
   /// accepts a different class for toggling height, e.g. "medium-tall"
-  String get tallClass => jsElement['tallClass'];
-  set tallClass(String value) { jsElement['tallClass'] = value; }
+  String get tallClass => jsElement[r'tallClass'];
+  set tallClass(String value) { jsElement[r'tallClass'] = value; }
 
   /// If true, the drop-shadow is always shown no matter what mode is set to.
-  bool get shadow => jsElement['shadow'];
-  set shadow(bool value) { jsElement['shadow'] = value; }
+  bool get shadow => jsElement[r'shadow'];
+  set shadow(bool value) { jsElement[r'shadow'] = value; }
 
   /// Returns the scrollable element.
-  get scroller => jsElement['scroller'];
+  get scroller => jsElement[r'scroller'];
 
-  get header => jsElement['header'];
+  get header => jsElement[r'header'];
 }
 @initMethod
 upgradeCoreHeaderPanel() => registerDartType('core-header-panel', CoreHeaderPanel);

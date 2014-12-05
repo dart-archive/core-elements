@@ -26,6 +26,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-family: sans-serif;
         color: #FFF;
         margin: 0;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
       }
 
       [drawer] {
@@ -34,20 +39,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       [main] {
-        height: 100%;
         background-color: #4F7DC9;
       }
 
       button {
-        display: none;
         width: 160px;
         height: 40px;
         font-size: 16px;
         margin: 8px;
-      }
-
-      core-drawer-panel[narrow] button {
-        display: inline-block
       }
 
     </style>
@@ -61,22 +60,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div drawer></div>
 
       <div main>
-        <button>toggle drawer</button>
+        <button core-drawer-toggle>toggle drawer</button>
       </div>
 
     </core-drawer-panel>
 
-    <script type="application/dart">
-    import 'dart:js' show JsObject;
-    import 'dart:html';
-    import 'package:polymer/polymer.dart';
-    export 'package:polymer/init.dart' show main;
-
-    @initMethod init() {
-      querySelector('div[main] > button').onClick.listen((_) {
-        querySelector('core-drawer-panel').togglePanel();
-      });
-    }
-    </script>
+    <script type="application/dart">export 'package:polymer/init.dart';</script>
   </body>
 </html>

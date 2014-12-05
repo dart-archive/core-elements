@@ -36,25 +36,27 @@ class CoreAnimationGroup extends CoreAnimation {
   CoreAnimationGroup.created() : super.created();
   factory CoreAnimationGroup() => new Element.tag('core-animation-group');
 
+  get $ => jsElement[r'$'];
+
   /// The type of the animation group. 'par' creates a parallel group and 'seq' creates
   /// a sequential group.
-  String get type => jsElement['type'];
-  set type(String value) { jsElement['type'] = value; }
+  String get type => jsElement[r'type'];
+  set type(String value) { jsElement[r'type'] = value; }
 
   /// If target is set, any children without a target will be assigned the group's
   /// target when this property is set.
-  get target => jsElement['target'];
-  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get target => jsElement[r'target'];
+  set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// For a `core-animation-group`, a duration of "auto" means the duration should
   /// be the specified duration of its children. If set to anything other than
   /// "auto", any children without a set duration will be assigned the group's duration.
-  num get duration => jsElement['duration'];
-  set duration(num value) { jsElement['duration'] = value; }
+  num get duration => jsElement[r'duration'];
+  set duration(num value) { jsElement[r'duration'] = value; }
 
-  get childAnimationElements => jsElement['childAnimationElements'];
+  get childAnimationElements => jsElement[r'childAnimationElements'];
 
-  get childAnimations => jsElement['childAnimations'];
+  get childAnimations => jsElement[r'childAnimations'];
 }
 @initMethod
 upgradeCoreAnimationGroup() => registerDartType('core-animation-group', CoreAnimationGroup);

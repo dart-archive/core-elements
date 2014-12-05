@@ -14,14 +14,16 @@ class CoreLayoutGrid extends HtmlElement with DomProxyMixin {
   CoreLayoutGrid.created() : super.created();
   factory CoreLayoutGrid() => new Element.tag('core-layout-grid');
 
-  get nodes => jsElement['nodes'];
-  set nodes(value) { jsElement['nodes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get $ => jsElement[r'$'];
 
-  get layout => jsElement['layout'];
-  set layout(value) { jsElement['layout'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get nodes => jsElement[r'nodes'];
+  set nodes(value) { jsElement[r'nodes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  get auto => jsElement['auto'];
-  set auto(value) { jsElement['auto'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get layout => jsElement[r'layout'];
+  set layout(value) { jsElement[r'layout'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  get auto => jsElement[r'auto'];
+  set auto(value) { jsElement[r'auto'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreLayoutGrid() => registerDartType('core-layout-grid', CoreLayoutGrid);

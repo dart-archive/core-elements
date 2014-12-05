@@ -1,0 +1,51 @@
+<!--
+    @license
+    Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+    This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+    The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+    The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+    Code distributed by Google as part of the polymer project is also
+    subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<!doctype html>
+<html>
+<head>
+
+  <title>core-scroll-threshold</title>
+
+  <link rel="import" href="packages/core_elements/core_scroll_threshold.html">
+
+  <style>
+    #scroller {
+      height: 300px;
+      border: 1px solid red;
+      padding: 20px;
+      overflow: auto;
+    }
+    .thing {
+      padding: 10px;
+      margin: 10px;
+      background: lightblue;
+      border-radius: 10px;
+      font-size: 2em;
+    }
+  </style>
+
+</head>
+<body unresolved>
+
+<template is="auto-binding-dart" id="myTemplate">
+  <core-scroll-threshold id="threshold" scrollTarget="{{$['scroller']}}" lowerThreshold="100" on-lower-trigger="{{loadMore}}" fit></core-scroll-threshold>
+  <div id="scroller" fit>
+    <template repeat="{{i in data}}">
+      <div class="thing">{{i}}</div>
+    </template>
+    <div hidden?="{{!$['threshold'].lowerTriggered}}">Please wait...</div>
+  </div>
+</template>
+
+<script type="application/dart" src="core_scroll_threshold.dart">
+</script>
+
+</body>
+</html>

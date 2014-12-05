@@ -9,191 +9,47 @@ import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
-/// core-input is an unstyled single- or multi-line text field where user can
-/// enter input.
+/// `core-input` is an unstyled single-line input field. It extends the native
+/// `input` element.
 ///
 /// Example:
 ///
-///     <core-input placeholder="Placeholder text here"></core-input>
+///     <input is="core-input">
 ///
-///     <core-input multiline placeholder="Enter multiple lines here"></core-input>
+/// The input's value is considered "committed" if the user hits the "enter" key
+/// or blurs the input after changing the value. The committed value is stored in
+/// the `committedValue` property.
 ///
-/// The text input's value is considered "committed" if the user hits the "enter"
-/// key or blurs the input after changing the value. The `change` event is fired
-/// when the value becomes committed, and the committed value is stored in the
-/// `value` property. The current value of the input is stored in the `inputValue`
-/// property.
+/// If the input has `type = number`, this element will also prevent non-numeric characters
+/// from being typed into the text field.
 ///
-/// Validation
-/// ----------
+/// Accessibility
+/// -------------
 ///
-/// core-input can optionally validate the value using the HTML5 constraints API,
-/// similar to native inputs. There are two methods to configure input validation:
+/// The following ARIA attributes are set automatically:
 ///
-/// 1. By setting the `type` attribute. For example, setting it to `email` will
-///    check the value is a valid email, and setting it to `number` will check
-///    the input is a number.
-///
-/// 2. By setting attributes related to validation. The attributes are `pattern`,
-///    `min`, `max`, `step` and `required`.
-///
-/// Only `required` is supported for multiline inputs currently.
-///
-/// Example:
-///
-///     <core-input type="email" placeholder="enter your email"></core-input>
-///
-///     <core-input type="number" min="5" placeholder="enter a number greater than or equal to 5"></core-input>
-///
-///     <core-input pattern=".*abc.*" placeholder="enter something containing 'abc'"></core-input>
-///
-/// See https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation
-/// for more info on validation.
-class CoreInput extends HtmlElement with DomProxyMixin {
+/// - `aria-label`: set to the `placeholder` attribute
+/// - `aria-disabled`: set if `disabled` is true
+class CoreInput extends InputElement with DomProxyMixin {
   CoreInput.created() : super.created();
-  factory CoreInput() => new Element.tag('core-input');
+  factory CoreInput() => new Element.tag('input', 'core-input');
 
-  /// Placeholder text that hints to the user what can be entered in
-  /// the input.
-  String get placeholder => jsElement['placeholder'];
-  set placeholder(String value) { jsElement['placeholder'] = value; }
+  get $ => jsElement[r'$'];
 
-  /// If true, this input cannot be focused and the user cannot change
-  /// its value.
-  bool get disabled => jsElement['disabled'];
-  set disabled(bool value) { jsElement['disabled'] = value; }
+  /// The "committed" value of the input, ie. the input value when the user
+  /// hits the "enter" key or blurs the input after changing the value. You
+  /// can bind to this value instead of listening for the "change" event.
+  /// Setting this property has no effect on the input value.
+  String get committedValue => jsElement[r'committedValue'];
+  set committedValue(String value) { jsElement[r'committedValue'] = value; }
 
-  /// If true, the user cannot modify the value of the input.
-  bool get readonly => jsElement['readonly'];
-  set readonly(bool value) { jsElement['readonly'] = value; }
+  /// Set to true to prevent invalid input from being entered.
+  bool get preventInvalidInput => jsElement[r'preventInvalidInput'];
+  set preventInvalidInput(bool value) { jsElement[r'preventInvalidInput'] = value; }
 
-  /// If true, this input will automatically gain focus on page load.
-  bool get autofocus => jsElement['autofocus'];
-  set autofocus(bool value) { jsElement['autofocus'] = value; }
-
-  /// If true, this input accepts multi-line input like a `<textarea>`
-  bool get multiline => jsElement['multiline'];
-  set multiline(bool value) { jsElement['multiline'] = value; }
-
-  /// (multiline only) The height of this text input in rows. The input
-  /// will scroll internally if more input is entered beyond the size
-  /// of the component. This property is meaningless if multiline is
-  /// false. You can also set this property to "fit" and size the
-  /// component with CSS to make the input fit the CSS size.
-  get rows => jsElement['rows'];
-  set rows(value) { jsElement['rows'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// The current value of this input. Changing inputValue programmatically
-  /// will cause value to be out of sync. Instead, change value directly
-  /// or call commit() after changing inputValue.
-  String get inputValue => jsElement['inputValue'];
-  set inputValue(String value) { jsElement['inputValue'] = value; }
-
-  /// The value of the input committed by the user, either by changing the
-  /// inputValue and blurring the input, or by hitting the `enter` key.
-  String get value => jsElement['value'];
-  set value(String value) { jsElement['value'] = value; }
-
-  /// Set the input type. Not supported for `multiline`.
-  String get type => jsElement['type'];
-  set type(String value) { jsElement['type'] = value; }
-
-  /// If true, the input is invalid if its value is null.
-  bool get required => jsElement['required'];
-  set required(bool value) { jsElement['required'] = value; }
-
-  /// A regular expression to validate the input value against. See
-  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
-  /// for more info. Not supported if `multiline` is true.
-  String get pattern => jsElement['pattern'];
-  set pattern(String value) { jsElement['pattern'] = value; }
-
-  /// If set, the input is invalid if the value is less than this property. See
-  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
-  /// for more info. Not supported if `multiline` is true.
-  get min => jsElement['min'];
-  set min(value) { jsElement['min'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// If set, the input is invalid if the value is greater than this property. See
-  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
-  /// for more info. Not supported if `multiline` is true.
-  get max => jsElement['max'];
-  set max(value) { jsElement['max'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// If set, the input is invalid if the value is not `min` plus an integral multiple
-  /// of this property. See
-  /// https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5/Constraint_validation#Validation-related_attributes
-  /// for more info. Not supported if `multiline` is true.
-  get step => jsElement['step'];
-  set step(value) { jsElement['step'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
-
-  /// The maximum length of the input value.
-  num get maxlength => jsElement['maxlength'];
-  set maxlength(num value) { jsElement['maxlength'] = value; }
-
-  /// If this property is true, the text input's inputValue failed validation.
-  bool get invalid => jsElement['invalid'];
-  set invalid(bool value) { jsElement['invalid'] = value; }
-
-  /// If this property is true, validate the input as they are entered.
-  bool get validateImmediately => jsElement['validateImmediately'];
-  set validateImmediately(bool value) { jsElement['validateImmediately'] = value; }
-
-  get willValidate => jsElement['willValidate'];
-
-  get validity => jsElement['validity'];
-
-  get validationMessage => jsElement['validationMessage'];
-
-  /// Commits the inputValue to value.
+  /// Commits the `value` to `committedValue`
   void commit() =>
       jsElement.callMethod('commit', []);
-
-  /// Forwards to the internal input / textarea element.
-  void blur() =>
-      jsElement.callMethod('blur', []);
-
-  /// Forwards to the internal input / textarea element.
-  void click() =>
-      jsElement.callMethod('click', []);
-
-  /// Forwards to the internal input / textarea element.
-  void focus() =>
-      jsElement.callMethod('focus', []);
-
-  /// Forwards to the internal input / textarea element.
-  void select() =>
-      jsElement.callMethod('select', []);
-
-  /// Forwards to the internal input / textarea element.
-  /// [selectionDirection]: (optional)
-  void setSelectionRange(num selectionStart, num selectionEnd, [String selectionDirection]) =>
-      jsElement.callMethod('setSelectionRange', [selectionStart, selectionEnd, selectionDirection]);
-
-  /// Forwards to the internal input element, not implemented for multiline.
-  /// [start]: (optional)
-  /// [end]: (optional)
-  /// [selectMode]: (optional)
-  void setRangeText(String replacement, [num start, num end, String selectMode]) =>
-      jsElement.callMethod('setRangeText', [replacement, start, end, selectMode]);
-
-  /// Forwards to the internal input, not implemented for multiline.
-  /// [n]: (optional)
-  void stepDown([num n]) =>
-      jsElement.callMethod('stepDown', [n]);
-
-  /// Forwards to the internal input, not implemented for multiline.
-  /// [n]: (optional)
-  void stepUp([num n]) =>
-      jsElement.callMethod('stepUp', [n]);
-
-  /// Forwards to the internal input / textarea element and updates state.
-  checkValidity() =>
-      jsElement.callMethod('checkValidity', []);
-
-  /// Forwards to the internal input / textarea element and updates state.
-  void setCustomValidity(String message) =>
-      jsElement.callMethod('setCustomValidity', [message]);
 }
 @initMethod
-upgradeCoreInput() => registerDartType('core-input', CoreInput);
+upgradeCoreInput() => registerDartType('core-input', CoreInput, extendsTag: 'input');

@@ -58,10 +58,12 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   CoreOverlay.created() : super.created();
   factory CoreOverlay() => new Element.tag('core-overlay');
 
+  get $ => jsElement[r'$'];
+
   /// The target element that will be shown when the overlay is
   /// opened. If unspecified, the core-overlay itself is the target.
-  get target => jsElement['target'];
-  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get target => jsElement[r'target'];
+  set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// A `core-overlay`'s size is guaranteed to be
   /// constrained to the window size. To achieve this, the sizingElement
@@ -69,56 +71,56 @@ class CoreOverlay extends HtmlElement with DomProxyMixin {
   /// target element, but it can be specifically set to a specific element
   /// inside the target if that is more appropriate. This is useful, for
   /// example, when a region inside the overlay should scroll if needed.
-  get sizingTarget => jsElement['sizingTarget'];
-  set sizingTarget(value) { jsElement['sizingTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get sizingTarget => jsElement[r'sizingTarget'];
+  set sizingTarget(value) { jsElement[r'sizingTarget'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Set opened to true to show an overlay and to false to hide it.
   /// A `core-overlay` may be made initially opened by setting its
   /// `opened` attribute.
-  bool get opened => jsElement['opened'];
-  set opened(bool value) { jsElement['opened'] = value; }
+  bool get opened => jsElement[r'opened'];
+  set opened(bool value) { jsElement[r'opened'] = value; }
 
   /// If true, the overlay has a backdrop darkening the rest of the screen.
   /// The backdrop element is attached to the document body and may be styled
   /// with the class `core-overlay-backdrop`. When opened the `core-opened`
   /// class is applied.
-  bool get backdrop => jsElement['backdrop'];
-  set backdrop(bool value) { jsElement['backdrop'] = value; }
+  bool get backdrop => jsElement[r'backdrop'];
+  set backdrop(bool value) { jsElement[r'backdrop'] = value; }
 
   /// If true, the overlay is guaranteed to display above page content.
-  bool get layered => jsElement['layered'];
-  set layered(bool value) { jsElement['layered'] = value; }
+  bool get layered => jsElement[r'layered'];
+  set layered(bool value) { jsElement[r'layered'] = value; }
 
   /// By default an overlay will close automatically if the user
   /// taps outside it or presses the escape key. Disable this
   /// behavior by setting the `autoCloseDisabled` property to true.
-  bool get autoCloseDisabled => jsElement['autoCloseDisabled'];
-  set autoCloseDisabled(bool value) { jsElement['autoCloseDisabled'] = value; }
+  bool get autoCloseDisabled => jsElement[r'autoCloseDisabled'];
+  set autoCloseDisabled(bool value) { jsElement[r'autoCloseDisabled'] = value; }
 
   /// By default an overlay will focus its target or an element inside
   /// it with the `autoFocus` attribute. Disable this
   /// behavior by setting the `autoFocusDisabled` property to true.
-  bool get autoFocusDisabled => jsElement['autoFocusDisabled'];
-  set autoFocusDisabled(bool value) { jsElement['autoFocusDisabled'] = value; }
+  bool get autoFocusDisabled => jsElement[r'autoFocusDisabled'];
+  set autoFocusDisabled(bool value) { jsElement[r'autoFocusDisabled'] = value; }
 
   /// This property specifies an attribute on elements that should
   /// close the overlay on tap. Should not set `closeSelector` if this
   /// is set.
-  String get closeAttribute => jsElement['closeAttribute'];
-  set closeAttribute(String value) { jsElement['closeAttribute'] = value; }
+  String get closeAttribute => jsElement[r'closeAttribute'];
+  set closeAttribute(String value) { jsElement[r'closeAttribute'] = value; }
 
   /// This property specifies a selector matching elements that should
   /// close the overlay on tap. Should not set `closeAttribute` if this
   /// is set.
-  String get closeSelector => jsElement['closeSelector'];
-  set closeSelector(String value) { jsElement['closeSelector'] = value; }
+  String get closeSelector => jsElement[r'closeSelector'];
+  set closeSelector(String value) { jsElement[r'closeSelector'] = value; }
 
   /// The transition property specifies a string which identifies a
   /// <a href="../core-transition/">`core-transition`</a> element that
   /// will be used to help the overlay open and close. The default
   /// `core-transition-fade` will cause the overlay to fade in and out.
-  String get transition => jsElement['transition'];
-  set transition(String value) { jsElement['transition'] = value; }
+  String get transition => jsElement[r'transition'];
+  set transition(String value) { jsElement[r'transition'] = value; }
 
   /// Toggle the opened state of the overlay.
   void toggle() =>

@@ -72,13 +72,16 @@ class CoreA11yKeys extends HtmlElement with DomProxyMixin {
   CoreA11yKeys.created() : super.created();
   factory CoreA11yKeys() => new Element.tag('core-a11y-keys');
 
+  get $ => jsElement[r'$'];
+
   /// The set of key combinations to listen for.
-  get keys => jsElement['keys'];
-  set keys(value) { jsElement['keys'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get keys => jsElement[r'keys'];
+  set keys(value) { jsElement[r'keys'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The node that will fire keyboard events.
-  get target => jsElement['target'];
-  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  /// Default to this element's parentNode unless one is assigned
+  get target => jsElement[r'target'];
+  set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreA11yKeys() => registerDartType('core-a11y-keys', CoreA11yKeys);

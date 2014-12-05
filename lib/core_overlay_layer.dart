@@ -13,6 +13,8 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 class CoreOverlayLayer extends HtmlElement with DomProxyMixin {
   CoreOverlayLayer.created() : super.created();
   factory CoreOverlayLayer() => new Element.tag('core-overlay-layer');
+
+  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreOverlayLayer() => registerDartType('core-overlay-layer', CoreOverlayLayer);

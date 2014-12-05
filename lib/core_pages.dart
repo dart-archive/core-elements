@@ -28,6 +28,8 @@ import 'core_selector.dart';
 class CorePages extends CoreSelector {
   CorePages.created() : super.created();
   factory CorePages() => new Element.tag('core-pages');
+
+  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCorePages() => registerDartType('core-pages', CorePages);

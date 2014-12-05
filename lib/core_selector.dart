@@ -41,6 +41,8 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   CoreSelector.created() : super.created();
   factory CoreSelector() => new Element.tag('core-selector');
 
+  get $ => jsElement[r'$'];
+
   /// Gets or sets the selected element.  Default to use the index
   /// of the item element.
   ///
@@ -66,55 +68,55 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///     </core-selector>
   ///
   ///     this.$.selector.selected = ['foo', 'zot'];
-  get selected => jsElement['selected'];
-  set selected(value) { jsElement['selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get selected => jsElement[r'selected'];
+  set selected(value) { jsElement[r'selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// If true, multiple selections are allowed.
-  bool get multi => jsElement['multi'];
-  set multi(bool value) { jsElement['multi'] = value; }
+  bool get multi => jsElement[r'multi'];
+  set multi(bool value) { jsElement[r'multi'] = value; }
 
   /// Specifies the attribute to be used for "selected" attribute.
-  String get valueattr => jsElement['valueattr'];
-  set valueattr(String value) { jsElement['valueattr'] = value; }
+  String get valueattr => jsElement[r'valueattr'];
+  set valueattr(String value) { jsElement[r'valueattr'] = value; }
 
   /// Specifies the CSS class to be used to add to the selected element.
-  String get selectedClass => jsElement['selectedClass'];
-  set selectedClass(String value) { jsElement['selectedClass'] = value; }
+  String get selectedClass => jsElement[r'selectedClass'];
+  set selectedClass(String value) { jsElement[r'selectedClass'] = value; }
 
   /// Specifies the property to be used to set on the selected element
   /// to indicate its active state.
-  String get selectedProperty => jsElement['selectedProperty'];
-  set selectedProperty(String value) { jsElement['selectedProperty'] = value; }
+  String get selectedProperty => jsElement[r'selectedProperty'];
+  set selectedProperty(String value) { jsElement[r'selectedProperty'] = value; }
 
   /// Specifies the attribute to set on the selected element to indicate
   /// its active state.
-  String get selectedAttribute => jsElement['selectedAttribute'];
-  set selectedAttribute(String value) { jsElement['selectedAttribute'] = value; }
+  String get selectedAttribute => jsElement[r'selectedAttribute'];
+  set selectedAttribute(String value) { jsElement[r'selectedAttribute'] = value; }
 
   /// Returns the currently selected element. In multi-selection this returns
   /// an array of selected elements.
   /// Note that you should not use this to set the selection. Instead use
   /// `selected`.
-  get selectedItem => jsElement['selectedItem'];
-  set selectedItem(value) { jsElement['selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get selectedItem => jsElement[r'selectedItem'];
+  set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the model associated with the
   /// selected element.
   /// Note that you should not use this to set the selection. Instead use
   /// `selected`.
-  get selectedModel => jsElement['selectedModel'];
-  set selectedModel(value) { jsElement['selectedModel'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get selectedModel => jsElement[r'selectedModel'];
+  set selectedModel(value) { jsElement[r'selectedModel'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// In single selection, this returns the selected index.
   /// Note that you should not use this to set the selection. Instead use
   /// `selected`.
-  num get selectedIndex => jsElement['selectedIndex'];
-  set selectedIndex(num value) { jsElement['selectedIndex'] = value; }
+  num get selectedIndex => jsElement[r'selectedIndex'];
+  set selectedIndex(num value) { jsElement[r'selectedIndex'] = value; }
 
   /// Set this to true to disallow changing the selection via the
   /// `activateEvent`.
-  bool get notap => jsElement['notap'];
-  set notap(bool value) { jsElement['notap'] = value; }
+  bool get notap => jsElement[r'notap'];
+  set notap(bool value) { jsElement[r'notap'] = value; }
 
   /// Nodes with local name that are in the list will not be included
   /// in the selection items.  In the following example, `items` returns four
@@ -128,13 +130,13 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///       <core-item>Item3</core-item>
   ///       <core-item>Item4</core-item>
   ///     </core-selector>
-  String get excludedLocalNames => jsElement['excludedLocalNames'];
-  set excludedLocalNames(String value) { jsElement['excludedLocalNames'] = value; }
+  String get excludedLocalNames => jsElement[r'excludedLocalNames'];
+  set excludedLocalNames(String value) { jsElement[r'excludedLocalNames'] = value; }
 
   /// The target element that contains items.  If this is not set
   /// core-selector is the container.
-  get target => jsElement['target'];
-  set target(value) { jsElement['target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get target => jsElement[r'target'];
+  set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// This can be used to query nodes from the target node to be used for
   /// selection items.  Note this only works if `target` is set
@@ -149,28 +151,30 @@ class CoreSelector extends HtmlElement with DomProxyMixin {
   ///       <label><input type="radio" name="color" value="blue"> Blue</label> <br>
   ///       <p>color = {{color}}</p>
   ///     </form>
-  String get itemsSelector => jsElement['itemsSelector'];
-  set itemsSelector(String value) { jsElement['itemsSelector'] = value; }
+  String get itemsSelector => jsElement[r'itemsSelector'];
+  set itemsSelector(String value) { jsElement[r'itemsSelector'] = value; }
 
   /// The event that would be fired from the item element to indicate
   /// it is being selected.
-  String get activateEvent => jsElement['activateEvent'];
-  set activateEvent(String value) { jsElement['activateEvent'] = value; }
+  String get activateEvent => jsElement[r'activateEvent'];
+  set activateEvent(String value) { jsElement[r'activateEvent'] = value; }
 
   /// Returns an array of all items.
-  get items => jsElement['items'];
+  get items => jsElement[r'items'];
 
-  get selection => jsElement['selection'];
+  get selection => jsElement[r'selection'];
 
-  /// Selects the previous item.  This should be used in single selection only.
-  /// [wrap]: if true and it is already at the first item, wrap to the end
-  selectPrevious(bool wrap) =>
-      jsElement.callMethod('selectPrevious', [wrap]);
+  /// Selects the previous item. This should be used in single selection only.
+  /// [wrapped]: if true and it is already at the first item,
+  ///                      wrap to the end
+  selectPrevious(bool wrapped) =>
+      jsElement.callMethod('selectPrevious', [wrapped]);
 
   /// Selects the next item.  This should be used in single selection only.
-  /// [wrap]: if true and it is already at the last item, wrap to the front
-  selectNext(bool wrap) =>
-      jsElement.callMethod('selectNext', [wrap]);
+  /// [wrapped]: if true and it is already at the last item,
+  ///                      wrap to the front
+  selectNext(bool wrapped) =>
+      jsElement.callMethod('selectNext', [wrapped]);
 }
 @initMethod
 upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);

@@ -56,6 +56,8 @@ class CoreTransition extends CoreMeta {
   CoreTransition.created() : super.created();
   factory CoreTransition() => new Element.tag('core-transition');
 
+  get $ => jsElement[r'$'];
+
   /// Run the animation.
   /// [node]: The node to apply the animation on
   /// [state]: State info
@@ -84,7 +86,7 @@ class CoreTransition extends CoreMeta {
   /// [event]: Name of an event
   /// [fn]: Event handler
   /// [args]: Additional arguments to pass to `fn`
-  void listenOnce(node, String event, fn, args) =>
+  void listenOnce(node, String event, fn, JsArray args) =>
       jsElement.callMethod('listenOnce', [node, event, fn, args]);
 }
 @initMethod

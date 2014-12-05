@@ -27,13 +27,15 @@ class CoreMediaQuery extends HtmlElement with DomProxyMixin {
   CoreMediaQuery.created() : super.created();
   factory CoreMediaQuery() => new Element.tag('core-media-query');
 
+  get $ => jsElement[r'$'];
+
   /// The CSS media query to evaulate
-  String get mediaQuery => jsElement['query'];
-  set mediaQuery(String value) { jsElement['query'] = value; }
+  String get mediaQuery => jsElement[r'query'];
+  set mediaQuery(String value) { jsElement[r'query'] = value; }
 
   /// The Boolean return value of the media query
-  bool get queryMatches => jsElement['queryMatches'];
-  set queryMatches(bool value) { jsElement['queryMatches'] = value; }
+  bool get queryMatches => jsElement[r'queryMatches'];
+  set queryMatches(bool value) { jsElement[r'queryMatches'] = value; }
 }
 @initMethod
 upgradeCoreMediaQuery() => registerDartType('core-media-query', CoreMediaQuery);

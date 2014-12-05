@@ -47,8 +47,8 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// `core-style` changes, all consumers of it are automatically kept in sync. This
 /// allows updating styling on the fly.
 ///
-/// The `core-style` element also supports bindings and it is the producer
-/// `core-style` element is the model for its content. Here's an example:
+/// The `core-style` element also supports bindings, in which case the producer
+/// `core-style` element is the model. Here's an example:
 ///
 ///     <core-style id="x-test">
 ///       :host {
@@ -94,23 +94,25 @@ class CoreStyle extends HtmlElement with DomProxyMixin {
   CoreStyle.created() : super.created();
   factory CoreStyle() => new Element.tag('core-style');
 
+  get $ => jsElement[r'$'];
+
   /// The `id` property should be set if the `core-style` is a producer
   /// of styles. In this case, the `core-style` should have text content
   /// that is cssText.
-  String get id => jsElement['id'];
-  set id(String value) { jsElement['id'] = value; }
+  String get id => jsElement[r'id'];
+  set id(String value) { jsElement[r'id'] = value; }
 
   /// The `ref` property should be set if the `core-style` element is a
   /// consumer of styles. Set it to the `id` of the desired `core-style`
   /// element.
-  String get ref => jsElement['ref'];
-  set ref(String value) { jsElement['ref'] = value; }
+  String get ref => jsElement[r'ref'];
+  set ref(String value) { jsElement[r'ref'] = value; }
 
   /// The `list` is a map of all `core-style` producers stored by `id`. It
   /// should be considered readonly. It's useful for nesting one `core-style`
   /// inside another.
-  get list => jsElement['list'];
-  set list(value) { jsElement['list'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get list => jsElement[r'list'];
+  set list(value) { jsElement[r'list'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreStyle() => registerDartType('core-style', CoreStyle);

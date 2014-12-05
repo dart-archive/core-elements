@@ -60,6 +60,8 @@ import 'core_transition_pages.dart';
 class HeroTransition extends CoreTransitionPages {
   HeroTransition.created() : super.created();
   factory HeroTransition() => new Element.tag('hero-transition');
+
+  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeHeroTransition() => registerDartType('hero-transition', HeroTransition);

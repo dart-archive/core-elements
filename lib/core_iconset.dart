@@ -53,36 +53,38 @@ class CoreIconset extends CoreMeta {
   CoreIconset.created() : super.created();
   factory CoreIconset() => new Element.tag('core-iconset');
 
+  get $ => jsElement[r'$'];
+
   /// The URL of the iconset image.
-  String get src => jsElement['src'];
-  set src(String value) { jsElement['src'] = value; }
+  String get src => jsElement[r'src'];
+  set src(String value) { jsElement[r'src'] = value; }
 
   /// The width of the iconset image. This must only be specified if the
   /// icons are arranged into separate rows inside the image.
-  num get width => jsElement['width'];
-  set width(num value) { jsElement['width'] = value; }
+  num get width => jsElement[r'width'];
+  set width(num value) { jsElement[r'width'] = value; }
 
   /// A space separated list of names corresponding to icons in the iconset
   /// image file. This list must be ordered the same as the icon images
   /// in the image file.
-  String get icons => jsElement['icons'];
-  set icons(String value) { jsElement['icons'] = value; }
+  String get icons => jsElement[r'icons'];
+  set icons(String value) { jsElement[r'icons'] = value; }
 
   /// The size of an individual icon. Note that icons must be square.
-  num get iconSize => jsElement['iconSize'];
-  set iconSize(num value) { jsElement['iconSize'] = value; }
+  num get iconSize => jsElement[r'iconSize'];
+  set iconSize(num value) { jsElement[r'iconSize'] = value; }
 
   /// The horizontal offset of the icon images in the inconset src image.
   /// This is typically used if the image resource contains additional images
   /// beside those intended for the iconset.
-  num get offsetX => jsElement['offsetX'];
-  set offsetX(num value) { jsElement['offsetX'] = value; }
+  num get offsetX => jsElement[r'offsetX'];
+  set offsetX(num value) { jsElement[r'offsetX'] = value; }
 
   /// The vertical offset of the icon images in the inconset src image.
   /// This is typically used if the image resource contains additional images
   /// beside those intended for the iconset.
-  num get offsetY => jsElement['offsetY'];
-  set offsetY(num value) { jsElement['offsetY'] = value; }
+  num get offsetY => jsElement[r'offsetY'];
+  set offsetY(num value) { jsElement[r'offsetY'] = value; }
 
   /// Returns an object containing `offsetX` and `offsetY` properties which
   /// specify the pixel locaion in the iconset's src file for the given
@@ -109,7 +111,7 @@ class CoreIconset extends CoreMeta {
   /// [icon]: The name or index of the icon to apply.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
-  applyIcon(element, icon, [scale]) =>
+  applyIcon(element, icon, [num scale]) =>
       jsElement.callMethod('applyIcon', [element, icon, scale]);
 }
 @initMethod

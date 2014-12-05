@@ -40,24 +40,26 @@ class CoreSplitter extends HtmlElement with DomProxyMixin {
   CoreSplitter.created() : super.created();
   factory CoreSplitter() => new Element.tag('core-splitter');
 
+  get $ => jsElement[r'$'];
+
   /// Possible values are `left`, `right`, `up` and `down`.
-  String get direction => jsElement['direction'];
-  set direction(String value) { jsElement['direction'] = value; }
+  String get direction => jsElement[r'direction'];
+  set direction(String value) { jsElement[r'direction'] = value; }
 
   /// Locks the split bar so it can't be dragged.
-  bool get locked => jsElement['locked'];
-  set locked(bool value) { jsElement['locked'] = value; }
+  bool get locked => jsElement[r'locked'];
+  set locked(bool value) { jsElement[r'locked'] = value; }
 
   /// Minimum width to which the splitter target can be sized, e.g.
   /// `minSize="100px"`
-  String get minSize => jsElement['minSize'];
-  set minSize(String value) { jsElement['minSize'] = value; }
+  String get minSize => jsElement[r'minSize'];
+  set minSize(String value) { jsElement[r'minSize'] = value; }
 
   /// By default the parent and siblings of the splitter are set to overflow hidden. This helps
   /// avoid elements bleeding outside the splitter regions. Set this property to true to allow
   /// these elements to overflow.
-  bool get allowOverflow => jsElement['allowOverflow'];
-  set allowOverflow(bool value) { jsElement['allowOverflow'] = value; }
+  bool get allowOverflow => jsElement[r'allowOverflow'];
+  set allowOverflow(bool value) { jsElement[r'allowOverflow'] = value; }
 }
 @initMethod
 upgradeCoreSplitter() => registerDartType('core-splitter', CoreSplitter);

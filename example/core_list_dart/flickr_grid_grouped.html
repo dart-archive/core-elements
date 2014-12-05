@@ -1,0 +1,121 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <title>core-list</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="import" href="packages/core_elements/core_list_dart.html">
+  <link rel="import" href="packages/core_elements/core_ajax_dart.html">
+  <link rel="import" href="packages/core_elements/core_toolbar.html">
+  <link rel="import" href="packages/core_elements/core_scroll_header_panel.html">
+  <link rel="import" href="packages/core_elements/core_icon.html">
+  <link rel="import" href="packages/core_elements/core_icons.html">
+  <link rel="import" href="packages/core_elements/core_icon_button.html">
+  <link rel="import" href="packages/paper_elements/paper_shadow.html">
+  <!--<link rel="import" href="packages/paper_elements/paper_spinner.html">-->
+  <link rel="import" href="packages/core_elements/core_image.html">
+  <link rel="import" href="packages/core_elements/core_scroll_threshold.html">
+  <style>
+    html {
+      margin: 0;
+      height: 100%;
+      position: relative;
+    }
+    body {
+      margin: 0;
+      height: 100%;
+      overflow: auto;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<list-test fit></list-test>
+
+<polymer-element name="list-test" layout vertical>
+<template>
+  <style>
+    .item {
+      box-sizing: border-box;
+      padding: 1px;
+      height: 202px;
+    }
+    .photo {
+      height: 200px;
+      width: 200px;
+      box-sizing: border-box;
+      background-color: lightgray;
+      background-size: cover;
+      position: relative;
+    }
+    .toolbar {
+      background: #E91E63;
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+      color: white;
+    }
+    .divider {
+      font-size: 20px;
+      color: gray;
+      padding: 24px 8px 8px 8px;
+    }
+    .title {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 12px 8px 8px 8px;
+      color: white;
+      background: rgba(0,0,0,0.3);
+    }
+    .pad {
+      padding: 16px;
+      align-items: center;
+    }
+    .pad-left {
+      padding-left: 8px;
+    }
+  </style>
+
+  <core-toolbar class="toolbar">
+    <div>Flickr Photos</div>
+    <core-image id="img"></core-image>
+  </core-toolbar>
+  <core-scroll-threshold id="threshold" scrollTarget="{{$['scroller']}}"
+    lowerThreshold="1500" on-lower-trigger="{{loadMore}}">
+  </core-scroll-threshold>
+  <div id="scroller" style="overflow:auto;" flex>
+    <!-- <div style="font-size:4em; text-align:center;">Flickr photos of the world!</div> -->
+    <core-list-dart id="list" data="{{data}}" groups="{{groups}}" grid width="202" flex scrollTarget="{{$['scroller']}}">
+      <template>
+        <div class="divider" divider>{{groupModel.data['name']}}</div>
+        <div class="item">
+          <core-image class="photo {{selected ? 'selected' : ''}}" sizing="cover" load?="{{model != null}}" src="https://farm{{model['farm']}}.staticflickr.com/{{model['server']}}/{{model['id']}}_{{model['secret']}}_m.jpg" preload relative>
+            <div class="title">{{index}} {{model['title']}}</div>
+          </core-image>
+        </div>
+      </template>
+    </core-list-dart>
+    <div class="pad" hidden?="{{!$['threshold'].lowerTriggered}}" layout horizontal center-justified>
+      <!--<paper-spinner active></paper-spinner>-->
+      <div class="pad-left">Loading...</div>
+    </div>
+  </div>
+</template>
+</polymer-element>
+
+<script type="application/dart" src="flickr_grid_grouped.dart">
+</script>
+</body>
+</html>

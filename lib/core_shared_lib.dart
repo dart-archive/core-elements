@@ -30,14 +30,16 @@ class CoreSharedLib extends HtmlElement with DomProxyMixin {
   CoreSharedLib.created() : super.created();
   factory CoreSharedLib() => new Element.tag('core-shared-lib');
 
-  get url => jsElement['url'];
-  set url(value) { jsElement['url'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get $ => jsElement[r'$'];
 
-  get notifyEvent => jsElement['notifyEvent'];
-  set notifyEvent(value) { jsElement['notifyEvent'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get url => jsElement[r'url'];
+  set url(value) { jsElement[r'url'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
-  get callbackName => jsElement['callbackName'];
-  set callbackName(value) { jsElement['callbackName'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get notifyEvent => jsElement[r'notifyEvent'];
+  set notifyEvent(value) { jsElement[r'notifyEvent'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
+  get callbackName => jsElement[r'callbackName'];
+  set callbackName(value) { jsElement[r'callbackName'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
 @initMethod
 upgradeCoreSharedLib() => registerDartType('core-shared-lib', CoreSharedLib);

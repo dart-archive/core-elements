@@ -18,7 +18,7 @@ files_to_generate:
   - core-drag-drop/core-drag-drop.html
   - core-drawer-panel/core-drawer-panel.html
   - core-dropdown/core-dropdown.html
-  - core-dropdown/core-dropdown-overlay.html
+  - core-dropdown/core-dropdown-base.html
   - core-dropdown-menu/core-dropdown-menu.html
   - core-field/core-field.html
   - core-focusable/core-focusable.html
@@ -38,8 +38,12 @@ files_to_generate:
   - core-icons/social-icons.html
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
+  - core-image/core-image.html
   - core-input/core-input.html
   - core-item/core-item.html
+  - core-label/core-label.html:
+      name_substitutions:
+        for: htmlFor
   - core-layout-grid/core-layout-grid.html
   - core-layout-trbl/core-layout-trbl.html
   - core-layout-trbl/core-slide.html
@@ -57,6 +61,7 @@ files_to_generate:
   - core-range/core-range.html
   - core-scaffold/core-scaffold.html
   - core-scroll-header-panel/core-scroll-header-panel.html
+  - core-scroll-threshold/core-scroll-threshold.html
   - core-selection/core-selection.html
   - core-selector/core-selector.html
   - core-shared-lib/core-shared-lib.html
@@ -83,8 +88,10 @@ deletion_patterns:
   - ^highlightjs-element$
   - ^marked$
   - ^marked-element$
-  - ^polymer-test-tools$
   - ^platform$
   - ^polymer$
   - ^polymer-test-tools$
   - ^prettify-element$
+  # Uncomment these and rerun to run the demos under lib/src
+  - ^webcomponentsjs$
+  - ^paper-.*$

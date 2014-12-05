@@ -12,18 +12,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>core-a11y-keys</title>
   <link rel="import" href="packages/core_elements/core_a11y_keys.html">
   <link rel="import" href="packages/polymer/polymer.html">
+  <style>
+    div {
+      height: 100px;
+      width: 100px;
+      background: gray;
+    }
+  </style>
 </head>
 <body unresolved>
   <template id="myTemplate" is="auto-binding-dart">
-    <style>
-      div {
-        height: 100px;
-        width: 100px;
-        background: gray;
-      }
-    </style>
-    <core-a11y-keys id="a11y" keys="* pageup pagedown left right down up shift+a alt+a home end" on-keys-pressed="{{printKey}}"></core-a11y-keys>
-    <div id="target" tabindex="0">focus this</div>
+    <span>Press any of these keys: {{keys}}</span>
+    <core-a11y-keys id="a11y" keys="{{keys}}" on-keys-pressed="{{printKey}}"></core-a11y-keys>
     <pre id="output"></pre>
   </template>
 
@@ -35,6 +35,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     import 'package:polymer/polymer.dart';
 
     class MyModel {
+      final keys = '* pageup pagedown left right down up shift+a alt+a home '
+          'end space enter';
+
       printKey(e) {
         var detail = new JsObject.fromBrowserObject(e)['detail'];
         querySelector('#output').text += '${detail['key']} pressed!\n';
@@ -46,10 +49,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.onReady.then((_) {
           AutoBindingElement template = querySelector('#myTemplate');
           template.model = new MyModel();
-          template.on['template-bound'].listen((_) {
-            CoreA11yKeys keys = querySelector('#a11y');
-            keys.target = querySelector('#target');
-          });
         });
       });
     }

@@ -122,8 +122,10 @@ class CoreLayoutTrbl extends HtmlElement with DomProxyMixin {
   CoreLayoutTrbl.created() : super.created();
   factory CoreLayoutTrbl() => new Element.tag('core-layout-trbl');
 
-  get vertical => jsElement['vertical'];
-  set vertical(value) { jsElement['vertical'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get $ => jsElement[r'$'];
+
+  get vertical => jsElement[r'vertical'];
+  set vertical(value) { jsElement[r'vertical'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// Arrange sibling nodes end-to-end in one dimension.
   ///

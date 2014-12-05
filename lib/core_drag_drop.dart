@@ -13,6 +13,8 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 class CoreDragDrop extends HtmlElement with DomProxyMixin {
   CoreDragDrop.created() : super.created();
   factory CoreDragDrop() => new Element.tag('core-drag-drop');
+
+  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreDragDrop() => registerDartType('core-drag-drop', CoreDragDrop);

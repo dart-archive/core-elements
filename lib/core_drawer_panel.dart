@@ -42,6 +42,28 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       </core-header-panel>
 ///     </core-drawer-panel>
 ///
+/// An element that should toggle the drawer will automatically do so if it's
+/// given the `core-drawer-toggle` attribute.  Also this element will automatically
+/// be hidden in wide layout.
+///
+/// Example:
+///
+///     <core-drawer-panel>
+///       <core-header-panel drawer>
+///         <core-toolbar>
+///           <div>Application</div>
+///         </core-toolbar>
+///         <div> Drawer content... </div>
+///       </core-header-panel>
+///       <core-header-panel main>
+///         <core-toolbar>
+///           <core-icon-button icon="menu" core-drawer-toggle></core-icon-button>
+///           <div>Title</div>
+///         </core-toolbar>
+///         <div> Main content... </div>
+///       </core-header-panel>
+///     </core-drawer-panel>
+///
 /// To position the drawer to the right, add `rightDrawer` attribute.
 ///
 ///     <core-drawer-panel rightDrawer>
@@ -52,36 +74,42 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
   CoreDrawerPanel.created() : super.created();
   factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
 
+  get $ => jsElement[r'$'];
+
   /// Width of the drawer panel.
-  String get drawerWidth => jsElement['drawerWidth'];
-  set drawerWidth(String value) { jsElement['drawerWidth'] = value; }
+  String get drawerWidth => jsElement[r'drawerWidth'];
+  set drawerWidth(String value) { jsElement[r'drawerWidth'] = value; }
 
   /// Max-width when the panel changes to narrow layout.
-  String get responsiveWidth => jsElement['responsiveWidth'];
-  set responsiveWidth(String value) { jsElement['responsiveWidth'] = value; }
+  String get responsiveWidth => jsElement[r'responsiveWidth'];
+  set responsiveWidth(String value) { jsElement[r'responsiveWidth'] = value; }
 
   /// The panel that is being selected. `drawer` for the drawer panel and
   /// `main` for the main panel.
-  String get selected => jsElement['selected'];
-  set selected(String value) { jsElement['selected'] = value; }
+  String get selected => jsElement[r'selected'];
+  set selected(String value) { jsElement[r'selected'] = value; }
 
   /// The panel to be selected when `core-drawer-panel` changes to narrow
   /// layout.
-  String get defaultSelected => jsElement['defaultSelected'];
-  set defaultSelected(String value) { jsElement['defaultSelected'] = value; }
+  String get defaultSelected => jsElement[r'defaultSelected'];
+  set defaultSelected(String value) { jsElement[r'defaultSelected'] = value; }
 
   /// Returns true if the panel is in narrow layout.  This is useful if you
   /// need to show/hide elements based on the layout.
-  bool get narrow => jsElement['narrow'];
-  set narrow(bool value) { jsElement['narrow'] = value; }
+  bool get narrow => jsElement[r'narrow'];
+  set narrow(bool value) { jsElement[r'narrow'] = value; }
 
   /// If true, position the drawer to the right.
-  bool get rightDrawer => jsElement['rightDrawer'];
-  set rightDrawer(bool value) { jsElement['rightDrawer'] = value; }
+  bool get rightDrawer => jsElement[r'rightDrawer'];
+  set rightDrawer(bool value) { jsElement[r'rightDrawer'] = value; }
 
   /// If true, swipe to open/close the drawer is disabled.
-  bool get disableSwipe => jsElement['disableSwipe'];
-  set disableSwipe(bool value) { jsElement['disableSwipe'] = value; }
+  bool get disableSwipe => jsElement[r'disableSwipe'];
+  set disableSwipe(bool value) { jsElement[r'disableSwipe'] = value; }
+
+  /// If true, ignore `responsiveWidth` setting and force the narrow layout.
+  bool get forceNarrow => jsElement[r'forceNarrow'];
+  set forceNarrow(bool value) { jsElement[r'forceNarrow'] = value; }
 
   /// Toggles the panel open and closed.
   void togglePanel() =>

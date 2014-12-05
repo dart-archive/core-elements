@@ -17,122 +17,153 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>core-menu-button</title>
 
+  <link rel="import" href="packages/core_elements/core_collapse.html">
+  <link rel="import" href="packages/core_elements/core_dropdown.html">
   <link rel="import" href="packages/core_elements/core_icons.html">
+  <link rel="import" href="packages/core_elements/core_icon_button.html">
   <link rel="import" href="packages/core_elements/core_item.html">
+  <link rel="import" href="packages/core_elements/core_menu.html">
 
   <link rel="import" href="packages/core_elements/core_menu_button.html">
 
-  <style>
-    b body {
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 16px;
-    }
-
-    html, body {
-      height: 100%;
+  <style shim-shadowdom>
+    body {
+      font-family: RobotoDraft, 'Helvetica Neue', Helvetica, Arial;
+      font-size: 14px;
       margin: 0;
+      padding: 24px;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-touch-callout: none;
     }
-
-    .toolbar {
-      color: #fff;
+    section {
+      padding: 20px 0;
+    }
+    section > div {
+      padding: 14px;
       font-size: 16px;
-      padding: 12px;
     }
-
-    .toolbar-1 {
-      background-color: #3b78e7;
+    html /deep/ core-dropdown {
+      background-color: #eee;
+      color: #000;
+      border: 1px solid #ccc;
+      border-radius: 3px;
     }
-
-    .toolbar-2 {
-      background-color: #4285f4;
+    core-item {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
-
-    .toolbar-3 {
-      background-color: #5e97f6;
+    html /deep/ core-collapse {
+      border: 1px solid #ccc;
+      padding: 8px;
     }
-
-    .bottom-toolbar-1 {
-      background-color: #0d904f;
+    .constrained-height {
+      height: 150px;
     }
-
-    .bottom-toolbar-2 {
-      background-color: #0f9d58;
+    .colored {
+      color: #0f9d58;
     }
-
-    .bottom-toolbar-3 {
-      background-color: #33ac71;
+    .colored:active,
+    .dropdown.colored {
+      border: 1px solid #0f9d58;
+      background-color: #b7e1cd;
     }
   </style>
+
 </head>
 <body unresolved>
 
-  <template id="myTemplate" is="auto-binding-dart">
+  <template is="auto-binding-dart" id="myTemplate">
 
-    <div layout vertical fit on-core-select="{{selectAction}}" on-core-activate="{{activateAction}}">
+    <section>
 
-      <div class="toolbar toolbar-1" layout horizontal center>
+      <div>Absolutely positioned menu buttons</div>
 
-        <core-menu-button icon="menu">
-          <template repeat="{{pastries}}">
-            <core-item>{{}}</core-item>
-          </template>
+      <core-menu-button>
+        <core-icon-button icon="menu"></core-icon-button>
+        <core-dropdown class="dropdown">
+          <core-menu>
+            <template repeat="{{pastries}}">
+              <core-item>{{}}</core-item>
+            </template>
+          </core-menu>
+        </core-dropdown>
+      </core-menu-button>
+
+      <core-menu-button disabled>
+        <core-icon-button icon="menu"></core-icon-button>
+        <core-dropdown class="dropdown">
+          <core-menu>
+            <core-item>Should not see this</core-item>
+          </core-menu>
+        </core-dropdown>
+      </core-menu-button>
+
+      <core-menu-button>
+      <core-icon-button icon="add"><span style="vertical-align:middle;">add</span></core-icon-button>
+        <core-dropdown class="dropdown">
+          <core-menu>
+            <template repeat="{{pastries}}">
+              <core-item>{{}}</core-item>
+            </template>
+          </core-menu>
+        </core-dropdown>
+      </core-menu-button>
+
+    </section>
+
+    <section>
+
+      <div>Layered menu buttons</div>
+
+      <button id="toggleCollapse">toggle core-collapse</button>
+
+      <br>
+
+      <core-collapse id="collapse">
+
+        <core-menu-button>
+          <core-icon-button icon="menu"></core-icon-button>
+          <core-dropdown layered class="dropdown">
+            <core-menu>
+              <template repeat="{{pastries}}">
+                <core-item>{{}}</core-item>
+              </template>
+            </core-menu>
+          </core-dropdown>
         </core-menu-button>
 
-        <core-menu-button icon="menu">
-          <template repeat="{{countries}}">
-            <core-item>{{name}}</core-item>
-          </template>
-        </core-menu-button>
+      </core-collapse>
 
-        <div flex></div>
+    </section>
 
-        <core-menu-button icon="more-vert" halign="right">
-          <template repeat="{{countries}}">
-            <core-item>{{name}}</core-item>
-          </template>
-        </core-menu-button>
+    <section>
 
-        <core-menu-button icon="more-vert" halign="right">
-          <template repeat="{{pastries}}">
-            <core-item>{{}}</core-item>
-          </template>
-        </core-menu-button>
+      <div>Custom styling</div>
 
-      </div>
+      <core-menu-button label="Constrained height">
+        <core-icon-button icon="menu"></core-icon-button>
+        <core-dropdown class="dropdown constrained-height">
+          <core-menu>
+            <template repeat="{{pastries}}">
+              <core-item>{{}}</core-item>
+            </template>
+          </core-menu>
+        </core-dropdown>
+      </core-menu-button>
 
-      <div flex></div>
+      <core-menu-button label="Colored">
+        <core-icon-button icon="menu" class="colored"></core-icon-button>
+        <core-dropdown class="dropdown colored">
+          <core-menu>
+            <template repeat="{{pastries}}">
+              <core-item>{{}}</core-item>
+            </template>
+          </core-menu>
+        </core-dropdown>
+      </core-menu-button>
 
-      <div class="toolbar bottom-toolbar-1" layout horizontal center>
-
-        <core-menu-button icon="menu" valign="bottom">
-          <template repeat="{{pastries}}">
-            <core-item>{{}}</core-item>
-          </template>
-        </core-menu-button>
-
-        <core-menu-button icon="menu" valign="bottom">
-          <template repeat="{{countries}}">
-            <core-item>{{name}}</core-item>
-          </template>
-        </core-menu-button>
-
-        <div flex></div>
-
-        <core-menu-button icon="more-vert" halign="right" valign="bottom">
-          <template repeat="{{countries}}">
-            <core-item>{{name}}</core-item>
-          </template>
-        </core-menu-button>
-
-        <core-menu-button icon="more-vert" halign="right" valign="bottom">
-          <template repeat="{{pastries}}">
-            <core-item>{{}}</core-item>
-          </template>
-        </core-menu-button>
-
-      </div>
-
-    </div>
+    </section>
 
   </template>
 

@@ -7,8 +7,8 @@
 
 library polymer_collapse.test;
 
-import "dart:html" as dom;
-import "dart:async" as async;
+import "dart:html";
+import "dart:async";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
@@ -20,34 +20,40 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
-      group("core-collapse", () {
+      var collapse = querySelector('#collapse') as CoreCollapse;
 
-        test("basic", () {
-          dom.querySelector("button").onClick.listen((e) =>
-              (dom.document.querySelector("#collapse") as CoreCollapse).toggle());
-          Duration delay = new Duration(milliseconds: 200);
+      var delay = 200;
+      var collapseHeight;
 
-          return new async.Future(() {
-            var c = dom.document.querySelector("#collapse") as CoreCollapse;
-            // verify take attribute for opened is correct
-            expect(c.opened, isTrue);
-            return new async.Future.delayed(delay, () {
-              // get the height for the opened state
-              var h = getCollapseComputedStyle().height;
-              // verify the height is not 0px
-              expect(h, isNot(equals("0px")));
-              // close it
-              c.opened = false;
-              return new async.Future.delayed(delay, () {
-                // verify is closed
-                expect(getCollapseComputedStyle().height, isNot(equals(h)));
-                // open it
-                c.opened = true;
-                return new async.Future.delayed(delay, () {
-                  // verify is opened
-                  expect(getCollapseComputedStyle().height, equals(h));
-                });
-              });
+      group('basic', () {
+
+        test('verify attribute', () {
+          expect(collapse.opened, true);
+        });
+
+        test('verify height', () {
+          return new Future(() {}).then((_) {
+            return new Future.delayed(new Duration(milliseconds: delay), () {
+              collapseHeight = getCollapseComputedStyle().height;
+              expect(collapseHeight, isNot('0px'));
+            });
+          });
+        });
+
+        test('test opened: false', () {
+          collapse.opened = false;
+          return new Future(() {}).then((_) {
+            return new Future.delayed(new Duration(milliseconds: delay), () {
+              expect(getCollapseComputedStyle().height, '0px');
+            });
+          });
+        });
+
+        test('test opened: true', () {
+          collapse.opened = true;
+          return new Future(() {}).then((_) {
+            return new Future.delayed(new Duration(milliseconds: delay), () {
+              expect(getCollapseComputedStyle().height, collapseHeight);
             });
           });
         });
@@ -59,6 +65,6 @@ void main() {
 }
 
 dynamic getCollapseComputedStyle() {
-  dom.HtmlElement b = dom.document.querySelector("#collapse");
+  HtmlElement b = querySelector("#collapse");
   return b.getComputedStyle();
 }

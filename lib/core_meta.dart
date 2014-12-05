@@ -54,20 +54,22 @@ class CoreMeta extends HtmlElement with DomProxyMixin {
   CoreMeta.created() : super.created();
   factory CoreMeta() => new Element.tag('core-meta');
 
-  get label => jsElement['label'];
-  set label(value) { jsElement['label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  get $ => jsElement[r'$'];
+
+  get label => jsElement[r'label'];
+  set label(value) { jsElement[r'label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
   /// The type of meta-data.  All meta-data with the same type with be
   /// stored together.
-  String get type => jsElement['type'];
-  set type(String value) { jsElement['type'] = value; }
+  String get type => jsElement[r'type'];
+  set type(String value) { jsElement[r'type'] = value; }
 
   /// Returns a list of all meta-data elements with the same type.
-  JsArray get list => jsElement['list'];
+  JsArray get list => jsElement[r'list'];
 
-  get metaArray => jsElement['metaArray'];
+  get metaArray => jsElement[r'metaArray'];
 
-  get metaData => jsElement['metaData'];
+  get metaData => jsElement[r'metaData'];
 
   /// Retrieves meta-data by ID.
   /// [id]: The ID of the meta-data to be returned.

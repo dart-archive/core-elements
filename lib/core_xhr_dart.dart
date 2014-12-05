@@ -30,7 +30,7 @@ typedef void ResponseHandler(response, HttpRequest req);
 @CustomTag('core-xhr-dart')
 class CoreXhr extends PolymerElement {
 
-  static const _bodyMethods = const ['POST', 'PUT', 'DELETE'];
+  static const _bodyMethods = const ['POST', 'PUT', 'PATCH', 'DELETE'];
 
   CoreXhr.created() : super.created();
 
@@ -93,8 +93,8 @@ class CoreXhr extends PolymerElement {
     var r = [];
     for (var n in params.keys) {
       var v = params[n];
-      n = Uri.encodeComponent(n);
-      r.add(v == null ? n : ('$n=${Uri.encodeComponent(v)}'));
+      n = Uri.encodeComponent('$n');
+      r.add(v == null ? n : ('$n=${Uri.encodeComponent('$v')}'));
     }
     return r.join('&');
   }

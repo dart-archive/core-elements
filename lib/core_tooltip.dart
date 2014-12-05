@@ -62,28 +62,30 @@ class CoreTooltip extends HtmlElement with DomProxyMixin {
   CoreTooltip.created() : super.created();
   factory CoreTooltip() => new Element.tag('core-tooltip');
 
+  get $ => jsElement[r'$'];
+
   /// If true, the tooltip an arrow pointing towards the content.
-  bool get noarrow => jsElement['noarrow'];
-  set noarrow(bool value) { jsElement['noarrow'] = value; }
+  bool get noarrow => jsElement[r'noarrow'];
+  set noarrow(bool value) { jsElement[r'noarrow'] = value; }
 
   /// Positions the tooltip to the top, right, bottom, left of its content.
-  String get position => jsElement['position'];
-  set position(String value) { jsElement['position'] = value; }
+  String get position => jsElement[r'position'];
+  set position(String value) { jsElement[r'position'] = value; }
 
   /// A simple string label for the tooltip to display. To display a rich
   /// HTML tooltip instead, omit `label` and include the `tip` attribute
   /// on a child node of `core-tooltip`.
-  String get label => jsElement['label'];
-  set label(String value) { jsElement['label'] = value; }
+  String get label => jsElement[r'label'];
+  set label(String value) { jsElement[r'label'] = value; }
 
   /// Forces the tooltip to display. If `disabled` is set, this property is ignored.
-  bool get show => jsElement['show'];
-  set show(bool value) { jsElement['show'] = value; }
+  bool get show => jsElement[r'show'];
+  set show(bool value) { jsElement[r'show'] = value; }
 
   /// Customizes the attribute used to specify which content
   /// is the rich HTML tooltip.
-  String get tipAttribute => jsElement['tipAttribute'];
-  set tipAttribute(String value) { jsElement['tipAttribute'] = value; }
+  String get tipAttribute => jsElement[r'tipAttribute'];
+  set tipAttribute(String value) { jsElement[r'tipAttribute'] = value; }
 }
 @initMethod
 upgradeCoreTooltip() => registerDartType('core-tooltip', CoreTooltip);

@@ -9,8 +9,13 @@ import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
 import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 
-/// `core-toolbar` is a horizontal bar containing elements that can be used for
-/// label, navigation, search and actions.
+/// `core-toolbar` is a horizontal bar containing items that can be used for
+/// label, navigation, search and actions.  The items place inside the
+/// `core-toolbar` are projected into a `horizontal center layout` container inside of
+/// `core-toolbar`'s Shadow DOM.  You can use flex attributes to control the items'
+/// sizing.
+///
+/// Example:
 ///
 ///     <core-toolbar>
 ///       <core-icon-button icon="menu" on-tap="{{menuAction}}"></core-icon-button>
@@ -32,13 +37,18 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <core-icon-button icon="menu"></core-icon-button>
 ///     </core-toolbar>
 ///
-/// When taller, elements can pin to either the top (default), middle or bottom.
+/// When `tall`, items can pin to either the top (default), middle or bottom.  Use
+/// `middle` class for middle content and `bottom` class for bottom content.
 ///
 ///     <core-toolbar class="tall">
 ///       <core-icon-button icon="menu"></core-icon-button>
 ///       <div class="middle indent">Middle Title</div>
 ///       <div class="bottom indent">Bottom Title</div>
 ///     </core-toolbar>
+///
+/// For `medium-tall` toolbar, the middle and bottom contents overlap and are
+/// pinned to the bottom.  But `middleJustify` and `bottomJustify` attributes are
+/// still honored separately.
 ///
 /// To make an element completely fit at the bottom of the toolbar, use `fit` along
 /// with `bottom`.
@@ -52,6 +62,25 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 class CoreToolbar extends HtmlElement with DomProxyMixin {
   CoreToolbar.created() : super.created();
   factory CoreToolbar() => new Element.tag('core-toolbar');
+
+  get $ => jsElement[r'$'];
+
+  /// Controls how the items are aligned horizontally.
+  /// Options are `start`, `center`, `end`, `between` and `around`.
+  String get justify => jsElement[r'justify'];
+  set justify(String value) { jsElement[r'justify'] = value; }
+
+  /// Controls how the items are aligned horizontally when they are placed
+  /// in the middle.
+  /// Options are `start`, `center`, `end`, `between` and `around`.
+  String get middleJustify => jsElement[r'middleJustify'];
+  set middleJustify(String value) { jsElement[r'middleJustify'] = value; }
+
+  /// Controls how the items are aligned horizontally when they are placed
+  /// at the bottom.
+  /// Options are `start`, `center`, `end`, `between` and `around`.
+  String get bottomJustify => jsElement[r'bottomJustify'];
+  set bottomJustify(String value) { jsElement[r'bottomJustify'] = value; }
 }
 @initMethod
 upgradeCoreToolbar() => registerDartType('core-toolbar', CoreToolbar);

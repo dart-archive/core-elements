@@ -1,0 +1,60 @@
+<!doctype html>
+<!--
+Copyright (c) 2014 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+
+  <title>core-ajax progress</title>
+  <link rel="import" href="packages/core_elements/core_ajax_dart.html">
+  <link rel="import" href="packages/paper_elements/paper_progress.html">
+</head>
+<body>
+
+  <polymer-element name="progress-test">
+    <template>
+      <core-ajax-dart
+          id="ajax" auto
+          url="http://httpbin.org/drip"
+          params="{{ {numbytes: numbytes, duration:5} }}"
+          progress="{{progress}}"
+          loading="{{loading}}"
+          ></core-ajax-dart>
+
+      <!--
+        Ordinarily you'd gate on progress.lengthComputable, but we know the
+        length in this case (and httpbin sadly doesn't return a
+        Content-Length header for this requesthere).
+
+        https://github.com/kennethreitz/httpbin/pull/160
+       -->
+      <div>
+        <button on-click="{{restart}}">Restart</button>
+        <template if="{{loading}}">
+          Loading...
+        </template>
+        <template if="{{!loading}}">
+          Loaded!
+        </template>
+      </div>
+      <template if="{{loading && progress.loaded != null}}">
+        <paper-progress
+            value="{{progress.loaded}}"
+            min="0"
+            max="{{numbytes}}">
+        </paper-progress><br>
+      </template>
+    </template>
+
+  </polymer-element>
+
+  <progress-test></progress-test>
+
+  <script type="application/dart" src="progress.dart"></script>
+</body>
+</html>

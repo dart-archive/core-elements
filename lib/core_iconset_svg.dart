@@ -42,11 +42,13 @@ class CoreIconsetSvg extends CoreMeta {
   CoreIconsetSvg.created() : super.created();
   factory CoreIconsetSvg() => new Element.tag('core-iconset-svg');
 
-  /// The size of an individual icon. Note that icons must be square.
-  num get iconSize => jsElement['iconSize'];
-  set iconSize(num value) { jsElement['iconSize'] = value; }
+  get $ => jsElement[r'$'];
 
-  get iconNames => jsElement['iconNames'];
+  /// The size of an individual icon. Note that icons must be square.
+  num get iconSize => jsElement[r'iconSize'];
+  set iconSize(num value) { jsElement[r'iconSize'] = value; }
+
+  get iconNames => jsElement[r'iconNames'];
 
   /// Applies an icon to the given element. The svg icon is added to the
   /// element's shadowRoot if one exists or directly to itself.

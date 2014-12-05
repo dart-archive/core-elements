@@ -36,28 +36,30 @@ class CoreTransitionPages extends CoreTransition {
   CoreTransitionPages.created() : super.created();
   factory CoreTransitionPages() => new Element.tag('core-transition-pages');
 
+  get $ => jsElement[r'$'];
+
   /// This class will be applied to the scope element in the `prepare` function.
   /// It is removed in the `complete` function. Used to activate a set of CSS
   /// rules that need to apply before the transition runs, e.g. a default opacity
   /// or transform for the non-active pages.
-  String get scopeClass => jsElement['scopeClass'];
-  set scopeClass(String value) { jsElement['scopeClass'] = value; }
+  String get scopeClass => jsElement[r'scopeClass'];
+  set scopeClass(String value) { jsElement[r'scopeClass'] = value; }
 
   /// This class will be applied to the scope element in the `go` function. It is
   /// remoived in the `complete' function. Generally used to apply a CSS transition
   /// rule only during the transition.
-  String get activeClass => jsElement['activeClass'];
-  set activeClass(String value) { jsElement['activeClass'] = value; }
+  String get activeClass => jsElement[r'activeClass'];
+  set activeClass(String value) { jsElement[r'activeClass'] = value; }
 
   /// Specifies which CSS property to look for when it receives a `transitionEnd` event
   /// to determine whether the transition is complete. If not specified, the first
   /// transitionEnd event received will complete the transition.
-  String get transitionProperty => jsElement['transitionProperty'];
-  set transitionProperty(String value) { jsElement['transitionProperty'] = value; }
+  String get transitionProperty => jsElement[r'transitionProperty'];
+  set transitionProperty(String value) { jsElement[r'transitionProperty'] = value; }
 
   /// True if this transition is complete.
-  bool get completed => jsElement['completed'];
-  set completed(bool value) { jsElement['completed'] = value; }
+  bool get completed => jsElement[r'completed'];
+  set completed(bool value) { jsElement[r'completed'] = value; }
 }
 @initMethod
 upgradeCoreTransitionPages() => registerDartType('core-transition-pages', CoreTransitionPages);

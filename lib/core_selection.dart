@@ -60,9 +60,11 @@ class CoreSelection extends HtmlElement with DomProxyMixin {
   CoreSelection.created() : super.created();
   factory CoreSelection() => new Element.tag('core-selection');
 
+  get $ => jsElement[r'$'];
+
   /// If true, multiple selections are allowed.
-  bool get multi => jsElement['multi'];
-  set multi(bool value) { jsElement['multi'] = value; }
+  bool get multi => jsElement[r'multi'];
+  set multi(bool value) { jsElement[r'multi'] = value; }
 
   /// Retrieves the selected item(s).
   getSelection() =>

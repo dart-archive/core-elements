@@ -24,21 +24,23 @@ class CoreIconButton extends HtmlElement with DomProxyMixin {
   CoreIconButton.created() : super.created();
   factory CoreIconButton() => new Element.tag('core-icon-button');
 
+  get $ => jsElement[r'$'];
+
   /// The URL of an image for the icon.  Should not use `icon` property
   /// if you are using this property.
-  String get src => jsElement['src'];
-  set src(String value) { jsElement['src'] = value; }
+  String get src => jsElement[r'src'];
+  set src(String value) { jsElement[r'src'] = value; }
 
   /// Specifies the icon name or index in the set of icons available in
   /// the icon set.  Should not use `src` property if you are using this
   /// property.
-  String get icon => jsElement['icon'];
-  set icon(String value) { jsElement['icon'] = value; }
+  String get icon => jsElement[r'icon'];
+  set icon(String value) { jsElement[r'icon'] = value; }
 
   /// If true, border is placed around the button to indicate it's
   /// active state.
-  bool get active => jsElement['active'];
-  set active(bool value) { jsElement['active'] = value; }
+  bool get active => jsElement[r'active'];
+  set active(bool value) { jsElement[r'active'] = value; }
 }
 @initMethod
 upgradeCoreIconButton() => registerDartType('core-icon-button', CoreIconButton);

@@ -21,25 +21,27 @@ class CoreRange extends HtmlElement with DomProxyMixin {
   CoreRange.created() : super.created();
   factory CoreRange() => new Element.tag('core-range');
 
+  get $ => jsElement[r'$'];
+
   /// The number that represents the current value.
-  num get value => jsElement['value'];
-  set value(num value) { jsElement['value'] = value; }
+  num get value => jsElement[r'value'];
+  set value(num value) { jsElement[r'value'] = value; }
 
   /// The number that indicates the minimum value of the range.
-  num get min => jsElement['min'];
-  set min(num value) { jsElement['min'] = value; }
+  num get min => jsElement[r'min'];
+  set min(num value) { jsElement[r'min'] = value; }
 
   /// The number that indicates the maximum value of the range.
-  num get max => jsElement['max'];
-  set max(num value) { jsElement['max'] = value; }
+  num get max => jsElement[r'max'];
+  set max(num value) { jsElement[r'max'] = value; }
 
   /// Specifies the value granularity of the range's value.
-  num get step => jsElement['step'];
-  set step(num value) { jsElement['step'] = value; }
+  num get step => jsElement[r'step'];
+  set step(num value) { jsElement[r'step'] = value; }
 
   /// Returns the ratio of the value.
-  num get ratio => jsElement['ratio'];
-  set ratio(num value) { jsElement['ratio'] = value; }
+  num get ratio => jsElement[r'ratio'];
+  set ratio(num value) { jsElement[r'ratio'] = value; }
 }
 @initMethod
 upgradeCoreRange() => registerDartType('core-range', CoreRange);
