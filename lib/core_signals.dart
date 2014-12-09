@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-signals` provides basic publish-subscribe functionality.
 ///
@@ -28,11 +28,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// You can fire a signal event from anywhere, and all
 /// `core-signals` elements will receive the event, regardless
 /// of where they are in DOM.
-class CoreSignals extends HtmlElement with DomProxyMixin {
+class CoreSignals extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSignals.created() : super.created();
   factory CoreSignals() => new Element.tag('core-signals');
-
-  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreSignals() => registerDartType('core-signals', CoreSignals);

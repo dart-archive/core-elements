@@ -98,8 +98,6 @@ class CoreTransitionCss extends CoreTransition {
   CoreTransitionCss.created() : super.created();
   factory CoreTransitionCss() => new Element.tag('core-transition-css');
 
-  get $ => jsElement[r'$'];
-
   /// A secondary configuration attribute for the animation. The class
   /// `<baseClass>-<transitionType` is applied to the animated node during
   /// `setup`.

@@ -1,3 +1,8 @@
+## version 0.5.0+1
+  * Added some methods/properties from the polymer base class.
+  * Added mixin support so CoreFocusable works as intended.
+  * Fixed warning in `core-list-dart`.
+
 ## version 0.5.0
   * Update to match JS version 0.5.1.
     * **New** `core-image` is a new element which is a fancy version of the

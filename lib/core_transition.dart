@@ -56,8 +56,6 @@ class CoreTransition extends CoreMeta {
   CoreTransition.created() : super.created();
   factory CoreTransition() => new Element.tag('core-transition');
 
-  get $ => jsElement[r'$'];
-
   /// Run the animation.
   /// [node]: The node to apply the animation on
   /// [state]: State info

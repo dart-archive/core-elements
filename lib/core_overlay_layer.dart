@@ -7,14 +7,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 
-class CoreOverlayLayer extends HtmlElement with DomProxyMixin {
+class CoreOverlayLayer extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreOverlayLayer.created() : super.created();
   factory CoreOverlayLayer() => new Element.tag('core-overlay-layer');
-
-  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreOverlayLayer() => registerDartType('core-overlay-layer', CoreOverlayLayer);

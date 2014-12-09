@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-toolbar` is a horizontal bar containing items that can be used for
 /// label, navigation, search and actions.  The items place inside the
@@ -59,11 +59,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///
 /// `core-toolbar` adapts to mobile/narrow layout when there is a `core-narrow` class set
 /// on itself or any of its ancestors.
-class CoreToolbar extends HtmlElement with DomProxyMixin {
+class CoreToolbar extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreToolbar.created() : super.created();
   factory CoreToolbar() => new Element.tag('core-toolbar');
-
-  get $ => jsElement[r'$'];
 
   /// Controls how the items are aligned horizontally.
   /// Options are `start`, `center`, `end`, `between` and `around`.

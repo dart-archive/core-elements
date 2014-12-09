@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `core-overlay` element displays overlayed on top of other content. It starts
 /// out hidden and is displayed by setting its `opened` property to true.
@@ -54,11 +54,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// `left` or `right`. In addition, css `margin` can be used to provide some space
 /// around the overlay. This can be used to ensure
 /// that, for example, a drop shadow is always visible around the overlay.
-class CoreOverlay extends HtmlElement with DomProxyMixin {
+class CoreOverlay extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreOverlay.created() : super.created();
   factory CoreOverlay() => new Element.tag('core-overlay');
-
-  get $ => jsElement[r'$'];
 
   /// The target element that will be shown when the overlay is
   /// opened. If unspecified, the core-overlay itself is the target.

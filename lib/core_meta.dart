@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-meta` provides a method of constructing a self-organizing database.
 /// It is useful to collate element meta-data for things like catalogs and for
@@ -50,11 +50,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       meta.type = 'xElt';
 ///       console.log(meta.list);
 ///     </script>
-class CoreMeta extends HtmlElement with DomProxyMixin {
+class CoreMeta extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreMeta.created() : super.created();
   factory CoreMeta() => new Element.tag('core-meta');
-
-  get $ => jsElement[r'$'];
 
   get label => jsElement[r'label'];
   set label(value) { jsElement[r'label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

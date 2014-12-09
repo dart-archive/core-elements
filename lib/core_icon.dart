@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `core-icon` element displays an icon. By default an icon renders as a 24px square.
 ///
@@ -52,11 +52,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// how to create a custom iconset.
 ///
 /// See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html) for the default set of icons.
-class CoreIcon extends HtmlElement with DomProxyMixin {
+class CoreIcon extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreIcon.created() : super.created();
   factory CoreIcon() => new Element.tag('core-icon');
-
-  get $ => jsElement[r'$'];
 
   /// The URL of an image for the icon. If the src property is specified,
   /// the icon property should not be.

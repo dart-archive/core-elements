@@ -34,8 +34,6 @@ class CoreDropdownMenu extends CoreDropdownBase {
   CoreDropdownMenu.created() : super.created();
   factory CoreDropdownMenu() => new Element.tag('core-dropdown-menu');
 
-  get $ => jsElement[r'$'];
-
   /// A label for the control. The label is displayed if no item is selected.
   String get label => jsElement[r'label'];
   set label(String value) { jsElement[r'label'] = value; }

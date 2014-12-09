@@ -36,8 +36,6 @@ class CoreTransitionPages extends CoreTransition {
   CoreTransitionPages.created() : super.created();
   factory CoreTransitionPages() => new Element.tag('core-transition-pages');
 
-  get $ => jsElement[r'$'];
-
   /// This class will be applied to the scope element in the `prepare` function.
   /// It is removed in the `complete` function. Used to activate a set of CSS
   /// rules that need to apply before the transition runs, e.g. a default opacity

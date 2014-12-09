@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `<core-label>` provides a version of the `<label>` element that works with Custom Elements as well as native elements.
 ///
@@ -31,11 +31,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///         <paper-button class="foo">Far away button</paper-button>
 ///
 /// All taps on the `core-label` will be forwarded to the "target" element.
-class CoreLabel extends HtmlElement with DomProxyMixin {
+class CoreLabel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreLabel.created() : super.created();
   factory CoreLabel() => new Element.tag('core-label');
-
-  get $ => jsElement[r'$'];
 
   /// A query selector string for a "target" element not nested in the `<core-label>`
   String get htmlFor => jsElement[r'for'];

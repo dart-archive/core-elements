@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// Use to create nested menus inside of `core-menu` elements.
 ///
@@ -52,11 +52,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <core-item label="Topic1"></core-item>
 ///       <core-item label="Topic2"></core-item>
 ///     </core-submenu>
-class CoreSubmenu extends HtmlElement with DomProxyMixin {
+class CoreSubmenu extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSubmenu.created() : super.created();
   factory CoreSubmenu() => new Element.tag('core-submenu');
-
-  get $ => jsElement[r'$'];
 
   get selected => jsElement[r'selected'];
   set selected(value) { jsElement[r'selected'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

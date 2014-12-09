@@ -1,10 +1,10 @@
 name: core_elements
-version: 0.5.0
+version: 0.5.0+1
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer/
 dependencies:
-  custom_element_apigen: ">=0.1.2+1 <0.2.0"
+  custom_element_apigen: ">=0.1.3 <0.2.0"
   polymer: ">=0.15.2 <0.16.0"
   quiver: ">=0.17.0 <0.19.0"
   web_components: ">=0.9.0 <0.11.0"
@@ -35,7 +35,7 @@ transformers:
     - example/core_animated_pages/quiz1.html
     - example/core_animated_pages/shadow.html
     - example/core_animated_pages/simple.html
-    - example/core_animationjsElement['\$.html
+    - example/core_animation.html
     - example/core_collapse.html
     - example/core_drag_drop.html
     - example/core_dropdown.html

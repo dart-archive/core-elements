@@ -36,8 +36,6 @@ class CoreAnimationGroup extends CoreAnimation {
   CoreAnimationGroup.created() : super.created();
   factory CoreAnimationGroup() => new Element.tag('core-animation-group');
 
-  get $ => jsElement[r'$'];
-
   /// The type of the animation group. 'par' creates a parallel group and 'seq' creates
   /// a sequential group.
   String get type => jsElement[r'type'];

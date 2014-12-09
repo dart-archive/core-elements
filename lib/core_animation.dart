@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-animation` is a convenience element to use web animations with Polymer elements. It
 /// allows you to create a web animation declaratively. You can extend this class to create
@@ -53,11 +53,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     animation.play();
 ///
 /// Elements that are targets to a `core-animation` are given the `core-animation-target` class.
-class CoreAnimation extends HtmlElement with DomProxyMixin {
+class CoreAnimation extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimation.created() : super.created();
   factory CoreAnimation() => new Element.tag('core-animation');
-
-  get $ => jsElement[r'$'];
 
   /// One or more nodes to animate.
   get target => jsElement[r'target'];
@@ -211,11 +209,9 @@ upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
 /// unset, the keyframes will be distributed evenly within the animation duration. Use
 /// `core-animation-prop` elements as children of this element to specify the CSS properties for
 /// the animation.
-class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin {
+class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimationKeyframe.created() : super.created();
   factory CoreAnimationKeyframe() => new Element.tag('core-animation-keyframe');
-
-  get $ => jsElement[r'$'];
 
   /// An offset from 0 to 1.
   num get offset => jsElement[r'offset'];
@@ -230,11 +226,9 @@ upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', Co
 
 /// `core-animation-prop` represents a CSS property and value pair to use with
 /// `core-animation-keyframe`.
-class CoreAnimationProp extends HtmlElement with DomProxyMixin {
+class CoreAnimationProp extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimationProp.created() : super.created();
   factory CoreAnimationProp() => new Element.tag('core-animation-prop');
-
-  get $ => jsElement[r'$'];
 
   /// A CSS property name.
   String get name => jsElement[r'name'];

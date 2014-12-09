@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-image` is an element for displaying an image that provides useful sizing and
 /// preloading options not found on the standard `<img>` tag.
@@ -54,11 +54,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///
 ///     <core-image style="width:400px; height:400px; background-color: lightgray;"
 ///       sizing="cover" preload fade src="http://lorempixel.com/600/400"></core-image>
-class CoreImage extends HtmlElement with DomProxyMixin {
+class CoreImage extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreImage.created() : super.created();
   factory CoreImage() => new Element.tag('core-image');
-
-  get $ => jsElement[r'$'];
 
   /// When false, the image is prevented from loading and any placeholder is
   /// shown.  This may be useful when a binding to the src property is known to
