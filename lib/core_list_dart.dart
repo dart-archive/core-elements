@@ -1266,6 +1266,7 @@ class CoreList extends PolymerElement {
   }
 
   _resetIndex(int index) {
+    index = (index == null) ? 0 : index;
     index = math.min(index, _virtualCount-1);
     index = math.max(index, 0);
     changeStartIndex(index - _virtualStart);
