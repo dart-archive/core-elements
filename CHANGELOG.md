@@ -1,3 +1,7 @@
+## version 0.5.0+2
+  * core-list-dart no longer crashes if the window is resized before the list
+    data is initialized.
+
 ## version 0.5.0+1
   * Added some methods/properties from the polymer base class.
   * Added mixin support so CoreFocusable works as intended.
