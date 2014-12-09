@@ -1,3 +1,7 @@
+## version 0.5.0+2
+  * core-list-dart no longer crashes if the window is resized before the list
+    data is initialized.
+
 ## version 0.5.0
   * Update to match JS version 0.5.1.
     * **New** `core-image` is a new element which is a fancy version of the
