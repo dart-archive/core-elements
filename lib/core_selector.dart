@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `<core-selector>` is used to manage a list of elements that can be selected.
 ///
@@ -37,11 +37,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <div class="item">Item 2</div>
 ///       <div class="item">Item 3</div>
 ///     </core-selector>
-class CoreSelector extends HtmlElement with DomProxyMixin {
+class CoreSelector extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSelector.created() : super.created();
   factory CoreSelector() => new Element.tag('core-selector');
-
-  get $ => jsElement[r'$'];
 
   /// Gets or sets the selected element.  Default to use the index
   /// of the item element.

@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-scroll-header-panel` contains a header section and a content section.  The
 /// header is initially on the top part of the view but it scrolls away with the
@@ -44,11 +44,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <core-toolbar>Header</core-toolbar>
 ///       <div>Content goes here...</div>
 ///     </core-scroll-header-panel>
-class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin {
+class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
   factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
-
-  get $ => jsElement[r'$'];
 
   /// If true, the header's height will condense to `_condensedHeaderHeight`
   /// as the user scrolls down from the top of the content area.

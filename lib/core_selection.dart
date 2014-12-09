@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `<core-selection>` element is used to manage selection state. It has no
 /// visual appearance and is typically used in conjunction with another element.
@@ -56,11 +56,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <li>Green</li>
 ///       <li>Blue</li>
 ///     </selection-example>
-class CoreSelection extends HtmlElement with DomProxyMixin {
+class CoreSelection extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSelection.created() : super.created();
   factory CoreSelection() => new Element.tag('core-selection');
-
-  get $ => jsElement[r'$'];
 
   /// If true, multiple selections are allowed.
   bool get multi => jsElement[r'multi'];

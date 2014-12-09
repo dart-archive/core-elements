@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-splitter` provides a split bar and dragging on the split bar
 /// will resize the sibling element.  Use its `direction` property to indicate
@@ -36,11 +36,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <core-splitter direction="up"></core-splitter>
 ///       <div flex>bottom</div>
 ///     </div>
-class CoreSplitter extends HtmlElement with DomProxyMixin {
+class CoreSplitter extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSplitter.created() : super.created();
   factory CoreSplitter() => new Element.tag('core-splitter');
-
-  get $ => jsElement[r'$'];
 
   /// Possible values are `left`, `right`, `up` and `down`.
   String get direction => jsElement[r'direction'];

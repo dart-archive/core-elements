@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-input` is an unstyled single-line input field. It extends the native
 /// `input` element.
@@ -30,11 +30,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///
 /// - `aria-label`: set to the `placeholder` attribute
 /// - `aria-disabled`: set if `disabled` is true
-class CoreInput extends InputElement with DomProxyMixin {
+class CoreInput extends InputElement with DomProxyMixin, PolymerProxyMixin {
   CoreInput.created() : super.created();
   factory CoreInput() => new Element.tag('input', 'core-input');
-
-  get $ => jsElement[r'$'];
 
   /// The "committed" value of the input, ie. the input value when the user
   /// hits the "enter" key or blurs the input after changing the value. You

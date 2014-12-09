@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `core-style` element helps manage styling inside other elements and can
 /// be used to make themes. The `core-style` element can be either a producer
@@ -90,11 +90,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///         background-color: {{g.myColor}};
 ///       }
 ///     </core-style>
-class CoreStyle extends HtmlElement with DomProxyMixin {
+class CoreStyle extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreStyle.created() : super.created();
   factory CoreStyle() => new Element.tag('core-style');
-
-  get $ => jsElement[r'$'];
 
   /// The `id` property should be set if the `core-style` is a producer
   /// of styles. In this case, the `core-style` should have text content

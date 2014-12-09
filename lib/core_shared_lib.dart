@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// Supports sharing a JSONP-based JavaScript library.
 ///
@@ -26,11 +26,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// lib.html:
 ///
 ///     <script src="lib.js"></script>
-class CoreSharedLib extends HtmlElement with DomProxyMixin {
+class CoreSharedLib extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSharedLib.created() : super.created();
   factory CoreSharedLib() => new Element.tag('core-shared-lib');
-
-  get $ => jsElement[r'$'];
 
   get url => jsElement[r'url'];
   set url(value) { jsElement[r'url'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

@@ -30,8 +30,6 @@ import 'core_dropdown_base.dart';
 class CoreMenuButton extends CoreDropdownBase {
   CoreMenuButton.created() : super.created();
   factory CoreMenuButton() => new Element.tag('core-menu-button');
-
-  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreMenuButton() => registerDartType('core-menu-button', CoreMenuButton);

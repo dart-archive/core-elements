@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-scaffold` provides general application layout, introducing a
 /// responsive scaffold containing a header, toolbar, menu, title and
@@ -59,11 +59,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <div tool>Title</div>
 ///       <div fit>Content fits to the main area</div>
 ///     </core-scaffold>
-class CoreScaffold extends HtmlElement with DomProxyMixin {
+class CoreScaffold extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreScaffold.created() : super.created();
   factory CoreScaffold() => new Element.tag('core-scaffold');
-
-  get $ => jsElement[r'$'];
 
   /// Width of the drawer panel.
   String get drawerWidth => jsElement[r'drawerWidth'];

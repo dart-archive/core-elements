@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-icon-button` is an icon with button behaviors.
 ///
@@ -20,11 +20,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///
 /// See [`core-iconset`](#core-iconset) for more information about
 /// how to use a custom icon set.
-class CoreIconButton extends HtmlElement with DomProxyMixin {
+class CoreIconButton extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreIconButton.created() : super.created();
   factory CoreIconButton() => new Element.tag('core-icon-button');
-
-  get $ => jsElement[r'$'];
 
   /// The URL of an image for the icon.  Should not use `icon` property
   /// if you are using this property.

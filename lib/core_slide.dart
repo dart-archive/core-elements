@@ -7,14 +7,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 
-class CoreSlide extends HtmlElement with DomProxyMixin {
+class CoreSlide extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSlide.created() : super.created();
   factory CoreSlide() => new Element.tag('core-slide');
-
-  get $ => jsElement[r'$'];
 
   get open => jsElement[r'open'];
   set open(value) { jsElement[r'open'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

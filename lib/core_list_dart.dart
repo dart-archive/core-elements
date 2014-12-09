@@ -15,7 +15,6 @@ import 'dart:html';
 import 'dart:math' as math;
 import 'package:core_elements/core_selection.dart';
 import 'package:polymer/polymer.dart';
-import 'package:smoke/smoke.dart' as smoke;
 import 'package:template_binding/template_binding.dart';
 
 final RegExp IOS_REGEX = new RegExp('/iP(?:hone|ad;(?: U;)? CPU) OS (\d+)/');
@@ -868,7 +867,7 @@ class CoreList extends PolymerElement {
     }
   }
 
-  int virtualIndexForGroup(int group, int groupIndex) {
+  int virtualIndexForGroup(int group, [int groupIndex]) {
     groupIndex =
         (groupIndex != null) ? math.min(groupIndex, getGroupLen(group)) : 0;
     group--;

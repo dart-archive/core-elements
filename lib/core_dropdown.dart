@@ -78,8 +78,6 @@ class CoreDropdown extends CoreOverlay {
   CoreDropdown.created() : super.created();
   factory CoreDropdown() => new Element.tag('core-dropdown');
 
-  get $ => jsElement[r'$'];
-
   /// The element associated with this dropdown, usually the element that triggers
   /// the menu. If unset, this property will default to the target's parent node
   /// or shadow host.

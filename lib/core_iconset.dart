@@ -53,8 +53,6 @@ class CoreIconset extends CoreMeta {
   CoreIconset.created() : super.created();
   factory CoreIconset() => new Element.tag('core-iconset');
 
-  get $ => jsElement[r'$'];
-
   /// The URL of the iconset image.
   String get src => jsElement[r'src'];
   set src(String value) { jsElement[r'src'] = value; }

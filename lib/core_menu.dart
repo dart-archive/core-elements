@@ -53,8 +53,6 @@ import 'core_selector.dart';
 class CoreMenu extends CoreSelector {
   CoreMenu.created() : super.created();
   factory CoreMenu() => new Element.tag('core-menu');
-
-  get $ => jsElement[r'$'];
 }
 @initMethod
 upgradeCoreMenu() => registerDartType('core-menu', CoreMenu);

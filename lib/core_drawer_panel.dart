@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-drawer-panel` contains a drawer panel and a main panel.  The drawer
 /// and the main panel are side-by-side with drawer on the left.  When browser
@@ -70,11 +70,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///       <div drawer> Drawer panel... </div>
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
-class CoreDrawerPanel extends HtmlElement with DomProxyMixin {
+class CoreDrawerPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreDrawerPanel.created() : super.created();
   factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
-
-  get $ => jsElement[r'$'];
 
   /// Width of the drawer panel.
   String get drawerWidth => jsElement[r'drawerWidth'];

@@ -7,14 +7,12 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// TODO
-class CoreLayoutGrid extends HtmlElement with DomProxyMixin {
+class CoreLayoutGrid extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreLayoutGrid.created() : super.created();
   factory CoreLayoutGrid() => new Element.tag('core-layout-grid');
-
-  get $ => jsElement[r'$'];
 
   get nodes => jsElement[r'nodes'];
   set nodes(value) { jsElement[r'nodes'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}

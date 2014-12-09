@@ -42,8 +42,6 @@ class CoreIconsetSvg extends CoreMeta {
   CoreIconsetSvg.created() : super.created();
   factory CoreIconsetSvg() => new Element.tag('core-iconset-svg');
 
-  get $ => jsElement[r'$'];
-
   /// The size of an individual icon. Note that icons must be square.
   num get iconSize => jsElement[r'iconSize'];
   set iconSize(num value) { jsElement[r'iconSize'] = value; }

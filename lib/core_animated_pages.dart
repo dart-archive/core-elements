@@ -214,8 +214,6 @@ class CoreAnimatedPages extends CoreSelector {
   CoreAnimatedPages.created() : super.created();
   factory CoreAnimatedPages() => new Element.tag('core-animated-pages');
 
-  get $ => jsElement[r'$'];
-
   /// A space-delimited string of transitions to use when switching between pages in this element.
   /// The strings are `id`s of `core-transition-pages` elements included elsewhere. See the
   /// individual transition's document for specific details.

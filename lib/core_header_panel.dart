@@ -7,7 +7,7 @@ import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/interop.dart' show registerDartType;
 import 'package:polymer/polymer.dart' show initMethod;
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-header-panel` contains a header section and a content panel section.
 ///
@@ -61,11 +61,9 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 ///     </core-header-panel>
 ///
 /// Use `mode` to control the header and scrolling behavior.
-class CoreHeaderPanel extends HtmlElement with DomProxyMixin {
+class CoreHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreHeaderPanel.created() : super.created();
   factory CoreHeaderPanel() => new Element.tag('core-header-panel');
-
-  get $ => jsElement[r'$'];
 
   /// Controls header and scrolling behavior. Options are
   /// `standard`, `seamed`, `waterfall`, `waterfall-tall`, `scroll` and
