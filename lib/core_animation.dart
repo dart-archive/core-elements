@@ -214,8 +214,8 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxy
   factory CoreAnimationKeyframe() => new Element.tag('core-animation-keyframe');
 
   /// An offset from 0 to 1.
-  num get offset => jsElement[r'offset'];
-  set offset(num value) { jsElement[r'offset'] = value; }
+  num get animationOffset => jsElement[r'offset'];
+  set animationOffset(num value) { jsElement[r'offset'] = value; }
 
   get properties => jsElement[r'properties'];
 }
