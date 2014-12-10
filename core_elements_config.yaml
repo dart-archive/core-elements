@@ -11,7 +11,9 @@ files_to_generate:
   - core-animated-pages/transitions/hero-transition.html:
       omit_imports:
         - core-transition-pages.html
-  - core-animation/core-animation.html
+  - core-animation/core-animation.html:
+      name_substitutions:
+        offset: animationOffset
   - core-animation/core-animation-group.html
   - core-animation/web-animations.html
   - core-collapse/core-collapse.html
