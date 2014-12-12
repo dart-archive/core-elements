@@ -28,11 +28,10 @@ transformers:
     - test/core_collapse_test.html
     - test/core_dropdown_test.html
     - test/core_dropdown_menu_test.html
-    - test/core_dropdown__menu_a11y_test.html
+    - test/core_dropdown_menu_a11y_test.html
     - test/core_input_test.html
     - test/core_input_basic_test.html
     - test/core_input_a11y_test.html
-    - test/core_list_dart_test.html
     - test/core_localstorage_dart_test.html
     - test/core_localstorage_dart_raw_test.html
     - test/core_localstorage_dart_value_binding_test.html
@@ -40,6 +39,7 @@ transformers:
     - test/core_media_query_dialog_test.html
     - test/core_menu_button_test.html
     - test/core_overlay_positioning_test.html
+    - test/core_range_test.html
     - test/core_selection_test.html
     - test/core_selection_multi_test.html
     - test/core_selection_multi_test.html
