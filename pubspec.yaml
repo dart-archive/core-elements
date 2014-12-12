@@ -1,5 +1,5 @@
 name: core_elements
-version: 0.6.0-dev
+version: 0.6.0
 author: Polymer.dart Authors <web-ui-dev@dartlang.org>
 description: Polymer core-elements for Dart
 homepage: https://www.dartlang.org/polymer/
@@ -10,7 +10,6 @@ dependencies:
   web_components: ">=0.9.0 <0.11.0"
 dev_dependencies:
   html5lib: ">=0.11.0 <0.13.0"
-  paper_elements: ">=0.4.0 <0.7.0"
   path: ">=1.0.0 <2.0.0"
   yaml: ">=1.0.0 <3.0.0"
   unittest: ">=0.11.0+2 <0.12.0"
@@ -22,64 +21,7 @@ transformers:
     lint:
       exclude:
         - lib/src/
-        - example/core_style
-        - example/core_animated_pages/shadow
     entry_points:
-    - example/core_a11y_keys.html
-    - example/core_ajax_dart.html
-    - example/core_animated_pages/grid.html
-    - example/core_animated_pages/list.html
-    - example/core_animated_pages/music.html
-    - example/core_animated_pages/nested.html
-    - example/core_animated_pages/news.html
-    - example/core_animated_pages/quiz1.html
-    - example/core_animated_pages/shadow.html
-    - example/core_animated_pages/simple.html
-    - example/core_animation.html
-    - example/core_collapse.html
-    - example/core_drag_drop.html
-    - example/core_dropdown.html
-    - example/core_dropdown_menu.html
-    - example/core_drag_drop.html
-    - example/core_drawer_panel.html
-    - example/core_field.html
-    - example/core_header_panel.html
-    - example/core_icon.html
-    - example/core_icons.html
-    - example/core_iconset.html
-    - example/core_iconset_svg.html
-    - example/core_icon_button.html
-    - example/core_image.html
-    - example/core_input.html
-    - example/core_item.html
-    - example/core_label.html
-    - example/core_layout_grid.html
-    - example/core_layout_trbl.html
-    - example/core_list_dart/basic.html
-    - example/core_list_dart/grid.html
-    - example/core_list_dart/flickr_grid_grouped.html
-    - example/core_localstorage_dart.html
-    - example/core_media_query.html
-    - example/core_menu.html
-    - example/core_menu_button.html
-    - example/core_meta.html
-    - example/core_overlay.html
-    - example/core_pages.html
-    - example/core_popup_menu.html
-    - example/core_range.html
-    - example/core_scaffold.html
-    - example/core_scroll_header_panel.html
-    - example/core_scroll_threshold.html
-    - example/core_selection.html
-    - example/core_selector.html
-    - example/core_shared_lib.html
-    - example/core_splitter.html
-    - example/core_style.html
-    - example/core_toolbar.html
-    - example/core_tooltip.html
-    # Each individual example must also be listed as an entrypoint since
-    # demo.html file uses iframes to load them in.
-    - example/demo.html
     - test/core_ajax_dart_test.html
     - test/core_ajax_dart_progress_test.html
     - test/core_animated_pages_test.html

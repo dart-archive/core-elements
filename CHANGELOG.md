@@ -1,8 +1,10 @@
-## version 0.6.0-dev
+## version 0.6.0
   * The `offset` property of the `core-animation` element is now called
     `animationOffset` so that it won't conflict with the `offset` property in
     its base class, `HtmlElement`.
-
+  * Moved examples to central repo and updated readme
+    https://github.com/dart-lang/polymer-core-and-paper-examples. 
+ 
 ## version 0.5.0+2
   * `core-list-dart` no longer crashes if the window is resized before the list
     data is initialized.
