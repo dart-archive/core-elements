@@ -78,6 +78,8 @@ deletion_patterns:
   - metadata\.html$
   - index\.html$
   - bower\.json$
+  - demo\.html$
+  - demos$
   - README\.md$
   - ^context-free-parser$
   - ^core-bind$
