@@ -14,6 +14,7 @@ import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 import 'package:core_elements/core_selector.dart' show CoreSelector;
+import 'common.dart';
 
 void oneMutation(dom.Element node, options, Function cb) {
   var o = new dom.MutationObserver((List<dom.MutationRecord>
@@ -57,7 +58,7 @@ void main() {
           });
           // set selected
           s.selected = 'item5';
-          return new async.Future.delayed(new Duration(milliseconds: 50), () {
+          return flushLayoutAndRender().then((_) {
             // check core-select event
             expect(selectEventCounter, equals(1));
             // check selected class
@@ -69,7 +70,7 @@ void main() {
             s.selected = 'item5';
             // TODO(ffu): would be better to wait for something to happen
             // instead of not to happen
-            new async.Future.delayed(new Duration(milliseconds: 50), () {
+            return flushLayoutAndRender().then((_) {
               expect(selectEventCounter, equals(0));
             });
           });

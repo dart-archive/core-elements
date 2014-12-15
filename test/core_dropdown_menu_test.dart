@@ -7,13 +7,13 @@
 
 library core_dropdown.test;
 
-import "dart:async";
-import "dart:html";
-import "package:core_elements/core_dropdown_menu.dart";
-import "package:core_elements/core_menu.dart";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import 'dart:html';
+import 'package:core_elements/core_dropdown_menu.dart';
+import 'package:core_elements/core_menu.dart';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'common.dart';
 
 CoreDropdownMenu dropdown;
 CoreMenu menu;
@@ -65,9 +65,4 @@ void main() {
 
     });
   });
-}
-
-Future flushLayoutAndRender() {
-  document.body.offsetTop;
-  return new Future(() {});
 }

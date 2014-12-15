@@ -7,12 +7,11 @@
 
 library core_selection.test;
 
-import "dart:async";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_selection.dart";
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_selection.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -20,7 +19,7 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((e) {
 
-      group("core-selection", () {
+      group('core-selection', () {
         var s = document.querySelector('core-selection') as CoreSelection;
         
         test('select item', () {

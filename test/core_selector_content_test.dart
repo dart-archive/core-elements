@@ -7,13 +7,11 @@
 
 library core_selector.test.content;
 
-import 'dart:async';
 import 'dart:html';
-import 'dart:js';
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
-import 'package:core_elements/core_selector.dart';
+import 'common.dart';
 
 @CustomTag('test-core-selector')
 class TestCoreSelector extends PolymerElement {
@@ -32,7 +30,7 @@ void main() {
       group('content', () {
       
         test('get selected', () {
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             // check selected class
             expect(s.children[0].classes.contains('core-selected'), true);
           });
@@ -41,7 +39,7 @@ void main() {
         test('set selected', () {
           // set selected
           s.selected = 'item1';
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             // check selected class
             expect(s.children[1].classes.contains('core-selected'), true);
           });
@@ -53,7 +51,7 @@ void main() {
         
         test('activate event', () {
           s.children[2].dispatchEvent(new CustomEvent('tap', canBubble: true));
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             // check selected class
             expect(s.children[2].classes.contains('core-selected'), true);
           });
@@ -66,7 +64,7 @@ void main() {
           s.append(item);
           // set selected
           s.selected = 'item4';
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             // check selected class
             expect(s.children[4].classes.contains('core-selected'), true);
           });

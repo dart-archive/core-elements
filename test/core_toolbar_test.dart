@@ -14,6 +14,7 @@ import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 import 'package:core_elements/core_toolbar.dart';
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -30,14 +31,14 @@ void main() {
         
         test('check medium-tall height', () {
           toolbar.classes.add('medium-tall');
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(toolbar.offsetHeight, 128);
           });
         });
         
         test('check tall height', () {
           toolbar.classes.add('tall');
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(toolbar.offsetHeight, 192);
           });
         });
@@ -45,7 +46,7 @@ void main() {
         test('item at top', () {
           var item = document.createElement('div');
           toolbar.append(item);
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(item.getDestinationInsertionPoints()[0].parent,
                 toolbar.$['topBar']);
           });
@@ -55,7 +56,7 @@ void main() {
           var item = document.createElement('div');
           item.classes.add('middle');
           toolbar.append(item);
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(item.getDestinationInsertionPoints()[0].parent,
                 toolbar.$['middleBar']);
           });
@@ -65,7 +66,7 @@ void main() {
           var item = document.createElement('div');
           item.classes.add('bottom');
           toolbar.append(item);
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(item.getDestinationInsertionPoints()[0].parent,
                 toolbar.$['bottomBar']);
           });

@@ -7,12 +7,13 @@
 
 library polymer_collapse.test;
 
-import "dart:html";
-import "dart:async";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_collapse.dart" show CoreCollapse;
+import 'dart:async';
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_collapse.dart' show CoreCollapse;
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -32,7 +33,7 @@ void main() {
         });
 
         test('verify height', () {
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             return new Future.delayed(new Duration(milliseconds: delay), () {
               collapseHeight = getCollapseComputedStyle().height;
               expect(collapseHeight, isNot('0px'));
@@ -42,7 +43,7 @@ void main() {
 
         test('test opened: false', () {
           collapse.opened = false;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             return new Future.delayed(new Duration(milliseconds: delay), () {
               expect(getCollapseComputedStyle().height, '0px');
             });
@@ -51,7 +52,7 @@ void main() {
 
         test('test opened: true', () {
           collapse.opened = true;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             return new Future.delayed(new Duration(milliseconds: delay), () {
               expect(getCollapseComputedStyle().height, collapseHeight);
             });
@@ -65,6 +66,6 @@ void main() {
 }
 
 dynamic getCollapseComputedStyle() {
-  HtmlElement b = querySelector("#collapse");
+  HtmlElement b = querySelector('#collapse');
   return b.getComputedStyle();
 }

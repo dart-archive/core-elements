@@ -7,12 +7,12 @@
 
 library core_shared_lib.test;
 
-import "dart:html" as dom;
-import "dart:async" as async;
+import 'dart:async';
+import 'dart:html';
 
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 
 void main() {
   useHtmlConfiguration();
@@ -20,19 +20,19 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
-      group("core-shared-lib", () {
+      group('core-shared-lib', () {
 
-        test("basic", () {
+        test('basic', () {
           var count = 0;
           var done = expectAsync((){});
-          (dom.querySelector('#t') as AutoBindingElement).model = {};
-          var s = dom.document.on["core-shared-lib-load"].listen((e) {
+          (querySelector('#t') as AutoBindingElement).model = {};
+          var s = document.on['core-shared-lib-load'].listen((e) {
             if(++count == 2) {
               done();
             } else {
               expect(count < 2, isTrue);
-              new async.Future.delayed(new Duration(milliseconds: 100), () {
-                (dom.document.querySelector("#t") as AutoBindingElement).model = {};
+              return new Future(() {}).then((_) => new Future(() {})).then((_) {
+                (document.querySelector('#t') as AutoBindingElement).model = {};
               });
             }
           });

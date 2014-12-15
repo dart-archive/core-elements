@@ -7,13 +7,13 @@
 
 library core_localstorage_dart.test;
 
-import "dart:async";
-import "dart:convert";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_localstorage_dart.dart";
+import 'dart:convert';
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_localstorage_dart.dart';
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -21,11 +21,11 @@ void main() {
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      var storage = document.querySelector("#localstorage") as CoreLocalStorage;
+      var storage = document.querySelector('#localstorage') as CoreLocalStorage;
 
-      group("basic", () {
+      group('basic', () {
 
-        test("load", () {
+        test('load', () {
           expect(storage.value, isNotNull);
           expect(storage.value['foo'], 'bar');
         });
@@ -33,7 +33,7 @@ void main() {
         test('save', () {
           var newValue = {'foo': 'zot'};
           storage.value = newValue;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             var v = window.localStorage[storage.name];
             v = JSON.decode(v);
             expect(v['foo'], newValue['foo']);

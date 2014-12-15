@@ -7,12 +7,12 @@
 
 library core_range.test;
 
-import "dart:async";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_range.dart";
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_range.dart';
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -31,11 +31,12 @@ void main() {
 
         test('set value', () {
           range.value = 50;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(range.value, 50);
             // test clamp value
             range.value = 60.1;
-          }).then((_) => new Future(() {})).then((_) {
+            return flushLayoutAndRender();
+          }).then((_) {
             expect(range.value, 60);
           });
         });
@@ -43,7 +44,7 @@ void main() {
         test('set max', () {
           range.max = 10;
           range.value = 11;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(range.value, range.max);
           });
         });
@@ -51,7 +52,7 @@ void main() {
         test('test ratio', () {
           range.max = 10;
           range.value = 5;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(range.ratio, 50);
           });
         });
@@ -60,10 +61,10 @@ void main() {
           range.min = 10;
           range.max = 50;
           range.value = 30;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(range.ratio, 50);
             range.value = 0;
-            return new Future(() {}).then((_) {
+            return flushLayoutAndRender().then((_) {
               expect(range.value, range.min);
             });
           });
@@ -73,11 +74,11 @@ void main() {
           range.min = 0;
           range.max = 10;
           range.value = 5.1;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             expect(range.value, 5);
             range.step = 0.1;
             range.value = 5.1;
-            return new Future(() {}).then((_) {
+            return flushLayoutAndRender().then((_) {
               expect(range.value, 5.1);
             });
           });

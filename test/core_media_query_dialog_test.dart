@@ -7,9 +7,9 @@
 
 library core_media_query.test.dialog;
 
-import "dart:async" as async;
-import "dart:html" as dom;
-import "package:polymer/polymer.dart";
+import 'dart:async' as async;
+import 'dart:html' as dom;
+import 'package:polymer/polymer.dart';
 
 class MyModel extends Object with Observable {
   int _counter = 0;
@@ -29,7 +29,7 @@ class MyModel extends Object with Observable {
       'phone': matchesPhone,
       'tablet': matchesTablet,
       'width' : dom.window.innerWidth
-    }, "*");
+    }, '*');
     _counter++;
   }
 }
@@ -39,13 +39,13 @@ void main() {
     return Polymer.onReady.then((_) {
 
       var template =
-          dom.document.querySelector("#simpleMatch") as AutoBindingElement;
+          dom.document.querySelector('#simpleMatch') as AutoBindingElement;
       var model = template.model = new MyModel();
       // assign the model and change the values later to verify data binding
       new async.Future(() {
         model
-          ..tabletQuery = "(min-width: 600px)"
-          ..phoneQuery = "(max-width: 599px)";
+          ..tabletQuery = '(min-width: 600px)'
+          ..phoneQuery = '(max-width: 599px)';
       });
     });
   });

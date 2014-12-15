@@ -7,13 +7,12 @@
 
 library core_input.test;
 
-import "dart:html";
-import "dart:async";
+import 'dart:html';
 
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_input.dart";
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_input.dart';
 
 void main() {
   useHtmlConfiguration();

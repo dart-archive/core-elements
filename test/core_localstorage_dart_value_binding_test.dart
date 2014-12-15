@@ -7,13 +7,12 @@
 
 library core_localstorage_dart.value_binding_test;
 
-import "dart:async";
-import "dart:convert";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_localstorage_dart.dart";
+import 'dart:convert';
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'common.dart';
 
 @CustomTag('x-test')
 class XTest extends PolymerElement {
@@ -45,7 +44,7 @@ void main() {
         test('set value', () {
           var newValue = {'foo': 'zot'};
           xTest.value = newValue;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             var v = window.localStorage[xTest.$['localstorage'].name];
             v = JSON.decode(v);
             expect(v['foo'], newValue['foo']);
@@ -55,7 +54,7 @@ void main() {
         test('save', () {
           xTest.value['foo'] = 'quux';
           xTest.$['localstorage'].save();
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             var v = window.localStorage[xTest.$['localstorage'].name];
             v = JSON.decode(v);
             expect(v['foo'], 'quux');

@@ -7,12 +7,12 @@
 
 library core_ajax.progress_test;
 
-import "dart:async";
-import "dart:html";
-import "package:core_elements/core_ajax_dart.dart";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import 'dart:async';
+import 'dart:html';
+import 'package:core_elements/core_ajax_dart.dart';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 
 Completer done = new Completer();
 
@@ -23,7 +23,7 @@ void main() {
     return Polymer.onReady.then((_) {
 
       test('progress', () {
-        var ajax = querySelector("core-ajax-dart") as CoreAjax;
+        var ajax = querySelector('core-ajax-dart') as CoreAjax;
 
         expect(ajax.loading, false);
         expect(ajax.progress, isNull);

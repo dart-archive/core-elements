@@ -8,12 +8,12 @@
 library core_menu_button.test;
 
 import "dart:html";
-import "dart:async";
 
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
 import "package:core_elements/core_menu_button.dart" show CoreMenuButton;
+import 'common.dart';
 
 class MyModel extends Object with Observable {
   @observable
@@ -31,11 +31,11 @@ void main() {
             querySelector('#removeOpenedOverlay') as AutoBindingElement;
         var model = template.model = new MyModel()
             ..showButton = true;
-        return new Future(() {}).then((_) {
+        return flushLayoutAndRender().then((_) {
           var menuButton = querySelector('#menuButton') as CoreMenuButton;
           menuButton.opened = true;
           // overlay should be in the DOM
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             var menuButton = querySelector('#menuButton') as CoreMenuButton;
             var dropdown = querySelector('#dropdown');
             expect(dropdown, isNotNull);
@@ -43,7 +43,7 @@ void main() {
             expect(menuItems.toList().length, equals(4));
             model.showButton = false;
             // button and overlay should not be in the DOM anymore
-            return new Future(() {}).then((_) {
+            return flushLayoutAndRender().then((_) {
               menuButton = querySelector('#menuButton');
               expect(menuButton, isNull);
               dropdown = querySelector('#dropdown');

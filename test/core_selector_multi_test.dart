@@ -7,13 +7,13 @@
 
 library core_selector.test.multi;
 
-import 'dart:async';
 import 'dart:html';
 import 'dart:js' as js;
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 import 'package:core_elements/core_selector.dart' show CoreSelector;
+import 'common.dart';
 
 void oneMutation(Element node, options, Function cb) {
   var o = new MutationObserver((List<MutationRecord>
@@ -52,7 +52,7 @@ void main() {
           });
           // set selected
           s.selected = [0, 2];
-          return new Future.delayed(new Duration(milliseconds: 50), () {
+          return flushLayoutAndRender().then((_) {
             // check polymer-select event
             expect(selectEventCounter, equals(2));
             // check selected class
@@ -67,14 +67,14 @@ void main() {
             // check selected
             expect(s.selected.length, equals(1));
 
-            return new Future(() {}).then((_) {
+            return flushLayoutAndRender().then((_) {
               expect(selectEventCounter, 1);
               expect(s.children[0].classes.contains('core-selected'), false);
               // add selected
               s.selected.add(3);
               s.selected.add(4);
               // check core-select event
-              return new Future(() {}).then((_) {
+              return flushLayoutAndRender().then((_) {
                 expect(selectEventCounter, 3);
               });
             });
@@ -87,7 +87,7 @@ void main() {
           var first = s.selected[0];
           // set mutli to false, so to make it single-selection
           s.multi = false;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             // selected should not be an array
             expect(s.selected is List, false);
             // selected should be the first value in the old array

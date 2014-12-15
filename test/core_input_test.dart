@@ -7,13 +7,13 @@
 
 library core_input.test;
 
-import "dart:html";
-import "dart:async";
+import 'dart:html';
 
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_input.dart";
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_input.dart';
+import 'common.dart';
 
 class MyModel extends Object with Observable {
   @observable
@@ -29,10 +29,10 @@ class MyModel extends Object with Observable {
   inputHandler(e) => _inputHandlerCount++;
 }
 
-const INITIAL_VALUE = "Initial value";
-const INPUT_VALUE = "Input value";
-const NUMBER_VALUE = "1234";
-const PASSWORD_VALUE = "My secret password 19 !\"§\$";
+const INITIAL_VALUE = 'Initial value';
+const INPUT_VALUE = 'Input value';
+const NUMBER_VALUE = '1234';
+const PASSWORD_VALUE = 'My secret password 19 !\'§\$';
 
 void main() {
   useHtmlConfiguration();
@@ -40,82 +40,82 @@ void main() {
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
 
-      group("core-input", () {
+      group('core-input', () {
         // TODO(zoechi) test required http://stackoverflow.com/questions/24572472
-        test("type='text'", () {
-          var input = querySelector("#typeText") as CoreInput;
-          expect(input.value, equals("Some content"));
+        test('type="text"', () {
+          var input = querySelector('#typeText') as CoreInput;
+          expect(input.value, equals('Some content'));
         });
 
-        test("bind value", () {
+        test('bind value', () {
           var template =
-              querySelector("#bindValueTemplate") as AutoBindingElement;
+              querySelector('#bindValueTemplate') as AutoBindingElement;
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE;
-          return new Future(() {
-            var input = querySelector("#bindValue") as CoreInput;
+          return flushLayoutAndRender().then((_) {
+            var input = querySelector('#bindValue') as CoreInput;
             input.value = INPUT_VALUE;
             dispatchInputEvent(input);
             expect(model.stringValue, equals(INPUT_VALUE));
-            final MODEL_VALUE = "Model value";
+            final MODEL_VALUE = 'Model value';
             model.stringValue = MODEL_VALUE;
-            return new Future(() {
+            return flushLayoutAndRender().then((_) {
               expect(input.value, equals(MODEL_VALUE));
             });
           });
         });
 
-        test("change and input event", () {
+        test('change and input event', () {
           var template =
-              querySelector("#changeAndInputEventTemplate") as AutoBindingElement;
+              querySelector('#changeAndInputEventTemplate') as AutoBindingElement;
           var model = template.model = new MyModel();
 
-          return new Future(() {
-            var input = querySelector("#changeAndInputEvent") as CoreInput;
-            input.dispatchEvent(new CustomEvent("change", detail: {"source": "changeAndInputEventTest}"}));
-            input.dispatchEvent(new CustomEvent("input", canBubble: true, detail: {"source": "changeEventTest"}));
+          return flushLayoutAndRender().then((_) {
+            var input = querySelector('#changeAndInputEvent') as CoreInput;
+            input.dispatchEvent(new CustomEvent('change', detail: {'source': 'changeAndInputEventTest}'}));
+            input.dispatchEvent(new CustomEvent('input', canBubble: true, detail: {'source': 'changeEventTest'}));
             expect(model._changeHandlerCount, 1);
             expect(model._inputHandlerCount, 1);
           });
         });
 
-        test("validate number", () {
+        test('validate number', () {
           var template =
-              querySelector("#validateNumberTemplate") as AutoBindingElement;
+              querySelector('#validateNumberTemplate') as AutoBindingElement;
           var model = template.model = new MyModel()
               ..stringValue = INITIAL_VALUE;
 
-          return new Future(() {
-            var input = querySelector("#validateNumber") as CoreInput;
+          return flushLayoutAndRender().then((_) {
+            var input = querySelector('#validateNumber') as CoreInput;
             input.value = INPUT_VALUE;
             dispatchInputEvent(input);
             expect(model.stringValue, equals(INPUT_VALUE));
             expect(input.checkValidity(), isFalse);
 
             model.stringValue = NUMBER_VALUE;
-            return new Future(() {
+            return flushLayoutAndRender().then((_) {
               expect(input.value, equals(NUMBER_VALUE));
               expect(input.checkValidity(), isTrue);
             });
           });
         });
 
-        test("type='password'", () {
+        test('type="password"', () {
           var template =
-              querySelector("#passwordTemplate") as AutoBindingElement;
-          var model = template.model = new MyModel()..stringValue = "";
+              querySelector('#passwordTemplate') as AutoBindingElement;
+          var model = template.model = new MyModel()..stringValue = '';
 
-          return new Future(() {
-            var input = querySelector("#password") as CoreInput;
+          return flushLayoutAndRender().then((_) {
+            var input = querySelector('#password') as CoreInput;
             expect(input.attributes['type'].toLowerCase(), equals('password'));
 
             input.value = PASSWORD_VALUE;
             dispatchInputEvent(input);
             expect(model.stringValue, equals(PASSWORD_VALUE));
 
-            final MODEL_VALUE = "another password";
+            final MODEL_VALUE = 'another password';
             model.stringValue = MODEL_VALUE;
-            return new Future(() {
+            return flushLayoutAndRender().then((_) {
               expect(input.value, equals(MODEL_VALUE));
               expect(input.checkValidity(), isTrue);
             });

@@ -7,20 +7,20 @@
 
 library core_selector.test.activate_event;
 
-import "dart:html" as dom;
-import "dart:js" as js;
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_selector.dart" show CoreSelector;
+import 'dart:html';
+import 'dart:js' as js;
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_selector.dart' show CoreSelector;
 
-void oneMutation(dom.Element node, options, Function cb) {
-  var o = new dom.MutationObserver((List<dom.MutationRecord>
-      mutations, dom.MutationObserver observer) {
+void oneMutation(Element node, options, Function cb) {
+  var o = new MutationObserver((List<MutationRecord>
+      mutations, MutationObserver observer) {
     cb();
     observer.disconnect();
   });
-  o.observe(node, attributes: options["attributes"]);
+  o.observe(node, attributes: options['attributes']);
 }
 
 void main() {
@@ -29,22 +29,22 @@ void main() {
   initPolymer().run(() {
     Polymer.onReady.then((e) {
 
-      group("core-selector", () {
+      group('core-selector', () {
 
-        test("core-selector-activate-event", () {
+        test('core-selector-activate-event', () {
           var done = expectAsync(() {});
           // selector1
-          var s = (dom.document.querySelector("#selector") as CoreSelector);
-          s.on['core-activate'].listen((dom.CustomEvent e) {
+          var s = (document.querySelector('#selector') as CoreSelector);
+          s.on['core-activate'].listen((CustomEvent e) {
   // TODO(zoechi) event detail is null https://code.google.com/p/dart/issues/detail?id=19315
             var detail = new js.JsObject.fromBrowserObject(e)['detail'];
-            expect(detail["item"], equals(s.children[1]));
+            expect(detail['item'], equals(s.children[1]));
             expect(s.selected, equals(1));
             done();
           });
           expect(s.selected, equals('0'));
-          dom.window.requestAnimationFrame((e) {
-            s.children[1].dispatchEvent(new dom.CustomEvent("tap", canBubble: true));
+          window.requestAnimationFrame((e) {
+            s.children[1].dispatchEvent(new CustomEvent('tap', canBubble: true));
           });
         });
 

@@ -7,13 +7,12 @@
 
 library core_localstorage_dart.raw_test;
 
-import "dart:async";
-import "dart:convert";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_localstorage_dart.dart";
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_localstorage_dart.dart';
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -21,18 +20,18 @@ void main() {
 
   initPolymer().run(() {
     return Polymer.onReady.then((_) {
-      var storage = document.querySelector("#localstorage") as CoreLocalStorage;
+      var storage = document.querySelector('#localstorage') as CoreLocalStorage;
 
-      group("basic", () {
+      group('basic', () {
 
-        test("load", () {
+        test('load', () {
           expect(storage.value, 'hello world');
         });
 
         test('save', () {
           var m = 'goodby';
           storage.value = m;
-          return new Future(() {}).then((_) {
+          return flushLayoutAndRender().then((_) {
             var v = window.localStorage[storage.name];
             expect(v, m);
           });

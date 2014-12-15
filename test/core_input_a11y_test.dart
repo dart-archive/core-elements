@@ -7,13 +7,13 @@
 
 library core_input.a11y_test;
 
-import "dart:html";
-import "dart:async";
+import 'dart:html';
 
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_input.dart";
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_input.dart';
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -26,7 +26,7 @@ void main() {
       test('aria-label set to placeholder', () {
         expect(i1.attributes['aria-label'], 'label');
         i1.setAttribute('placeholder', 'new label');
-        return new Future(() {}).then((_) {
+        return flushLayoutAndRender().then((_) {
           expect(i1.attributes['aria-label'], 'new label');
         });
       });
@@ -34,7 +34,7 @@ void main() {
       test('aria-disabled is set', () {
         expect(i2.attributes.containsKey('aria-disabled'), true);
         i2.attributes.remove('disabled');
-        return new Future(() {}).then((_) {
+        return flushLayoutAndRender().then((_) {
           expect(i2.attributes.containsKey('aria-disabled'), false);
         });
       });

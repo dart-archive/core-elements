@@ -7,12 +7,13 @@
 
 library core_media_query.test;
 
-import 'dart:html' as dom;
-import 'dart:async' as async;
-import 'dart:js' as js;
+import 'dart:html';
+import 'dart:async';
+import 'dart:js';
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
@@ -28,7 +29,7 @@ void main() {
           const IS_TABLET = const [false, true, true, false, true];
           var done = expectAsync(() {});
           var dialog;
-          dom.window.onMessage.listen((e) {
+          window.onMessage.listen((e) {
             // ignore messages the unittest runner sends internally
             if (e.data is Map && (e.data as Map).containsKey('message_id')) {
               int messageId = e.data['message_id'];
@@ -43,7 +44,7 @@ void main() {
               // resize from 1000 to 700 doesn't produce a message
               // just send another resize
               if (messageId == 1) {
-                new async.Future(
+                new Future(
                 // TODO(zoechi) workaround for issue 20216
                 // () => dialog.resizeTo(WIDTHS[messageId + 2], 700));
                 () =>
@@ -64,10 +65,10 @@ void main() {
           });
 
           // TODO(zoechi) workaround for issue 20216
-          // dialog = dom.window.open(
-          //   'core_media_query_dialog.html', '_blank') as dom.Window;
+          // dialog = window.open(
+          //   'core_media_query_dialog.html', '_blank') as Window;
           // dialog.resizeTo(WIDTHS[0], 700);
-          dialog = new js.JsObject(js.context['OpenDialogWorkaround']);
+          dialog = new JsObject(context['OpenDialogWorkaround']);
           dialog.callMethod('open',
                             ['core_media_query_dialog_test.html', '_blank']);
           dialog.callMethod('resizeTo', [WIDTHS[0], 700]);

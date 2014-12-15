@@ -7,12 +7,13 @@
 
 library core_dropdown.test;
 
-import "dart:async";
-import "dart:html";
-import "package:core_elements/core_dropdown.dart";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
+import 'dart:async';
+import 'dart:html';
+import 'package:core_elements/core_dropdown.dart';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'common.dart';
 
 
 
@@ -61,12 +62,6 @@ void main() {
 
     });
   });
-}
-
-Future flushLayoutAndRender() {
-  document.body.offsetTop;
-  // TODO(jakemac): Why is the extra delay required here for this test?
-  return new Future.delayed(new Duration(milliseconds: 50), () {});
 }
 
 Future testPosition(CoreDropdown dropdown, HtmlElement trigger) {

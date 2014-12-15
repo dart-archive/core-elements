@@ -7,12 +7,12 @@
 
 library core_overlay.positioning_test;
 
-import "dart:async";
-import "dart:html";
-import "package:polymer/polymer.dart";
-import "package:unittest/unittest.dart";
-import "package:unittest/html_config.dart" show useHtmlConfiguration;
-import "package:core_elements/core_overlay.dart";
+import 'dart:async';
+import 'dart:html';
+import 'package:polymer/polymer.dart';
+import 'package:unittest/unittest.dart';
+import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+import 'package:core_elements/core_overlay.dart';
 
 void main() {
   useHtmlConfiguration();
