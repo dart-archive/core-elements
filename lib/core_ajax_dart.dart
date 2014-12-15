@@ -60,7 +60,7 @@ class CoreAjax extends PolymerElement {
    * The URL target of the request.
    */
   @published
-  String url = '';
+  String url;
 
   /**
    * Specifies what data to store in the `response` property, and
@@ -279,7 +279,7 @@ class CoreAjax extends PolymerElement {
   }
 
   urlChanged() {
-    if (!isBlank(this.handleAs)) {
+    if (!isBlank(this.handleAs) && url != null) {
       var ext = this.url.split('.').last;
       switch (ext) {
         case 'json':
@@ -366,8 +366,9 @@ class CoreAjax extends PolymerElement {
       activeRequest.on['progress'].listen((ProgressEvent e) {
         processProgress(e, request);
       });
-    } else {
-      progress = new CoreAjaxProgress(lengthComputable: false);
+      if (!HttpRequest.supportsProgressEvent) {
+        progress = new CoreAjaxProgress(lengthComputable: false);
+      }
     }
     return this.activeRequest;
   }

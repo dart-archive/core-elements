@@ -1,10 +1,15 @@
+## version 0.6.0+1
+  * Fix bug in `core-ajax` with setting an indeterminate progress when in a
+    browser that doesn't support progress events. Also the `url` attribute now
+    defaults to null instead of an empty string.
+
 ## version 0.6.0
   * The `offset` property of the `core-animation` element is now called
     `animationOffset` so that it won't conflict with the `offset` property in
     its base class, `HtmlElement`.
   * Moved examples to central repo and updated readme
     https://github.com/dart-lang/polymer-core-and-paper-examples. 
- 
+
 ## version 0.5.0+2
   * `core-list-dart` no longer crashes if the window is resized before the list
     data is initialized.

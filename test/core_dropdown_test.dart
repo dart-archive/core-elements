@@ -66,7 +66,7 @@ void main() {
 Future flushLayoutAndRender() {
   document.body.offsetTop;
   // TODO(jakemac): Why is the extra delay required here for this test?
-  return new Future.delayed(new Duration(milliseconds: 30), () {});
+  return new Future.delayed(new Duration(milliseconds: 50), () {});
 }
 
 Future testPosition(CoreDropdown dropdown, HtmlElement trigger) {
