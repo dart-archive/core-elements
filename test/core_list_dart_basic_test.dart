@@ -243,6 +243,8 @@ void checkTopItem(positionDescription) {
 
   expect(model['index'], index,
       reason: 'top item index should be $index positionDescription');
+  expect(model['selected'], false,
+      reason: 'top item should start out with selected == false');
   expect(model['model'], list.data[index],
       reason: 'top item model should be data[$index]  $positionDescription');
   expect(item.querySelector('#index').text, '$index',

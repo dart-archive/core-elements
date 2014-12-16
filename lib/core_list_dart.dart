@@ -680,7 +680,7 @@ class CoreList extends PolymerElement {
       physicalDatum.index = virtualIndex;
       physicalDatum.physicalIndex = physicalIndex;
       physicalDatum.selected = selectionEnabled && virtualDatum != null ?
-          _selectedData[virtualDatum] : null;
+          (_selectedData[virtualDatum] == true) : null;
       // Set group-related fields
       if (_grouped) {
         var groupModel = groups[groupIndex];
