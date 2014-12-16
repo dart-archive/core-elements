@@ -20,7 +20,7 @@ import 'common.dart';
 
 CoreList list;
 var height = 80;
-var physicalCount = (list.offsetHeight / height).ceil();
+var physicalCount;
 var index = 0;
 
 void main() {
@@ -28,6 +28,7 @@ void main() {
 
   initPolymer().run(() => Polymer.onReady.then((_) {
     list = querySelector('core-list-dart') as CoreList;
+    physicalCount = (list.offsetHeight / height).ceil();
 
     test('core-list basic', () {
       // Initialize list with two items
@@ -46,9 +47,9 @@ void main() {
             new MouseEvent('tap', canBubble: true, view: window));
         return dirtyCheck().then((_) {
           expect(list.selection, isNotNull);
-          expect(list.selection['id'], list.data[0]['id'],
+          expect(list.selection.id, list.data[0].id,
               reason: 'first item should be selected; selected id was '
-                '${list.selection['id']}');
+                '${list.selection.id}');
         });
       }).then((_) {
         // Select second item
@@ -57,9 +58,9 @@ void main() {
             new MouseEvent('tap', view: window, canBubble: true));
         return dirtyCheck().then((_) {
           expect(list.selection, isNotNull);
-          expect(list.selection['id'], list.data[1]['id'],
+          expect(list.selection.id, list.data[1].id,
               reason: 'second item should be selected; selection '
-                '${list.selection['id']}');
+                '${list.selection.id}');
         });
       }).then((_) {
         // Enable multiple-selection, and select the first item (for total of
@@ -74,10 +75,10 @@ void main() {
               reason: 'selection length should be 2');
           // Note, selection is maintained in order, so last item selected is
           // last in selection
-          expect(list.selection[0]['id'], list.data[1]['id']);
-          expect(list.selection[1]['id'], list.data[0]['id'],
+          expect(list.selection[0].id, list.data[1].id);
+          expect(list.selection[1].id, list.data[0].id,
               reason: 'first and second should be selected; selected ids :'
-                '${list.selection[0]['id']}, ${list.selection[1]['id']}');
+                '${list.selection[0].id}, ${list.selection[1].id}');
         });
       }).then((_) {
         // Delete one item
@@ -90,7 +91,7 @@ void main() {
               reason: 'last element should be hidden');
           expect(list.selection.length, 1,
               reason: 'selection length should be 1');
-          expect(list.selection[0]['id'], list.data[0]['id'],
+          expect(list.selection[0].id, list.data[0].id,
               reason: 'first element should be selected');
         });
       }).then((_) {
@@ -158,7 +159,7 @@ void main() {
         return dirtyCheck().then((_) {
           expect(list.selection.length, 1,
               reason: 'selection length should be 1');
-          expect(list.selection[0]['id'], list.data[index]['id'],
+          expect(list.selection[0].id, list.data[index].id,
               reason: 'top item at bottom of list (index $index) should be '
                   'selected');
         });
@@ -172,7 +173,7 @@ void main() {
               'at bottom of list after deleting one item from end of list');
           expect(list.selection.length, 1,
               reason: 'selection length should be 1');
-          expect(list.selection[0]['id'], list.data[lastIndex]['id'],
+          expect(list.selection[0].id, list.data[lastIndex].id,
               reason: 'previously selected item (index $lastIndex) should stay '
                   'selected');
         });
@@ -221,15 +222,17 @@ Future dirtyCheck() {
 }
 
 var rand = new Random();
-// Helper to create random items
-Map generateItem() {
-  return {
-    'id': rand.nextInt(10000),
-    'checked': rand.nextBool(),
-    'value': rand.nextInt(10000),
-    'type': rand.nextInt(3),
-  };
+class ListModel {
+  final int id;
+  final bool checked;
+  final int value;
+  final int type;
+  ListModel(this.id, this.checked, this.value, this.type);
 }
+
+// Helper to create random items
+ListModel generateItem() => new ListModel(
+    rand.nextInt(10000), rand.nextBool(), rand.nextInt(10000), rand.nextInt(3));
 
 // Helper to assert top item is rendered as expected
 void checkTopItem(positionDescription) {
@@ -238,28 +241,27 @@ void checkTopItem(positionDescription) {
   expect(item, isNotNull);
   var templateInstance = nodeBind(item).templateInstance;
   expect(templateInstance, isNotNull);
-  var model = templateInstance.model;
+  var model = templateInstance.model.model;
   expect(model, isNotNull);
-
-  expect(model['index'], index,
+  expect(model.index, index,
       reason: 'top item index should be $index positionDescription');
-  expect(model['selected'], false,
+  expect(model.selected, false,
       reason: 'top item should start out with selected == false');
-  expect(model['model'], list.data[index],
+  expect(model.model, list.data[index],
       reason: 'top item model should be data[$index]  $positionDescription');
   expect(item.querySelector('#index').text, '$index',
       reason: 'top item index content should be $index $positionDescription');
-  expect(item.querySelector('#id').text, '${list.data[index]['id']}',
-      reason: 'top item id content should be ${list.data[index]['id']} '
+  expect(item.querySelector('#id').text, '${list.data[index].id}',
+      reason: 'top item id content should be ${list.data[index].id} '
           '$positionDescription');
-  expect(item.querySelector('#checkbox').checked, list.data[index]['checked'],
-      reason: 'top item checkbox should be ${list.data[index]['checked']} '
+  expect(item.querySelector('#checkbox').checked, list.data[index].checked,
+      reason: 'top item checkbox should be ${list.data[index].checked} '
           'positionDescription');
-  expect(item.querySelector('#input').value, '${list.data[index]['value']}',
-      reason: 'top item input should be ${list.data[index]['value']}  '
+  expect(item.querySelector('#input').value, '${list.data[index].value}',
+      reason: 'top item input should be ${list.data[index].value}  '
           'positionDescription');
-  expect(item.querySelector('#select').selectedIndex, list.data[index]['type'],
-      reason: 'top item select should be ${list.data[index]['type']} '
+  expect(item.querySelector('#select').selectedIndex, list.data[index].type,
+      reason: 'top item select should be ${list.data[index].type} '
           'positionDescription');
 }
 

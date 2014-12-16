@@ -39,10 +39,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <template>
         <div class="item {{ selected ? 'selected' : '' }}">
           <span id="index">{{index}}</span><br>
-          <span id="id">{{model['id']}}</span><br>
-          <input id="checkbox" type="checkbox" checked="{{model['checked']}}">
-          <input id="input" type="number" _value="{{model['value']}}" class="narrow">
-          <select id="select" selectedIndex="{{model['type']}}"><option>a</option><option>b</option><option>c</option></select>
+          <span id="id">{{model.id}}</span><br>
+          <input id="checkbox" type="checkbox" checked="{{model.checked}}">
+          <input id="input" type="number" _value="{{model.value}}" class="narrow">
+          <select id="select" selectedIndex="{{model.type}}"><option>a</option><option>b</option><option>c</option></select>
         </div>
       </template>
     </core-list-dart>
