@@ -28,6 +28,7 @@ build/test/core_localstorage_dart_value_binding_test: RuntimeError # Issue 173
 build/test/core_ajax_dart_progress_test: RuntimeError # Issue 173
 test/core_dropdown_test: RuntimeError # Issue 173
 build/test/core_dropdown_test: RuntimeError # Issue 173
+build/test/core_list_dart_basic_test: RuntimeError # Issue 173
 
 
 [ $compiler == dart2js ]
