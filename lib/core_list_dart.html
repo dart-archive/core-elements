@@ -160,8 +160,8 @@ whose scroll position can be read/set via the `scrollTop` property.
 to a custom scroller element (e.g. a JS-based scroller) as long as it provides
 the following abstract API:
 
-  - `getScrollTop()` - returns the current scroll position
-  - `setScrollTop(y)` - sets the current scroll position
+  - `int get scrollTop()` - returns the current scroll position
+  - `set scrollTop(int value)` - sets the current scroll position
   - Fires a `scroll` event indicating when the scroll position has changed
 
 Important Notes:
@@ -170,11 +170,7 @@ Important Notes:
    have a single child <template> element, which contains a single child element
    of its own.
 
-2. The child element of the template must have a fixed size equal to the height
-   property of the core-list-dart and should be styled with `display: block` if
-   it is not already a block level element.
-
-3. All elements in the `data` list must be compatible with Expando (see
+2. All elements in the `data` list must be compatible with Expando (see
    http://goo.gl/Pu2Xx4). Specifically this means you can not pass in lists
    containing numbers, strings, booleans, or nulls. You must create a class to
    wrap these values, and make a list of those instead:
@@ -184,7 +180,8 @@ Important Notes:
        MyModel(String this.value);
      }
 
-     List<MyModel> myDataList = [new MyModel("foo"), new MyModel("bar)]
+     List<MyModel> myDataList =
+         toObservable([new MyModel("foo"), new MyModel("bar)])
 
 @group Polymer Core Elements
 @element core-list-dart
