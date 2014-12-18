@@ -84,17 +84,6 @@ class CoreList extends PolymerElement {
   @published Element scrollTarget;
 
   /**
-   *
-   * The number of extra items rendered above the minimum set required to
-   * fill the list's height.
-   *
-   * @attribute extraItems
-   * @type number
-   * @default 30
-   */
-  @published int extraItems = 30;
-
-  /**
    * 
    * When true, tapping a row will select the item, placing its data model
    * in the set of selected items retrievable via the `selection` property.
@@ -225,9 +214,7 @@ class CoreList extends PolymerElement {
 
   Element _target;
   var _targetScrollSubscription;
-  int _visibleCount;
   int _physicalCount;
-  int _physicalHeight;
   int _scrollTop = 0;
   bool _oldMulti = false;
   bool _oldSelectionEnabled = false;
@@ -238,9 +225,6 @@ class CoreList extends PolymerElement {
 
   Expando _selectedData;
   Expando<_PhysicalItemData> _physicalItemData = new Expando();
-
-  int firstPhysicalIndex;
-  int baseVirtualIndex;
 
   Element template;
 
