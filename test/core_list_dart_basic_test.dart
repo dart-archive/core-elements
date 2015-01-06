@@ -30,6 +30,29 @@ void main() {
     list = querySelector('core-list-dart') as CoreList;
     physicalCount = (list.offsetHeight / height).ceil();
 
+    // Dart specific tests
+    group('core-list-dart tests', () {
+
+      test('clicking on a selected item toggles it', () {
+        list.data = toObservable([generateItem()]);
+        return dirtyCheck().then((_) {
+          // Select first item
+          var item = document.elementFromPoint(list.clientWidth - 50, 0);
+          var event = new MouseEvent('tap', canBubble: true, view: window);
+          item.dispatchEvent(event);
+          return dirtyCheck().then((_) {
+            expect(list.selection.id, list.data[0].id);
+            item.dispatchEvent(event);
+            return dirtyCheck().then((_) {
+              expect(list.selection, isNull);
+            });
+          });
+        });
+      });
+
+    });
+
+    // Port of JS tests
     test('core-list basic', () {
       // Initialize list with two items
       list.data = toObservable([generateItem(), generateItem()]);

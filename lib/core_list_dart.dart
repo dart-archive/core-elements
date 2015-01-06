@@ -1119,7 +1119,10 @@ class CoreList extends PolymerElement {
   // jsinterop, unless the object is previsously jsified. This extra logic here
   // is used to ensure that core-selection works correctly in `multi` mode
   // (tapping an element twice should deselect it).
-  _invokeSelect(item) => _selection.select(_wrap(item));
+  _invokeSelect(item) {
+    if (item != null) item = _wrap(item);
+    _selection.select(item);
+  }
 
   _getSelection() {
     var s = _selection.getSelection();
