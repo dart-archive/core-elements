@@ -33,6 +33,13 @@ void main() {
     // Dart specific tests
     group('core-list-dart tests', () {
 
+      test('calling updateSize with no data doesn\'t throw', () {
+        list.data = null;
+        return dirtyCheck().then((_) {
+          list.updateSize();
+        });
+      });
+
       test('clicking on a selected item toggles it', () {
         list.data = toObservable([generateItem()]);
         return dirtyCheck().then((_) {

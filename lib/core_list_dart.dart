@@ -272,6 +272,7 @@ class CoreList extends PolymerElement {
    * @method updateSize
    */
   void updateSize() {
+    if (_physicalCount == null) return;
     _resetIndex(_getFirstVisibleIndex());
     initializeData();
   }

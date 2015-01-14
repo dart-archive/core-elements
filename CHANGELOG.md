@@ -1,3 +1,7 @@
+## version 0.6.0+3
+  * Fix calling `updateSize` in `core-list-dart` with null data
+    [182](https://github.com/dart-lang/core-elements/issues/182)
+
 ## version 0.6.0+2
   * Fix bug in `core-list-dart` where clicking a selected item would cause a
     runtime error [177](https://github.com/dart-lang/core-elements/issues/177).
