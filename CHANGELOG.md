@@ -1,3 +1,7 @@
+## version 0.6.0+4
+  * Increase quiver upper bound
+    [185](https://github.com/dart-lang/core-elements/issues/185)
+
 ## version 0.6.0+3
   * Fix calling `updateSize` in `core-list-dart` with null data
     [182](https://github.com/dart-lang/core-elements/issues/182)
