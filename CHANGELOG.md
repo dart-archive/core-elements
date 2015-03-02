@@ -1,3 +1,6 @@
+## version 0.6.0+5
+  * Increase quiver upper bound to <0.22.0.
+
 ## version 0.6.0+4
   * Increase quiver upper bound
     [185](https://github.com/dart-lang/core-elements/issues/185)
