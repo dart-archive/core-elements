@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_dropdown`.
+@HtmlImport('core_dropdown_nodart.html')
 library core_elements.core_dropdown;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_overlay.dart';
 
 /// `core-dropdown` is an element that is initially hidden and is positioned relatively to another
@@ -74,6 +75,7 @@ import 'core_overlay.dart';
 /// The `layered` property will place the dropdown in a separate layer to ensure
 /// it appears on top of everything else. Note that this implies the dropdown will
 /// not scroll with its container.
+@CustomElementProxy('core-dropdown')
 class CoreDropdown extends CoreOverlay {
   CoreDropdown.created() : super.created();
   factory CoreDropdown() => new Element.tag('core-dropdown');
@@ -96,5 +98,3 @@ class CoreDropdown extends CoreOverlay {
   get valign => jsElement[r'valign'];
   set valign(value) { jsElement[r'valign'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
-@initMethod
-upgradeCoreDropdown() => registerDartType('core-dropdown', CoreDropdown);

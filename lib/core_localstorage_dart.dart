@@ -7,6 +7,7 @@
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
 /// Dart API for the polymer element `core-localstorage-dart`.
+@HtmlImport('core_localstorage_dart_nodart.html')
 library core_elements.core_localstorage_dart;
 
 import 'dart:html';

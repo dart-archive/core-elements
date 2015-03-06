@@ -17,7 +17,7 @@ import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       group('core-shared-lib', () {
@@ -41,6 +41,6 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 

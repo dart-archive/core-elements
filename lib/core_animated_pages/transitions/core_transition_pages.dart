@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_transition_pages`.
+@HtmlImport('core_transition_pages_nodart.html')
 library core_elements.core_transition_pages;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import '../../core_transition.dart';
+import '../../core_style.dart';
 
 /// `core-transition-pages` represents a page transition, which may include CSS and/or
 /// script. It will look for a `core-style` element with the same `id` to install in the
@@ -32,6 +34,7 @@ import '../../core_transition.dart';
 /// 3. `complete`: Called when the elements are finished transitioning.
 ///
 /// See the individual transition documentation for specific details.
+@CustomElementProxy('core-transition-pages')
 class CoreTransitionPages extends CoreTransition {
   CoreTransitionPages.created() : super.created();
   factory CoreTransitionPages() => new Element.tag('core-transition-pages');
@@ -59,5 +62,3 @@ class CoreTransitionPages extends CoreTransition {
   bool get completed => jsElement[r'completed'];
   set completed(bool value) { jsElement[r'completed'] = value; }
 }
-@initMethod
-upgradeCoreTransitionPages() => registerDartType('core-transition-pages', CoreTransitionPages);

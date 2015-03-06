@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_animation_group`.
+@HtmlImport('core_animation_group_nodart.html')
 library core_elements.core_animation_group;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_animation.dart';
 
 /// `core-animation-group` combines `core-animation` or `core-animation-group` elements to
@@ -32,6 +33,7 @@ import 'core_animation.dart';
 ///         </core-animation-keyframe>
 ///       </core-animation>
 ///     </core-animation-group>
+@CustomElementProxy('core-animation-group')
 class CoreAnimationGroup extends CoreAnimation {
   CoreAnimationGroup.created() : super.created();
   factory CoreAnimationGroup() => new Element.tag('core-animation-group');
@@ -56,5 +58,3 @@ class CoreAnimationGroup extends CoreAnimation {
 
   get childAnimations => jsElement[r'childAnimations'];
 }
-@initMethod
-upgradeCoreAnimationGroup() => registerDartType('core-animation-group', CoreAnimationGroup);

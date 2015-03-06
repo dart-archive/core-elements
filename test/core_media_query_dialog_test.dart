@@ -35,7 +35,7 @@ class MyModel extends Object with Observable {
 }
 
 void main() {
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       var template =
@@ -48,5 +48,5 @@ void main() {
           ..phoneQuery = '(max-width: 599px)';
       });
     });
-  });
+  }));
 }

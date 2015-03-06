@@ -26,7 +26,7 @@ void oneMutation(Element node, options, Function cb) {
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     Polymer.onReady.then((e) {
 
       group('core-selector', () {
@@ -51,6 +51,6 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 

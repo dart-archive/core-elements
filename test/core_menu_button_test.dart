@@ -23,7 +23,7 @@ class MyModel extends Object with Observable {
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       test('overlay should be removed when button is removed while open', () {
@@ -56,5 +56,5 @@ void main() {
       });
 
     });
-  });
+  }));
 }

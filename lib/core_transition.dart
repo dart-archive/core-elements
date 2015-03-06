@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_transition`.
+@HtmlImport('core_transition_nodart.html')
 library core_elements.core_transition;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_meta.dart';
 
 /// `<core-transition>` is an abstraction of an animation. It is used to implement pluggable
@@ -52,6 +53,7 @@ import 'core_meta.dart';
 ///         var animated = document.getElementById('animate-me');
 ///         transition.go(animated);
 ///     </script>
+@CustomElementProxy('core-transition')
 class CoreTransition extends CoreMeta {
   CoreTransition.created() : super.created();
   factory CoreTransition() => new Element.tag('core-transition');
@@ -87,5 +89,3 @@ class CoreTransition extends CoreMeta {
   void listenOnce(node, String event, fn, JsArray args) =>
       jsElement.callMethod('listenOnce', [node, event, fn, args]);
 }
-@initMethod
-upgradeCoreTransition() => registerDartType('core-transition', CoreTransition);

@@ -16,7 +16,7 @@ import 'package:core_elements/core_selection.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     Polymer.onReady.then((e) {
 
       group('core-selection', () {
@@ -46,5 +46,5 @@ void main() {
       });
 
     });
-  });
+  }));
 }

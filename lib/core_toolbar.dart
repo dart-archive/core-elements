@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_toolbar`.
+@HtmlImport('core_toolbar_nodart.html')
 library core_elements.core_toolbar;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-toolbar` is a horizontal bar containing items that can be used for
@@ -59,6 +60,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 /// `core-toolbar` adapts to mobile/narrow layout when there is a `core-narrow` class set
 /// on itself or any of its ancestors.
+@CustomElementProxy('core-toolbar')
 class CoreToolbar extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreToolbar.created() : super.created();
   factory CoreToolbar() => new Element.tag('core-toolbar');
@@ -80,5 +82,3 @@ class CoreToolbar extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   String get bottomJustify => jsElement[r'bottomJustify'];
   set bottomJustify(String value) { jsElement[r'bottomJustify'] = value; }
 }
-@initMethod
-upgradeCoreToolbar() => registerDartType('core-toolbar', CoreToolbar);

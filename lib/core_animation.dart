@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_animation`.
+@HtmlImport('core_animation_nodart.html')
 library core_elements.core_animation;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'web_animations.dart';
 
 /// `core-animation` is a convenience element to use web animations with Polymer elements. It
 /// allows you to create a web animation declaratively. You can extend this class to create
@@ -53,6 +55,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     animation.play();
 ///
 /// Elements that are targets to a `core-animation` are given the `core-animation-target` class.
+@CustomElementProxy('core-animation')
 class CoreAnimation extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimation.created() : super.created();
   factory CoreAnimation() => new Element.tag('core-animation');
@@ -199,8 +202,6 @@ class CoreAnimation extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   apply() =>
       jsElement.callMethod('apply', []);
 }
-@initMethod
-upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
 
 
 
@@ -209,6 +210,7 @@ upgradeCoreAnimation() => registerDartType('core-animation', CoreAnimation);
 /// unset, the keyframes will be distributed evenly within the animation duration. Use
 /// `core-animation-prop` elements as children of this element to specify the CSS properties for
 /// the animation.
+@CustomElementProxy('core-animation-keyframe')
 class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimationKeyframe.created() : super.created();
   factory CoreAnimationKeyframe() => new Element.tag('core-animation-keyframe');
@@ -219,13 +221,12 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxy
 
   get properties => jsElement[r'properties'];
 }
-@initMethod
-upgradeCoreAnimationKeyframe() => registerDartType('core-animation-keyframe', CoreAnimationKeyframe);
 
 
 
 /// `core-animation-prop` represents a CSS property and value pair to use with
 /// `core-animation-keyframe`.
+@CustomElementProxy('core-animation-prop')
 class CoreAnimationProp extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreAnimationProp.created() : super.created();
   factory CoreAnimationProp() => new Element.tag('core-animation-prop');
@@ -238,5 +239,3 @@ class CoreAnimationProp extends HtmlElement with DomProxyMixin, PolymerProxyMixi
   get value => jsElement[r'value'];
   set value(value) { jsElement[r'value'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
-@initMethod
-upgradeCoreAnimationProp() => registerDartType('core-animation-prop', CoreAnimationProp);

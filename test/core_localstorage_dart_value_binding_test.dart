@@ -30,7 +30,7 @@ void main() {
   useHtmlConfiguration();
   window.localStorage['core-localstorage-test'] = '{"foo":"bar"}';
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
       var xTest = document.querySelector('x-test') as XTest;
 
@@ -64,6 +64,6 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 

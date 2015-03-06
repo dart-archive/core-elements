@@ -17,7 +17,7 @@ import 'package:core_elements/core_input.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
       var i1 = querySelector('#input1') as CoreInput;
 
@@ -41,7 +41,7 @@ void main() {
 
       });
     });
-  });
+  }));
 }
 
 void dispatchInputEvent(InputElement target) {

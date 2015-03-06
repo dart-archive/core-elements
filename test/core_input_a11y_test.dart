@@ -9,6 +9,7 @@ library core_input.a11y_test;
 
 import 'dart:html';
 
+import 'package:initialize/initialize.dart' as init;
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
@@ -17,8 +18,7 @@ import 'common.dart';
 
 void main() {
   useHtmlConfiguration();
-
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
       CoreInput i1 = querySelector('#input1');
       CoreInput i2 = querySelector('#input2');
@@ -39,5 +39,5 @@ void main() {
         });
       });
     });
-  });
+  }));
 }

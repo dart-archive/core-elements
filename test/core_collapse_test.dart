@@ -18,7 +18,7 @@ import 'common.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       var collapse = querySelector('#collapse') as CoreCollapse;
@@ -62,7 +62,7 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 
 dynamic getCollapseComputedStyle() {

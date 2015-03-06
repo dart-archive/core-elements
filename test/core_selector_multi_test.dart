@@ -27,7 +27,7 @@ void oneMutation(Element node, options, Function cb) {
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     Polymer.onReady.then((e) {
       var s = (document.querySelector('#selector') as CoreSelector);
 
@@ -98,6 +98,6 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 

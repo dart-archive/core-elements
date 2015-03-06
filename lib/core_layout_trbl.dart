@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_layout_trbl`.
+@HtmlImport('core_layout_trbl_nodart.html')
 library core_elements.core_layout_trbl;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `<core-layout-trbl>` arranges nodes horizontally via absolute positioning.
@@ -118,6 +119,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///      ||         ||-----------------||
 ///      ||         ||Footer           ||
 ///      --------------------------------
+@CustomElementProxy('core-layout-trbl')
 class CoreLayoutTrbl extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreLayoutTrbl.created() : super.created();
   factory CoreLayoutTrbl() => new Element.tag('core-layout-trbl');
@@ -132,5 +134,3 @@ class CoreLayoutTrbl extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   void layout() =>
       jsElement.callMethod('layout', []);
 }
-@initMethod
-upgradeCoreLayoutTrbl() => registerDartType('core-layout-trbl', CoreLayoutTrbl);

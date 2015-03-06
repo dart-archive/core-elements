@@ -6,9 +6,36 @@ files_to_generate:
       omit_imports:
         - transitions/hero-transition.html
         - transitions/cross-fade.html
+  - core-animated-pages/transitions/cascade-transition.html:
+      omit_imports:
+        - core-transition-pages.html
   - core-animated-pages/transitions/core-transition-pages.html:
       extends_import: ../../core_transition.dart
   - core-animated-pages/transitions/hero-transition.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/cross-fade.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/list-cascade.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/scale-up.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-down.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-from-bottom.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-from-right.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/slide-up.html:
+      omit_imports:
+        - core-transition-pages.html
+  - core-animated-pages/transitions/tile-cascade.html:
       omit_imports:
         - core-transition-pages.html
   - core-animation/core-animation.html:
@@ -61,6 +88,7 @@ files_to_generate:
   - core-overlay/core-overlay-layer.html
   - core-pages/core-pages.html
   - core-range/core-range.html
+  - core-resizable/core-resizable.html
   - core-scaffold/core-scaffold.html
   - core-scroll-header-panel/core-scroll-header-panel.html
   - core-scroll-threshold/core-scroll-threshold.html
@@ -74,6 +102,7 @@ files_to_generate:
   - core-tooltip/core-tooltip.html
   - core-transition/core-transition-css.html
   - core-transition/core-transition.html
+  - font-roboto/roboto.html
 deletion_patterns:
   - metadata\.html$
   - index\.html$
@@ -99,3 +128,4 @@ deletion_patterns:
   # Uncomment these and rerun to run the demos under lib/src
   - ^webcomponentsjs$
   - ^paper-.*$
+  - .gitignore$

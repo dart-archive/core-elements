@@ -1,13 +1,17 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_submenu`.
+@HtmlImport('core_submenu_nodart.html')
 library core_elements.core_submenu;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_item.dart';
+import 'core_menu.dart';
+import 'core_collapse.dart';
 
 /// Use to create nested menus inside of `core-menu` elements.
 ///
@@ -52,6 +56,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       <core-item label="Topic1"></core-item>
 ///       <core-item label="Topic2"></core-item>
 ///     </core-submenu>
+@CustomElementProxy('core-submenu')
 class CoreSubmenu extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSubmenu.created() : super.created();
   factory CoreSubmenu() => new Element.tag('core-submenu');
@@ -76,5 +81,3 @@ class CoreSubmenu extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
 
   get items => jsElement[r'items'];
 }
-@initMethod
-upgradeCoreSubmenu() => registerDartType('core-submenu', CoreSubmenu);

@@ -4,26 +4,29 @@
 //The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
 //Code distributed by Google as part of the polymer project is also
 //subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
-
 library core_selector.test.content;
 
 import 'dart:html';
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
+
 import 'common.dart';
+import 'package:core_elements/core_selector.dart';
 
 @CustomTag('test-core-selector')
 class TestCoreSelector extends PolymerElement {
   @published String selected;
 
   TestCoreSelector.created() : super.created();
+
+  CoreSelector get selector => $['selector'];
 }
 
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     Polymer.onReady.then((e) {
       var s = document.querySelector('test-core-selector') as TestCoreSelector;
       
@@ -46,7 +49,7 @@ void main() {
         });
         
         test('get items', () {
-          expect(s.$['selector'].items.length, s.children.length);
+          expect(s.selector.items.length, s.children.length);
         });
         
         test('activate event', () {
@@ -72,5 +75,5 @@ void main() {
       });
       
     });
-  });
+  }));
 }

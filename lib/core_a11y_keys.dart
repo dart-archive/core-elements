@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_a11y_keys`.
+@HtmlImport('core_a11y_keys_nodart.html')
 library core_elements.core_a11y_keys;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-a11y-keys` provides a normalized interface for processing keyboard commands that pertain to [WAI-ARIA best
@@ -68,6 +69,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     key = "tab" | "esc" | "space" | "*" | "pageup" | "pagedown" | "home" | "end" | arrow | ascii | fnkey ;
 ///     keycombo = { modifier, "+" }, key ;
 ///     keys = keycombo, { " ", keycombo } ;
+@CustomElementProxy('core-a11y-keys')
 class CoreA11yKeys extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreA11yKeys.created() : super.created();
   factory CoreA11yKeys() => new Element.tag('core-a11y-keys');
@@ -81,5 +83,3 @@ class CoreA11yKeys extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   get target => jsElement[r'target'];
   set target(value) { jsElement[r'target'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
-@initMethod
-upgradeCoreA11yKeys() => registerDartType('core-a11y-keys', CoreA11yKeys);

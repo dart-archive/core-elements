@@ -13,8 +13,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script src="packages/unittest/test_controller.js"></script>
     <link rel="import" href="packages/core_elements/core_shared_lib.html">
-
-    <script type="application/dart" src="core_shared_lib_test.dart"></script>
   </head>
   <body unresolved>
     <core-shared-lib url="https://apis.google.com/js/client.js?onload=%%callback%%"></core-shared-lib>
@@ -22,5 +20,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <template id="t" is='auto-binding-dart'>
       <core-shared-lib url="https://apis.google.com/js/client.js?onload=%%callback%%"></core-shared-lib>
     </template>
+
+    <script type="application/dart" src="core_shared_lib_test.dart"></script>
   </body>
 </html>

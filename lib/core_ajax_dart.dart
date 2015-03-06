@@ -7,6 +7,7 @@
 
 //<polymer-element name="core-ajax" attributes="url handleAs auto params response method headers body contentType withCredentials">
 
+@HtmlImport('core_ajax_dart_nodart.html')
 library core_elements.core_ajax_dart;
 
 import 'dart:convert' show JSON;

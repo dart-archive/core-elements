@@ -21,7 +21,7 @@ CoreMenu menu;
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
        dropdown = querySelector('#dropdown1') as CoreDropdownMenu;
        menu = querySelector('#menu1') as CoreMenu;
@@ -36,6 +36,6 @@ void main() {
        });
 
     });
-  });
+  }));
 }
 

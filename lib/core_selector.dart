@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_selector`.
+@HtmlImport('core_selector_nodart.html')
 library core_elements.core_selector;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_selection.dart';
 
 /// `<core-selector>` is used to manage a list of elements that can be selected.
 ///
@@ -37,6 +39,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       <div class="item">Item 2</div>
 ///       <div class="item">Item 3</div>
 ///     </core-selector>
+@CustomElementProxy('core-selector')
 class CoreSelector extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSelector.created() : super.created();
   factory CoreSelector() => new Element.tag('core-selector');
@@ -174,5 +177,3 @@ class CoreSelector extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   selectNext(bool wrapped) =>
       jsElement.callMethod('selectNext', [wrapped]);
 }
-@initMethod
-upgradeCoreSelector() => registerDartType('core-selector', CoreSelector);

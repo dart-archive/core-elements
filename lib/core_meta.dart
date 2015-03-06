@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_meta`.
+@HtmlImport('core_meta_nodart.html')
 library core_elements.core_meta;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-meta` provides a method of constructing a self-organizing database.
@@ -50,6 +51,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       meta.type = 'xElt';
 ///       console.log(meta.list);
 ///     </script>
+@CustomElementProxy('core-meta')
 class CoreMeta extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreMeta.created() : super.created();
   factory CoreMeta() => new Element.tag('core-meta');
@@ -74,5 +76,3 @@ class CoreMeta extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   byId(String id) =>
       jsElement.callMethod('byId', [id]);
 }
-@initMethod
-upgradeCoreMeta() => registerDartType('core-meta', CoreMeta);

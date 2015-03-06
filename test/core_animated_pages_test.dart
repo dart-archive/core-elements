@@ -37,7 +37,7 @@ class BasicModel extends Observable {
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       group('core-animated-pages', () {
@@ -54,5 +54,5 @@ void main() {
       });
 
     });
-  });
+  }));
 }

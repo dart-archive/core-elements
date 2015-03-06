@@ -17,7 +17,7 @@ import 'package:core_elements/core_overlay.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((e) {
       var basic = querySelector('#basic') as CoreOverlay;
       var overlay = querySelector('#overlay') as CoreOverlay;
@@ -115,7 +115,7 @@ void main() {
         });
       });
     });
-  });
+  }));
 }
 
 Future testWhenOpen(CoreOverlay element, Function test) {

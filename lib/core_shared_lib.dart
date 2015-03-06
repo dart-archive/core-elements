@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_shared_lib`.
+@HtmlImport('core_shared_lib_nodart.html')
 library core_elements.core_shared_lib;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// Supports sharing a JSONP-based JavaScript library.
@@ -26,6 +27,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// lib.html:
 ///
 ///     <script src="lib.js"></script>
+@CustomElementProxy('core-shared-lib')
 class CoreSharedLib extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreSharedLib.created() : super.created();
   factory CoreSharedLib() => new Element.tag('core-shared-lib');
@@ -39,5 +41,3 @@ class CoreSharedLib extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   get callbackName => jsElement[r'callbackName'];
   set callbackName(value) { jsElement[r'callbackName'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
-@initMethod
-upgradeCoreSharedLib() => registerDartType('core-shared-lib', CoreSharedLib);

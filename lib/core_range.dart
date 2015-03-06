@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_range`.
+@HtmlImport('core_range_nodart.html')
 library core_elements.core_range;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `core-range` element is used for managing a numeric value within a given
@@ -17,6 +18,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 ///     <core-range min="0" max="200" value="100" ratio="{{ratio}}"></core-range>
 ///     <div class="progress-bar" style="width: {{ratio}}%;"></div>
+@CustomElementProxy('core-range')
 class CoreRange extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreRange.created() : super.created();
   factory CoreRange() => new Element.tag('core-range');
@@ -41,5 +43,3 @@ class CoreRange extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   num get ratio => jsElement[r'ratio'];
   set ratio(num value) { jsElement[r'ratio'] = value; }
 }
-@initMethod
-upgradeCoreRange() => registerDartType('core-range', CoreRange);

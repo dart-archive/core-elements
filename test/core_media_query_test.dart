@@ -18,7 +18,7 @@ import 'common.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       group('core-media-query', () {
@@ -77,5 +77,5 @@ void main() {
       });
 
     });
-  });
+  }));
 }

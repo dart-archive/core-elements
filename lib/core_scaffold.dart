@@ -1,13 +1,18 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_scaffold`.
+@HtmlImport('core_scaffold_nodart.html')
 library core_elements.core_scaffold;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_toolbar.dart';
+import 'core_drawer_panel.dart';
+import 'core_header_panel.dart';
+import 'core_icon_button.dart';
 
 /// `core-scaffold` provides general application layout, introducing a
 /// responsive scaffold containing a header, toolbar, menu, title and
@@ -59,6 +64,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       <div tool>Title</div>
 ///       <div fit>Content fits to the main area</div>
 ///     </core-scaffold>
+@CustomElementProxy('core-scaffold')
 class CoreScaffold extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreScaffold.created() : super.created();
   factory CoreScaffold() => new Element.tag('core-scaffold');
@@ -101,5 +107,3 @@ class CoreScaffold extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   void closeDrawer() =>
       jsElement.callMethod('closeDrawer', []);
 }
-@initMethod
-upgradeCoreScaffold() => registerDartType('core-scaffold', CoreScaffold);

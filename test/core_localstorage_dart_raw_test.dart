@@ -18,7 +18,7 @@ void main() {
   useHtmlConfiguration();
   window.localStorage['core-localstorage-test'] = 'hello world';
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
       var storage = document.querySelector('#localstorage') as CoreLocalStorage;
 
@@ -40,6 +40,6 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 

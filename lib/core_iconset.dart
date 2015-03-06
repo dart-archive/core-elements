@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_iconset`.
+@HtmlImport('core_iconset_nodart.html')
 library core_elements.core_iconset;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_meta.dart';
 
 /// The `core-iconset` element allows users to define their own icon sets.
@@ -49,6 +50,7 @@ import 'core_meta.dart';
 /// Then a themed icon can be applied like this:
 ///
 ///     iconset.applyIcon(iconNode, 'car', 'special');
+@CustomElementProxy('core-iconset')
 class CoreIconset extends CoreMeta {
   CoreIconset.created() : super.created();
   factory CoreIconset() => new Element.tag('core-iconset');
@@ -112,5 +114,3 @@ class CoreIconset extends CoreMeta {
   applyIcon(element, icon, [num scale]) =>
       jsElement.callMethod('applyIcon', [element, icon, scale]);
 }
-@initMethod
-upgradeCoreIconset() => registerDartType('core-iconset', CoreIconset);

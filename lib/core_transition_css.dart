@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_transition_css`.
+@HtmlImport('core_transition_css_nodart.html')
 library core_elements.core_transition_css;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_transition.dart';
 
 /// `<core-transition-css>` implements CSS transitions as `<core-transition>` objects so they can be
@@ -94,6 +95,7 @@ import 'core_transition.dart';
 /// `core-transition-left`: Slides the node into the final position from the left.
 ///
 /// `core-transition-right`: Slides the node into the final position from the right.
+@CustomElementProxy('core-transition-css')
 class CoreTransitionCss extends CoreTransition {
   CoreTransitionCss.created() : super.created();
   factory CoreTransitionCss() => new Element.tag('core-transition-css');
@@ -120,5 +122,3 @@ class CoreTransitionCss extends CoreTransition {
   String get completeEventName => jsElement[r'completeEventName'];
   set completeEventName(String value) { jsElement[r'completeEventName'] = value; }
 }
-@initMethod
-upgradeCoreTransitionCss() => registerDartType('core-transition-css', CoreTransitionCss);

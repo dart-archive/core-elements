@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_scroll_header_panel`.
+@HtmlImport('core_scroll_header_panel_nodart.html')
 library core_elements.core_scroll_header_panel;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_resizable.dart';
 
 /// `core-scroll-header-panel` contains a header section and a content section.  The
 /// header is initially on the top part of the view but it scrolls away with the
@@ -44,6 +46,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       <core-toolbar>Header</core-toolbar>
 ///       <div>Content goes here...</div>
 ///     </core-scroll-header-panel>
+@CustomElementProxy('core-scroll-header-panel')
 class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreScrollHeaderPanel.created() : super.created();
   factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
@@ -100,5 +103,3 @@ class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxy
   void measureHeaderHeight() =>
       jsElement.callMethod('measureHeaderHeight', []);
 }
-@initMethod
-upgradeCoreScrollHeaderPanel() => registerDartType('core-scroll-header-panel', CoreScrollHeaderPanel);

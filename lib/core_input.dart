@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_input`.
+@HtmlImport('core_input_nodart.html')
 library core_elements.core_input;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-input` is an unstyled single-line input field. It extends the native
@@ -30,6 +31,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 /// - `aria-label`: set to the `placeholder` attribute
 /// - `aria-disabled`: set if `disabled` is true
+@CustomElementProxy('core-input', extendsTag: 'input')
 class CoreInput extends InputElement with DomProxyMixin, PolymerProxyMixin {
   CoreInput.created() : super.created();
   factory CoreInput() => new Element.tag('input', 'core-input');
@@ -49,5 +51,3 @@ class CoreInput extends InputElement with DomProxyMixin, PolymerProxyMixin {
   void commit() =>
       jsElement.callMethod('commit', []);
 }
-@initMethod
-upgradeCoreInput() => registerDartType('core-input', CoreInput, extendsTag: 'input');

@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_icon`.
+@HtmlImport('core_icon_nodart.html')
 library core_elements.core_icon;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_iconset.dart';
 
 /// The `core-icon` element displays an icon. By default an icon renders as a 24px square.
 ///
@@ -52,6 +54,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// how to create a custom iconset.
 ///
 /// See [core-icons](http://www.polymer-project.org/components/core-icons/demo.html) for the default set of icons.
+@CustomElementProxy('core-icon')
 class CoreIcon extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreIcon.created() : super.created();
   factory CoreIcon() => new Element.tag('core-icon');
@@ -74,5 +77,3 @@ class CoreIcon extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   String get alt => jsElement[r'alt'];
   set alt(String value) { jsElement[r'alt'] = value; }
 }
-@initMethod
-upgradeCoreIcon() => registerDartType('core-icon', CoreIcon);

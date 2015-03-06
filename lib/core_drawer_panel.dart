@@ -1,23 +1,26 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_drawer_panel`.
+@HtmlImport('core_drawer_panel_nodart.html')
 library core_elements.core_drawer_panel;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_media_query.dart';
+import 'core_selector.dart';
 
 /// `core-drawer-panel` contains a drawer panel and a main panel.  The drawer
-/// and the main panel are side-by-side with drawer on the left.  When browser
+/// and the main panel are side-by-side with drawer on the left.  When the browser
 /// window size is smaller than the `responsiveWidth`, `core-drawer-panel`
 /// changes to narrow layout.  In narrow layout, the drawer will be stacked on top
-/// of the main panel.  The drawer will be slided in/out to hide/reveal the main
+/// of the main panel.  The drawer will slide in/out to hide/reveal the main
 /// panel.
 ///
-/// Use the attribute `drawer` to indicate the element is a drawer panel and
-/// `main` to indicate is a main panel.
+/// Use the attribute `drawer` to indicate that the element is the drawer panel and
+/// `main` to indicate that the element is the main panel.
 ///
 /// Example:
 ///
@@ -70,6 +73,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       <div drawer> Drawer panel... </div>
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
+@CustomElementProxy('core-drawer-panel')
 class CoreDrawerPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreDrawerPanel.created() : super.created();
   factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
@@ -121,5 +125,3 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin 
   void closeDrawer() =>
       jsElement.callMethod('closeDrawer', []);
 }
-@initMethod
-upgradeCoreDrawerPanel() => registerDartType('core-drawer-panel', CoreDrawerPanel);

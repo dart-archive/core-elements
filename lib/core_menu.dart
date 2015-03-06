@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_menu`.
+@HtmlImport('core_menu_nodart.html')
 library core_elements.core_menu;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_selector.dart';
 
 /// `core-menu` is a selector which styles to looks like a menu.
@@ -50,9 +51,8 @@ import 'core_selector.dart';
 ///         ...
 ///       }
 ///     }
+@CustomElementProxy('core-menu')
 class CoreMenu extends CoreSelector {
   CoreMenu.created() : super.created();
   factory CoreMenu() => new Element.tag('core-menu');
 }
-@initMethod
-upgradeCoreMenu() => registerDartType('core-menu', CoreMenu);

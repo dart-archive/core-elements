@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_style`.
+@HtmlImport('core_style_nodart.html')
 library core_elements.core_style;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// The `core-style` element helps manage styling inside other elements and can
@@ -90,6 +91,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///         background-color: {{g.myColor}};
 ///       }
 ///     </core-style>
+@CustomElementProxy('core-style')
 class CoreStyle extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreStyle.created() : super.created();
   factory CoreStyle() => new Element.tag('core-style');
@@ -112,5 +114,3 @@ class CoreStyle extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   get list => jsElement[r'list'];
   set list(value) { jsElement[r'list'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 }
-@initMethod
-upgradeCoreStyle() => registerDartType('core-style', CoreStyle);

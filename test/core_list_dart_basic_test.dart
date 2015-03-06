@@ -26,7 +26,7 @@ var index = 0;
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() => Polymer.onReady.then((_) {
+  initPolymer().then((zone) => zone.run(() => Polymer.onReady.then((_) {
     list = querySelector('core-list-dart') as CoreList;
     physicalCount = (list.offsetHeight / height).ceil();
 
@@ -238,7 +238,7 @@ void main() {
         });
       });
     });
-  }));
+  })));
 }
 
 Future wait(_) {

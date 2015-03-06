@@ -16,7 +16,7 @@
  *
  * @element core-xhr
  */
-
+@HtmlImport('core_xhr_dart_nodart.html')
 library core_elements.core_xhr_dart;
 
 import 'dart:html';

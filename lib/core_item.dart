@@ -1,13 +1,15 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_item`.
+@HtmlImport('core_item_nodart.html')
 library core_elements.core_item;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_icon.dart';
 
 /// `core-item` is a simple line-item object: a label and/or an icon that can also
 /// act as a link.
@@ -23,6 +25,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     <core-item icon="settings" label="Settings">
 ///       <a href="#settings" target="_self"></a>
 ///     </core-item>
+@CustomElementProxy('core-item')
 class CoreItem extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreItem.created() : super.created();
   factory CoreItem() => new Element.tag('core-item');
@@ -39,5 +42,3 @@ class CoreItem extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   String get src => jsElement[r'src'];
   set src(String value) { jsElement[r'src'] = value; }
 }
-@initMethod
-upgradeCoreItem() => registerDartType('core-item', CoreItem);

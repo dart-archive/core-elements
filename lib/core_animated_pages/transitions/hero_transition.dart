@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `hero_transition`.
+@HtmlImport('hero_transition_nodart.html')
 library core_elements.hero_transition;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'core_transition_pages.dart';
 
 /// `hero-transition` transforms two elements in different pages such that they appear
@@ -57,9 +58,8 @@ import 'core_transition_pages.dart';
 ///
 /// You can configure the duration of the hero transition with the global variable
 /// `CoreStyle.g.transitions.heroDuration`.
+@CustomElementProxy('hero-transition')
 class HeroTransition extends CoreTransitionPages {
   HeroTransition.created() : super.created();
   factory HeroTransition() => new Element.tag('hero-transition');
 }
-@initMethod
-upgradeHeroTransition() => registerDartType('hero-transition', HeroTransition);

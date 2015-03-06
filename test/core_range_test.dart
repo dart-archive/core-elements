@@ -17,7 +17,7 @@ import 'common.dart';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((e) {
       var range = querySelector('core-range') as CoreRange;
 
@@ -86,5 +86,5 @@ void main() {
 
       });
     });
-  });
+  }));
 }

@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_collapse`.
+@HtmlImport('core_collapse_nodart.html')
 library core_elements.core_collapse;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-collapse` creates a collapsible block of content.  By default, the content
@@ -40,6 +41,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///         Content goes here...
 ///       </div>
 ///     </core-collapse>
+@CustomElementProxy('core-collapse')
 class CoreCollapse extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreCollapse.created() : super.created();
   factory CoreCollapse() => new Element.tag('core-collapse');
@@ -79,5 +81,3 @@ class CoreCollapse extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   void toggle() =>
       jsElement.callMethod('toggle', []);
 }
-@initMethod
-upgradeCoreCollapse() => registerDartType('core-collapse', CoreCollapse);

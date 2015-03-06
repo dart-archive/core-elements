@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_image`.
+@HtmlImport('core_image_nodart.html')
 library core_elements.core_image;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `core-image` is an element for displaying an image that provides useful sizing and
@@ -54,6 +55,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 ///     <core-image style="width:400px; height:400px; background-color: lightgray;"
 ///       sizing="cover" preload fade src="http://lorempixel.com/600/400"></core-image>
+@CustomElementProxy('core-image')
 class CoreImage extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreImage.created() : super.created();
   factory CoreImage() => new Element.tag('core-image');
@@ -106,5 +108,3 @@ class CoreImage extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   num get height => jsElement[r'height'];
   set height(num value) { jsElement[r'height'] = value; }
 }
-@initMethod
-upgradeCoreImage() => registerDartType('core-image', CoreImage);

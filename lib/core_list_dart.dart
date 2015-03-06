@@ -6,6 +6,7 @@
  * Code distributed by Google as part of the polymer project is also
  * subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
  */
+@HtmlImport('core_list_dart_nodart.html')
 library core_elements.core_list_dart;
 
 import 'dart:async';

@@ -37,7 +37,7 @@ const PASSWORD_VALUE = 'My secret password 19 !\'§\$';
 void main() {
   useHtmlConfiguration();
 
-  initPolymer().run(() {
+  initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
 
       group('core-input', () {
@@ -125,7 +125,7 @@ void main() {
       });
 
     });
-  });
+  }));
 }
 
 void dispatchInputEvent(InputElement target) {

@@ -1,12 +1,13 @@
 // DO NOT EDIT: auto-generated with `pub run custom_element_apigen:update`
 
 /// Dart API for the polymer element `core_label`.
+@HtmlImport('core_label_nodart.html')
 library core_elements.core_label;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/interop.dart' show registerDartType;
-import 'package:polymer/polymer.dart' show initMethod;
+import 'package:web_components/custom_element_proxy.dart';
+import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
 
 /// `<core-label>` provides a version of the `<label>` element that works with Custom Elements as well as native elements.
@@ -31,6 +32,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///         <paper-button class="foo">Far away button</paper-button>
 ///
 /// All taps on the `core-label` will be forwarded to the "target" element.
+@CustomElementProxy('core-label')
 class CoreLabel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreLabel.created() : super.created();
   factory CoreLabel() => new Element.tag('core-label');
@@ -39,5 +41,3 @@ class CoreLabel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   String get htmlFor => jsElement[r'for'];
   set htmlFor(String value) { jsElement[r'for'] = value; }
 }
-@initMethod
-upgradeCoreLabel() => registerDartType('core-label', CoreLabel);
