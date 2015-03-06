@@ -16,6 +16,26 @@
 test/core_media_query_dialog_test: Skip
 build/test/core_media_query_dialog_test: Skip
 
+[ $compiler == none && ($runtime == dartium || $runtime == ContentShellOnAndroid) ]
+build/test/core_ajax_dart_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_animated_pages_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_dropdown_menu_a11y_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_dropdown_menu_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_input_basic_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_input_a11y_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_input_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_menu_button_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_range_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_overlay_positioning_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selection_multi_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selection_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selector_activate_event_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selector_basic_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selector_content_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_selector_multi_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_toolbar_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+build/test/core_shared_lib_test: RuntimeError # Issue https://github.com/dart-lang/package-bots/issues/2
+
 [ $runtime == dartium || $runtime == drt ]
 test/core_media_query_test: Skip # Flaky
 build/test/core_media_query_test: Skip # Flaky
