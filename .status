@@ -22,14 +22,8 @@ build/test/core_media_query_test: Skip # Flaky
 build/test/core_collapse_test: Skip # Flaky
 test/core_ajax_dart_test: Pass, Timeout
 build/test/core_ajax_dart_test: Pass, Timeout
-# TODO(jakemac): Investigate, failing on dartium in the bots only, works locally
-build/test/core_localstorage_dart_raw_test: RuntimeError # Issue 173
-build/test/core_localstorage_dart_test: RuntimeError # Issue 173
-build/test/core_localstorage_dart_value_binding_test: RuntimeError # Issue 173
-build/test/core_ajax_dart_progress_test: RuntimeError # Issue 173
 test/core_dropdown_test: RuntimeError # Issue 173
 build/test/core_dropdown_test: RuntimeError # Issue 173
-build/test/core_list_dart_basic_test: RuntimeError # Issue 173
 
 
 [ $compiler == dart2js ]
