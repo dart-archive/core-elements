@@ -174,7 +174,7 @@ class CoreList extends PolymerElement {
 'which contains a single element (which can itself contain whatever content or '
 'elements you wish). For example: '
 '''\n\n
-<core-list-dart model="{{data}}">
+<core-list-dart data="{{data}}">
   <template>
     <div>
       // All your custom content/elements here.
