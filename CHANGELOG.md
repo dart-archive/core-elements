@@ -1,3 +1,6 @@
+## version 0.6.1+2
+  * Update constraint on `web_components`.
+
 ## version 0.6.1+1
   * Add back `waitForMutation` param to `clearLower` and `clearUpper` for
     `core-scroll-threshold`.
