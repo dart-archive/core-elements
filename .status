@@ -22,8 +22,6 @@ build/test/core_media_query_test: Skip # Flaky
 build/test/core_collapse_test: Skip # Flaky
 test/core_ajax_dart_test: Pass, Timeout
 build/test/core_ajax_dart_test: Pass, Timeout
-test/core_dropdown_test: RuntimeError # Issue 173
-build/test/core_dropdown_test: RuntimeError # Issue 173
 
 
 [ $compiler == dart2js ]

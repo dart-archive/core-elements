@@ -20,19 +20,21 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// the `scrollTarget` property can be set/bound to a non-child scrollable region, from which
 /// it will listen for events.
 ///
-/// Once a threshold has been reached, a `lower-threshold` or `upper-threshold` event will
+/// Once a threshold has been reached, a `lower-trigger` or `upper-trigger` event will
 /// be fired, at which point the user may perform actions such as lazily-loading more data
 /// to be displayed.  After any work is done, the user must then clear the threshold by
 /// calling the `clearUpper` or `clearLower` methods on this element, after which it will
-/// begin listening again for the scroll position to reach the threshold again (assuming
-/// the content in the) scrollable region has grown.  If the user no longer wishes to receive
-/// events (e.g. all data has been exhausted), the
+/// begin listening again for the scroll position to reach the threshold again assuming
+/// the content in the scrollable region has grown.  If the user no longer wishes to receive
+/// events (e.g. all data has been exhausted), the threshold property in question (e.g.
+/// `lowerThreshold`) may be set to a falsy value to disable events and clear the associated
+/// triggered property.
 ///
 /// Example:
 ///
 ///     <core-scroll-threshold id="threshold" lowerThreshold="500"
-///       on-lower-triggered="{{loadMore}}" lowerTriggered="{{spinnerShouldShow}}">
-///     </scroll-threshold>
+///       on-lower-trigger="{{loadMore}}" lowerTriggered="{{spinnerShouldShow}}">
+///     </core-scroll-threshold>
 ///
 ///     ...
 ///
@@ -49,8 +51,8 @@ class CoreScrollThreshold extends HtmlElement with DomProxyMixin, PolymerProxyMi
   /// When set, the given element is observed for scroll position.  When undefined,
   /// children can be placed inside and element itself can be used as the scrollable
   /// element.
-  String get scrollTarget => jsElement[r'scrollTarget'];
-  set scrollTarget(String value) { jsElement[r'scrollTarget'] = value; }
+  Element get scrollTarget => jsElement[r'scrollTarget'];
+  set scrollTarget(Element value) { jsElement[r'scrollTarget'] = value; }
 
   /// Orientation of the scroller to be observed (`v` for vertical, `h` for horizontal)
   bool get orient => jsElement[r'orient'];

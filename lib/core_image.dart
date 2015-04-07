@@ -60,11 +60,15 @@ class CoreImage extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreImage.created() : super.created();
   factory CoreImage() => new Element.tag('core-image');
 
+  /// The URL of an image.
+  String get src => jsElement[r'src'];
+  set src(String value) { jsElement[r'src'] = value; }
+
   /// When false, the image is prevented from loading and any placeholder is
   /// shown.  This may be useful when a binding to the src property is known to
   /// be invalid, to prevent 404 requests.
-  String get src => jsElement[r'src'];
-  set src(String value) { jsElement[r'src'] = value; }
+  bool get load => jsElement[r'load'];
+  set load(bool value) { jsElement[r'load'] = value; }
 
   /// Sets a sizing option for the image.  Valid values are `contain` (full
   /// aspect ratio of the image is contained within the element and

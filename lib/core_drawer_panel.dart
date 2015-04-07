@@ -113,6 +113,10 @@ class CoreDrawerPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin 
   bool get forceNarrow => jsElement[r'forceNarrow'];
   set forceNarrow(bool value) { jsElement[r'forceNarrow'] = value; }
 
+  /// If true, swipe from the edge is disable.
+  bool get disableEdgeSwipe => jsElement[r'disableEdgeSwipe'];
+  set disableEdgeSwipe(bool value) { jsElement[r'disableEdgeSwipe'] = value; }
+
   /// Toggles the panel open and closed.
   void togglePanel() =>
       jsElement.callMethod('togglePanel', []);

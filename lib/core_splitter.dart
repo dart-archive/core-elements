@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/custom_element_proxy.dart';
 import 'package:web_components/html_import_annotation.dart';
 import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'core_resizer.dart';
 import 'core_resizable.dart';
 
 /// `core-splitter` provides a split bar and dragging on the split bar
@@ -39,7 +40,7 @@ import 'core_resizable.dart';
 ///       <div flex>bottom</div>
 ///     </div>
 @CustomElementProxy('core-splitter')
-class CoreSplitter extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreSplitter extends HtmlElement with DomProxyMixin, PolymerProxyMixin, CoreResizable, CoreResizer {
   CoreSplitter.created() : super.created();
   factory CoreSplitter() => new Element.tag('core-splitter');
 

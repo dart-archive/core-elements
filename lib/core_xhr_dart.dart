@@ -64,7 +64,7 @@ class CoreXhr extends PolymerElement {
     bool async = (sync != true);
 
     String paramsString = _toQueryString(params);
-    if (!isBlank(paramsString) && method == 'GET') {
+    if (!isBlank(paramsString) && method.toUpperCase() == 'GET') {
       url += (url.indexOf('?') > 0 ? '&' : '?') + paramsString;
     }
     var xhrParams = _isBodyMethod(method)

@@ -63,7 +63,6 @@ files_to_generate:
   - core-icons/image-icons.html
   - core-icons/maps-icons.html
   - core-icons/notification-icons.html
-  - core-icons/png-icons.html
   - core-icons/social-icons.html
   - core-iconset/core-iconset.html
   - core-iconset-svg/core-iconset-svg.html
@@ -88,7 +87,10 @@ files_to_generate:
   - core-overlay/core-overlay-layer.html
   - core-pages/core-pages.html
   - core-range/core-range.html
-  - core-resizable/core-resizable.html
+  - core-resizable/core-resizable.html:
+      file_overrides:
+        core_resizer:
+          - CoreResizer
   - core-scaffold/core-scaffold.html
   - core-scroll-header-panel/core-scroll-header-panel.html
   - core-scroll-threshold/core-scroll-threshold.html

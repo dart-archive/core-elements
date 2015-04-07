@@ -47,7 +47,7 @@ import 'core_resizable.dart';
 ///       <div>Content goes here...</div>
 ///     </core-scroll-header-panel>
 @CustomElementProxy('core-scroll-header-panel')
-class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreScrollHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin, CoreResizable {
   CoreScrollHeaderPanel.created() : super.created();
   factory CoreScrollHeaderPanel() => new Element.tag('core-scroll-header-panel');
 

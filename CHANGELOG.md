@@ -1,3 +1,13 @@
+## version 0.7.0-dev
+  * Update to match JS version 0.5.5.
+    * **Breaking Change** `core-icons` has been rebased on the opensource set
+      from https://github.com/google/material-design-icons.
+      * The "post-" icons in the "social" set have been removed.
+      * A few other icons from other sets have been removed.
+      * The `png-icons` set has been removed.
+    * `core-list-dart` does not yet have the `resizable` mixin like it does on
+      the js side, [205](https://github.com/dart-lang/core-elements/issues/205).
+
 ## version 0.6.1+2
   * Update constraint on `web_components`.
 

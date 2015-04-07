@@ -89,12 +89,16 @@ class CoreDropdown extends CoreOverlay {
   /// The horizontal alignment of the popup relative to `relatedTarget`. `left`
   /// means the left edges are aligned together. `right` means the right edges
   /// are aligned together.
-  get halign => jsElement[r'halign'];
-  set halign(value) { jsElement[r'halign'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  ///
+  /// Accepted values: 'left', 'right'
+  String get halign => jsElement[r'halign'];
+  set halign(String value) { jsElement[r'halign'] = value; }
 
   /// The vertical alignment of the popup relative to `relatedTarget`. `top` means
   /// the top edges are aligned together. `bottom` means the bottom edges are
   /// aligned together.
-  get valign => jsElement[r'valign'];
-  set valign(value) { jsElement[r'valign'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  ///
+  /// Accepted values: 'top', 'bottom'
+  String get valign => jsElement[r'valign'];
+  set valign(String value) { jsElement[r'valign'] = value; }
 }

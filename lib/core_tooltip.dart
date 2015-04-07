@@ -62,7 +62,7 @@ import 'core_resizable.dart';
 ///       </div>
 ///     </core-tooltip>
 @CustomElementProxy('core-tooltip')
-class CoreTooltip extends HtmlElement with DomProxyMixin, PolymerProxyMixin, CoreFocusable {
+class CoreTooltip extends HtmlElement with DomProxyMixin, PolymerProxyMixin, CoreFocusable, CoreResizable {
   CoreTooltip.created() : super.created();
   factory CoreTooltip() => new Element.tag('core-tooltip');
 

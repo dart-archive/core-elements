@@ -67,6 +67,9 @@ class CoreSubmenu extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   get selectedItem => jsElement[r'selectedItem'];
   set selectedItem(value) { jsElement[r'selectedItem'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 
+  get selectedAttribute => jsElement[r'selectedAttribute'];
+  set selectedAttribute(value) { jsElement[r'selectedAttribute'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+
   get label => jsElement[r'label'];
   set label(value) { jsElement[r'label'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
 

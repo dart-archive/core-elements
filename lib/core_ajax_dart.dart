@@ -211,11 +211,15 @@ class CoreAjax extends PolymerElement {
 
 
   void processError(xhr) {
-    var response = '${xhr.status}: ${xhr.responseText}';
+    var response = evalResponse(xhr);
+    var error = {
+      'statusCode': xhr.status,
+      'response': response,
+    };
     if (xhr == this.activeRequest) {
-      this.error = response;
+      this.error = error;
     }
-    this.fire('core-error', detail: {'response': response, 'xhr': xhr});
+    this.fire('core-error', detail: {'response': error, 'xhr': xhr});
   }
 
   void processProgress(ProgressEvent progress, HttpRequest xhr) {

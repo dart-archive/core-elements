@@ -74,9 +74,9 @@ class CoreA11yKeys extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
   CoreA11yKeys.created() : super.created();
   factory CoreA11yKeys() => new Element.tag('core-a11y-keys');
 
-  /// The set of key combinations to listen for.
-  get keys => jsElement[r'keys'];
-  set keys(value) { jsElement[r'keys'] = (value is Map || value is Iterable) ? new JsObject.jsify(value) : value;}
+  /// The set of key combinations that will be matched (in keys syntax).
+  String get keys => jsElement[r'keys'];
+  set keys(String value) { jsElement[r'keys'] = value; }
 
   /// The node that will fire keyboard events.
   /// Default to this element's parentNode unless one is assigned

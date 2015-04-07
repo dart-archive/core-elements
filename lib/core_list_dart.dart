@@ -428,6 +428,7 @@ class CoreList extends PolymerElement {
     if (_target.getComputedStyle().position == 'static') {
       _target.style.position = 'relative';
     }
+    _target.style.boxSizing = 'border-box';
     style.overflowY = (target == this) ? 'auto' : null;
   }
 
@@ -490,6 +491,16 @@ class CoreList extends PolymerElement {
     initializeData(null, true);
   }
 
+  /// Gets the integer value of a css pixes string, ie: '10px' returns 10.
+  int _cssPxToInt(String cssString) {
+    try {
+      return math.max(
+          int.parse(cssString.substring(0, cssString.length - 2)), 0);
+    } catch (e) {
+      return 0;
+    }
+  }
+
   void initializeData(
       [List<ListChangeRecord> splices, bool groupUpdate = false]) {
     var i;
@@ -499,8 +510,12 @@ class CoreList extends PolymerElement {
       if (width == null || width <= 0) {
         throw 'Grid requires the `width` property to be set and > 0';
       }
-      _rowFactor = math.max((_target.offsetWidth / width).floor(), 1);
-      _rowMargin = (_target.offsetWidth - (_rowFactor * width)) / 2;
+      var cs = _target.getComputedStyle();
+      var padding =
+          _cssPxToInt(cs.paddingLeft) + _cssPxToInt(cs.paddingRight);
+      _rowFactor = math.max(
+          ((_target.offsetWidth - padding) / width).floor(), 1);
+      _rowMargin = (_target.offsetWidth - (_rowFactor * width) - padding) / 2;
     } else {
       _rowFactor = 1;
       _rowMargin = 0.0;

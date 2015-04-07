@@ -17,28 +17,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 (function(scope) {
 
-/**
-  `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
-  in Polymer elements to coordinate the flow of resize events between "resizers" (elements
-  that control the size or hidden state of their children) and "resizables" (elements that
-  need to be notified when they are resized or un-hidden by their parents in order to take
-  action on their new measurements).
-
-  Elements that perform measurement should add the `Core.Resizable` mixin to their 
-  Polymer prototype definition and listen for the `core-resize` event on themselves.
-  This event will be fired when they become showing after having been hidden,
-  when they are resized explicitly by a `CoreResizer`, or when the window has been resized.
-  Note, the `core-resize` event is non-bubbling.
-
-  `CoreResizable`'s must manually call the `resizableAttachedHandler` from the element's
-  `attached` callback and `resizableDetachedHandler` from the element's `detached`
-  callback.
-
-    @element CoreResizable
-    @status beta
-    @homepage github.io
-*/
-
+  /**
+   * @group Polymer Mixins
+   *
+   * `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
+   * in Polymer elements to coordinate the flow of resize events between "resizers" (elements
+   * that control the size or hidden state of their children) and "resizables" (elements that
+   * need to be notified when they are resized or un-hidden by their parents in order to take
+   * action on their new measurements).
+   *
+   * Elements that perform measurement should add the `Core.Resizable` mixin to their
+   * Polymer prototype definition and listen for the `core-resize` event on themselves.
+   * This event will be fired when they become showing after having been hidden,
+   * when they are resized explicitly by a `CoreResizer`, or when the window has been resized.
+   * Note, the `core-resize` event is non-bubbling.
+   *
+   * `CoreResizable`'s must manually call the `resizableAttachedHandler` from the element's
+   * `attached` callback and `resizableDetachedHandler` from the element's `detached`
+   * callback.
+   *
+   * @element Polymer.CoreResizable
+   * @status beta
+   * @homepage github.io
+   */
   scope.CoreResizable = {
 
     /**
@@ -80,33 +81,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   };
 
-/**
-  `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
-  in Polymer elements to coordinate the flow of resize events between "resizers" (elements
-  that control the size or hidden state of their children) and "resizables" (elements that
-  need to be notified when they are resized or un-hidden by their parents in order to take
-  action on their new measurements).
-
-  Elements that cause their children to be resized (e.g. a splitter control) or hide/show
-  their children (e.g. overlay) should add the `Core.CoreResizer` mixin to their 
-  Polymer prototype definition and then call `this.notifyResize()` any time the element
-  resizes or un-hides its children.
-
-  `CoreResizer`'s must manually call the `resizerAttachedHandler` from the element's
-  `attached` callback and `resizerDetachedHandler` from the element's `detached`
-  callback.
-
-  Note: `CoreResizer` extends `CoreResizable`, and can listen for the `core-resize` event
-  on itself if it needs to perform resize work on itself before notifying children.
-  In this case, returning `false` from the `core-resize` event handler (or calling
-  `preventDefault` on the event) will prevent notification of children if required.
-
-  @element CoreResizer
-  @extends CoreResizable
-  @status beta
-  @homepage github.io
-*/
-
+  /**
+   * @group Polymer Mixins
+   *
+   * `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
+   * in Polymer elements to coordinate the flow of resize events between "resizers" (elements
+   * that control the size or hidden state of their children) and "resizables" (elements that
+   * need to be notified when they are resized or un-hidden by their parents in order to take
+   * action on their new measurements).
+   *
+   * Elements that cause their children to be resized (e.g. a splitter control) or hide/show
+   * their children (e.g. overlay) should add the `Core.CoreResizer` mixin to their
+   * Polymer prototype definition and then call `this.notifyResize()` any time the element
+   * resizes or un-hides its children.
+   *
+   * `CoreResizer`'s must manually call the `resizerAttachedHandler` from the element's
+   * `attached` callback and `resizerDetachedHandler` from the element's `detached`
+   * callback.
+   *
+   * Note: `CoreResizer` extends `CoreResizable`, and can listen for the `core-resize` event
+   * on itself if it needs to perform resize work on itself before notifying children.
+   * In this case, returning `false` from the `core-resize` event handler (or calling
+   * `preventDefault` on the event) will prevent notification of children if required.
+   *
+   * @element Polymer.CoreResizer
+   * @extends Polymer.CoreResizable
+   * @status beta
+   * @homepage github.io
+   */
   scope.CoreResizer = Polymer.mixin({
 
     /**

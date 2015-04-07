@@ -24,17 +24,17 @@ void main() {
 
   initPolymer().then((zone) => zone.run(() {
     return Polymer.onReady.then((_) {
-       dropdown = querySelector('#dropdown1') as CoreDropdownMenu;
-       menu = querySelector('#menu1') as CoreMenu;
-       label = dropdown.shadowRoot.querySelector('#label');
+      dropdown = querySelector('#dropdown1') as CoreDropdownMenu;
+      menu = querySelector('#menu1') as CoreMenu;
+      label = dropdown.shadowRoot.querySelector('#label');
 
-       test('shows the label when nothing selected', () {
-         menu.selected = null;
-         return flushLayoutAndRender().then((_) {
-           expect(dropdown.shadowRoot.querySelector('#label').text,
-              dropdown.label);
-         });
-       });
+      test('shows the label when nothing selected', () {
+        menu.selected = null;
+        return flushLayoutAndRender().then((_) {
+          expect(dropdown.shadowRoot.querySelector('#label').text,
+             dropdown.label);
+        });
+      });
 
       test('shows the selected item', () {
         menu.selected = 2;

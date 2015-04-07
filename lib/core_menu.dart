@@ -9,6 +9,7 @@ import 'dart:js' show JsArray, JsObject;
 import 'package:web_components/custom_element_proxy.dart';
 import 'package:web_components/html_import_annotation.dart';
 import 'core_selector.dart';
+import 'core_a11y_keys.dart';
 
 /// `core-menu` is a selector which styles to looks like a menu.
 ///

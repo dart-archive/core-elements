@@ -111,6 +111,6 @@ class CoreIconset extends CoreMeta {
   /// [icon]: The name or index of the icon to apply.
   /// [scale]: (optional, defaults to 1) A scaling factor 
   ///     with which the icon can be magnified.
-  applyIcon(element, icon, [num scale]) =>
+  applyIcon(Element element, icon, [num scale]) =>
       jsElement.callMethod('applyIcon', [element, icon, scale]);
 }

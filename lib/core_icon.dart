@@ -31,7 +31,6 @@ import 'core_iconset.dart';
 /// The core elements include several sets of icons.
 /// To use the default set of icons, import  `core-icons.html` and use the `icon` attribute to specify an icon:
 ///
-///     &lt;!-- import default iconset and core-icon --&gt;
 ///     <link rel="import" href="/components/core-icons/core-icons.html">
 ///
 ///     <core-icon icon="menu"></core-icon>
@@ -39,7 +38,6 @@ import 'core_iconset.dart';
 /// To use a different built-in set of icons, import  `core-icons/<iconset>-icons.html`, and
 /// specify the icon as `<iconset>:<icon>`. For example:
 ///
-///     &lt;!-- import communication iconset and core-icon --&gt;
 ///     <link rel="import" href="/components/core-icons/communication-icons.html">
 ///
 ///     <core-icon icon="communication:email"></core-icon>

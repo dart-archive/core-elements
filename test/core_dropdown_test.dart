@@ -15,9 +15,6 @@ import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 import 'common.dart';
 
-
-
-
 void main() {
   useHtmlConfiguration();
 
@@ -66,7 +63,8 @@ void main() {
 
 Future testPosition(CoreDropdown dropdown, HtmlElement trigger) {
   dropdown.open();
-  return flushLayoutAndRender().then((_) {
+  return flushLayoutAndRender().then((_) =>
+      new Future.delayed(new Duration(milliseconds: 200), () {})).then((_) {
     var dr = dropdown.getBoundingClientRect();
     var tr = trigger.getBoundingClientRect();
     if (dropdown.halign == 'left') {

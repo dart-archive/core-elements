@@ -58,7 +58,7 @@ class CoreIconsetSvg extends CoreMeta {
   /// [element]: The element to which the icon is
   ///     applied.
   /// [icon]: The name the icon to apply.
-  applyIcon(element, icon) =>
+  applyIcon(Element element, icon) =>
       jsElement.callMethod('applyIcon', [element, icon]);
 
   /// Tell users of the iconset, that the set has loaded.
