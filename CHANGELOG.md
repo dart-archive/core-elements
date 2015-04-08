@@ -1,4 +1,4 @@
-## version 0.7.0-dev
+## version 0.7.0
   * Update to match JS version 0.5.5.
     * **Breaking Change** `core-icons` has been rebased on the opensource set
       from https://github.com/google/material-design-icons.
