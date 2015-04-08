@@ -50,3 +50,5 @@ transformers:
 #    - test/core_selector_multi_test.html
 #    - test/core_shared_lib_test.html
 #    - test/core_toolbar_test.html
+- $dart2js:
+    $include: "**/*.polymer.bootstrap.dart"
