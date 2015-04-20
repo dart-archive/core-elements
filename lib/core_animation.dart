@@ -6,9 +6,8 @@ library core_elements.core_animation;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'web_animations.dart';
 
 /// `core-animation` is a convenience element to use web animations with Polymer elements. It
@@ -56,7 +55,7 @@ import 'web_animations.dart';
 ///
 /// Elements that are targets to a `core-animation` are given the `core-animation-target` class.
 @CustomElementProxy('core-animation')
-class CoreAnimation extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreAnimation extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreAnimation.created() : super.created();
   factory CoreAnimation() => new Element.tag('core-animation');
 
@@ -211,7 +210,7 @@ class CoreAnimation extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
 /// `core-animation-prop` elements as children of this element to specify the CSS properties for
 /// the animation.
 @CustomElementProxy('core-animation-keyframe')
-class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreAnimationKeyframe extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreAnimationKeyframe.created() : super.created();
   factory CoreAnimationKeyframe() => new Element.tag('core-animation-keyframe');
 
@@ -227,7 +226,7 @@ class CoreAnimationKeyframe extends HtmlElement with DomProxyMixin, PolymerProxy
 /// `core-animation-prop` represents a CSS property and value pair to use with
 /// `core-animation-keyframe`.
 @CustomElementProxy('core-animation-prop')
-class CoreAnimationProp extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreAnimationProp extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreAnimationProp.created() : super.created();
   factory CoreAnimationProp() => new Element.tag('core-animation-prop');
 

@@ -6,9 +6,8 @@ library core_elements.core_image;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-image` is an element for displaying an image that provides useful sizing and
 /// preloading options not found on the standard `<img>` tag.
@@ -56,7 +55,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     <core-image style="width:400px; height:400px; background-color: lightgray;"
 ///       sizing="cover" preload fade src="http://lorempixel.com/600/400"></core-image>
 @CustomElementProxy('core-image')
-class CoreImage extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreImage extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreImage.created() : super.created();
   factory CoreImage() => new Element.tag('core-image');
 

@@ -6,13 +6,12 @@ library core_elements.core_drag_drop;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 
 @CustomElementProxy('core-drag-drop')
-class CoreDragDrop extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreDragDrop extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreDragDrop.created() : super.created();
   factory CoreDragDrop() => new Element.tag('core-drag-drop');
 }

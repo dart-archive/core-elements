@@ -6,9 +6,8 @@ library core_elements.core_toolbar;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-toolbar` is a horizontal bar containing items that can be used for
 /// label, navigation, search and actions.  The items place inside the
@@ -61,7 +60,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// `core-toolbar` adapts to mobile/narrow layout when there is a `core-narrow` class set
 /// on itself or any of its ancestors.
 @CustomElementProxy('core-toolbar')
-class CoreToolbar extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreToolbar extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreToolbar.created() : super.created();
   factory CoreToolbar() => new Element.tag('core-toolbar');
 

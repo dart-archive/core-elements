@@ -6,9 +6,8 @@ library core_elements.core_media_query;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// core-media-query can be used to data bind to a CSS media query.
 /// The "query" property is a bare CSS media query.
@@ -25,7 +24,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 /// Fired when the media query state changes
 @CustomElementProxy('core-media-query')
-class CoreMediaQuery extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreMediaQuery extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreMediaQuery.created() : super.created();
   factory CoreMediaQuery() => new Element.tag('core-media-query');
 

@@ -6,9 +6,8 @@ library core_elements.core_meta;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-meta` provides a method of constructing a self-organizing database.
 /// It is useful to collate element meta-data for things like catalogs and for
@@ -52,7 +51,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       console.log(meta.list);
 ///     </script>
 @CustomElementProxy('core-meta')
-class CoreMeta extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreMeta extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreMeta.created() : super.created();
   factory CoreMeta() => new Element.tag('core-meta');
 

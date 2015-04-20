@@ -6,9 +6,8 @@ library core_elements.core_style;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// The `core-style` element helps manage styling inside other elements and can
 /// be used to make themes. The `core-style` element can be either a producer
@@ -92,7 +91,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       }
 ///     </core-style>
 @CustomElementProxy('core-style')
-class CoreStyle extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreStyle extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreStyle.created() : super.created();
   factory CoreStyle() => new Element.tag('core-style');
 

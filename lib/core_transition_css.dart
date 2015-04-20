@@ -6,8 +6,8 @@ library core_elements.core_transition_css;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'core_transition.dart';
 
 /// `<core-transition-css>` implements CSS transitions as `<core-transition>` objects so they can be

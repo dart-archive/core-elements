@@ -6,9 +6,8 @@ library core_elements.core_a11y_keys;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-a11y-keys` provides a normalized interface for processing keyboard commands that pertain to [WAI-ARIA best
 /// practices](http://www.w3.org/TR/wai-aria-practices/#kbd_general_binding). The element takes care of browser differences
@@ -70,7 +69,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     keycombo = { modifier, "+" }, key ;
 ///     keys = keycombo, { " ", keycombo } ;
 @CustomElementProxy('core-a11y-keys')
-class CoreA11yKeys extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreA11yKeys extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreA11yKeys.created() : super.created();
   factory CoreA11yKeys() => new Element.tag('core-a11y-keys');
 

@@ -6,14 +6,13 @@ library core_elements.core_focusable;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `Polymer.CoreFocusable` is a mixin for elements that the user can interact with.
 /// Elements using this mixin will receive attributes reflecting the focus, pressed
 /// and disabled states.
-abstract class CoreFocusable implements DomProxyMixin {
+abstract class CoreFocusable implements CustomElementProxyMixin {
 
   /// If true, the element is currently active either because the
   /// user is touching it, or the button is a toggle

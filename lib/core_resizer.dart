@@ -6,9 +6,8 @@ library core_elements.core_resizer;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'core_resizable.dart';
 
 /// `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
@@ -30,7 +29,7 @@ import 'core_resizable.dart';
 /// on itself if it needs to perform resize work on itself before notifying children.
 /// In this case, returning `false` from the `core-resize` event handler (or calling
 /// `preventDefault` on the event) will prevent notification of children if required.
-abstract class CoreResizer implements DomProxyMixin, CoreResizable {
+abstract class CoreResizer implements CustomElementProxyMixin, CoreResizable {
 
   /// Set to `true` if the resizer is actually a peer to the elements it
   /// resizes (e.g. splitter); in this case it will listen for resize requests

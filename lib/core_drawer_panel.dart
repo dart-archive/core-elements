@@ -6,9 +6,8 @@ library core_elements.core_drawer_panel;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'core_media_query.dart';
 import 'core_selector.dart';
 
@@ -74,7 +73,7 @@ import 'core_selector.dart';
 ///       <div main> Main panel... </div>
 ///     </core-drawer-panel>
 @CustomElementProxy('core-drawer-panel')
-class CoreDrawerPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreDrawerPanel extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreDrawerPanel.created() : super.created();
   factory CoreDrawerPanel() => new Element.tag('core-drawer-panel');
 

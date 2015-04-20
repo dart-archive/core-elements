@@ -6,9 +6,8 @@ library core_elements.core_range;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// The `core-range` element is used for managing a numeric value within a given
 /// range.  It has no visual appearance and is typically used in conjunction with
@@ -19,7 +18,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///     <core-range min="0" max="200" value="100" ratio="{{ratio}}"></core-range>
 ///     <div class="progress-bar" style="width: {{ratio}}%;"></div>
 @CustomElementProxy('core-range')
-class CoreRange extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreRange extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreRange.created() : super.created();
   factory CoreRange() => new Element.tag('core-range');
 

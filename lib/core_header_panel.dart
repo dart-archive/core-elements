@@ -6,9 +6,8 @@ library core_elements.core_header_panel;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-header-panel` contains a header section and a content panel section.
 ///
@@ -63,7 +62,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 /// Use `mode` to control the header and scrolling behavior.
 @CustomElementProxy('core-header-panel')
-class CoreHeaderPanel extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreHeaderPanel extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreHeaderPanel.created() : super.created();
   factory CoreHeaderPanel() => new Element.tag('core-header-panel');
 

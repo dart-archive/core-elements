@@ -6,13 +6,12 @@ library core_elements.core_layout_grid;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// TODO
 @CustomElementProxy('core-layout-grid')
-class CoreLayoutGrid extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreLayoutGrid extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreLayoutGrid.created() : super.created();
   factory CoreLayoutGrid() => new Element.tag('core-layout-grid');
 

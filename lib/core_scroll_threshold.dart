@@ -6,9 +6,8 @@ library core_elements.core_scroll_threshold;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-scroll-threshold` is a utility element that listens for `scroll` events from a
 /// scrollable region and fires events to indicate when the scroller has reached a pre-defined
@@ -44,7 +43,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       }.bind(this));
 ///     }
 @CustomElementProxy('core-scroll-threshold')
-class CoreScrollThreshold extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreScrollThreshold extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreScrollThreshold.created() : super.created();
   factory CoreScrollThreshold() => new Element.tag('core-scroll-threshold');
 

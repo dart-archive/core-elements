@@ -6,9 +6,8 @@ library core_elements.core_shared_lib;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// Supports sharing a JSONP-based JavaScript library.
 ///
@@ -28,7 +27,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///
 ///     <script src="lib.js"></script>
 @CustomElementProxy('core-shared-lib')
-class CoreSharedLib extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreSharedLib extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreSharedLib.created() : super.created();
   factory CoreSharedLib() => new Element.tag('core-shared-lib');
 

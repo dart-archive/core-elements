@@ -6,9 +6,8 @@ library core_elements.core_dropdown_base;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-dropdown-base` is a base class for implementing controls that displays
 /// an overlay when tapped on.
@@ -16,7 +15,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// The child element with the class `dropdown` will be used as the drop-down. It
 /// should be a `core-dropdown` or other overlay element.
 @CustomElementProxy('core-dropdown-base')
-class CoreDropdownBase extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreDropdownBase extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreDropdownBase.created() : super.created();
   factory CoreDropdownBase() => new Element.tag('core-dropdown-base');
 

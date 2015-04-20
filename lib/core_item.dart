@@ -6,9 +6,8 @@ library core_elements.core_item;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'core_icon.dart';
 
 /// `core-item` is a simple line-item object: a label and/or an icon that can also
@@ -26,7 +25,7 @@ import 'core_icon.dart';
 ///       <a href="#settings" target="_self"></a>
 ///     </core-item>
 @CustomElementProxy('core-item')
-class CoreItem extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreItem extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreItem.created() : super.created();
   factory CoreItem() => new Element.tag('core-item');
 

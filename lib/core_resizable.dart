@@ -6,9 +6,8 @@ library core_elements.core_resizable;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `Polymer.CoreResizable` and `Polymer.CoreResizer` are a set of mixins that can be used
 /// in Polymer elements to coordinate the flow of resize events between "resizers" (elements
@@ -25,7 +24,7 @@ import 'package:custom_element_apigen/src/common.dart' show DomProxyMixin;
 /// `CoreResizable`'s must manually call the `resizableAttachedHandler` from the element's
 /// `attached` callback and `resizableDetachedHandler` from the element's `detached`
 /// callback.
-abstract class CoreResizable implements DomProxyMixin {
+abstract class CoreResizable implements CustomElementProxyMixin {
 
   /// User must call from `attached` callback
   void resizableAttachedHandler() =>

@@ -6,9 +6,8 @@ library core_elements.core_collapse;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-collapse` creates a collapsible block of content.  By default, the content
 /// will be collapsed.  Use `opened` or `toggle()` to show/hide the content.
@@ -42,7 +41,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 ///       </div>
 ///     </core-collapse>
 @CustomElementProxy('core-collapse')
-class CoreCollapse extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreCollapse extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreCollapse.created() : super.created();
   factory CoreCollapse() => new Element.tag('core-collapse');
 

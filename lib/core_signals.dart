@@ -6,9 +6,8 @@ library core_elements.core_signals;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 
 /// `core-signals` provides basic publish-subscribe functionality.
 ///
@@ -30,7 +29,7 @@ import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, D
 /// `core-signals` elements will receive the event, regardless
 /// of where they are in DOM.
 @CustomElementProxy('core-signals')
-class CoreSignals extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreSignals extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreSignals.created() : super.created();
   factory CoreSignals() => new Element.tag('core-signals');
 }

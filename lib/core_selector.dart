@@ -6,9 +6,8 @@ library core_elements.core_selector;
 
 import 'dart:html';
 import 'dart:js' show JsArray, JsObject;
-import 'package:web_components/custom_element_proxy.dart';
-import 'package:web_components/html_import_annotation.dart';
-import 'package:custom_element_apigen/src/common.dart' show PolymerProxyMixin, DomProxyMixin;
+import 'package:web_components/web_components.dart';
+import 'package:polymer_interop/polymer_interop.dart';
 import 'core_selection.dart';
 
 /// `<core-selector>` is used to manage a list of elements that can be selected.
@@ -40,7 +39,7 @@ import 'core_selection.dart';
 ///       <div class="item">Item 3</div>
 ///     </core-selector>
 @CustomElementProxy('core-selector')
-class CoreSelector extends HtmlElement with DomProxyMixin, PolymerProxyMixin {
+class CoreSelector extends HtmlElement with CustomElementProxyMixin, PolymerProxyMixin {
   CoreSelector.created() : super.created();
   factory CoreSelector() => new Element.tag('core-selector');
 
