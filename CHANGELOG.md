@@ -1,3 +1,6 @@
+## version 0.7.1+1
+  * Move `custom_element_apigen` to a dev dependency.
+
 ## version 0.7.1
   * Update to new `custom_element_apigen` and use the `polymer_interop` package
     instead of the `polymer` package for most things.
