@@ -1,3 +1,6 @@
+## version 0.7.1+2
+  * Stop hiding `.js.map` files in the `.gitignore`.
+
 ## version 0.7.1+1
   * Move `custom_element_apigen` to a dev dependency.
 
