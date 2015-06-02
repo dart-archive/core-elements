@@ -27,13 +27,14 @@ changing on both the JavaScript and Dart sides.
 All elements live at the top level of the `lib/` folder.
 
 Import into HTML:
+```html
+<link rel="import" href="packages/core_elements/core_input.html">
+```
 
-    <link rel="import" href="packages/core_elements/core_input.html">
-
-Import into Dart:
-
-    import 'package:core_elements/core_input.dart';
-
+Or import into Dart:
+```dart
+import 'package:core_elements/core_input.dart';
+```
 
 ## Examples
 
