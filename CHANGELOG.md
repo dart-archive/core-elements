@@ -1,3 +1,7 @@
+## version 0.7.1+3
+  * Cherry pick a fix for core/paper dropdown so it doesn't disappear if you
+    click on the scroll bar.
+
 ## version 0.7.1+2
   * Stop hiding `.js.map` files in the `.gitignore`.
 
