@@ -108,7 +108,9 @@ should be a `core-dropdown` or other overlay element.
     },
 
     toggleOverlay: function() {
-      this.opened = !this.opened;
+      if (!this.dropdown.contains(event.target) && !this.disabled) {
+        this.opened = !this.opened;
+      }
     }
 
   });
