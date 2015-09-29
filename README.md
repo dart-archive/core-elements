@@ -1,5 +1,7 @@
 # Core elements
 
+**Note:** This package is for polymer.dart < 0.17
+
 This package wraps the Polymer project's core elements, providing the
 following features:
 
