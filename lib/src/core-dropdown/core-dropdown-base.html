@@ -107,7 +107,7 @@ should be a `core-dropdown` or other overlay element.
       this.opened = !!e.detail;
     },
 
-    toggleOverlay: function() {
+    toggleOverlay: function(event) {
       if (!this.dropdown.contains(event.target) && !this.disabled) {
         this.opened = !this.opened;
       }
