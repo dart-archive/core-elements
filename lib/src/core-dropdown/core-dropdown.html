@@ -187,14 +187,17 @@ not scroll with its container.
     resetTargetDimensions: function() {
       var dims = this.dimensions;
       var style = this.target.style;
-      if (dims.position.h_by === this.localName) {
-        style[dims.position.h] = null;
-        dims.position.h_by = null;
+      if (dims) {
+        if (dims.position.h_by === this.localName) {
+          style[dims.position.h] = null;
+          dims.position.h_by = null;
+        }
+        if (dims.position.v_by === this.localName) {
+          style[dims.position.v] = null;
+          dims.position.v_by = null;
+        }
       }
-      if (dims.position.v_by === this.localName) {
-        style[dims.position.v] = null;
-        dims.position.v_by = null;
-      }
+
       style.width = null;
       style.height = null;
       this.super();
