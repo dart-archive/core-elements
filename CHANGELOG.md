@@ -1,3 +1,6 @@
+## version 0.7.1+5
+  * Widen web_components constraint to `<=0.13.0`.
+
 ## version 0.7.1+4
   * Fix `window.event is undefined` error
     [#213](https://github.com/dart-lang/core-elements/issues/213)
@@ -66,7 +69,7 @@
     `animationOffset` so that it won't conflict with the `offset` property in
     its base class, `HtmlElement`.
   * Moved examples to central repo and updated readme
-    https://github.com/dart-lang/polymer-core-and-paper-examples. 
+    https://github.com/dart-lang/polymer-core-and-paper-examples.
 
 ## version 0.5.0+2
   * `core-list-dart` no longer crashes if the window is resized before the list
@@ -165,7 +168,7 @@
 
   * Upgrade `custom_element_apigen` to a real dependency as its required in the
   wrappers.
-  
+
 ## version 0.2.2
 
   * Update all elements so they can be built from code using a normal factory
@@ -205,7 +208,7 @@ Updated all elements to the 0.3.5 js versions.
   * **New** Added core-dropdown element, which acts like a <select> tag.
   * **New** Ported examples/demo.html which provides a central page to run all
     the other demos.
-  * **Breaking Change** All icons that previously lived under 
+  * **Breaking Change** All icons that previously lived under
     'packages/core_elements/core_icons/iconsets/' now live directly under
     'packages/core_elements/'.
   * Workaround in core-list-dart for [bug
