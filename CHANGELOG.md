@@ -1,3 +1,7 @@
+## version 0.7.1+6
+  * Fix `Cannot read property 'position' of null` error in `core-dropdown`.  
+    [#216](https://github.com/dart-lang/core-elements/issues/216)
+
 ## version 0.7.1+5
   * Widen web_components constraint to `<=0.13.0`.
 
