@@ -11,6 +11,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 
+import 'package:observable/observable.dart';
+import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
@@ -246,7 +248,7 @@ Future wait(_) {
 }
 
 Future dirtyCheck() {
-  scheduleMicrotask(Observable.dirtyCheck);
+  scheduleMicrotask(AutoObservable.dirtyCheck);
   // TODO(jakemac): Extra delay makes everything less flaky. Why is this needed?
   return flushLayoutAndRender().then(wait);
 }

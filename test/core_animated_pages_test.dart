@@ -9,11 +9,12 @@ library core_animated_pages.test;
 
 import 'dart:html' as dom;
 import 'dart:async' as async;
+import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 import 'package:unittest/unittest.dart';
 import 'package:unittest/html_config.dart' show useHtmlConfiguration;
 
-class BasicModel extends Observable {
+class BasicModel extends AutoObservable {
   var _done = expectAsync(() {}, count: 4, id: 'transistion-end event');
 
   @observable
