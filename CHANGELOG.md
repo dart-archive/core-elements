@@ -1,3 +1,6 @@
+## version 0.7.1+7
+  * Update to use `package:observable`
+
 ## version 0.7.1+6
   * Fix `Cannot read property 'position' of null` error in `core-dropdown`.  
     [#216](https://github.com/dart-lang/core-elements/issues/216)

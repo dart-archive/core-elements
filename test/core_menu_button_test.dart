@@ -9,13 +9,14 @@ library core_menu_button.test;
 
 import "dart:html";
 
+import "package:observe/observe.dart";
 import "package:polymer/polymer.dart";
 import "package:unittest/unittest.dart";
 import "package:unittest/html_config.dart" show useHtmlConfiguration;
 import "package:core_elements/core_menu_button.dart" show CoreMenuButton;
 import 'common.dart';
 
-class MyModel extends Object with Observable {
+class MyModel extends Object with AutoObservable {
   @observable
   bool showButton;
 }

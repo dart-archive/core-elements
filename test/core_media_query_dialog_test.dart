@@ -9,9 +9,10 @@ library core_media_query.test.dialog;
 
 import 'dart:async' as async;
 import 'dart:html' as dom;
+import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 
-class MyModel extends Object with Observable {
+class MyModel extends Object with AutoObservable {
   int _counter = 0;
   @observable
   String phoneQuery;

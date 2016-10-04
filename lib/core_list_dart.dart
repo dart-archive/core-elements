@@ -15,6 +15,8 @@ import 'dart:js' as js;
 import 'dart:html';
 import 'dart:math' as math;
 import 'package:core_elements/core_selection.dart';
+import 'package:observable/observable.dart';
+import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 import 'package:template_binding/template_binding.dart';
 
@@ -1328,7 +1330,7 @@ class CoreActivateEvent {
 }
 
 /// Model used for groups if supplied.
-class CoreListGroup extends Observable {
+class CoreListGroup extends AutoObservable {
   @observable int length;
   @observable var data;
   CoreListGroup({this.length, this.data});
@@ -1343,7 +1345,7 @@ abstract class CoreListScroller {
 }
 
 /// Model used for the template of each item in the list.
-class _ListModel extends Observable {
+class _ListModel extends AutoObservable {
   @observable int physicalIndex;
   @observable int index;
   @observable bool selected;

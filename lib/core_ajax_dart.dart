@@ -15,6 +15,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:logging/logging.dart';
+import 'package:observe/observe.dart';
 import 'package:polymer/polymer.dart';
 import 'package:quiver/core.dart';
 import 'package:quiver/strings.dart';
@@ -387,7 +388,7 @@ class CoreAjax extends PolymerElement {
   }
 }
 
-class CoreAjaxProgress extends Observable {
+class CoreAjaxProgress extends AutoObservable {
   @observable int loaded;
   @observable int total;
   @observable bool lengthComputable;
