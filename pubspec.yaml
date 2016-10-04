@@ -6,7 +6,7 @@ homepage: https://www.dartlang.org/polymer/
 dependencies:
   observable: "^0.14.0"
   observe: "^0.14.0"
-  polymer: ">=0.16.1+4 <0.17.0"
+  polymer: ">=0.16.4+4 <0.17.0"
   polymer_interop: ">=0.1.0+2 <0.2.0"
   quiver: ">=0.17.0 <0.22.0"
   web_components: ">=0.9.0 <0.13.0"
