@@ -41,7 +41,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       targetIdChanged: function() {
         var p = this.parentNode;
-        while (p.parentNode) {p = p.parentNode;};
+        while (p.parentNode) {p = p.parentNode;}
         this.target = p.querySelector('#' + this.targetId);
       },
 
@@ -174,7 +174,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         e = e.previousSibling;
       } while (e && e.nodeType !== Node.ELEMENT_NODE);
       return e;
-    };
+    }
 
   </script>
   

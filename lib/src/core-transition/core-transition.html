@@ -131,7 +131,7 @@ Fired when the animation finishes.
         var listener = function() {
           fn.apply(self, args);
           node.removeEventListener(event, listener, false);
-        }
+        };
         node.addEventListener(event, listener, false);
       }
 

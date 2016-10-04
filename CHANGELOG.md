@@ -1,3 +1,6 @@
+## version 0.7.1+8
+  * Minor fixes
+
 ## version 0.7.1+7
   * Update to use `package:observable`
 

@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           async.series([
             function(cb){
               ajax.handleAs = 'text';
-              ajax.url = "http://example.com/text"
+              ajax.url = "http://example.com/text";
               ajax.auto = true;
               cb();
             },
@@ -60,7 +60,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ], done);
         });
         test('Raw text should pass through', function(){
-          assert.equal(ajax.response, "test text")
+          assert.equal(ajax.response, "test text");
         });
       });
       suite('xml', function(){
@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           async.series([
             function(cb){
               ajax.handleAs = 'xml';
-              ajax.url = "http://example.com/xml"
+              ajax.url = "http://example.com/xml";
               ajax.auto = true;
               cb();
             },
@@ -102,7 +102,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           async.series([
             function(cb){
               ajax.handleAs = 'json';
-              ajax.url = "http://example.com/json"
+              ajax.url = "http://example.com/json";
               ajax.auto = true;
               cb();
             },
@@ -128,7 +128,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           async.series([
             function(cb){
               ajax.handleAs = 'arraybuffer';
-              ajax.url = "http://example.com/data"
+              ajax.url = "http://example.com/data";
               ajax.auto = true;
               cb();
             },
@@ -156,7 +156,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     });
     suite('auto', function() {
       suiteSetup(function(){
-        ajax.url = "http://example.com/"
+        ajax.url = "http://example.com/";
         ajax.auto = true;
       });
       test('url change should trigger request', function(done){
@@ -215,7 +215,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           animationFrameFlush,
           function(cb){;
             ajax.handleAs = 'text';
-            ajax.url = "http://example.com/text"
+            ajax.url = "http://example.com/text";
             ajax.auto = true;
             cb();
           },

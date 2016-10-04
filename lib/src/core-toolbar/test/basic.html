@@ -51,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       
       test('item at top', function(done) {
         var item = document.createElement('div');
-        toolbar.appendChild(item)
+        toolbar.appendChild(item);
         asyncPlatformFlush(function() {
           assert.equal(item.getDestinationInsertionPoints()[0].parentElement, toolbar.$.topBar);
           done();
@@ -61,7 +61,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('item at middle', function(done) {
         var item = document.createElement('div');
         item.classList.add('middle');
-        toolbar.appendChild(item)
+        toolbar.appendChild(item);
         asyncPlatformFlush(function() {
           assert.equal(item.getDestinationInsertionPoints()[0].parentElement, toolbar.$.middleBar);
           done();
@@ -71,7 +71,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('item at bottom', function(done) {
         var item = document.createElement('div');
         item.classList.add('bottom');
-        toolbar.appendChild(item)
+        toolbar.appendChild(item);
         asyncPlatformFlush(function() {
           assert.equal(item.getDestinationInsertionPoints()[0].parentElement, toolbar.$.bottomBar);
           done();

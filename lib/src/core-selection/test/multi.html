@@ -37,7 +37,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(s.getSelection().length, 1);
           s.removeEventListener('core-select', func);
           done();
-        }
+        };
         s.addEventListener('core-select', func);
         s.select('(item1)');
       });
@@ -50,7 +50,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.equal(s.getSelection().length, 2);
           s.removeEventListener("core-select", func);
           done();
-        }
+        };
         s.addEventListener("core-select", func);
         s.select('(item2)');
       });

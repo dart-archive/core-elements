@@ -454,7 +454,7 @@ object like this: `{v: 'top', h: 'right'}`.
     completeBackdrop: function() {
       if (this.backdrop) {
         trackBackdrop(this);
-        if (getBackdrops().length === 0) {
+        if (getBackdrops().length === 0 && this.scrim.parentNode) {
           this.scrim.parentNode.removeChild(this.scrim);
         }
       }
