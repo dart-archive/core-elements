@@ -1027,7 +1027,8 @@ class CoreList extends PolymerElement {
           if (grid) {
             divider.style.width = '${width * _rowFactor}px';
           }
-          _setTransform(divider, 'translate3d(${x}px,${y}px,0)');
+          _setTransform(
+              divider, 'translate3d(${x.round()}px,${y.round()}px,0)');
           dividerData.translateX = x.round();
           dividerData.translateY = y.round();
         }
@@ -1039,7 +1040,8 @@ class CoreList extends PolymerElement {
       if (physicalItemData.translateX != x ||
           physicalItemData.translateY != y) {
         physicalItem.style.opacity = '1';
-        _setTransform(physicalItem, 'translate3d(${x}px,${y}px,0)');
+        _setTransform(
+            physicalItem, 'translate3d(${x.round()}px,${y.round()}px,0)');
         physicalItemData.translateX = x.round();
         physicalItemData.translateY = y.round();
       }

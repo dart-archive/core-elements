@@ -48,12 +48,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       // Make request1, then request2. request2 returns first, followed by request1.
       async.series([
         function(cb) {
-          ajax.url="http://example.org/request1"
+          ajax.url="http://example.org/request1";
           cb();
         },
         animationFrameFlush,
         function(cb) {
-          ajax.url="http://example.org/request2"
+          ajax.url="http://example.org/request2";
           cb();
         },
         animationFrameFlush,
